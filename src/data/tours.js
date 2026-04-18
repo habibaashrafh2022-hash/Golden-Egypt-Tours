@@ -1,132 +1,181 @@
 export const tours = {
   cairo: [
     {
-      id: "pyramids",
-      title: "Giza Pyramids & Sphinx Experience",
-      short: "Explore the Great Pyramids and Sphinx",
-      description: "Discover the magic of ancient Egypt with a private guided tour.",
-      highlights: ["Pyramids", "Sphinx", "Panorama View"],
-      itinerary: [
-        "Pickup from hotel",
-        "Visit pyramids",
-        "Visit Sphinx",
-        "Return"
+      id: "giza-pyramids",
+      title: "Giza Pyramids & Sphinx Private Experience",
+      short: "Explore the last remaining wonder of the ancient world",
+      description:
+        "A private guided experience with a professional Egyptologist to explore the Great Pyramids of Giza and the Sphinx. Discover ancient secrets, breathtaking views, and stories of the Pharaohs.",
+      duration: "5 hours",
+      rating: 4.9,
+      images: [
+        "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368",
+        "https://images.unsplash.com/photo-1605540436563-5bca919ae766"
       ],
-      includes: ["Guide", "Car", "Pickup"],
+      highlights: ["Great Pyramid", "Sphinx", "Panoramic View"],
+      places: [
+        {
+          name: "Great Pyramid of Khufu",
+          info: "Largest pyramid in Egypt",
+          details:
+            "Built over 4,500 years ago and considered one of the Seven Wonders.",
+          tip: "Inside visit available",
+          images: ["https://images.unsplash.com/photo-1503177119275-0aa32b3a9368"]
+        }
+      ],
+      itinerary: ["Pickup", "Pyramids", "Sphinx", "Return"],
+      includes: ["Guide", "Car"],
       excludes: ["Tickets"],
-      pricing: { solo: 80 }
+      pricing: { base: 80 },
+      discounts: { 2: 0.1, 3: 0.15, 4: 0.25 },
+      childrenPolicy: { under6: 0, under12: 0.5 },
+      addons: [{ name: "Camel Ride", price: 15 }],
+      policies: {
+        cancellation: "Free cancellation 24h before",
+        children: "Kids under 6 free",
+        refund: "Full refund available"
+      },
+      languages: ["English", "Spanish", "Italian", "French", "Portuguese"],
+      logistics: {
+        pickup: {
+          included: true,
+          location: "Hotel pickup",
+          timeWindow: "08:00 - 09:00"
+        },
+        duration: { total: "5 hours" }
+      }
     }
   ],
 
   giza: [
     {
-      id: "plateau",
-      title: "Giza Plateau Tour",
-      short: "Full experience of pyramids",
-      description: "Explore all pyramids with guide.",
+      id: "giza-plateau",
+      title: "Giza Plateau Full Experience",
+      short: "Complete pyramids tour",
+      description:
+        "Explore all pyramids of Giza with expert guide and panoramic views.",
+      duration: "4 hours",
+      rating: 4.8,
+      images: [
+        "https://images.unsplash.com/photo-1548013146-72479768bada"
+      ],
       highlights: ["Khufu", "Khafre", "Menkaure"],
-      itinerary: ["Pickup", "Visit", "Return"],
-      includes: ["Guide", "Transport"],
-      excludes: [],
-      pricing: { solo: 70 }
+      places: [
+        {
+          name: "Khafre Pyramid",
+          info: "Second largest pyramid",
+          details: "Still preserves original casing stones.",
+          tip: "Best photo spot",
+          images: ["https://images.unsplash.com/photo-1548013146-72479768bada"]
+        }
+      ],
+      itinerary: ["Pickup", "Tour", "Return"],
+      includes: ["Guide"],
+      excludes: ["Tickets"],
+      pricing: { base: 70 },
+      discounts: { 2: 0.1, 3: 0.15, 4: 0.25 },
+      childrenPolicy: { under6: 0, under12: 0.5 },
+      addons: [],
+      policies: {
+        cancellation: "Free cancellation",
+        children: "Allowed",
+        refund: "Full refund"
+      },
+      languages: ["English", "Spanish", "Italian", "French", "Portuguese"],
+      logistics: {
+        pickup: { included: true },
+        duration: { total: "4 hours" }
+      }
     }
   ],
 
   luxor: [
     {
-      id: "temples",
-      title: "Luxor East & West Bank",
-      short: "Valley of the Kings & Karnak",
-      description: "Explore ancient temples and tombs.",
+      id: "luxor-temples",
+      title: "Luxor East & West Bank Tour",
+      short: "Karnak & Valley of Kings",
+      description:
+        "Explore ancient Thebes, Karnak Temple, Valley of Kings and Hatshepsut Temple.",
+      duration: "8 hours",
+      rating: 4.9,
+      images: [
+        "https://images.unsplash.com/photo-1584473457409-ceaa5e2a3c2f"
+      ],
       highlights: ["Karnak", "Valley of Kings"],
-      itinerary: ["Pickup", "Temples", "Return"],
+      places: [
+        {
+          name: "Karnak Temple",
+          info: "Huge temple complex",
+          details: "Built over 2000 years",
+          tip: "Hypostyle Hall is a must-see",
+          images: []
+        }
+      ],
+      itinerary: ["Pickup", "Karnak", "West Bank", "Return"],
       includes: ["Guide", "Car"],
-      excludes: [],
-      pricing: { solo: 90 }
+      excludes: ["Tickets"],
+      pricing: { base: 95 },
+      discounts: { 2: 0.1, 3: 0.15, 4: 0.25 },
+      childrenPolicy: { under6: 0, under12: 0.5 },
+      addons: [],
+      policies: {
+        cancellation: "Free cancellation",
+        children: "Allowed",
+        refund: "Full refund"
+      },
+      languages: ["English", "Spanish", "Italian", "French", "Portuguese"],
+      logistics: {
+        pickup: { included: true },
+        duration: { total: "8 hours" }
+      }
     }
   ],
 
   aswan: [
     {
-      id: "philae",
-      title: "Philae Temple Tour",
+      id: "philae-temple",
+      title: "Philae Temple & Nile Boat Ride",
       short: "Island temple experience",
-      description: "Visit the beautiful temple of Philae.",
-      highlights: ["Philae Temple", "Boat ride"],
-      itinerary: ["Pickup", "Boat", "Temple"],
+      description:
+        "Visit Philae Temple and enjoy a Nile boat ride.",
+      duration: "4 hours",
+      rating: 4.8,
+      images: [
+        "https://images.unsplash.com/photo-1583267746897-2cf415887172"
+      ],
+      highlights: ["Philae Temple", "Nile Ride"],
+      places: [
+        {
+          name: "Philae Temple",
+          info: "Temple of Isis",
+          details: "Relocated to save it from flooding",
+          tip: "Sunset visit recommended",
+          images: []
+        }
+      ],
+      itinerary: ["Pickup", "Boat", "Temple", "Return"],
       includes: ["Boat", "Guide"],
-      excludes: [],
-      pricing: { solo: 60 }
+      excludes: ["Tickets"],
+      pricing: { base: 60 },
+      discounts: { 2: 0.1, 3: 0.15, 4: 0.25 },
+      childrenPolicy: { under6: 0, under12: 0.5 },
+      addons: [],
+      policies: {
+        cancellation: "Free cancellation",
+        children: "Allowed",
+        refund: "Full refund"
+      },
+      languages: ["English", "Spanish", "Italian", "French", "Portuguese"],
+      logistics: {
+        pickup: { included: true },
+        duration: { total: "4 hours" }
+      }
     }
   ],
 
-  alexandria: [
-    {
-      id: "sea",
-      title: "Alexandria Day Tour",
-      short: "Mediterranean vibes",
-      description: "Explore the coastal beauty of Alexandria.",
-      highlights: ["Library", "Citadel"],
-      itinerary: ["Pickup", "City tour", "Return"],
-      includes: ["Guide"],
-      excludes: [],
-      pricing: { solo: 85 }
-    }
-  ],
-
-  hurghada: [
-    {
-      id: "snorkeling",
-      title: "Red Sea Snorkeling",
-      short: "Crystal clear waters",
-      description: "Enjoy snorkeling in the Red Sea.",
-      highlights: ["Snorkeling", "Boat"],
-      itinerary: ["Pickup", "Boat", "Swim"],
-      includes: ["Equipment"],
-      excludes: [],
-      pricing: { solo: 75 }
-    }
-  ],
-
-  sharm: [
-    {
-      id: "desert",
-      title: "Desert Safari",
-      short: "ATV & Bedouin night",
-      description: "Adventure in Sinai desert.",
-      highlights: ["ATV", "Sunset"],
-      itinerary: ["Pickup", "Safari", "Dinner"],
-      includes: ["ATV"],
-      excludes: [],
-      pricing: { solo: 65 }
-    }
-  ],
-
-  siwa: [
-    {
-      id: "oasis",
-      title: "Siwa Oasis Experience",
-      short: "Desert & salt lakes",
-      description: "Discover Siwa magic.",
-      highlights: ["Salt lakes", "Safari"],
-      itinerary: ["Arrival", "Tour"],
-      includes: ["Guide"],
-      excludes: [],
-      pricing: { solo: 120 }
-    }
-  ],
-
-  dahab: [
-    {
-      id: "bluehole",
-      title: "Blue Hole Adventure",
-      short: "Diving paradise",
-      description: "Explore Dahab underwater world.",
-      highlights: ["Blue Hole"],
-      itinerary: ["Pickup", "Dive"],
-      includes: ["Equipment"],
-      excludes: [],
-      pricing: { solo: 95 }
-    }
-  ]
+  alexandria: [],
+  hurghada: [],
+  sharm: [],
+  siwa: [],
+  dahab: []
 };

@@ -36,7 +36,7 @@ export default function Home() {
 
         <div style={grid}>
           {cities.map((c) => (
-            <Link key={c.name} to={`/city/${c.name}`} style={card}>
+           <Link key={c.name} to={`/city/${c.name}`} style={card} className="city-card">
               <img src={c.image} style={img} />
               <div style={city}>{c.title}</div>
             </Link>
@@ -49,17 +49,24 @@ export default function Home() {
 }
 
 /* STYLES */
-
+const cardHover = `
+  .city-card:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+`;
 const app = { background: "#0A0A0A", color: "white", minHeight: "100vh" };
 
 const hero = {
-  height: "85vh",
-  backgroundImage: "url('https://images.unsplash.com/photo-1539650116574-75c0c6d0f7a5')",
+  height: "90vh",
+  backgroundImage:
+    "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1539650116574-75c0c6d0f7a5')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
+  textAlign: "center"
 };
 
 const overlay = {
@@ -94,10 +101,12 @@ const grid = {
 
 const card = {
   position: "relative",
-  borderRadius: 12,
+  borderRadius: 16,
   overflow: "hidden",
   textDecoration: "none",
-  color: "white"
+  color: "white",
+  transition: "0.3s",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
 };
 
 const img = { width: "100%", height: 180, objectFit: "cover" };
