@@ -3,24 +3,26 @@ import { tours } from "../data/tours";
 
 export default function CityPage() {
   const { name } = useParams();
-  const data = tours?.[name] || [];
-  console.log("CITY =", name);
-console.log("DATA =", data);
-console.log("ALL TOURS =", tours);
+
+  const city = name?.toLowerCase();
+  const data = tours?.[city] || [];
+
+  console.log("CITY =", city);
+  console.log("DATA =", data);
 
   return (
     <div style={app}>
-      <h1 style={title}>{name?.toUpperCase()}</h1>
-      
+      <h1 style={title}>{city?.toUpperCase()}</h1>
 
       <div style={grid}>
         {data.map((t) => (
           <div key={t.id} style={card}>
-            <img src={t.image} style={img} />
+            <img src={t.images?.[0]} style={img} />
+
             <h3>{t.title}</h3>
             <p>{t.short}</p>
 
-            <Link to={`/tour/${name}/${t.id}`} style={btn}>
+            <Link to={`/tour/${city}/${t.id}`} style={btn}>
               View Tour
             </Link>
           </div>
