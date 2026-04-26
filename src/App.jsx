@@ -1,40 +1,32 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import CityPage from "./pages/CityPage";
-import TourExperience from "./pages/TourExperience";
-import Checkout from "./pages/Checkout";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Home     from "./pages/Home";
+import City from "./pages/City";
+import Tour     from "./pages/Tour";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div style={app}>
+      <Routes>
 
-        <Navbar />
+        
+        {/* ── الهوم بيج ── */}
+        <Route path="/"             element={<Home />} />
 
-        <div style={container}>
-          <Routes>
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/city/:name" element={<CityPage />} />
-            <Route path="/tour/:city/:tourId" element={<TourExperience />} />
-          </Routes>
-        </div>
+        {/* ── صفحة المدينة ── */}
+         <Route path="/city/:cityId" element={<City/>} />
 
-      </div>
+        {/* ── صفحة التور ── */}
+        <Route path="/tour/:tourId" element={<Tour />} />
+
+        {/* ── Fallback: أي رابط تاني يرجع الهوم ── */}
+        <Route path="*"             element={<Navigate to="/" replace />} />
+
+<Route path="/login" element={<Login />} />
+        
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </BrowserRouter>
   );
 }
-
-/* 💥 GLOBAL LAYOUT STYLE (احترافي بسيط) */
-
-const app = {
-  background: "radial-gradient(circle at top, #111 0%, #000 100%)",
-  color: "white",
-  minHeight: "100vh"
-};
-
-const container = {
-  paddingTop: "70px" // عشان Navbar ما يغطيش المحتوى
-};

@@ -1,11 +1,12 @@
 // ============================================================
 //  Golden Egypt Tours — Backend Data
-//  ../data/tours.js
+//  Backend/data/tours.js
 //  Full tour database — import this in your Express/Node server
 //  or use directly in frontend via import.
+
 // ============================================================
 
-export const tours = [
+export const TOURS = [
 
   // ─────────────────────────────────────────────────────────
   //  CAIRO
@@ -1066,16 +1067,6 @@ meetingPoint: "Hotel pickup included Cairo & Giza.",
   },
 
 ];
-export const cities = [
-  { id: "cairo",      name: "Cairo",           cityName: "Cairo"           },
-  { id: "luxor",      name: "Luxor",           cityName: "Luxor"           },
-  { id: "aswan",      name: "Aswan",           cityName: "Aswan"           },
-  { id: "alexandria", name: "Alexandria",      cityName: "Alexandria"      },
-  { id: "hurghada",   name: "Hurghada",        cityName: "Hurghada"        },
-  { id: "sharm",      name: "Sharm El Sheikh", cityName: "Sharm El Sheikh" },
-  { id: "fayoum",     name: "Fayoum",          cityName: "Fayoum"          },
-  { id: "marsa-alam", name: "Marsa Alam",      cityName: "Marsa Alam"      },
-];
 
 // ─────────────────────────────────────────────────────────
 //  HELPER FUNCTIONS
@@ -1083,54 +1074,43 @@ export const cities = [
 
 /** Get all tours for a specific city */
 export function getToursByCity(cityId) {
-  if (!cityId) return tours;
-  return tours.filter(t => t.cityId === cityId);
+  return TOURS.filter(t => t.cityId === cityId);
 }
 
-export function getCityById(cityId) {
-  return cities.find(c => c.id === cityId) || null;
-}
-
-export function getAllCities() {
-  return cities;
-}
-
+/** Get a single tour by ID */
 export function getTourById(id) {
-  return tours.find(t => t.id === id) || null;
-}
-
-export function getRelatedTours(tourId, limit = 4) {
-  const tour = getTourById(tourId);
-  if (!tour) return [];
-  return tours
-    .filter(t => t.cityId === tour.cityId && t.id !== tourId)
-    .slice(0, limit);
+  return TOURS.find(t => t.id === id) || null;
 }
 
 /** Get a single tour by slug */
 export function getTourBySlug(slug) {
-  return tours.find(t => t.slug === slug) || null;
+  return TOURS.find(t => t.slug === slug) || null;
 }
 
 /** Get featured tours (for homepage) */
 export function getFeaturedTours(limit = 6) {
-  return tours.filter(t => t.featured).slice(0, limit);
+  return TOURS.filter(t => t.featured).slice(0, limit);
 }
 
 /** Get best seller tours */
 export function getBestSellers(limit = 8) {
-  return tours.filter(t => t.bestSeller).slice(0, limit);
+  return TOURS.filter(t => t.bestSeller).slice(0, limit);
+}
+
+/** Get related tours by IDs */
+export function getRelatedTours(ids = []) {
+  return ids.map(id => getTourById(id)).filter(Boolean);
 }
 
 /** Get tours by category */
 export function getToursByCategory(category) {
-  return tours.filter(t => t.category.includes(category));
+  return TOURS.filter(t => t.category.includes(category));
 }
 
 /** Search tours by keyword */
 export function searchTours(query) {
   const q = query.toLowerCase();
-  return tours.filter(t =>
+  return TOURS.filter(t =>
     t.name.toLowerCase().includes(q) ||
     t.cityName.toLowerCase().includes(q) ||
     t.overview.toLowerCase().includes(q) ||
@@ -1138,4 +1118,4 @@ export function searchTours(query) {
   );
 }
 
-export default tours;
+export default TOURS;
