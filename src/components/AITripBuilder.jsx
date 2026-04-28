@@ -1,9 +1,3 @@
-// ============================================================
-//  src/components/AITripBuilder.jsx
-//  Advanced AI Trip Builder — Golden Egypt Tours
-//  ضيف الملف في:  src/components/AITripBuilder.jsx
-// ============================================================
-
 import { useState } from "react";
 
 const QUICK_PROMPTS = [

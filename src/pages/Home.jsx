@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AITripBuilder from "../components/AITripBuilder";
+
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: { dir:"ltr", bookNow:"Book Now", chatWA:"WhatsApp", search:"Search",
@@ -95,16 +96,16 @@ const CURRENCIES = {
 const LANG_MAP = { en:"EN", ar:"عر", es:"ES", de:"DE", fr:"FR", ru:"RU", it:"IT" };
 // ─── DESTINATIONS ─────────────────────────────────────────────────────────────
 const DESTS = [
-  { id:"cairo",      name:"Cairo",         nameAr:"القاهرة",   img:"https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=85", tours:120, tag:"Ancient Wonder",  color:"#D4AF37" },
-  { id:"luxor",      name:"Luxor",         nameAr:"الأقصر",    img:"https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=800&q=85", tours:80,  tag:"Open Air Museum", color:"#E8C547" },
-  { id:"aswan",      name:"Aswan",         nameAr:"أسوان",     img:"https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=85", tours:60,  tag:"Nubian Gem",      color:"#F0A500" },
-  { id:"hurghada",   name:"Hurghada",      nameAr:"الغردقة",   img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85", tours:110, tag:"Red Sea",          color:"#00C9E8" },
-  { id:"sharm",      name:"Sharm El Sheikh",nameAr:"شرم الشيخ",img:"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=85", tours:130, tag:"Sinai Paradise",   color:"#FF6B6B" },
-  { id:"alexandria", name:"Alexandria",    nameAr:"الإسكندرية",img:"https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&q=85", tours:70,  tag:"Mediterranean",   color:"#4A9EE8" },
-  { id:"fayoum",     name:"Fayoum",        nameAr:"الفيوم",    img:"https://images.unsplash.com/photo-1527576539890-dfa815648363?w=800&q=85", tours:50,  tag:"Secret Oasis",    color:"#52B788" },
-  { id:"marsa-alam", name:"Marsa Alam",    nameAr:"مرسى علم",  img:"https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=85", tours:40,  tag:"Untouched",       color:"#0096C7" },
-  { id:"giza",       name:"Giza",          nameAr:"الجيزة",    img:"https://images.unsplash.com/photo-1553697388-94e804e2f0f6?w=800&q=85", tours:95,  tag:"The Pyramids",    color:"#C8A951" },
-  { id:"ain-sokhna", name:"Ain Sokhna",    nameAr:"العين السخنة",img:"https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=85", tours:40, tag:"Weekend Escape",  color:"#CD853F" },
+  { id:"cairo",      name:"Cairo",         nameAr:"القاهرة",   img:"/images/home/cairo.jpeg"},
+  { id:"luxor",      name:"Luxor",         nameAr:"الأقصر",    img:"/images/home/luxor.jpeg"},
+  { id:"aswan",      name:"Aswan",         nameAr:"أسوان",     img:"/images/home/aswan.jpeg"},
+  { id:"hurghada",   name:"Hurghada",      nameAr:"الغردقة",   img:"/images/home/hurghada.jpeg"},
+  { id:"sharm",      name:"Sharm El Sheikh",nameAr:"شرم الشيخ",img:"/images/home/sharm.jpeg"},
+  { id:"alexandria", name:"Alexandria",    nameAr:"الإسكندرية",img:"/images/home/alex.jpeg"},
+  { id:"fayoum",     name:"Fayoum",        nameAr:"الفيوم",    img:"/images/home/fayoum.jpeg"},
+  { id:"marsa-alam", name:"Marsa Alam",    nameAr:"مرسى علم",  img:"/images/home/Marsa.jpeg"},
+  { id:"giza",       name:"Giza",          nameAr:"الجيزة",    img:"/images/home/giza.jpeg"},
+  { id:"ain-sokhna", name:"Ain Sokhna",    nameAr:"العين السخنة",img:"/images/home/sokhna.jpeg"},
 ];
 
 const HOTELS = [
@@ -259,25 +260,36 @@ export default function Home() {
   const [lang, setLang]         = useState("en");
   const [cur, setCur]           = useState("USD");
   const [scrolled, setScrolled] = useState(false);
+  const [aiInput, setAiInput] = useState("");      
+const [aiResult, setAiResult] = useState("");    
+const [aiLoading, setAiLoading] = useState(false);
   const [mobileMenu, setMMenu]  = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [curOpen, setCurOpen]   = useState(false);
   const [adults, setAdults]     = useState(2);
   const [children, setChildren] = useState(0);
   const [gOpen, setGOpen]       = useState(false);
-  const [aiInput, setAiInput]   = useState("");
-  const [aiResult, setAiResult] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
   const [email, setEmail]       = useState("");
   const [subDone, setSubDone]   = useState(false);
   const [activeStep, setStep]   = useState(0);
   const [heroImg, setHeroImg]   = useState(0);
   const [visible, setVisible]   = useState({});
   const observerRef             = useRef({});
+const [currency, setCurrency] = useState("USD");
 
+const PACKAGES_COUNT = 8;
   const t = T[lang] || T.en;
   const isRTL = t.dir === "rtl";
-
+const S = {
+  divider: {
+    height: 1,
+    background: "rgba(255,255,255,0.1)",
+    margin: "50px 0"
+  },
+  section: {
+    padding: "60px 40px"
+  }
+};
   // ── Scroll ──
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
@@ -290,7 +302,13 @@ export default function Home() {
     const id = setInterval(() => setStep(s => (s+1)%4), 2200);
     return () => clearInterval(id);
   }, []);
-
+const formatPrice = (price, currency) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currency || "USD",
+    maximumFractionDigits: 0,
+  }).format(price);
+};
   // ── Hero slideshow ──
   const HERO_IMGS = [
     "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1800&q=85",
@@ -610,6 +628,7 @@ Create a vivid, exciting day-by-day itinerary. Include top sights, hotel suggest
           ))}
         </div>
       </div>
+     
       {/* ════════════════════════════════════════════════════════
           TRENDING DESTINATIONS
       ════════════════════════════════════════════════════════ */}
@@ -643,165 +662,654 @@ Create a vivid, exciting day-by-day itinerary. Include top sights, hotel suggest
 
       <div className="gold-line" style={{ margin:"0 clamp(16px,5vw,48px)" }} />
 
+      {/* ── PACKAGES SECTION ── */}
+<div style={S.divider} />
+
+<section style={S.section}>
+  <div style={S.sectionHeader}>
+    <div style={S.sectionTitleWrap}>
+      <span style={S.sectionEyebrow}>✦ Complete Journeys</span>
+
+      <h2
+        style={{
+          ...S.sectionTitle,
+          fontFamily: "'Playfair Display', serif",
+          background: "linear-gradient(90deg,#E8C96D,#C9A84C,#A07830)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          letterSpacing: "1px"
+        }}
+      >
+        🗺️ Egypt Travel Packages
+      </h2>
+    </div>
+
+    <button
+      style={{
+        ...S.viewAll,
+        background: "rgba(201,168,76,0.08)",
+        border: "1px solid rgba(201,168,76,0.2)",
+        backdropFilter: "blur(10px)",
+        transition: "0.3s ease"
+      }}
+      onClick={() => navigate("/packages")}
+      onMouseEnter={(e) =>
+        (e.target.style.background = "rgba(201,168,76,0.18)")
+      }
+      onMouseLeave={(e) =>
+        (e.target.style.background = "rgba(201,168,76,0.08)")
+      }
+    >
+      View All →
+    </button>
+  </div>
+
+  {/* CARDS GRID */}
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: "18px"
+    }}
+  >
+    {[
+      {
+        title: "Nile Cruise: Luxor → Aswan",
+        subtitle: "5 Days · Floating Palace on the Nile",
+        img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+        badge: "Bestseller",
+        badgeColor: "#D4A847",
+        price: 650,
+        days: "5D/4N",
+        tags: ["Nile Cruise", "Temples", "Full Board"],
+        link: "/packages"
+      },
+      {
+        title: "Cairo · Luxor · Aswan · Hurghada",
+        subtitle: "10 Days · The Complete Egypt",
+        img: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=80",
+        badge: "Most Popular",
+        badgeColor: "#52B788",
+        price: 1290,
+        days: "10D/9N",
+        tags: ["Pyramids", "Nile Cruise", "Red Sea"],
+        link: "/packages"
+      },
+      {
+        title: "Sinai & Dahab Adventure",
+        subtitle: "6 Days · Desert, Sea & Spirituality",
+        img: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80",
+        badge: "Adventure",
+        badgeColor: "#E63946",
+        price: 720,
+        days: "6D/5N",
+        tags: ["Mount Sinai", "Diving", "Bedouin"],
+        link: "/packages"
+      }
+    ].map((p, i) => (
+      <div
+        key={i}
+        className="card-hover"
+        style={{
+          ...S.card,
+          cursor: "pointer",
+          transition: "all 0.4s ease",
+          backdropFilter: "blur(10px)",
+          borderRadius: "16px",
+          overflow: "hidden"
+        }}
+        onClick={() => navigate(p.link)}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-10px) scale(1.02)";
+          e.currentTarget.style.boxShadow =
+            "0 25px 60px rgba(0,0,0,0.55)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0px)";
+          e.currentTarget.style.boxShadow =
+            "0 10px 25px rgba(0,0,0,0.3)";
+        }}
+      >
+
+        {/* IMAGE FIXED */}
+        <div
+          style={{
+            position: "relative",
+            height: "220px",
+            overflow: "hidden",
+            background: "#0E0B07"
+          }}
+        >
+          <img
+            src={p.img}
+            alt={p.title}
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              transform: "scale(1.05)",
+              transition: "transform 0.6s ease"
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1.05)";
+            }}
+            onError={(e) =>
+              (e.target.src = `https://placehold.co/600x400/110E08/C9A84C?text=${p.title.slice(
+                0,
+                12
+              )}`)
+            }
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to top, rgba(7,5,13,0.85), transparent 60%)"
+            }}
+          />
+
+          {/* BADGE */}
+          <div
+            style={{
+              position: "absolute",
+              top: 10,
+              left: 10,
+              background: p.badgeColor + "22",
+              border: `1px solid ${p.badgeColor}55`,
+              color: p.badgeColor,
+              fontSize: "0.6rem",
+              fontWeight: 700,
+              padding: "3px 10px",
+              borderRadius: "20px",
+              textTransform: "uppercase",
+              letterSpacing: "1.2px"
+            }}
+          >
+            {p.badge}
+          </div>
+
+          {/* DAYS */}
+          <div
+            style={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              background: "rgba(7,5,13,0.75)",
+              color: "#EDE8D9",
+              fontSize: "0.65rem",
+              padding: "3px 8px",
+              borderRadius: "6px"
+            }}
+          >
+            {p.days}
+          </div>
+        </div>
+
+        {/* CONTENT */}
+        <div style={S.cardBody}>
+          <div
+            style={{
+              ...S.cardName,
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "1rem",
+              letterSpacing: "0.5px"
+            }}
+          >
+            {p.title}
+          </div>
+
+          <div
+            style={{
+              fontSize: "0.72rem",
+              color: "#7A7264",
+              marginBottom: "8px",
+              fontStyle: "italic"
+            }}
+          >
+            {p.subtitle}
+          </div>
+
+          {/* TAGS */}
+          <div
+            style={{
+              display: "flex",
+              gap: "4px",
+              flexWrap: "wrap",
+              marginBottom: "10px"
+            }}
+          >
+            {p.tags.map((t, j) => (
+              <span
+                key={j}
+                style={{
+                  background: "rgba(201,168,76,0.07)",
+                  border: "1px solid rgba(201,168,76,0.15)",
+                  color: "#A09880",
+                  fontSize: "0.62rem",
+                  padding: "2px 7px",
+                  borderRadius: "8px"
+                }}
+              >
+                ✦ {t}
+              </span>
+            ))}
+          </div>
+
+          {/* PRICE */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <div>
+              <span style={{ color: "#7A7264", fontSize: "0.62rem" }}>
+                From{" "}
+              </span>
+
+              <span
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  color: "#C9A84C",
+                  fontSize: "1.1rem",
+                  fontWeight: 900
+                }}
+              >
+                {formatPrice(p.price, currency)}
+              </span>
+
+              <span style={{ color: "#7A7264", fontSize: "0.7rem" }}>
+                /person
+              </span>
+            </div>
+
+            <span style={{ color: "#C9A84C", fontSize: "0.75rem" }}>
+              View →
+            </span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* CTA */}
+  <div style={{ textAlign: "center", marginTop: "2rem" }}>
+    <button
+      className="book-btn"
+      onClick={() => navigate("/packages")}
+      style={{
+        background:
+          "linear-gradient(135deg,#E8C96D,#C9A84C,#A07830)",
+        color: "#07050D",
+        border: "none",
+        borderRadius: "12px",
+        padding: "13px 36px",
+        cursor: "pointer",
+        fontWeight: 700,
+        fontSize: "0.85rem",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
+        boxShadow: "0 10px 30px rgba(201,168,76,0.35)",
+        transition: "0.3s ease"
+      }}
+      onMouseEnter={(e) =>
+        (e.target.style.transform = "scale(1.05)")
+      }
+      onMouseLeave={(e) =>
+        (e.target.style.transform = "scale(1)")
+      }
+    >
+      ✦ Explore All {PACKAGES_COUNT}+ Packages
+    </button>
+  </div>
+</section>
+
+<div className="gold-line" style={{ margin: "0 clamp(16px,5vw,48px)" }} />
       {/* ════════════════════════════════════════════════════════
           HOTELS + CRUISES
       ════════════════════════════════════════════════════════ */}
       <section style={{ padding:"clamp(48px,8vw,96px) clamp(16px,5vw,48px)" }}>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"clamp(24px,5vw,60px)" }}>
-          {/* Hotels */}
-          <div {...rv("hotels")}>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:24, ...rv("hotels").style }}>
-              <div>
-                <div style={{ fontSize:10, color:"#C9A84C", letterSpacing:4, textTransform:"uppercase", marginBottom:6, fontWeight:700 }}>𓇳 Accommodation</div>
-                <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(20px,2.5vw,30px)", fontWeight:900 }}>🏨 {t.hotels.title}</h2>
-              </div>
-              <button style={{ background:"transparent", border:"none", color:"#C9A84C", cursor:"pointer", fontSize:10, letterSpacing:2, textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif" }}>{t.hotels.all} →</button>
+          {/* Hotels */ }
+<div {...rv("hotels")}>
+  <div
+    style={{
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"baseline",
+      marginBottom:24,
+      ...rv("hotels").style
+    }}
+  >
+    <div>
+      <div style={{
+        fontSize:10,
+        color:"#C9A84C",
+        letterSpacing:4,
+        textTransform:"uppercase",
+        marginBottom:6,
+        fontWeight:700
+      }}>
+        𓇳 Accommodation
+      </div>
+
+      <h2 style={{
+        fontFamily:"'Playfair Display',serif",
+        fontSize:"clamp(20px,2.5vw,30px)",
+        fontWeight:900
+      }}>
+        🏨 {t.hotels.title}
+      </h2>
+    </div>
+
+    {/* ✅ View All + navigate */}
+    <button
+      onClick={() => navigate("/hotels")}
+      style={{
+        background:"transparent",
+        border:"none",
+        color:"#C9A84C",
+        cursor:"pointer",
+        fontSize:10,
+        letterSpacing:2,
+        textTransform:"uppercase",
+        fontFamily:"'Josefin Sans',sans-serif"
+      }}
+    >
+      {t.hotels.viewAll} →
+    </button>
+
+  </div>
+
+  <div
+    className="cards-grid-2"
+    style={{
+      display:"grid",
+      gridTemplateColumns:"1fr 1fr",
+      gap:14
+    }}
+  >
+
+    {HOTELS.map((h,i) => (
+      <div
+        key={i}
+        className="card-hov"
+
+  
+        onClick={() => navigate("/hotels")}
+
+        style={{
+          background:"rgba(26,22,16,.7)",
+          border:"1px solid rgba(201,168,76,.12)",
+          borderRadius:14,
+          overflow:"hidden",
+          cursor:"pointer",
+          transition:"all .3s ease",
+          boxShadow:"0 4px 20px rgba(0,0,0,.3)"
+        }}
+      >
+
+        <div style={{ position:"relative", height:120, overflow:"hidden" }}>
+          <img
+            src={h.img}
+            alt={h.name}
+            style={{
+              width:"100%",
+              height:"100%",
+              objectFit:"cover",
+              transition:"transform .5s ease"
+            }}
+            onMouseOver={e=>e.target.style.transform="scale(1.07)"}
+            onMouseOut={e=>e.target.style.transform="scale(1)"}
+            onError={e =>
+              e.target.src=`https://placehold.co/400x120/110E08/C9A84C?text=${h.name.slice(0,12)}`
+            }
+          />
+
+          <div style={{
+            position:"absolute",
+            inset:0,
+            background:"linear-gradient(to top,rgba(8,6,3,.8),transparent)"
+          }} />
+
+          <div style={{
+            position:"absolute",
+            bottom:8,
+            left:10,
+            right:10,
+            display:"flex",
+            justifyContent:"space-between",
+            alignItems:"flex-end"
+          }}>
+            <div style={{
+              background:"rgba(201,168,76,.9)",
+              color:"#080603",
+              fontSize:8,
+              fontWeight:800,
+              padding:"2px 8px",
+              borderRadius:10,
+              letterSpacing:1
+            }}>
+              {h.city}
             </div>
-            <div className="cards-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
-              {HOTELS.map((h,i) => (
-                <div key={i} className="card-hov" style={{ background:"rgba(26,22,16,.7)", border:"1px solid rgba(201,168,76,.12)", borderRadius:14, overflow:"hidden", cursor:"pointer", transition:"all .3s ease", boxShadow:"0 4px 20px rgba(0,0,0,.3)" }}>
-                  <div style={{ position:"relative", height:120, overflow:"hidden" }}>
-                    <img src={h.img} alt={h.name} style={{ width:"100%", height:"100%", objectFit:"cover", transition:"transform .5s ease" }} onMouseOver={e=>e.target.style.transform="scale(1.07)"} onMouseOut={e=>e.target.style.transform="scale(1)"}
-                      onError={e => e.target.src=`https://placehold.co/400x120/110E08/C9A84C?text=${h.name.slice(0,12)}`} />
-                    <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top,rgba(8,6,3,.8),transparent)" }} />
-                    <div style={{ position:"absolute", bottom:8, left:10, right:10, display:"flex", justifyContent:"space-between", alignItems:"flex-end" }}>
-                      <div style={{ background:"rgba(201,168,76,.9)", color:"#080603", fontSize:8, fontWeight:800, padding:"2px 8px", borderRadius:10, letterSpacing:1 }}>{h.city}</div>
-                      <Stars n={h.stars} />
-                    </div>
-                  </div>
-                  <div style={{ padding:"12px 14px" }}>
-                    <div style={{ fontSize:12, fontWeight:700, color:"#F0E4C4", marginBottom:6, lineHeight:1.3 }}>{h.name}</div>
-                    <div style={{ display:"flex", alignItems:"baseline", gap:4 }}>
-                      <span style={{ fontFamily:"'Playfair Display',serif", fontSize:18, fontWeight:900, color:"#C9A84C" }}>{fmt(h.price,cur)}</span>
-                      <span style={{ fontSize:10, color:"#8A7A5A" }}>{t.hotels.night}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Cruises */}
-          <div {...rv("cruises")}>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:24, ...rv("cruises").style }}>
-              <div>
-                <div style={{ fontSize:10, color:"#C9A84C", letterSpacing:4, textTransform:"uppercase", marginBottom:6, fontWeight:700 }}>⛴ River Journeys</div>
-                <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(20px,2.5vw,30px)", fontWeight:900 }}>🚢 {t.cruises.title}</h2>
-              </div>
-              <button style={{ background:"transparent", border:"none", color:"#C9A84C", cursor:"pointer", fontSize:10, letterSpacing:2, textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif" }}>{t.cruises.all} →</button>
-            </div>
-            <div className="cards-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
-              {CRUISES.map((c,i) => (
-                <div key={i} className="card-hov" style={{ background:"rgba(26,22,16,.7)", border:"1px solid rgba(201,168,76,.12)", borderRadius:14, overflow:"hidden", cursor:"pointer", transition:"all .3s ease", boxShadow:"0 4px 20px rgba(0,0,0,.3)" }}>
-                  <div style={{ position:"relative", height:120, overflow:"hidden" }}>
-                    <img src={c.img} alt={c.name} style={{ width:"100%", height:"100%", objectFit:"cover", transition:"transform .5s ease" }} onMouseOver={e=>e.target.style.transform="scale(1.07)"} onMouseOut={e=>e.target.style.transform="scale(1)"}
-                      onError={e => e.target.src=`https://placehold.co/400x120/110E08/C9A84C?text=${c.name.slice(0,12)}`} />
-                    <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top,rgba(8,6,3,.8),transparent)" }} />
-                    <div style={{ position:"absolute", top:8, right:8, background:"rgba(26,22,16,.85)", border:"1px solid rgba(201,168,76,.3)", borderRadius:6, padding:"3px 9px", fontSize:8, color:"#C9A84C", letterSpacing:1 }}>LUXURY</div>
-                  </div>
-                  <div style={{ padding:"12px 14px" }}>
-                    <div style={{ fontSize:12, fontWeight:700, color:"#F0E4C4", marginBottom:4, lineHeight:1.3 }}>{c.name}</div>
-                    <Stars n={c.stars} />
-                    <div style={{ display:"flex", alignItems:"baseline", gap:4, marginTop:4 }}>
-                      <span style={{ fontFamily:"'Playfair Display',serif", fontSize:18, fontWeight:900, color:"#C9A84C" }}>{fmt(c.price,cur)}</span>
-                      <span style={{ fontSize:10, color:"#8A7A5A" }}>{t.cruises.night}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="gold-line" style={{ margin:"0 clamp(16px,5vw,48px)" }} />
-
-      {/* ════════════════════════════════════════════════════════
-          AI TRIP BUILDER + HOW IT WORKS
-      ════════════════════════════════════════════════════════ */}
-      <section style={{ padding:"clamp(48px,8vw,96px) clamp(16px,5vw,48px)" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1.1fr .9fr", gap:"clamp(24px,5vw,56px)", alignItems:"start" }}>
-
-          {/* AI Builder */}
-          <div {...rv("ai")} style={{ background:"linear-gradient(135deg,rgba(26,22,16,.9),rgba(8,6,3,.95))", border:"1px solid rgba(201,168,76,.22)", borderRadius:20, padding:"clamp(20px,4vw,36px)", position:"relative", overflow:"hidden", ...rv("ai").style }}>
-            {/* decorative gradient blob */}
-            <div style={{ position:"absolute", top:-40, right:-40, width:200, height:200, background:"radial-gradient(circle,rgba(201,168,76,.12),transparent)", borderRadius:"50%", pointerEvents:"none" }} />
-            <div style={{ position:"absolute", bottom:-20, left:-20, width:140, height:140, background:"radial-gradient(circle,rgba(201,168,76,.06),transparent)", borderRadius:"50%", pointerEvents:"none" }} />
-
-            <div style={{ position:"relative" }}>
-              <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
-                <div style={{ width:38, height:38, borderRadius:10, background:"linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06))", border:"1px solid rgba(201,168,76,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:18 }}>🤖</div>
-                <div>
-                  <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(18px,2.5vw,26px)", fontWeight:900, color:"#F0E4C4" }}>{t.ai.title}</h3>
-                  <div style={{ fontSize:11, color:"#8A7A5A", marginTop:2 }}>{t.ai.sub}</div>
-                </div>
-              </div>
-
-              <div style={{ marginBottom:14 }}>
-                <div style={{ display:"flex", gap:8, marginBottom:10 }}>
-                  <input value={aiInput} onChange={e=>setAiInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&handleAI()}
-                    placeholder={t.ai.ph}
-                    style={{ flex:1, background:"rgba(201,168,76,.05)", border:"1px solid rgba(201,168,76,.2)", borderRadius:10, padding:"12px 16px", color:"#F0E4C4", fontSize:13, outline:"none", fontFamily:"'Playfair Display',serif", transition:"border-color .2s" }}
-                    onFocus={e=>e.target.style.borderColor="rgba(201,168,76,.5)"} onBlur={e=>e.target.style.borderColor="rgba(201,168,76,.2)"} />
-                  <button onClick={handleAI} disabled={aiLoading} style={{ background:"linear-gradient(135deg,#C9A84C,#E8C96D)", color:"#080603", border:"none", borderRadius:10, padding:"12px 20px", cursor:aiLoading?"wait":"pointer", fontWeight:700, fontSize:11, letterSpacing:1.5, fontFamily:"'Josefin Sans',sans-serif", opacity:aiLoading?.6:1, transition:"opacity .2s", whiteSpace:"nowrap" }}>
-                    {aiLoading ? <div style={{ width:16, height:16, border:"2px solid rgba(0,0,0,.3)", borderTop:"2px solid #080603", borderRadius:"50%", animation:"spin .7s linear infinite" }} /> : t.ai.gen}
-                  </button>
-                </div>
-                <div style={{ display:"flex", flexWrap:"wrap", gap:7 }}>
-                  {t.ai.chips.map((c,i) => (
-                    <button key={i} className="chip-btn" onClick={()=>setAiInput(c)}
-                      style={{ background:"rgba(201,168,76,.07)", border:"1px solid rgba(201,168,76,.2)", color:"rgba(240,228,196,.7)", borderRadius:20, padding:"5px 13px", fontSize:11, cursor:"pointer", transition:"all .2s", fontFamily:"'Josefin Sans',sans-serif" }}>
-                      {c}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {aiLoading && (
-                <div style={{ display:"flex", alignItems:"center", gap:10, color:"#C9A84C", padding:"8px 0" }}>
-                  <div style={{ width:20, height:20, border:"2px solid rgba(201,168,76,.2)", borderTop:"2px solid #C9A84C", borderRadius:"50%", animation:"spin .7s linear infinite" }} />
-                  <span style={{ fontSize:13 }}>Building your dream itinerary…</span>
-                </div>
-              )}
-              {aiResult && !aiLoading && (
-                <div style={{ background:"rgba(201,168,76,.04)", border:"1px solid rgba(201,168,76,.18)", borderRadius:12, padding:"16px 18px", color:"#F0E4C4", fontSize:13, lineHeight:1.75, whiteSpace:"pre-wrap", maxHeight:300, overflowY:"auto", animation:"fadeIn .4s ease" }}>
-                  {aiResult}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* HOW IT WORKS */}
-          <div {...rv("how")} style={{ ...rv("how").style }}>
-            <div style={{ fontSize:10, color:"#C9A84C", letterSpacing:4, textTransform:"uppercase", marginBottom:8, fontWeight:700 }}>𓂝 Simple Process</div>
-            <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(20px,2.5vw,32px)", fontWeight:900, marginBottom:28 }}>⚙️ How It Works</h2>
-
-            {[["📍","Choose Your Tour","Browse our curated selection"],["⚙️","Customise","Dates, group size & options"],["💳","Secure Payment","Bank-grade encryption"],["✅","Enjoy Egypt!","We handle every detail"]].map((s,i) => (
-              <div key={i} style={{ display:"flex", gap:16, marginBottom:20, padding:"16px", borderRadius:12, background:activeStep===i?"rgba(201,168,76,.07)":"transparent", border:`1px solid ${activeStep===i?"rgba(201,168,76,.3)":"rgba(201,168,76,.06)"}`, transition:"all .4s ease" }}>
-                <div style={{ width:48, height:48, borderRadius:12, background:activeStep===i?"linear-gradient(135deg,#C9A84C,#E8C96D)":"rgba(201,168,76,.1)", border:activeStep===i?"none":"1px solid rgba(201,168,76,.2)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0, transition:"all .4s", boxShadow:activeStep===i?"0 6px 24px rgba(201,168,76,.4)":"none" }}>
-                  {s[0]}
-                </div>
-                <div>
-                  <div style={{ fontSize:12, fontWeight:700, color:activeStep===i?"#C9A84C":"#F0E4C4", letterSpacing:.5, marginBottom:3, transition:"color .4s" }}>{s[1]}</div>
-                  <div style={{ fontSize:12, color:"#8A7A5A", lineHeight:1.5 }}>{s[2]}</div>
-                </div>
-              </div>
-            ))}
-
-            {/* Stats row */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, marginTop:8 }}>
-              {[["50K+","Travelers"],["15+","Years"],["4.9★","Rating"]].map(([n,l],i) => (
-                <div key={i} style={{ background:"rgba(26,22,16,.8)", border:"1px solid rgba(201,168,76,.12)", borderRadius:10, padding:"14px 10px", textAlign:"center" }}>
-                  <div style={{ fontFamily:"'Playfair Display',serif", fontSize:22, fontWeight:900, color:"#C9A84C" }}>{n}</div>
-                  <div style={{ fontSize:9, color:"#8A7A5A", letterSpacing:2, textTransform:"uppercase", marginTop:3 }}>{l}</div>
-                </div>
-              ))}
-            </div>
+            <Stars n={h.stars} />
           </div>
         </div>
-      </section>
 
-      <div className="gold-line" style={{ margin:"0 clamp(16px,5vw,48px)" }} />
+        <div style={{ padding:"12px 14px" }}>
+          <div style={{
+            fontSize:12,
+            fontWeight:700,
+            color:"#F0E4C4",
+            marginBottom:6,
+            lineHeight:1.3
+          }}>
+            {h.name}
+          </div>
+
+          <div style={{ display:"flex", alignItems:"baseline", gap:4 }}>
+            <span style={{
+              fontFamily:"'Playfair Display',serif",
+              fontSize:18,
+              fontWeight:900,
+              color:"#C9A84C"
+            }}>
+              {fmt(h.price,cur)}
+            </span>
+
+            <span style={{
+              fontSize:10,
+              color:"#8A7A5A"
+            }}>
+              {t.hotels.night}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    ))}
+
+  </div>
+</div>
+         {/* Cruises */}
+<div {...rv("cruises")}>
+  <div
+    style={{
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"baseline",
+      marginBottom:24,
+      ...rv("cruises").style
+    }}
+  >
+    <div>
+      <div style={{
+        fontSize:10,
+        color:"#C9A84C",
+        letterSpacing:4,
+        textTransform:"uppercase",
+        marginBottom:6,
+        fontWeight:700
+      }}>
+        ⛴ River Journeys
+      </div>
+
+      <h2 style={{
+        fontFamily:"'Playfair Display',serif",
+        fontSize:"clamp(20px,2.5vw,30px)",
+        fontWeight:900
+      }}>
+        🚢 {t.cruises.title}
+      </h2>
+    </div>
+
+    {/* ✅ View All + navigate */}
+    <button
+      onClick={() => navigate("/nile-cruises")}
+      style={{
+        background:"transparent",
+        border:"none",
+        color:"#C9A84C",
+        cursor:"pointer",
+        fontSize:10,
+        letterSpacing:2,
+        textTransform:"uppercase",
+        fontFamily:"'Josefin Sans',sans-serif"
+      }}
+    >
+      {t.cruises.all} →
+    </button>
+
+  </div>
+
+  <div
+    className="cards-grid-2"
+    style={{
+      display:"grid",
+      gridTemplateColumns:"1fr 1fr",
+      gap:14
+    }}
+  >
+
+    {CRUISES.map((c,i) => (
+      <div
+        key={i}
+        className="card-hov"
+
+        onClick={() => navigate("/cruises")}
+
+        style={{
+          background:"rgba(26,22,16,.7)",
+          border:"1px solid rgba(201,168,76,.12)",
+          borderRadius:14,
+          overflow:"hidden",
+          cursor:"pointer",
+          transition:"all .3s ease",
+          boxShadow:"0 4px 20px rgba(0,0,0,.3)"
+        }}
+      >
+
+        <div style={{ position:"relative", height:120, overflow:"hidden" }}>
+          <img
+            src={c.img}
+            alt={c.name}
+            style={{
+              width:"100%",
+              height:"100%",
+              objectFit:"cover",
+              transition:"transform .5s ease"
+            }}
+            onMouseOver={e=>e.target.style.transform="scale(1.07)"}
+            onMouseOut={e=>e.target.style.transform="scale(1)"}
+            onError={e =>
+              e.target.src=`https://placehold.co/400x120/110E08/C9A84C?text=${c.name.slice(0,12)}`
+            }
+          />
+
+          <div style={{
+            position:"absolute",
+            inset:0,
+            background:"linear-gradient(to top,rgba(8,6,3,.8),transparent)"
+          }} />
+
+          <div style={{
+            position:"absolute",
+            top:8,
+            right:8,
+            background:"rgba(26,22,16,.85)",
+            border:"1px solid rgba(201,168,76,.3)",
+            borderRadius:6,
+            padding:"3px 9px",
+            fontSize:8,
+            color:"#C9A84C",
+            letterSpacing:1
+          }}>
+            LUXURY
+          </div>
+        </div>
+
+        <div style={{ padding:"12px 14px" }}>
+          <div style={{
+            fontSize:12,
+            fontWeight:700,
+            color:"#F0E4C4",
+            marginBottom:4,
+            lineHeight:1.3
+          }}>
+            {c.name}
+          </div>
+
+          <Stars n={c.stars} />
+
+          <div style={{
+            display:"flex",
+            alignItems:"baseline",
+            gap:4,
+            marginTop:4
+          }}>
+            <span style={{
+              fontFamily:"'Playfair Display',serif",
+              fontSize:18,
+              fontWeight:900,
+              color:"#C9A84C"
+            }}>
+              {fmt(c.price,cur)}
+            </span>
+
+            <span style={{
+              fontSize:10,
+              color:"#8A7A5A"
+            }}>
+              {t.cruises.night}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    ))}
+
+  </div>
+</div>
+
+</div>
+</section>
+
+<div className="gold-line" style={{ margin:"0 clamp(16px,5vw,48px)" }} />
+{/* ── AI TRIP BUILDER ── */}
+    <div style={S.divider} />
+    <section style={S.section}>
+      <AITripBuilder lang={lang} currency={currency} />
+    </section>
+  
       {/* ════════════════════════════════════════════════════════
           WHY US
       ════════════════════════════════════════════════════════ */}
