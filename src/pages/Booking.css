@@ -1,0 +1,57 @@
+.booking-page {
+  background: #0c0c0c;
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border-radius: 10px;
+}
+
+.booking-header h1 {
+  color: #d4af37;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.booking-header p {
+  font-size: 18px;
+  color: #aaa;
+}
+
+.message {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message.success {
+  background: #4caf50;
+  color: white;
+}
+
+.message.error {
+  background: #f44336;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #d4af37;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

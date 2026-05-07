@@ -1,8 +1,5 @@
 // ============================================================
-//  Golden Egypt Tours — Backend Data
-//  ../data/tours.js
-//  Full tour database — import this in your Express/Node server
-//  or use directly in frontend via import.
+//  
 // ============================================================
 
 export const tours = [

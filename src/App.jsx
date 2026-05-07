@@ -7,7 +7,9 @@ import Packages from "./pages/Packages";
 import NileCruisesPage from "./pages/NileCruisesPage";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Booking from "./pages/Booking";
 import AITripBuilder from "./components/AITripBuilder";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -22,13 +24,18 @@ export default function App() {
 
         {/* ── صفحة التور ── */}
         <Route path="/tour/:tourId" element={<Tour />} />
-       <Route path="/Packages" element={<Packages/>} /> 
- <Route path="/hotels" element={<Hotels/>} />
-<Route path="/cruises" element={<NileCruisesPage />} />
+        
+        {/* ── صفحة الحجز ── */}
+        <Route path="/booking/:tourId" element={<Booking />} />
+        
+        <Route path="/Packages" element={<Packages/>} /> 
+        <Route path="/hotels" element={<Hotels/>} />
+        <Route path="/cruises" element={<NileCruisesPage />} />
+        
         {/* ── Fallback: أي رابط تاني يرجع الهوم ── */}
         <Route path="*"             element={<Navigate to="/" replace />} />
 
-<Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/aitripbuilder" element={<AITripBuilder />} />

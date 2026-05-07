@@ -1,21 +1,30 @@
 import express from "express";
-import { createBooking } from "../controllers/booking.controller.js";
-import { extractTenant } from "../middleware/tenant.js";
+import * as bookingController from "../controllers/booking.controller.js";
 
 const router = express.Router();
 
-// POST /api/bookings
-router.post("/", (req, res) => {
-  const { tourId, persons, totalPrice } = req.body;
+// إنشاء حجز جديد
+router.post("/create", bookingController.createBooking);
 
-  console.log("NEW BOOKING:", req.body);
+// الحصول على جميع الحجوزات (للإدمن)
+router.get("/all", bookingController.getAllBookings);
 
-  res.json({
-    success: true,
-    message: "Booking received",
-    price: totalPrice
-  });
-});
-router.post("/", extractTenant, createBooking);
+// الحصول على حجز معين
+router.get("/:id", bookingController.getBookingById);
+
+// تحديث الحجز
+router.put("/:id", bookingController.updateBooking);
+
+// حذف الحجز
+router.delete("/:id", bookingController.deleteBooking);
+
+// الحصول على حجوزات المستخدم
+router.get("/user/:email", bookingController.getUserBookings);
+
+// تأكيد الحجز
+router.put("/:id/confirm", bookingController.confirmBooking);
+
+// إلغاء الحجز
+router.put("/:id/cancel", bookingController.cancelBooking);
 
 export default router;
