@@ -485,8 +485,13 @@ export default function Home(){
   const navigate = useNavigate();
   const { language, formatPrice } = useGlobal();
 
-  const [lang,setLang]         = useState("en");
-  const [cur,setCur]           = useState("USD");
+  // ربط اللغة والعملة بالـ GlobalContext بدل الـ local state
+const { language: globalLang, currency: globalCur, setLanguage: setGlobalLang, setCurrency: setGlobalCur } = useGlobal();
+const [lang, setLangLocal] = useState(globalLang || "en");
+const [cur,  setCurLocal]  = useState(globalCur  || "USD");
+
+const setLang = (code) => { setLangLocal(code); setGlobalLang(code); };
+const setCur  = (code) => { setCurLocal(code);  setGlobalCur(code);  };
   const [scrolled,setSc]       = useState(false);
   const [mMenu,setMMenu]       = useState(false);
   const [lO,setLO]             = useState(false);
@@ -510,7 +515,9 @@ export default function Home(){
   const [pkgTab,setPkgTab]     = useState(0);
 
   // sync language from GlobalContext
-  useEffect(()=>{ if(language) setLang(language); },[language]);
+ // sync مع GlobalContext في الاتجاهين
+useEffect(() => { if(globalLang) setLangLocal(globalLang); }, [globalLang]);
+useEffect(() => { if(globalCur)  setCurLocal(globalCur);  }, [globalCur]);
 
   const t      = TR[lang]||TR.en;
   const isRTL  = LANGS[lang]?.dir==="rtl";
@@ -687,6 +694,20 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
         {/* Dots */}
         <div style={{position:"absolute",bottom:"clamp(140px,18vh,188px)",left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:5}}>
+          {/* Video Background */}
+<video
+  autoPlay muted loop playsInline
+  style={{
+    position: "absolute", inset: 0,
+    width: "100%", height: "100%",
+    objectFit: "cover",
+    opacity: 0.45,
+    zIndex: 0,
+    filter: "brightness(0.6) saturate(1.2)",
+  }}
+>
+  <source src="/videos/egypt-hero.mp4" type="video/mp4"/>
+</video>
           {HERO.map((_,i)=><button key={i} onClick={()=>setSlide(i)} style={{width:i===slide?32:8,height:8,borderRadius:4,background:i===slide?"var(--g)":"rgba(255,255,255,.25)",border:"none",cursor:"pointer",padding:0,transition:"all .45s ease"}}/>)}
         </div>
 

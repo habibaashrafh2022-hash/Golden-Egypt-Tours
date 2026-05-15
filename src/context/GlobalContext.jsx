@@ -99,13 +99,23 @@ export function GlobalProvider({ children }) {
   const [language, setLanguageState] = useState(() => {
     return localStorage.getItem("app_language") || "en";
   });
+
   const [currency, setCurrencyState] = useState(() => {
     return localStorage.getItem("app_currency") || "USD";
   });
   const [exchangeRates, setExchangeRates] = useState({});
   const [ratesLoading, setRatesLoading] = useState(true);
   const [translating, setTranslating] = useState(false);
-
+// ========== ENFORCE ENGLISH AS DEFAULT ==========
+// Arabic is hidden unless user explicitly selects it
+useEffect(() => {
+  const savedLang = localStorage.getItem("app_language");
+  if (!savedLang) {
+    setLanguageState("en");
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }
+}, []);
   // Load exchange rates on mount and when base currency changes
   useEffect(() => {
     setRatesLoading(true);

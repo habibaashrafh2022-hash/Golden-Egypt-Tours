@@ -1,3 +1,128 @@
+/* ============================================
+   GOLDEN EGYPT TOURS — LUXURY BRAND TOKENS
+   ADD THIS AT THE TOP OF index.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* === BRAND COLORS === */
+  --jet-black:      #060606;
+  --deep-black:     #0a0a0a;
+  --card-black:     #111111;
+  --royal-gold:     #C9A84C;
+  --gold-light:     #E2C47A;
+  --gold-dark:      #A07830;
+  --soft-ivory:     #F6E7C1;
+  --warm-sand:      #E8D5A3;
+  --glass-black:    rgba(10, 10, 10, 0.65);
+  --glass-gold:     rgba(201, 168, 76, 0.12);
+  --glass-border:   rgba(201, 168, 76, 0.25);
+
+  /* === TYPOGRAPHY === */
+  --font-heading:   'Cinzel', serif;
+  --font-display:   'Playfair Display', serif;
+  --font-accent:    'Cormorant Garamond', serif;
+  --font-body:      'Plus Jakarta Sans', sans-serif;
+
+  /* === SHADOWS === */
+  --shadow-gold:    0 0 30px rgba(201, 168, 76, 0.15);
+  --shadow-deep:    0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-card:    0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* === TRANSITIONS === */
+  --transition:     all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === GLOBAL BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--jet-black);
+  color: var(--soft-ivory);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === LUXURY GLASS === */
+.glass {
+  background: var(--glass-black);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-gold {
+  background: var(--glass-gold);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+/* === GOLD TEXT === */
+.gold { color: var(--royal-gold); }
+
+.gold-gradient {
+  background: linear-gradient(135deg, var(--gold-light), var(--royal-gold), var(--gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === LUXURY BUTTON === */
+.btn-luxury {
+  background: linear-gradient(135deg, var(--royal-gold), var(--gold-dark));
+  color: var(--jet-black);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-luxury::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gold-light), var(--royal-gold));
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.btn-luxury:hover::before { opacity: 1; }
+.btn-luxury:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+/* === LUXURY CARD === */
+.card-luxury {
+  background: var(--card-black);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.card-luxury:hover {
+  border-color: var(--royal-gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-4px);
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--jet-black); }
+::-webkit-scrollbar-thumb { background: var(--royal-gold); border-radius: 3px; }
+
+/* === SELECTION === */
+::selection { background: var(--royal-gold); color: var(--jet-black); }
+
 /* ── GOOGLE FONTS ── */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@400;700&display=swap');
 

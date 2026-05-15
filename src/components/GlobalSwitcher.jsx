@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useGlobal, LANGUAGES, CURRENCIES } from "../context/GlobalContext";
 
 // ============================================================
-// LANGUAGE SWITCHER COMPONENT
+// LANGUAGE SWITCHER
 // ============================================================
-export function LanguageSwitcher({ variant = "dropdown" }) {
+export function LanguageSwitcher() {
   const { language, setLanguage, currentLang } = useGlobal();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -19,35 +19,28 @@ export function LanguageSwitcher({ variant = "dropdown" }) {
 
   return (
     <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
-      <button
-        onClick={() => setOpen(!open)}
-        style={styles.switcherBtn}
-        aria-label="Select Language"
-      >
-        <span style={{ fontSize: "1.2rem" }}>{currentLang?.flag}</span>
-        <span style={styles.switcherLabel}>{currentLang?.name}</span>
+      <button onClick={() => setOpen(!open)} style={S.btn} aria-label="Language">
+        <span style={{ fontSize: "1.1rem" }}>{currentLang?.flag}</span>
+        <span style={S.btnLabel}>{currentLang?.name?.slice(0, 3)}</span>
         <ChevronIcon open={open} />
       </button>
 
       {open && (
-        <div style={styles.dropdown}>
-          <div style={styles.dropdownHeader}>🌍 Language</div>
-          <div style={styles.scrollList}>
+        <div style={S.dropdown}>
+          <div style={S.dropHeader}>🌍 Language</div>
+          <div style={S.scrollList}>
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.code}
-                onClick={() => {
-                  setLanguage(lang.code);
-                  setOpen(false);
-                }}
+                onClick={() => { setLanguage(lang.code); setOpen(false); }}
                 style={{
-                  ...styles.dropdownItem,
-                  ...(language === lang.code ? styles.activeItem : {}),
+                  ...S.dropItem,
+                  ...(language === lang.code ? S.activeItem : {}),
                 }}
               >
                 <span style={{ fontSize: "1.1rem" }}>{lang.flag}</span>
-                <span>{lang.name}</span>
-                {language === lang.code && <span style={styles.checkmark}>✓</span>}
+                <span style={{ flex: 1 }}>{lang.name}</span>
+                {language === lang.code && <span style={S.check}>✓</span>}
               </button>
             ))}
           </div>
@@ -58,7 +51,7 @@ export function LanguageSwitcher({ variant = "dropdown" }) {
 }
 
 // ============================================================
-// CURRENCY SWITCHER COMPONENT
+// CURRENCY SWITCHER
 // ============================================================
 export function CurrencySwitcher() {
   const { currency, setCurrency, currentCurrency, ratesLoading } = useGlobal();
@@ -77,47 +70,39 @@ export function CurrencySwitcher() {
     <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
       <button
         onClick={() => setOpen(!open)}
-        style={styles.switcherBtn}
-        aria-label="Select Currency"
+        style={S.btn}
         disabled={ratesLoading}
+        aria-label="Currency"
       >
-        <span style={{ fontSize: "1.2rem" }}>{currentCurrency?.flag}</span>
-        <span style={styles.switcherLabel}>
+        <span style={{ fontSize: "1.1rem" }}>{currentCurrency?.flag}</span>
+        <span style={S.btnLabel}>
           {currentCurrency?.symbol} {currentCurrency?.code}
         </span>
-        {ratesLoading ? (
-          <span style={styles.spinner}>⟳</span>
-        ) : (
-          <ChevronIcon open={open} />
-        )}
+        {ratesLoading
+          ? <span style={S.spinner}>⟳</span>
+          : <ChevronIcon open={open} />
+        }
       </button>
 
       {open && (
-        <div style={{ ...styles.dropdown, minWidth: "220px" }}>
-          <div style={styles.dropdownHeader}>💱 Currency</div>
-          <div style={styles.scrollList}>
+        <div style={{ ...S.dropdown, minWidth: 230 }}>
+          <div style={S.dropHeader}>💱 Currency</div>
+          <div style={S.scrollList}>
             {CURRENCIES.map((curr) => (
               <button
                 key={curr.code}
-                onClick={() => {
-                  setCurrency(curr.code);
-                  setOpen(false);
-                }}
+                onClick={() => { setCurrency(curr.code); setOpen(false); }}
                 style={{
-                  ...styles.dropdownItem,
-                  ...(currency === curr.code ? styles.activeItem : {}),
+                  ...S.dropItem,
+                  ...(currency === curr.code ? S.activeItem : {}),
                 }}
               >
                 <span style={{ fontSize: "1.1rem" }}>{curr.flag}</span>
                 <span style={{ flex: 1 }}>
                   {curr.name}
-                  <span style={styles.currencyCode}>
-                    {curr.symbol} {curr.code}
-                  </span>
+                  <span style={S.currCode}>{curr.symbol} {curr.code}</span>
                 </span>
-                {currency === curr.code && (
-                  <span style={styles.checkmark}>✓</span>
-                )}
+                {currency === curr.code && <span style={S.check}>✓</span>}
               </button>
             ))}
           </div>
@@ -128,145 +113,136 @@ export function CurrencySwitcher() {
 }
 
 // ============================================================
-// COMBINED SWITCHER (Language + Currency in one bar)
+// COMBINED BAR
 // ============================================================
 export function GlobalSwitcherBar() {
   return (
-    <div style={styles.bar}>
+    <div style={S.bar}>
       <LanguageSwitcher />
-      <div style={styles.divider} />
+      <div style={S.divider} />
       <CurrencySwitcher />
     </div>
   );
 }
 
 // ============================================================
-// HELPER: Chevron Icon
+// CHEVRON
 // ============================================================
 function ChevronIcon({ open }) {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      style={{
-        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-        transition: "transform 0.2s ease",
-        opacity: 0.6,
-      }}
-    >
-      <path
-        d="M2 4l4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-        strokeLinecap="round"
-      />
+    <svg width="11" height="11" viewBox="0 0 12 12"
+      style={{ transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s ease", opacity: 0.6 }}>
+      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
     </svg>
   );
 }
 
 // ============================================================
-// STYLES
+// STYLES — Luxury Gold Theme
 // ============================================================
-const styles = {
+const S = {
   bar: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    padding: "6px 12px",
-    background: "rgba(255,255,255,0.08)",
-    borderRadius: "12px",
-    backdropFilter: "blur(10px)",
-    border: "1px solid rgba(255,255,255,0.12)",
+    display:        "flex",
+    alignItems:     "center",
+    gap:            6,
+    padding:        "5px 10px",
+    background:     "rgba(201,168,76,0.08)",
+    borderRadius:   12,
+    backdropFilter: "blur(12px)",
+    border:         "1px solid rgba(201,168,76,0.22)",
   },
   divider: {
-    width: "1px",
-    height: "20px",
-    background: "rgba(255,255,255,0.2)",
+    width:      1,
+    height:     18,
+    background: "rgba(201,168,76,0.25)",
   },
-  switcherBtn: {
-    display: "flex",
+  btn: {
+    display:    "flex",
     alignItems: "center",
-    gap: "6px",
-    padding: "6px 10px",
+    gap:        6,
+    padding:    "5px 9px",
     background: "transparent",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    color: "inherit",
-    fontSize: "0.9rem",
-    fontWeight: 500,
+    border:     "none",
+    borderRadius: 8,
+    cursor:     "pointer",
+    color:      "#C9A84C",
+    fontSize:   "0.82rem",
+    fontWeight: 600,
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     transition: "background 0.15s ease",
+    letterSpacing: "0.03em",
   },
-  switcherLabel: {
-    maxWidth: "90px",
-    overflow: "hidden",
+  btnLabel: {
+    maxWidth:     80,
+    overflow:     "hidden",
     textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
+    whiteSpace:   "nowrap",
   },
   dropdown: {
-    position: "absolute",
-    top: "calc(100% + 8px)",
-    right: 0,
-    minWidth: "190px",
-    background: "#1a1a2e",
-    border: "1px solid rgba(255,255,255,0.12)",
-    borderRadius: "14px",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
-    zIndex: 9999,
-    overflow: "hidden",
-    animation: "fadeDown 0.15s ease",
+    position:     "absolute",
+    top:          "calc(100% + 10px)",
+    right:        0,
+    minWidth:     200,
+    background:   "rgba(10,8,18,0.97)",
+    border:       "1px solid rgba(201,168,76,0.22)",
+    borderRadius: 16,
+    boxShadow:    "0 24px 64px rgba(0,0,0,0.8), 0 0 0 1px rgba(201,168,76,0.08)",
+    zIndex:       9999,
+    overflow:     "hidden",
+    backdropFilter: "blur(20px)",
+    animation:    "luxDropDown 0.2s cubic-bezier(0.4,0,0.2,1)",
   },
-  dropdownHeader: {
-    padding: "12px 16px 8px",
-    fontSize: "0.75rem",
-    fontWeight: 700,
-    letterSpacing: "0.08em",
+  dropHeader: {
+    padding:       "12px 16px 8px",
+    fontSize:      "0.7rem",
+    fontWeight:    700,
+    letterSpacing: "0.2em",
     textTransform: "uppercase",
-    opacity: 0.5,
-    color: "#fff",
-    borderBottom: "1px solid rgba(255,255,255,0.06)",
+    color:         "rgba(201,168,76,0.5)",
+    borderBottom:  "1px solid rgba(201,168,76,0.1)",
+    fontFamily:    "'Cinzel', serif",
   },
   scrollList: {
-    maxHeight: "320px",
+    maxHeight: 300,
     overflowY: "auto",
-    padding: "6px",
+    padding:   6,
   },
-  dropdownItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    width: "100%",
-    padding: "9px 12px",
-    background: "transparent",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    color: "#e8e8f0",
-    fontSize: "0.88rem",
-    textAlign: "left",
-    transition: "background 0.12s ease",
+  dropItem: {
+    display:      "flex",
+    alignItems:   "center",
+    gap:          10,
+    width:        "100%",
+    padding:      "9px 12px",
+    background:   "transparent",
+    border:       "none",
+    borderRadius: 10,
+    cursor:       "pointer",
+    color:        "rgba(237,232,217,0.75)",
+    fontSize:     "0.85rem",
+    textAlign:    "left",
+    transition:   "all 0.15s ease",
+    fontFamily:   "'Plus Jakarta Sans', sans-serif",
   },
   activeItem: {
-    background: "rgba(99,102,241,0.25)",
-    color: "#a5b4fc",
+    background: "rgba(201,168,76,0.12)",
+    color:      "#C9A84C",
   },
-  checkmark: {
+  check: {
     marginLeft: "auto",
-    color: "#818cf8",
+    color:      "#C9A84C",
     fontWeight: 700,
-    fontSize: "0.9rem",
+    fontSize:   "0.85rem",
   },
-  currencyCode: {
-    display: "block",
-    fontSize: "0.75rem",
-    opacity: 0.5,
-    marginTop: "1px",
+  currCode: {
+    display:    "block",
+    fontSize:   "0.72rem",
+    opacity:    0.45,
+    marginTop:  2,
   },
   spinner: {
-    display: "inline-block",
+    display:   "inline-block",
     animation: "spin 1s linear infinite",
-    fontSize: "1rem",
+    fontSize:  "1rem",
+    color:     "#C9A84C",
   },
 };
