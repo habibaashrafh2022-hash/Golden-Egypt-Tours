@@ -123,17 +123,16 @@ const CITIES = [
   {id:"sharm",      name:"Sharm El Sheikh",nameAr:"شرم الشيخ",    img:"/images/home/sharm.jpeg",    desc:"Crystal Clear Waters",            tag:"Luxury",     tours:58,  color:"#9B72CF"},
   {id:"alexandria", name:"Alexandria",     nameAr:"الإسكندرية",   img:"/images/home/alex.jpeg",     desc:"Pearl of the Mediterranean",      tag:"Culture",    tours:43,  color:"#4FC3F7"},
   {id:"fayoum",     name:"Fayoum",         nameAr:"الفيوم",       img:"/images/home/fayoum.jpeg",   desc:"Egypt's Hidden Oasis",            tag:"Hidden Gem", tours:28,  color:"#81C784"},
-  {id:"marsa-alam", name:"Marsa Alam",     nameAr:"مرسى علم",     img:"/images/home/Marsa.jpeg",    desc:"Untouched Red Sea Shores",        tag:"Diving",     tours:35,  color:"#26C6DA"},
+  {id:"marsa-alam", name:"Marsa Alam",     nameAr:"مرسى علم",     img:"/images/home/marsa.jpeg",    desc:"Untouched Red Sea Shores",        tag:"Diving",     tours:35,  color:"#26C6DA"},
   {id:"giza",       name:"Giza",           nameAr:"الجيزة",       img:"/images/home/giza.jpeg",     desc:"Gateway to the Ancient World",    tag:"Iconic",     tours:95,  color:"#FFD54F"},
   {id:"ain-sokhna", name:"Ain Sokhna",     nameAr:"العين السخنة", img:"/images/home/sokhna.jpeg",   desc:"Red Sea Riviera",                 tag:"Relaxation", tours:31,  color:"#FF8A65"},
 ];
 
 const HERO = [
-  {img:"https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1920&q=90", loc:"Giza, Egypt",     title:"Pyramids of Giza"},
-  {img:"https://images.unsplash.com/photo-1601921004897-b7d582836990?w=1920&q=90", loc:"Luxor, Egypt",    title:"Valley of the Kings"},
-  {img:"https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1920&q=90",   loc:"Aswan, Egypt",    title:"Abu Simbel Temples"},
-  {img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=90",   loc:"Hurghada, Egypt", title:"Red Sea Wonders"},
-  {img:"https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1920&q=90",loc:"Cairo, Egypt",    title:"Egyptian Museum"},
+  {img:"/images/home/sphinx-pyramids.jpeg", loc:"Giza, Egypt",  title:"Sphinx & Pyramids of Giza"},
+  {img:"/images/home/camel-sunset.jpeg",    loc:"Giza, Egypt",  title:"Golden Desert Sunset"},
+  {img:"/images/home/valley-kings.jpeg",    loc:"Luxor, Egypt", title:"Valley of the Kings"},
+  {img:"/images/home/pharaoh-tomb.jpeg",    loc:"Luxor, Egypt", title:"Pharaoh's Chamber"},
 ];
 
 const HOTELS = [
@@ -312,7 +311,11 @@ body::after{
 @keyframes float     {0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @keyframes particleUp{0%{transform:translateY(0) scale(1);opacity:.6}100%{transform:translateY(-120px) scale(0);opacity:0}}
 @keyframes shimmer   {0%{background-position:-200% 0}100%{background-position:200% 0}}
-
+@keyframes pulseRing {
+  0%   { opacity: 0.6; transform: scale(1);    }
+  50%  { opacity: 0.2; transform: scale(1.04); }
+  100% { opacity: 0.6; transform: scale(1);    }
+}
 .gta{background:linear-gradient(90deg,#F2E070,#C9A84C,#FFE980,#8B6810,#E8C96D,#C9A84C,#F2E070);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 5s ease-in-out infinite;}
 .gt{background:linear-gradient(135deg,#F2E07A 0%,#C9A84C 38%,#FFE980 65%,#A07828 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .gline{height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.4),transparent);}
@@ -479,7 +482,175 @@ function BookingModal({item,onClose,cur,lang}){
 // ============================================================
 //  Part B — Home component
 // ============================================================
+function VideoPreview() {
+  const [open, setOpen] = useState(false);
 
+  return (
+    <>
+      {/* الأيقونة الصغيرة */}
+      <button
+        onClick={() => setOpen(true)}
+        style={{
+          position:   "absolute",
+          bottom:     "clamp(170px, 22vh, 230px)",
+          right:      "clamp(20px, 4vw, 52px)",
+          zIndex:     6,
+          background: "rgba(6,6,6,0.7)",
+          backdropFilter: "blur(12px)",
+          border:     "1px solid rgba(201,168,76,0.4)",
+          borderRadius: 16,
+          padding:    "10px 16px",
+          cursor:     "pointer",
+          display:    "flex",
+          alignItems: "center",
+          gap:        10,
+          transition: "all 0.3s ease",
+          boxShadow:  "0 8px 32px rgba(0,0,0,0.5)",
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.borderColor = "rgba(201,168,76,0.8)";
+          e.currentTarget.style.boxShadow   = "0 8px 32px rgba(201,168,76,0.2)";
+          e.currentTarget.style.transform   = "translateY(-2px)";
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.borderColor = "rgba(201,168,76,0.4)";
+          e.currentTarget.style.boxShadow   = "0 8px 32px rgba(0,0,0,0.5)";
+          e.currentTarget.style.transform   = "none";
+        }}
+      >
+        {/* Thumbnail */}
+        <div style={{
+          width:        52,
+          height:       36,
+          borderRadius: 8,
+          overflow:     "hidden",
+          position:     "relative",
+          flexShrink:   0,
+        }}>
+          <video
+            src="/videos/egypt-hero.mp4"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            muted playsInline
+          />
+          {/* Play icon overlay */}
+          <div style={{
+            position:       "absolute",
+            inset:          0,
+            background:     "rgba(0,0,0,0.4)",
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+          }}>
+            <div style={{
+              width:        0,
+              height:       0,
+              borderTop:    "6px solid transparent",
+              borderBottom: "6px solid transparent",
+              borderLeft:   "10px solid #C9A84C",
+              marginLeft:   2,
+            }}/>
+          </div>
+        </div>
+
+        {/* Text */}
+        <div style={{ textAlign: "left" }}>
+          <div style={{
+            fontFamily:    "'Cinzel', serif",
+            fontSize:      10,
+            fontWeight:    700,
+            color:         "#C9A84C",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+          }}>Watch Film</div>
+          <div style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontStyle:  "italic",
+            fontSize:   11,
+            color:      "rgba(237,232,217,0.5)",
+            marginTop:  2,
+          }}>Egypt Experience</div>
+        </div>
+
+        {/* Pulse ring */}
+        <div style={{
+          position:     "absolute",
+          inset:        -1,
+          borderRadius: 16,
+          border:       "1px solid rgba(201,168,76,0.3)",
+          animation:    "pulseRing 2s ease-in-out infinite",
+          pointerEvents:"none",
+        }}/>
+      </button>
+
+      {/* Modal */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          style={{
+            position:       "fixed",
+            inset:          0,
+            background:     "rgba(0,0,0,0.92)",
+            backdropFilter: "blur(20px)",
+            zIndex:         2000,
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+            padding:        16,
+            animation:      "fadeIn 0.3s ease",
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              position:     "relative",
+              width:        "min(900px, 95vw)",
+              borderRadius: 20,
+              overflow:     "hidden",
+              border:       "1px solid rgba(201,168,76,0.3)",
+              boxShadow:    "0 40px 100px rgba(0,0,0,0.9)",
+              animation:    "popIn 0.3s ease",
+            }}
+          >
+            {/* Gold top line */}
+            <div style={{
+              height:     2,
+              background: "linear-gradient(90deg, transparent, #C9A84C, #E8C96D, #C9A84C, transparent)",
+            }}/>
+
+            <video
+              src="/videos/egypt-hero.mp4"
+              autoPlay
+              controls
+              style={{ width: "100%", display: "block", background: "#000" }}
+            />
+
+            {/* Close button */}
+            <button
+              onClick={() => setOpen(false)}
+              style={{
+                position:       "absolute",
+                top:            12,
+                right:          12,
+                width:          36,
+                height:         36,
+                borderRadius:   "50%",
+                background:     "rgba(6,6,6,0.8)",
+                border:         "1px solid rgba(201,168,76,0.4)",
+                color:          "#C9A84C",
+                fontSize:       16,
+                cursor:         "pointer",
+                display:        "flex",
+                alignItems:     "center",
+                justifyContent: "center",
+                backdropFilter: "blur(8px)",
+              }}
+            >✕</button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 export default function Home(){
   const navigate = useNavigate();
   const { language, formatPrice } = useGlobal();
@@ -616,6 +787,180 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
   return(
     <div style={{background:"#050309",color:"#EDE8D9",minHeight:"100vh",overflowX:"hidden",direction:isRTL?"rtl":"ltr",fontFamily:"'Josefin Sans','Noto Sans Arabic',sans-serif",position:"relative"}}>
+     {/* Hieroglyphic Wall */}
+<div style={{
+  position:   "fixed",
+  inset:      0,
+  zIndex:     0,
+  pointerEvents: "none",
+  overflow:   "hidden",
+  opacity:    0.055,
+}}>
+  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+    style={{ position: "absolute", inset: 0 }}>
+    <defs>
+      {/* Cartouche 1 — Eye of Ra */}
+      <g id="c1">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <ellipse cx="35" cy="32" rx="14" ry="10" fill="none" stroke="#C9A84C" strokeWidth="1.1"/>
+        <ellipse cx="35" cy="32" rx="7" ry="5" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <circle cx="35" cy="32" r="2.5" fill="#C9A84C"/>
+        <line x1="21" y1="32" x2="14" y2="32" stroke="#C9A84C" strokeWidth="1.1"/>
+        <path d="M21 26 Q13 32 21 38" fill="none" stroke="#C9A84C" strokeWidth="1.1"/>
+        <rect x="18" y="50" width="34" height="3.5" rx="1.5" fill="#C9A84C"/>
+        <rect x="20" y="58" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="66" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="74" width="22" height="3" rx="1.5" fill="#C9A84C"/>
+        <circle cx="35" cy="90" r="5" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="35" y1="85" x2="35" y2="95" stroke="#C9A84C" strokeWidth="0.9"/>
+        <line x1="30" y1="90" x2="40" y2="90" stroke="#C9A84C" strokeWidth="0.9"/>
+      </g>
+
+      {/* Cartouche 2 — Pharaoh mask */}
+      <g id="c2">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <ellipse cx="35" cy="28" rx="12" ry="14" fill="none" stroke="#C9A84C" strokeWidth="1.1"/>
+        <line x1="29" y1="22" x2="22" y2="18" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="41" y1="22" x2="48" y2="18" stroke="#C9A84C" strokeWidth="1"/>
+        <rect x="20" y="42" width="30" height="18" rx="3" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="20" y1="48" x2="50" y2="48" stroke="#C9A84C" strokeWidth="0.8"/>
+        <line x1="20" y1="54" x2="50" y2="54" stroke="#C9A84C" strokeWidth="0.8"/>
+        <rect x="18" y="68" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="76" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="84" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <polygon points="35,94 42,104 28,104" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+      </g>
+
+      {/* Cartouche 3 — Pyramid + Sun */}
+      <g id="c3">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <polygon points="35,18 55,48 15,48" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+        <polygon points="35,24 49,44 21,44" fill="#C9A84C" opacity="0.12"/>
+        <circle cx="35" cy="62" r="7" fill="none" stroke="#C9A84C" strokeWidth="1.1"/>
+        <line x1="35" y1="52" x2="35" y2="50" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="35" y1="72" x2="35" y2="74" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="25" y1="62" x2="23" y2="62" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="45" y1="62" x2="47" y2="62" stroke="#C9A84C" strokeWidth="1"/>
+        <rect x="18" y="80" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="88" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="96" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+      </g>
+
+      {/* Cartouche 4 — Ankh */}
+      <g id="c4">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <rect x="18" y="16" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="24" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <circle cx="35" cy="50" r="10" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+        <line x1="35" y1="60" x2="35" y2="78" stroke="#C9A84C" strokeWidth="1.4"/>
+        <line x1="26" y1="66" x2="44" y2="66" stroke="#C9A84C" strokeWidth="1.4"/>
+        <rect x="20" y="84" width="30" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="92" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="100" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+      </g>
+
+      {/* Cartouche 5 — Scarab */}
+      <g id="c5">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <ellipse cx="35" cy="38" rx="14" ry="10" fill="none" stroke="#C9A84C" strokeWidth="1.1"/>
+        <ellipse cx="35" cy="38" rx="8" ry="5" fill="none" stroke="#C9A84C" strokeWidth="0.9"/>
+        <line x1="22" y1="32" x2="16" y2="26" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="22" y1="38" x2="14" y2="38" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="22" y1="44" x2="16" y2="50" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="48" y1="32" x2="54" y2="26" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="48" y1="38" x2="56" y2="38" stroke="#C9A84C" strokeWidth="1"/>
+        <line x1="48" y1="44" x2="54" y2="50" stroke="#C9A84C" strokeWidth="1"/>
+        <rect x="20" y="56" width="30" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="64" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="72" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="80" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <circle cx="35" cy="96" r="6" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <circle cx="35" cy="96" r="2" fill="#C9A84C"/>
+      </g>
+
+      {/* Cartouche 6 — Ibis bird */}
+      <g id="c6">
+        <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#C9A84C" strokeWidth="1.4"/>
+        <rect x="18" y="16" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <ellipse cx="42" cy="38" rx="8" ry="6" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <path d="M34 38 Q20 45 22 58" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+        <path d="M22 58 L18 65 M22 58 L30 62" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <path d="M42 44 Q44 52 40 58" fill="none" stroke="#C9A84C" strokeWidth="1"/>
+        <rect x="18" y="70" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="78" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="86" width="34" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="22" y="94" width="26" height="3" rx="1.5" fill="#C9A84C"/>
+      </g>
+    </defs>
+
+    {/* Cartouches — مواضع عشوائية على الشاشة */}
+    <use href="#c1" transform="translate(42, 38) rotate(-4)" opacity="0.9"/>
+    <use href="#c3" transform="translate(180, 22) rotate(3)" opacity="0.8"/>
+    <use href="#c5" transform="translate(340, 55) rotate(-2)" opacity="0.85"/>
+    <use href="#c2" transform="translate(520, 18) rotate(5)" opacity="0.75"/>
+    <use href="#c4" transform="translate(680, 40) rotate(-3)" opacity="0.9"/>
+    <use href="#c6" transform="translate(820, 25) rotate(2)" opacity="0.8"/>
+    <use href="#c1" transform="translate(950, 48) rotate(-5)" opacity="0.7"/>
+    <use href="#c3" transform="translate(1100, 30) rotate(4)" opacity="0.85"/>
+    <use href="#c5" transform="translate(1280, 15) rotate(-2)" opacity="0.8"/>
+    <use href="#c2" transform="translate(1420, 42) rotate(3)" opacity="0.75"/>
+
+    <use href="#c4" transform="translate(18, 185) rotate(2)" opacity="0.8"/>
+    <use href="#c6" transform="translate(155, 168) rotate(-3)" opacity="0.85"/>
+    <use href="#c2" transform="translate(298, 195) rotate(4)" opacity="0.9"/>
+    <use href="#c1" transform="translate(458, 172) rotate(-2)" opacity="0.75"/>
+    <use href="#c5" transform="translate(610, 188) rotate(3)" opacity="0.8"/>
+    <use href="#c3" transform="translate(768, 165) rotate(-4)" opacity="0.85"/>
+    <use href="#c4" transform="translate(920, 180) rotate(2)" opacity="0.9"/>
+    <use href="#c6" transform="translate(1065, 192) rotate(-3)" opacity="0.7"/>
+    <use href="#c2" transform="translate(1218, 170) rotate(5)" opacity="0.8"/>
+    <use href="#c1" transform="translate(1368, 185) rotate(-2)" opacity="0.85"/>
+
+    <use href="#c3" transform="translate(55, 335) rotate(-3)" opacity="0.85"/>
+    <use href="#c5" transform="translate(210, 318) rotate(2)" opacity="0.8"/>
+    <use href="#c6" transform="translate(375, 342) rotate(-4)" opacity="0.9"/>
+    <use href="#c4" transform="translate(535, 325) rotate(3)" opacity="0.75"/>
+    <use href="#c2" transform="translate(688, 338) rotate(-2)" opacity="0.85"/>
+    <use href="#c1" transform="translate(845, 315) rotate(4)" opacity="0.8"/>
+    <use href="#c3" transform="translate(995, 335) rotate(-3)" opacity="0.9"/>
+    <use href="#c5" transform="translate(1148, 320) rotate(2)" opacity="0.7"/>
+    <use href="#c6" transform="translate(1305, 342) rotate(-4)" opacity="0.85"/>
+    <use href="#c4" transform="translate(1448, 328) rotate(3)" opacity="0.8"/>
+
+    <use href="#c2" transform="translate(28, 488) rotate(4)" opacity="0.8"/>
+    <use href="#c4" transform="translate(172, 505) rotate(-2)" opacity="0.85"/>
+    <use href="#c1" transform="translate(325, 482) rotate(3)" opacity="0.9"/>
+    <use href="#c6" transform="translate(478, 498) rotate(-4)" opacity="0.75"/>
+    <use href="#c3" transform="translate(632, 485) rotate(2)" opacity="0.8"/>
+    <use href="#c5" transform="translate(785, 502) rotate(-3)" opacity="0.85"/>
+    <use href="#c2" transform="translate(938, 478) rotate(4)" opacity="0.9"/>
+    <use href="#c4" transform="translate(1085, 495) rotate(-2)" opacity="0.7"/>
+    <use href="#c6" transform="translate(1238, 488) rotate(3)" opacity="0.8"/>
+    <use href="#c1" transform="translate(1388, 505) rotate(-4)" opacity="0.85"/>
+
+    <use href="#c5" transform="translate(68, 638) rotate(-2)" opacity="0.85"/>
+    <use href="#c3" transform="translate(225, 655) rotate(3)" opacity="0.8"/>
+    <use href="#c4" transform="translate(392, 632) rotate(-4)" opacity="0.9"/>
+    <use href="#c1" transform="translate(548, 648) rotate(2)" opacity="0.75"/>
+    <use href="#c6" transform="translate(705, 635) rotate(-3)" opacity="0.8"/>
+    <use href="#c2" transform="translate(858, 652) rotate(4)" opacity="0.85"/>
+    <use href="#c5" transform="translate(1012, 638) rotate(-2)" opacity="0.9"/>
+    <use href="#c3" transform="translate(1165, 655) rotate(3)" opacity="0.7"/>
+    <use href="#c1" transform="translate(1318, 632) rotate(-4)" opacity="0.8"/>
+    <use href="#c4" transform="translate(1465, 648) rotate(2)" opacity="0.85"/>
+
+    <use href="#c6" transform="translate(38, 790) rotate(3)" opacity="0.8"/>
+    <use href="#c2" transform="translate(195, 775) rotate(-2)" opacity="0.85"/>
+    <use href="#c5" transform="translate(352, 792) rotate(4)" opacity="0.9"/>
+    <use href="#c3" transform="translate(508, 778) rotate(-3)" opacity="0.75"/>
+    <use href="#c1" transform="translate(662, 795) rotate(2)" opacity="0.8"/>
+    <use href="#c4" transform="translate(818, 775) rotate(-4)" opacity="0.85"/>
+    <use href="#c6" transform="translate(972, 792) rotate(3)" opacity="0.9"/>
+    <use href="#c2" transform="translate(1125, 778) rotate(-2)" opacity="0.7"/>
+    <use href="#c5" transform="translate(1278, 795) rotate(4)" opacity="0.8"/>
+    <use href="#c3" transform="translate(1432, 775) rotate(-3)" opacity="0.85"/>
+  </svg>
+</div>
       <style>{CSS}</style>
       <div className="grain"/>
 
@@ -693,22 +1038,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           <div key={i} style={{position:"absolute",inset:0,backgroundImage:`url(${sl.img})`,backgroundSize:"cover",backgroundPosition:"center 38%",opacity:i===slide?1:0,transition:"opacity 1.8s ease",zIndex:0,animation:i===slide?"heroZoom 22s ease-in-out infinite alternate":"none"}}/>
         ))}
 
-        {/* ── FIXED VIDEO: correct z-index + ref for autoplay ── */}
-        <video
-          ref={videoRef}
-          autoPlay muted loop playsInline
-          onError={e=>e.target.style.display="none"}
-          style={{
-            position:"absolute",inset:0,
-            width:"100%",height:"100%",
-            objectFit:"cover",
-            opacity:.4,
-            zIndex:1,
-            pointerEvents:"none",
-          }}
-        >
-          <source src="/videos/egypt-hero.mp4" type="video/mp4"/>
-        </video>
+        
 
         {/* Overlays z-index:2 */}
         <div style={{position:"absolute",inset:0,zIndex:2,background:"linear-gradient(to bottom,rgba(5,3,9,.58) 0%,rgba(5,3,9,.08) 28%,rgba(5,3,9,.7) 72%,rgba(5,3,9,1) 100%)"}}/>
@@ -832,7 +1162,8 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             )}
           </div>
         </div>
-
+{/* ── VIDEO PREVIEW BUTTON ── */}
+<VideoPreview />
         <div style={{position:"absolute",bottom:24,left:"50%",display:"flex",flexDirection:"column",alignItems:"center",gap:6,zIndex:4,animation:"scrollB 3s ease-in-out infinite"}}>
           <span style={{fontSize:8,letterSpacing:5,color:"rgba(201,168,76,.42)",textTransform:"uppercase"}}>SCROLL</span>
           <div style={{width:1,height:38,background:"linear-gradient(to bottom,rgba(201,168,76,.5),transparent)"}}/>

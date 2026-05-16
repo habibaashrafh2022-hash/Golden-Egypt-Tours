@@ -16,7 +16,7 @@ import AITripBuilder  from "./components/AITripBuilder";
 
 // ── New Components ──
 import LoadingScreen  from "./components/LoadingScreen";
-import LuxuryCursor   from "./components/LuxuryCursor";
+
 import useLenis       from "./hooks/useLenis";
 
 // ── Inner app (needs to be inside GlobalProvider) ──
@@ -25,7 +25,7 @@ function AppInner() {
 
   return (
     <>
-      <LuxuryCursor />
+     
 
       <BrowserRouter>
         <Routes>
