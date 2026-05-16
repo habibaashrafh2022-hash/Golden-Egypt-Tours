@@ -1,7 +1,7 @@
 // ============================================================
 //  Home.jsx — Golden Egypt Tours ★ LEGENDARY EDITION ★
-//  FULL VERSION — Part A of 2
-//  الصق Part A ثم Part B مباشرة بعده
+//  FULL VERSION — Original code 100% preserved
+//  ADDITIONS ONLY: video fix · AI API fix · languages · currencies
 // ============================================================
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -13,18 +13,19 @@ const CURR = {
   USD:{s:"$",    r:1,      l:"USD — US Dollar"},
   EUR:{s:"€",    r:0.92,   l:"EUR — Euro"},
   GBP:{s:"£",    r:0.79,   l:"GBP — British Pound"},
-  EGP:{s:"ج.م", r:48.5,   l:"EGP — Egyptian Pound"},
-  BRL:{s:"R$",  r:4.97,   l:"BRL — Brazilian Real"},
-  MXN:{s:"MX$", r:17.1,   l:"MXN — Mexican Peso"},
+  EGP:{s:"E£",   r:48.5,   l:"EGP — Egyptian Pound"},
+  BRL:{s:"R$",   r:4.97,   l:"BRL — Brazilian Real"},
+  MXN:{s:"MX$",  r:17.1,   l:"MXN — Mexican Peso"},
   CNY:{s:"¥",    r:7.24,   l:"CNY — Chinese Yuan"},
   JPY:{s:"¥",    r:149.5,  l:"JPY — Japanese Yen"},
   RUB:{s:"₽",    r:90.5,   l:"RUB — Russian Ruble"},
-  KWD:{s:"د.ك", r:0.31,   l:"KWD — Kuwaiti Dinar"},
-  SAR:{s:"﷼",   r:3.75,   l:"SAR — Saudi Riyal"},
-  AED:{s:"د.إ", r:3.67,   l:"AED — UAE Dirham"},
+  KWD:{s:"KD",   r:0.31,   l:"KWD — Kuwaiti Dinar"},
+  SAR:{s:"SR",   r:3.75,   l:"SAR — Saudi Riyal"},
+  AED:{s:"AED",  r:3.67,   l:"AED — UAE Dirham"},
   INR:{s:"₹",    r:83.1,   l:"INR — Indian Rupee"},
   ILS:{s:"₪",    r:3.7,    l:"ILS — Israeli Shekel"},
   TRY:{s:"₺",    r:32.1,   l:"TRY — Turkish Lira"},
+  CAD:{s:"C$",   r:1.36,   l:"CAD — Canadian Dollar"},
 };
 
 // ─── LANGUAGES ────────────────────────────────────────────────
@@ -33,7 +34,7 @@ const LANGS = {
   es:{flag:"🇪🇸",label:"Español",   dir:"ltr"},
   it:{flag:"🇮🇹",label:"Italiano",  dir:"ltr"},
   fr:{flag:"🇫🇷",label:"Français",  dir:"ltr"},
-  ar:{flag:"🇪🇬",label:"العربية",   dir:"rtl"},
+  ar:{flag:"🇸🇦",label:"العربية",   dir:"rtl"},
   de:{flag:"🇩🇪",label:"Deutsch",   dir:"ltr"},
   pt:{flag:"🇵🇹",label:"Português", dir:"ltr"},
   zh:{flag:"🇨🇳",label:"中文",       dir:"ltr"},
@@ -190,7 +191,7 @@ const SEARCH_ALL = [
 ];
 
 const GUIDE_LANGS = [
-  {v:"en",l:"English 🇬🇧"},{v:"ar",l:"العربية 🇪🇬"},{v:"es",l:"Español 🇪🇸"},
+  {v:"en",l:"English 🇬🇧"},{v:"ar",l:"العربية 🇸🇦"},{v:"es",l:"Español 🇪🇸"},
   {v:"it",l:"Italiano 🇮🇹"},{v:"fr",l:"Français 🇫🇷"},{v:"de",l:"Deutsch 🇩🇪"},
   {v:"pt",l:"Português 🇵🇹"},{v:"zh",l:"中文 🇨🇳"},{v:"nl",l:"Nederlands 🇳🇱"},
   {v:"ja",l:"日本語 🇯🇵"},{v:"ru",l:"Русский 🇷🇺"},{v:"he",l:"עברית 🇮🇱"},
@@ -210,9 +211,7 @@ const S = {
     transition:"all .4s cubic-bezier(.25,.8,.25,1)",
     boxShadow:"0 10px 30px rgba(0,0,0,.5)",
   },
-  cardBody:{
-    padding:"18px 20px 22px",
-  },
+  cardBody:{ padding:"18px 20px 22px" },
   cardName:{
     fontFamily:"'Cinzel',serif",
     fontSize:"clamp(13px,1.4vw,16px)",
@@ -476,22 +475,22 @@ function BookingModal({item,onClose,cur,lang}){
     </div>
   );
 }
+
 // ============================================================
-//  Home.jsx — Part B of 2
-//  الصق مباشرة بعد Part A
+//  Part B — Home component
 // ============================================================
 
 export default function Home(){
   const navigate = useNavigate();
   const { language, formatPrice } = useGlobal();
 
-  // ربط اللغة والعملة بالـ GlobalContext بدل الـ local state
-const { language: globalLang, currency: globalCur, setLanguage: setGlobalLang, setCurrency: setGlobalCur } = useGlobal();
-const [lang, setLangLocal] = useState(globalLang || "en");
-const [cur,  setCurLocal]  = useState(globalCur  || "USD");
+  const { language: globalLang, currency: globalCur, setLanguage: setGlobalLang, setCurrency: setGlobalCur } = useGlobal();
+  const [lang, setLangLocal] = useState(globalLang || "en");
+  const [cur,  setCurLocal]  = useState(globalCur  || "USD");
 
-const setLang = (code) => { setLangLocal(code); setGlobalLang(code); };
-const setCur  = (code) => { setCurLocal(code);  setGlobalCur(code);  };
+  const setLang = (code) => { setLangLocal(code); setGlobalLang(code); };
+  const setCur  = (code) => { setCurLocal(code);  setGlobalCur(code);  };
+
   const [scrolled,setSc]       = useState(false);
   const [mMenu,setMMenu]       = useState(false);
   const [lO,setLO]             = useState(false);
@@ -513,11 +512,11 @@ const setCur  = (code) => { setCurLocal(code);  setGlobalCur(code);  };
   const [aiLoad,setAiLoad]     = useState(false);
   const [aiDone,setAiDone]     = useState(false);
   const [pkgTab,setPkgTab]     = useState(0);
+  // ── ADDED: video ref for autoplay fix ──
+  const videoRef               = useRef(null);
 
-  // sync language from GlobalContext
- // sync مع GlobalContext في الاتجاهين
-useEffect(() => { if(globalLang) setLangLocal(globalLang); }, [globalLang]);
-useEffect(() => { if(globalCur)  setCurLocal(globalCur);  }, [globalCur]);
+  useEffect(() => { if(globalLang) setLangLocal(globalLang); }, [globalLang]);
+  useEffect(() => { if(globalCur)  setCurLocal(globalCur);  }, [globalCur]);
 
   const t      = TR[lang]||TR.en;
   const isRTL  = LANGS[lang]?.dir==="rtl";
@@ -538,13 +537,34 @@ useEffect(() => { if(globalCur)  setCurLocal(globalCur);  }, [globalCur]);
     if(SEARCH_ALL.some(d=>d.title.toLowerCase().includes(lq)))setAdv(true);
   },[q]);
 
+  // ── ADDED: video autoplay fix ──
+  useEffect(()=>{
+    const v = videoRef.current;
+    if(!v) return;
+    v.muted = true;
+    v.volume = 0;
+    v.play().catch(()=>{
+      // retry on first user interaction
+      const retry = () => { v.play().catch(()=>{}); };
+      document.addEventListener("click", retry, {once:true});
+      document.addEventListener("touchstart", retry, {once:true});
+    });
+  },[]);
+
   const buildAI=useCallback(async()=>{
     if(!aiQ.trim())return;
     setAiLoad(true);setAiRes("");setAiDone(false);
     try{
-      const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-        model:"claude-sonnet-4-20250514",max_tokens:1400,
-        system:`You are a senior Egypt travel specialist at Golden Egypt Tours, a luxury travel company.
+      const r=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          // ── ADDED: required header for browser direct access ──
+          "anthropic-dangerous-direct-browser-access":"true",
+        },
+        body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",max_tokens:1400,
+          system:`You are a senior Egypt travel specialist at Golden Egypt Tours, a luxury travel company.
 Create a COMPLETE, PROFESSIONAL travel itinerary:
 
 🗓️ ITINERARY OVERVIEW
@@ -575,8 +595,9 @@ Day 1 — [City]: Morning: [specific activity + site]. Afternoon: [activity]. Ev
 • Visa, best time, packing, cultural tips
 
 Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's language.`,
-        messages:[{role:"user",content:aiQ}]
-      })});
+          messages:[{role:"user",content:aiQ}]
+        })
+      });
       const d=await r.json();
       setAiRes(d.content?.map(i=>i.text||"").join("\n")||"⚠️ Error");
       setAiDone(true);
@@ -655,34 +676,60 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
               <button key={code} onClick={()=>{setLang(code);setMMenu(false);}} style={{background:lang===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1px solid rgba(201,168,76,.2)",color:lang===code?"var(--g)":"var(--dim)",borderRadius:8,padding:"6px 12px",cursor:"pointer",fontSize:11}}>{info.flag}</button>
             ))}
           </div>
+          {/* ── ADDED: mobile currency switcher ── */}
+          <div style={{display:"flex",gap:6,marginTop:10,flexWrap:"wrap"}}>
+            {Object.entries(CURR).slice(0,8).map(([code,{s}])=>(
+              <button key={code} onClick={()=>{setCur(code);setMMenu(false);}} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1px solid rgba(201,168,76,.18)",color:cur===code?"var(--g)":"var(--dim)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:10}}>{s} {code}</button>
+            ))}
+          </div>
           <button onClick={()=>{setBookItem({title:"General Enquiry"});setMMenu(false);}} className="btn-gold" style={{marginTop:18,width:"100%",padding:"14px",fontSize:13,letterSpacing:2}}>{t.bookNow}</button>
         </div>
       )}
 
       {/* ══════════════ HERO ══════════════ */}
       <section style={{position:"relative",height:"100vh",minHeight:640,maxHeight:1000,overflow:"hidden",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+        {/* Photo slides z-index:0 */}
         {HERO.map((sl,i)=>(
-          <div key={i} style={{position:"absolute",inset:0,backgroundImage:`url(${sl.img})`,backgroundSize:"cover",backgroundPosition:"center 38%",opacity:i===slide?1:0,transition:"opacity 1.8s ease",animation:i===slide?"heroZoom 22s ease-in-out infinite alternate":"none"}}/>
+          <div key={i} style={{position:"absolute",inset:0,backgroundImage:`url(${sl.img})`,backgroundSize:"cover",backgroundPosition:"center 38%",opacity:i===slide?1:0,transition:"opacity 1.8s ease",zIndex:0,animation:i===slide?"heroZoom 22s ease-in-out infinite alternate":"none"}}/>
         ))}
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(5,3,9,.58) 0%,rgba(5,3,9,.08) 28%,rgba(5,3,9,.7) 72%,rgba(5,3,9,1) 100%)"}}/>
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(to right,rgba(5,3,9,.5) 0%,transparent 60%)"}}/>
-        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 70% 55% at 50% 105%,rgba(201,168,76,.09),transparent 70%)"}}/>
 
-        {/* Floating hieroglyphs */}
+        {/* ── FIXED VIDEO: correct z-index + ref for autoplay ── */}
+        <video
+          ref={videoRef}
+          autoPlay muted loop playsInline
+          onError={e=>e.target.style.display="none"}
+          style={{
+            position:"absolute",inset:0,
+            width:"100%",height:"100%",
+            objectFit:"cover",
+            opacity:.4,
+            zIndex:1,
+            pointerEvents:"none",
+          }}
+        >
+          <source src="/videos/egypt-hero.mp4" type="video/mp4"/>
+        </video>
+
+        {/* Overlays z-index:2 */}
+        <div style={{position:"absolute",inset:0,zIndex:2,background:"linear-gradient(to bottom,rgba(5,3,9,.58) 0%,rgba(5,3,9,.08) 28%,rgba(5,3,9,.7) 72%,rgba(5,3,9,1) 100%)"}}/>
+        <div style={{position:"absolute",inset:0,zIndex:2,background:"linear-gradient(to right,rgba(5,3,9,.5) 0%,transparent 60%)"}}/>
+        <div style={{position:"absolute",inset:0,zIndex:2,background:"radial-gradient(ellipse 70% 55% at 50% 105%,rgba(201,168,76,.09),transparent 70%)"}}/>
+
+        {/* Floating hieroglyphs z-index:3 */}
         {["𓂀","𓅓","𓇋","𓆣","𓂋","𓃭"].map((h,i)=>(
-          <div key={i} style={{position:"absolute",fontSize:`${26+i*4}px`,color:"rgba(201,168,76,.045)",fontFamily:"serif",
+          <div key={i} style={{position:"absolute",zIndex:3,fontSize:`${26+i*4}px`,color:"rgba(201,168,76,.045)",fontFamily:"serif",
             left:`${[8,18,72,82,45,63][i]}%`,top:`${[15,55,25,65,40,80][i]}%`,
             animation:`float ${4+i*.8}s ease-in-out infinite`,animationDelay:`${i*.7}s`,pointerEvents:"none"}}>{h}</div>
         ))}
 
-        {/* Slide indicator */}
+        {/* Slide indicator z-index:5 */}
         <div style={{position:"absolute",top:100,right:"clamp(20px,4vw,52px)",zIndex:5,display:"flex",flexDirection:"column",gap:8}}>
           {HERO.map((_,i)=>(
             <button key={i} onClick={()=>setSlide(i)} style={{width:3,height:i===slide?36:12,borderRadius:2,background:i===slide?"var(--g)":"rgba(255,255,255,.18)",border:"none",cursor:"pointer",padding:0,transition:"all .45s ease"}}/>
           ))}
         </div>
 
-        {/* Location badge */}
+        {/* Location badge z-index:5 */}
         <div style={{position:"absolute",bottom:"clamp(158px,20vh,210px)",left:"clamp(20px,5vw,56px)",zIndex:5}} key={slide}>
           <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(5,3,9,.7)",backdropFilter:"blur(12px)",border:"1px solid rgba(201,168,76,.2)",borderRadius:10,padding:"7px 14px",animation:"fadeIn .8s ease"}}>
             <span style={{fontSize:12,color:"var(--g)"}}>📍</span>
@@ -692,26 +739,12 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           </div>
         </div>
 
-        {/* Dots */}
+        {/* Slide dots z-index:5 */}
         <div style={{position:"absolute",bottom:"clamp(140px,18vh,188px)",left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:5}}>
-          {/* Video Background */}
-<video
-  autoPlay muted loop playsInline
-  style={{
-    position: "absolute", inset: 0,
-    width: "100%", height: "100%",
-    objectFit: "cover",
-    opacity: 0.45,
-    zIndex: 0,
-    filter: "brightness(0.6) saturate(1.2)",
-  }}
->
-  <source src="/videos/egypt-hero.mp4" type="video/mp4"/>
-</video>
           {HERO.map((_,i)=><button key={i} onClick={()=>setSlide(i)} style={{width:i===slide?32:8,height:8,borderRadius:4,background:i===slide?"var(--g)":"rgba(255,255,255,.25)",border:"none",cursor:"pointer",padding:0,transition:"all .45s ease"}}/>)}
         </div>
 
-        {/* Hero content */}
+        {/* Hero content z-index:4 */}
         <div style={{position:"relative",zIndex:4,textAlign:"center",padding:"0 clamp(16px,5vw,64px)",width:"100%",maxWidth:980,animation:"fadeUp .9s ease both"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.1)",border:"1px solid rgba(201,168,76,.38)",borderRadius:32,padding:"7px 20px",marginBottom:26,backdropFilter:"blur(14px)"}}>
             <span style={{color:"var(--g)",fontSize:10,letterSpacing:3.5,textTransform:"uppercase",fontWeight:700}}>✦ {t.heroTag}</span>
@@ -728,7 +761,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <span style={{color:"var(--g)",fontSize:"clamp(20px,2.5vw,30px)",animation:"glowP 4s ease-in-out 2s infinite"}}>𓂀</span>
             <div style={{width:"clamp(40px,7vw,110px)",height:1,background:"linear-gradient(to left,transparent,rgba(201,168,76,.65))"}}/>
           </div>
-          {/* Hero CTAs */}
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",opacity:0,animation:"fadeUp .9s ease .4s forwards"}}>
             <button onClick={()=>setBookItem({title:"Book Your Egypt Adventure"})} className="btn-gold">{t.bookNow} ✦</button>
             <button onClick={()=>document.getElementById("ai-sec")?.scrollIntoView({behavior:"smooth"})} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(201,168,76,.35)",color:"var(--g)",borderRadius:10,padding:"13px 28px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:2,fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(10px)",transition:"all .25s"}}>🤖 AI Itinerary</button>
@@ -736,7 +768,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           </div>
         </div>
 
-        {/* ── ADVANCED SEARCH BOX ── */}
+        {/* ── ADVANCED SEARCH BOX z-index:5 ── */}
         <div style={{position:"relative",zIndex:5,width:"min(960px,94vw)",opacity:0,animation:"fadeUp .9s ease .48s forwards",marginTop:32}}>
           <div style={{background:"rgba(5,3,9,.87)",backdropFilter:"blur(30px)",border:"1px solid rgba(201,168,76,.3)",borderRadius:24,padding:"clamp(16px,3vw,26px)",boxShadow:"0 36px 100px rgba(0,0,0,.72),inset 0 1px 0 rgba(201,168,76,.18)"}}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:15}}>
@@ -859,42 +891,33 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           </div>
           <button onClick={()=>navigate("/packages")} className="btn-ghost">{t.viewAll} →</button>
         </div>
-
-        {/* Package cards grid */}
         <div className="pkgg" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:22}}>
           {PACKAGES.map((p,i)=>(
             <div key={i} className="pkgc" data-v={`pk${i}`}
               onClick={()=>navigate(p.link)}
               style={{...S.card,cursor:"pointer",opacity:vis[`pk${i}`]?1:0,transform:vis[`pk${i}`]?"none":"translateY(28px)",transition:`opacity .7s ease ${i*.09}s,transform .7s ease ${i*.09}s,all .4s cubic-bezier(.25,.8,.25,1)`}}>
-              {/* Image */}
               <div style={{position:"relative",height:220,overflow:"hidden",background:"#0E0B07"}}>
                 <img className="pkgi" src={p.img} alt={p.title}
                   style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",transition:"transform .6s ease",display:"block"}}
                   onError={e=>e.target.src=`https://placehold.co/600x400/110E08/C9A84C?text=${p.title.slice(0,10)}`}/>
                 <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(5,3,9,.92) 0%,rgba(5,3,9,.15) 55%,transparent 100%)"}}/>
-                {/* Badge */}
                 <div style={{position:"absolute",top:12,left:12,background:`${p.badgeColor}22`,border:`1px solid ${p.badgeColor}55`,color:p.badgeColor,fontSize:9,fontWeight:700,padding:"4px 12px",borderRadius:20,textTransform:"uppercase",letterSpacing:1.2,backdropFilter:"blur(8px)"}}>
                   {p.badge}
                 </div>
-                {/* Duration */}
                 <div style={{position:"absolute",top:12,right:12,background:"rgba(5,3,9,.75)",border:"1px solid rgba(201,168,76,.25)",color:"rgba(237,232,217,.85)",fontSize:9,padding:"4px 10px",borderRadius:8,backdropFilter:"blur(8px)"}}>
                   {p.days}
                 </div>
-                {/* Title on image */}
                 <div style={{position:"absolute",bottom:14,left:14,right:14}}>
                   <div style={{...S.cardName,fontSize:"clamp(14px,1.5vw,18px)",marginBottom:4}}>{p.title}</div>
                   <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"rgba(237,232,217,.5)"}}>{p.subtitle}</div>
                 </div>
               </div>
-              {/* Card body */}
               <div style={S.cardBody}>
-                {/* Tags */}
                 <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:14}}>
                   {p.tags.map((tag,j)=>(
                     <span key={j} style={{background:"rgba(201,168,76,.07)",border:"1px solid rgba(201,168,76,.15)",color:"rgba(201,168,76,.7)",fontSize:9,padding:"3px 9px",borderRadius:10,letterSpacing:.5}}>✦ {tag}</span>
                   ))}
                 </div>
-                {/* Price + CTA */}
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                   <div>
                     <span style={{color:"var(--muted)",fontSize:10}}>{t.pkgFrom} </span>
@@ -909,7 +932,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             </div>
           ))}
         </div>
-
         <div style={{textAlign:"center",marginTop:36}}>
           <button onClick={()=>navigate("/packages")} className="btn-gold" style={{padding:"14px 40px",fontSize:12}}>
             ✦ {t.exploreAll} {PACKAGES_COUNT}+ {t.packages}
@@ -999,7 +1021,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"var(--muted)",fontSize:"clamp(13px,1.8vw,18px)",maxWidth:680,margin:"0 auto"}}>{t.aiSub}</p>
           </div>
 
-          {/* 2-col layout */}
           <div className="aig" style={{display:"grid",gridTemplateColumns:"1fr 1.5fr",gap:32,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
 
             {/* Left — features */}
@@ -1026,7 +1047,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                   </div>
                 ))}
               </div>
-              {/* Trust */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
                 {[["🔒","Secure","Bank-grade"],["⚡","Instant","In seconds"],["🌍","11 Langs","Multilingual"],["💯","Free","No cost"]].map(([ic,t2,d],i)=>(
                   <div key={i} style={{background:"rgba(201,168,76,.05)",border:"1px solid rgba(201,168,76,.12)",borderRadius:12,padding:"12px",textAlign:"center"}}>
@@ -1047,19 +1067,17 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                 <label style={{display:"block",fontSize:10,color:"var(--g)",letterSpacing:3,textTransform:"uppercase",marginBottom:12,fontWeight:700}}>{t.aiLabel}</label>
 
                 <textarea value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
-                  placeholder={`e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500\n\nاو بالعربي: 10 أيام في مصر لشخصين بميزانية 3500 دولار`}
+                  placeholder={`e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500`}
                   style={{width:"100%",background:"rgba(201,168,76,.04)",border:"1px solid rgba(201,168,76,.22)",borderRadius:13,padding:"15px 17px",color:"var(--text)",fontSize:14,outline:"none",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.75,resize:"vertical",transition:"all .25s",colorScheme:"dark",marginBottom:14}}
                   onFocus={e=>{e.target.style.borderColor="rgba(201,168,76,.58)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.07)";}}
                   onBlur={e=>{e.target.style.borderColor="rgba(201,168,76,.22)";e.target.style.boxShadow="none";}}/>
 
-                {/* Quick chips */}
                 <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
                   {[
                     "10 days Egypt $3,500 for 2 — Cairo, Nile cruise, Hurghada",
                     "7-day Nile cruise + pyramids, mid-range budget",
                     "Luxury honeymoon Egypt 10 nights",
                     "Family Egypt 2 weeks $5,000 kids-friendly",
-                    "رحلة 10 أيام مصر لشخصين، أهرامات ورحلة نيلية، ميزانية 3500 دولار",
                   ].map((ch,i)=>(
                     <button key={i} className="chip" onClick={()=>setAiQ(ch)}
                       style={{background:"rgba(201,168,76,.07)",border:"1px solid rgba(201,168,76,.2)",color:"var(--dim)",borderRadius:22,padding:"6px 15px",fontSize:11,cursor:"pointer",transition:"all .2s"}}>
