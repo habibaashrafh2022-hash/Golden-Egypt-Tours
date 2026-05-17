@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./BookingForm.css";
 
-export default function BookingForm({ tourData, onSubmit }) {
+export default function BookingForm({ tourData, onSubmit, onGuestsChange }) {
   const [formData, setFormData] = useState({
     user: {
       name: "",
@@ -46,10 +46,11 @@ export default function BookingForm({ tourData, onSubmit }) {
   ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    const keys = name.split(".");
+  const { name, value } = e.target;
+  const keys = name.split(".");
 
-    setFormData(prev => {
+  setFormData(prev => {
+    const updated = (() => {
       if (keys.length === 2) {
         return {
           ...prev,
@@ -60,8 +61,16 @@ export default function BookingForm({ tourData, onSubmit }) {
         };
       }
       return { ...prev, [name]: value };
-    });
-  };
+    })();
+
+    // إبلاغ الـ parent بتغيير عدد الضيوف
+    if (name === "bookingDetails.numberOfGuests" && onGuestsChange) {
+      onGuestsChange(Number(value) || 1);
+    }
+
+    return updated;
+  });
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();

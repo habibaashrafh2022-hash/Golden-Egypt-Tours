@@ -6,6 +6,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AITripBuilder from "../components/AITripBuilder";
+import PaymentModal from "../components/PaymentModal";
 import { useGlobal } from "../context/GlobalContext";
 
 // ─── CURRENCIES ───────────────────────────────────────────────
@@ -528,10 +529,13 @@ function VideoPreview() {
           flexShrink:   0,
         }}>
           <video
-            src="/videos/egypt-hero.mp4"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            muted playsInline
-          />
+  src="/videos/egypt-hero.mp4"
+  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  muted playsInline
+  preload="metadata"
+  onMouseEnter={e => e.target.play().catch(()=>{})}
+  onMouseLeave={e => e.target.pause()}
+/>
           {/* Play icon overlay */}
           <div style={{
             position:       "absolute",
@@ -678,6 +682,8 @@ export default function Home(){
   const [subOk,setSubOk]       = useState(false);
   const [vis,setVis]           = useState({});
   const [bookItem,setBookItem] = useState(null);
+  const [payItem,   setPayItem]   = useState(null);
+const [payGuests, setPayGuests] = useState(1);
   const [aiQ,setAiQ]           = useState("");
   const [aiRes,setAiRes]       = useState("");
   const [aiLoad,setAiLoad]     = useState(false);
@@ -1634,6 +1640,13 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
       {/* ══════════════ BOOKING MODAL ══════════════ */}
       {bookItem&&<BookingModal item={bookItem} onClose={()=>setBookItem(null)} cur={cur} lang={lang}/>}
+        {payItem && (
+  <PaymentModal
+    item={payItem}
+    guests={payGuests}
+    onClose={() => setPayItem(null)}
+  />
+)}
     </div>
   );
 }

@@ -103,28 +103,33 @@ Trip details:
 
 Please provide all prices in ${currency} (${CURRENCIES[currency]?.s || "$"}).`;
   };
-
+ب
   const handleGenerate = async () => {
-    if (!input.trim()) return;
+  console.log("API KEY:", import.meta.env.VITE_ANTHROPIC_API_KEY); // ← أضيفي السطر ده
+  if (!input.trim()) return;
+
     setLoading(true);
     setPhase("thinking");
     setResult("");
     setError("");
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "anthropic-dangerous-direct-browser-access": "true",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 2000,
-          system: SYSTEM_PROMPT,
-          messages: [{ role: "user", content: buildPrompt() }],
-        }),
-      });
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${import.meta.env.VITE_ANTHROPIC_API_KEY}`,
+    "HTTP-Referer": "https://golden-egypt-tours.vercel.app",
+    "X-Title": "Golden Egypt Tours",
+  },
+  body: JSON.stringify({
+    model: "anthropic/claude-3-haiku",
+    max_tokens: 2000,
+    messages: [
+      { role: "user", content: SYSTEM_PROMPT + "\n\n" + buildPrompt() }
+    ],
+  }),
+});
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
@@ -132,7 +137,7 @@ Please provide all prices in ${currency} (${CURRENCIES[currency]?.s || "$"}).`;
       }
 
       const data = await res.json();
-      const text = data.content?.map(i => i.text || "").join("\n") || "";
+     const text = data.choices?.[0]?.message?.content || "";
 
       if (!text) throw new Error("Empty response from API");
 
