@@ -12,6 +12,136 @@ const cityData = {
   image: "marsa-alam.jpg",
 };
 
+// ─────────────────────────────────────────────
+//  CITY-WIDE ITINERARY  (5 days recommended)
+// ─────────────────────────────────────────────
+const cityItinerary = {
+  title: "5-Day Marsa Alam Explorer",
+  titleAr: "5 أيام في مرسى علم — المستكشف",
+  totalDays: 5,
+  recommendedFor: ["Divers", "Snorkelers", "Wildlife lovers", "Desert adventurers"],
+  recommendedForAr: ["محبو الغوص", "محبو الغطس", "عشاق الحياة البرية", "مغامرو الصحراء"],
+  narrative:
+    "Five days is the sweet spot for Marsa Alam — long enough to experience both the extraordinary Red Sea underwater world and the vast silence of the Eastern Desert, yet short enough to leave you hungry to return. Days one and two ease you into the water with accessible snorkeling bays. Day three is the crown jewel: a full day at Sataya Dolphin House. Day four swaps fins for quad-bike tyres in the desert. Day five closes with either a deeper dive or a leisurely morning on the beach before departure.",
+  narrativeAr:
+    "خمسة أيام هي الوقت المثالي في مرسى علم — طويلة بما يكفي لتختبر عالم البحر الأحمر المائي الاستثنائي وصمت صحراء الشرق الشاسع، وقصيرة بما يكفي لتغادر وأنت تشتاق للعودة. اليوم الأول والثاني يأخذانك تدريجياً إلى المياه بخلجان غطس سهلة. اليوم الثالث هو الجوهرة: يوم كامل في شعاب الساتايا مع الدلافين. اليوم الرابع تستبدل فيه زعانفك بعجلات الكواد في الصحراء. اليوم الخامس يختتم بغوص أعمق أو صباح هادئ على الشاطئ قبل المغادرة.",
+  days: [
+    {
+      dayNumber: 1,
+      title: "Arrival & Turtle Bay Welcome",
+      titleAr: "الوصول وخليج السلاحف",
+      theme: "Easy snorkeling — settle in gently",
+      themeAr: "غطس خفيف — استقبال هادئ",
+      schedule: [
+        { time: "09:00", activity: "Hotel pickup and transfer to Marsa Mubarak (Turtle Bay)", activityAr: "استقبال من الفندق والتوجه إلى مرسى مبارك (خليج السلاحف)" },
+        { time: "09:30", activity: "First snorkeling session — explore the seagrass beds and spot wild sea turtles feeding", activityAr: "جلسة الغطس الأولى — استكشاف أعشاب البحر ومشاهدة سلاحف البحر البرية تتغذى" },
+        { time: "11:00", activity: "Break on the boat — drinks and fresh fruit", activityAr: "استراحة على القارب — مشروبات وفاكهة طازجة" },
+        { time: "11:30", activity: "Second snorkeling session — reef fish and coral formations", activityAr: "جلسة الغطس الثانية — أسماك الشعاب والتكوينات المرجانية" },
+        { time: "13:00", activity: "Buffet lunch on board with Egyptian dishes", activityAr: "غداء بوفيه على متن القارب بأطباق مصرية" },
+        { time: "14:30", activity: "Return to shore and hotel drop-off", activityAr: "العودة إلى الشاطئ والإيصال للفندق" },
+        { time: "16:00", activity: "Free time — rest, beach walk, or hotel pool", activityAr: "وقت حر — راحة أو نزهة على الشاطئ أو حمام السباحة" },
+        { time: "19:30", activity: "Dinner at a local seafood restaurant in Marsa Alam town", activityAr: "عشاء في مطعم مأكولات بحرية محلي في مدينة مرسى علم" },
+      ],
+      recommendedTour: "snorkeling-marsa-mubarak-marsa-alam",
+      tips: "Bring reef-safe sunscreen and a rash guard — the midday sun on the water is intense.",
+      tipsAr: "أحضر واقي شمس آمن للشعاب المرجانية وسترة واقية — شمس الظهيرة على الماء قوية جداً.",
+    },
+    {
+      dayNumber: 2,
+      title: "Two Bays, One Morning",
+      titleAr: "خليجان في صباح واحد",
+      theme: "Sharm El Luli + Wadi El Qulaan national park",
+      themeAr: "شرم اللولي + محمية وادي القلعان الوطنية",
+      schedule: [
+        { time: "07:30", activity: "Hotel pickup — early start to beat the midday heat", activityAr: "استقبال من الفندق — انطلاق مبكر لتجنب حر منتصف النهار" },
+        { time: "08:00", activity: "Boat trip to Sharm El Luli — arrive at the turquoise natural bay", activityAr: "رحلة بحرية إلى شرم اللولي — الوصول إلى الخليج الطبيعي الفيروزي" },
+        { time: "08:30", activity: "Snorkeling session 1 at Sharm El Luli — vibrant coral reef and reef fish", activityAr: "جلسة الغطس الأولى في شرم اللولي — شعاب مرجانية حيوية وأسماك الشعاب" },
+        { time: "10:00", activity: "Short beach break on Sharm El Luli's powder-white sand", activityAr: "استراحة قصيرة على الرمال البيضاء الناعمة لشرم اللولي" },
+        { time: "10:30", activity: "Move by boat to Wadi El Qulaan National Park waters", activityAr: "التنقل بالقارب إلى مياه محمية وادي القلعان الوطنية" },
+        { time: "11:00", activity: "Snorkeling session 2 — sea turtles, pristine ecosystems inside the protected park", activityAr: "جلسة الغطس الثانية — سلاحف البحر والأنظمة البيئية البكر داخل المحمية" },
+        { time: "12:30", activity: "Return to shore — hotel drop-off", activityAr: "العودة إلى الشاطئ — الإيصال للفندق" },
+        { time: "14:00", activity: "Lunch and afternoon rest", activityAr: "غداء وراحة بعد الظهر" },
+        { time: "17:00", activity: "Optional: Semi-submarine tour for a no-wet alternative view of the reef", activityAr: "اختياري: جولة الغواصة شبه الغاطسة لمشاهدة الشعاب بدون بلل" },
+        { time: "20:00", activity: "Dinner at hotel or beachside restaurant", activityAr: "عشاء في الفندق أو مطعم على الشاطئ" },
+      ],
+      recommendedTour: "snorkel-sharm-luli-wadi-qulaan-marsa-alam",
+      tips: "Wadi El Qulaan is a protected national park — no touching corals or feeding fish.",
+      tipsAr: "وادي القلعان محمية وطنية — ممنوع لمس الشعاب أو إطعام الأسماك.",
+    },
+    {
+      dayNumber: 3,
+      title: "Dolphin House — The Crown Jewel",
+      titleAr: "بيت الدولفين — جوهرة مرسى علم",
+      theme: "Full day at Sataya Reef with wild spinner dolphins",
+      themeAr: "يوم كامل في شعاب الساتايا مع دلافين سبينر البرية",
+      schedule: [
+        { time: "06:30", activity: "Hotel pickup — very early departure to reach Sataya before other boats", activityAr: "استقبال من الفندق — مغادرة مبكرة جداً للوصول إلى الساتايا قبل باقي القوارب" },
+        { time: "07:00", activity: "Depart marina heading south towards Sataya Reef", activityAr: "المغادرة من المرسى متجهين جنوباً نحو شعاب الساتايا" },
+        { time: "09:30", activity: "Arrive at Sataya Dolphin House — briefing on dolphin interaction etiquette", activityAr: "الوصول إلى بيت الدولفين في الساتايا — إحاطة عن آداب التفاعل مع الدلافين" },
+        { time: "10:00", activity: "First snorkeling session — enter the water with the resident pod of spinner dolphins", activityAr: "جلسة الغطس الأولى — الدخول إلى الماء مع قطيع دلافين سبينر المقيم" },
+        { time: "11:30", activity: "Back on boat — rest, refreshments, guide shares facts about Red Sea dolphins", activityAr: "العودة للقارب — راحة ومرطبات والمرشد يشارك معلومات عن دلافين البحر الأحمر" },
+        { time: "12:00", activity: "Explore the reef caves and underwater tunnels around Sataya — second snorkel", activityAr: "استكشاف كهوف الشعاب والأنفاق تحت الماء حول الساتايا — الغطس الثاني" },
+        { time: "13:30", activity: "Buffet lunch on board — fresh fruit, Egyptian mezze, grilled fish", activityAr: "غداء بوفيه على القارب — فاكهة طازجة ومزة مصرية وسمك مشوي" },
+        { time: "14:30", activity: "Relaxed afternoon — sunbathing on deck or optional third snorkel at the reef wall", activityAr: "بعد ظهر هادئ — حمام شمس على السطح أو غطس ثالث اختياري عند جدار الشعاب" },
+        { time: "16:00", activity: "Begin return journey north to Marsa Alam", activityAr: "بدء رحلة العودة شمالاً إلى مرسى علم" },
+        { time: "18:30", activity: "Arrive marina — hotel drop-off", activityAr: "الوصول للمرسى — الإيصال للفندق" },
+        { time: "20:30", activity: "Celebratory dinner — you've just swum with wild dolphins", activityAr: "عشاء احتفالي — لقد سبحت للتو مع دلافين برية" },
+      ],
+      recommendedTour: "sataya-reef-boat-trip-snorkeling-dolphins-marsa-alam",
+      tips: "Do not chase, touch, or surround the dolphins — let them approach you. Spinner dolphins rest in the morning so be quiet and patient in the water.",
+      tipsAr: "لا تطارد الدلافين أو تلمسها أو تحيط بها — دعها تقترب منك. دلافين سبينر ترتاح في الصباح لذا كن هادئاً وصبوراً في الماء.",
+    },
+    {
+      dayNumber: 4,
+      title: "Desert Day — Dunes, Bedouin & Stars",
+      titleAr: "يوم الصحراء — الكثبان والبدو والنجوم",
+      theme: "Eastern Desert quad, camel ride, Bedouin village & dinner under the stars",
+      themeAr: "كواد صحراء الشرق وركوب الجمل وقرية بدوية وعشاء تحت النجوم",
+      schedule: [
+        { time: "09:00", activity: "Hotel pickup — head inland towards the Eastern Desert", activityAr: "استقبال من الفندق — التوجه داخلياً نحو صحراء الشرق" },
+        { time: "09:30", activity: "Safety briefing and quad bike familiarization", activityAr: "إحاطة أمنية والتعرف على الدراجة الرباعية" },
+        { time: "10:00", activity: "1-hour quad bike ride — 25-30 km through golden dunes and rocky desert plains", activityAr: "جولة كواد لمدة ساعة — 25-30 كم عبر الكثبان الذهبية والسهول الصحراوية الصخرية" },
+        { time: "11:00", activity: "Arrive at traditional Bedouin village — sweet Bedouin tea and cultural exchange", activityAr: "الوصول إلى القرية البدوية التقليدية — شاي بدوي حلو وتبادل ثقافي" },
+        { time: "11:45", activity: "15-minute camel ride through the dunes", activityAr: "جولة ركوب جمل لمدة 15 دقيقة عبر الكثبان" },
+        { time: "12:30", activity: "Return to hotel — rest and beach time during peak afternoon heat", activityAr: "العودة للفندق — راحة ووقت على الشاطئ خلال حر الظهيرة" },
+        { time: "15:00", activity: "Optional: Red Sea Semi-Submarine Tour if not done on Day 2 evening", activityAr: "اختياري: جولة الغواصة شبه الغاطسة إذا لم تُنجز مساء اليوم الثاني" },
+        { time: "17:30", activity: "Second hotel pickup — head back to desert for sunset experience", activityAr: "استقبال ثانٍ من الفندق — العودة إلى الصحراء لتجربة الغروب" },
+        { time: "18:00", activity: "Watch the sun set over the Eastern Desert dunes", activityAr: "مشاهدة غروب الشمس فوق كثبان صحراء الشرق" },
+        { time: "18:30", activity: "Camel ride through the cooling desert at dusk", activityAr: "ركوب الجمل عبر الصحراء المعتدلة عند الغسق" },
+        { time: "19:30", activity: "Gather around the campfire — traditional Bedouin live music and dance show", activityAr: "التجمع حول نار المخيم — موسيقى بدوية حية وعرض رقص تقليدي" },
+        { time: "20:30", activity: "Bedouin dinner under a vast star-filled sky", activityAr: "عشاء بدوي تحت سماء مليئة بالنجوم" },
+        { time: "22:00", activity: "Return to hotel", activityAr: "العودة للفندق" },
+      ],
+      recommendedTour: "desert-quad-camel-ride-dinner-show-marsa-alam",
+      tips: "Wear long sleeves and closed shoes for the quad — desert dust is fine and the sun is strong even in the morning.",
+      tipsAr: "ارتدِ أكماماً طويلة وحذاءً مغلقاً للكواد — غبار الصحراء ناعم والشمس قوية حتى في الصباح.",
+    },
+    {
+      dayNumber: 5,
+      title: "Final Dive or Gentle Farewell",
+      titleAr: "الغوص الأخير أو وداع هادئ",
+      theme: "Beginner scuba dive OR leisurely morning beach day before departure",
+      themeAr: "غوص للمبتدئين أو صباح هادئ على الشاطئ قبل المغادرة",
+      schedule: [
+        { time: "08:00", activity: "Hotel pickup — head to the dive centre for morning briefing (divers) OR free beach morning (non-divers)", activityAr: "استقبال من الفندق — التوجه لمركز الغوص للإحاطة الصباحية (للغواصين) أو صباح حر على الشاطئ (لغير الغواصين)" },
+        { time: "08:30", activity: "[Divers] Dry land safety and technique briefing with certified instructor", activityAr: "[الغواصون] إحاطة السلامة والتقنيات على اليابسة مع مدرب معتمد" },
+        { time: "09:30", activity: "[Divers] First scuba dive at Marsa Alam reef — pristine corals and tropical fish", activityAr: "[الغواصون] الغوصة الأولى في شعاب مرسى علم — شعاب مرجانية بكر وأسماك استوائية" },
+        { time: "11:00", activity: "[Divers] Surface interval — rest and refreshments", activityAr: "[الغواصون] فترة استراحة على السطح — راحة ومرطبات" },
+        { time: "11:30", activity: "[Divers] Second scuba dive at a second reef location", activityAr: "[الغواصون] الغوصة الثانية في موقع شعاب ثانٍ" },
+        { time: "13:00", activity: "Return to hotel — final lunch", activityAr: "العودة للفندق — الغداء الأخير" },
+        { time: "14:30", activity: "Pack, shower, last beach walk", activityAr: "الحزم والاستحمام والنزهة الأخيرة على الشاطئ" },
+        { time: "16:00", activity: "Departure transfer to Marsa Alam Airport or onward destination", activityAr: "نقل المغادرة إلى مطار مرسى علم أو الوجهة التالية" },
+      ],
+      recommendedTour: "red-sea-beginners-scuba-diving-marsa-alam",
+      tips: "If flying out, remember the 18-hour no-fly rule after scuba diving. Plan your last dive accordingly, or opt for snorkeling instead.",
+      tipsAr: "إذا كنت ستسافر بالطائرة، تذكر قاعدة عدم الطيران لمدة 18 ساعة بعد الغوص. خطط لغوصتك الأخيرة وفقاً لذلك، أو اختر الغطس بدلاً منه.",
+    },
+  ],
+};
+
+// ─────────────────────────────────────────────
+//  TOURS DATA  (each with tourSchedule field)
+// ─────────────────────────────────────────────
 const toursData = [
   {
     title: "Snorkel Sharm El Luli & Wadi El Qulaan",
@@ -44,6 +174,25 @@ const toursData = [
     ],
     includes: ["Boat trip", "Snorkeling equipment", "Guide", "Hotel pickup and drop-off"],
     excludes: ["Meals", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "4 hours",
+      startTime: "07:30",
+      endTime: "11:30",
+      narrative:
+        "An early-morning two-bay snorkeling adventure that starts at the iconic Sharm El Luli natural bay, then moves to the protected waters of Wadi El Qulaan National Park. Early departure is essential to catch the calmer sea conditions and softer morning light that make the corals glow.",
+      narrativeAr:
+        "مغامرة غطس في خليجين في الصباح الباكر تبدأ في خليج شرم اللولي الطبيعي الأيقوني، ثم تنتقل إلى المياه المحمية لمحمية وادي القلعان الوطنية. الانطلاق المبكر ضروري للاستفادة من هدوء البحر وضوء الصباح اللطيف الذي يجعل الشعاب المرجانية تتوهج.",
+      steps: [
+        { time: "07:30", durationMinutes: 15, step: "Hotel pickup and transfer to Marsa Alam marina", stepAr: "استقبال من الفندق والتوجه إلى مرسى مرسى علم" },
+        { time: "07:45", durationMinutes: 15, step: "Board the boat — equipment distribution and guide safety briefing", stepAr: "الصعود على القارب — توزيع المعدات وإحاطة المرشد الأمنية" },
+        { time: "08:00", durationMinutes: 30, step: "Boat trip to Sharm El Luli bay", stepAr: "رحلة بحرية إلى خليج شرم اللولي" },
+        { time: "08:30", durationMinutes: 60, step: "First snorkeling session at Sharm El Luli — vibrant coral reef, reef fish, and the beautiful powder-white beach", stepAr: "جلسة الغطس الأولى في شرم اللولي — شعاب مرجانية حيوية وأسماك الشعاب والشاطئ الأبيض الجميل" },
+        { time: "09:30", durationMinutes: 30, step: "Short beach break on Sharm El Luli — rest on the sand, drinks served", stepAr: "استراحة قصيرة على شاطئ شرم اللولي — راحة على الرمال وتقديم المشروبات" },
+        { time: "10:00", durationMinutes: 15, step: "Boat moves to Wadi El Qulaan National Park marine area", stepAr: "انتقال القارب إلى المنطقة البحرية لمحمية وادي القلعان الوطنية" },
+        { time: "10:15", durationMinutes: 60, step: "Second snorkeling session — sea turtles, pristine coral ecosystems inside the protected national park", stepAr: "جلسة الغطس الثانية — سلاحف البحر والأنظمة البيئية المرجانية البكر داخل المحمية الوطنية" },
+        { time: "11:15", durationMinutes: 15, step: "Return boat trip to marina and hotel drop-off", stepAr: "رحلة العودة بالقارب إلى المرسى والإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Snorkeling in Marsa Mubarak",
@@ -76,6 +225,27 @@ const toursData = [
     ],
     includes: ["Boat trip", "Snorkeling equipment", "Buffet lunch", "Hotel pickup and drop-off"],
     excludes: ["Wetsuit rental", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "8 hours",
+      startTime: "08:00",
+      endTime: "16:00",
+      narrative:
+        "A full day centered on Marsa Mubarak — Turtle Bay — one of Egypt's most protected and biodiverse marine bays. Two snorkeling sessions bookend a generous on-board buffet lunch, giving you maximum time in the water with the resident sea turtle population.",
+      narrativeAr:
+        "يوم كامل في مرسى مبارك — خليج السلاحف — أحد أكثر الخلجان البحرية حماية وتنوعاً بيولوجياً في مصر. جلستا غطس تحيطان بغداء بوفيه سخي على القارب، مما يمنحك أقصى وقت في الماء مع سكان خليج السلاحف البرية.",
+      steps: [
+        { time: "08:00", durationMinutes: 15, step: "Hotel pickup and transfer to marina", stepAr: "استقبال من الفندق والتوجه إلى المرسى" },
+        { time: "08:15", durationMinutes: 15, step: "Board boat — equipment fitting and safety briefing", stepAr: "الصعود على القارب — تجهيز المعدات والإحاطة الأمنية" },
+        { time: "08:30", durationMinutes: 30, step: "Boat trip to Marsa Mubarak (Turtle Bay)", stepAr: "رحلة بحرية إلى مرسى مبارك (خليج السلاحف)" },
+        { time: "09:00", durationMinutes: 90, step: "First snorkeling session — sea turtle encounters at the seagrass feeding grounds, reef fish and coral formations", stepAr: "جلسة الغطس الأولى — مشاهدة سلاحف البحر في مراعي أعشاب البحر وأسماك الشعاب والتكوينات المرجانية" },
+        { time: "10:30", durationMinutes: 30, step: "Back on board — rest, drinks and guide commentary on marine life", stepAr: "العودة للقارب — راحة ومشروبات وتعليق المرشد على الحياة البحرية" },
+        { time: "11:00", durationMinutes: 90, step: "Second snorkeling session — deeper reef exploration, coral gardens and tropical fish schools", stepAr: "جلسة الغطس الثانية — استكشاف أعمق للشعاب وحدائق المرجان وأسراب الأسماك الاستوائية" },
+        { time: "12:30", durationMinutes: 60, step: "Buffet lunch on board — Egyptian mezze, grilled fish, fresh fruit and soft drinks", stepAr: "غداء بوفيه على القارب — مزة مصرية وسمك مشوي وفاكهة طازجة ومشروبات غازية" },
+        { time: "13:30", durationMinutes: 120, step: "Relaxed afternoon — sunbathing on deck, optional free snorkeling near the boat", stepAr: "بعد ظهر هادئ — حمام شمس على السطح وغطس حر اختياري بالقرب من القارب" },
+        { time: "15:30", durationMinutes: 30, step: "Return boat trip to marina", stepAr: "رحلة العودة بالقارب إلى المرسى" },
+        { time: "16:00", durationMinutes: 0, step: "Hotel drop-off", stepAr: "الإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Snorkeling in Qulaan Islands",
@@ -108,6 +278,27 @@ const toursData = [
     ],
     includes: ["Boat trip", "Snorkeling equipment", "Buffet lunch", "Hotel pickup and drop-off"],
     excludes: ["Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "9 hours",
+      startTime: "07:00",
+      endTime: "16:00",
+      narrative:
+        "A full-day southward expedition to the remote Qulaan Archipelago inside Wadi El Gemal National Park. Three snorkeling stops at different reef points are spaced across the day, with an island beach walk and a generous on-board buffet lunch. The remoteness of this destination means an early departure is non-negotiable.",
+      narrativeAr:
+        "رحلة استكشافية يومية كاملة جنوباً إلى أرخبيل القلعان النائي داخل محمية وادي الجمال الوطنية. ثلاث نقاط غطس في مواقع شعاب مختلفة موزعة على مدار اليوم، مع نزهة على شاطئ الجزيرة وغداء بوفيه سخي على القارب. بُعد هذه الوجهة يعني أن الانطلاق المبكر أمر لا مفر منه.",
+      steps: [
+        { time: "07:00", durationMinutes: 15, step: "Hotel pickup — early departure essential due to long transit south", stepAr: "استقبال من الفندق — المغادرة المبكرة ضرورية بسبب العبور الطويل جنوباً" },
+        { time: "07:15", durationMinutes: 15, step: "Board boat at marina — safety briefing and snorkeling equipment distribution", stepAr: "الصعود على القارب في المرسى — الإحاطة الأمنية وتوزيع معدات الغطس" },
+        { time: "07:30", durationMinutes: 90, step: "Boat transit south to Qulaan Archipelago inside Wadi El Gemal National Park", stepAr: "عبور القارب جنوباً إلى أرخبيل القلعان داخل محمية وادي الجمال الوطنية" },
+        { time: "09:00", durationMinutes: 60, step: "First snorkeling stop — pristine outer reef wall with sharks, turtles and pelagic fish", stepAr: "نقطة الغطس الأولى — جدار الشعاب الخارجي البكر مع أسماك القرش والسلاحف والأسماك المفتوحة" },
+        { time: "10:00", durationMinutes: 60, step: "Second snorkeling stop — coral garden inside the lagoon with dense reef fish schools", stepAr: "نقطة الغطس الثانية — حديقة مرجانية داخل اللاغون مع أسراب كثيفة من أسماك الشعاب" },
+        { time: "11:00", durationMinutes: 45, step: "Island stop — walk the white sandy beaches, explore native flora and birdlife", stepAr: "توقف عند الجزيرة — نزهة على الشواطئ الرملية البيضاء واستكشاف النباتات الأصلية والحياة الطيرية" },
+        { time: "11:45", durationMinutes: 75, step: "Buffet lunch on board — fresh fruit, Egyptian dishes and cold drinks", stepAr: "غداء بوفيه على القارب — فاكهة طازجة وأطباق مصرية ومشروبات باردة" },
+        { time: "13:00", durationMinutes: 60, step: "Third snorkeling stop — second reef with dolphins frequently spotted in this area", stepAr: "نقطة الغطس الثالثة — الشعاب الثانية حيث كثيراً ما تُشاهد الدلافين في هذه المنطقة" },
+        { time: "14:00", durationMinutes: 90, step: "Return boat transit north back to Marsa Alam marina", stepAr: "عبور القارب عائداً شمالاً إلى مرسى مرسى علم" },
+        { time: "15:30", durationMinutes: 30, step: "Arrive marina — gear collection and hotel drop-off", stepAr: "الوصول للمرسى — تجميع المعدات والإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Red Sea Egyptian Boat Tour",
@@ -140,6 +331,27 @@ const toursData = [
     ],
     includes: ["Boat trip", "Underwater observation deck", "Snorkeling equipment", "Lunch", "Hotel pickup and drop-off"],
     excludes: ["Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "7 hours",
+      startTime: "09:00",
+      endTime: "16:00",
+      narrative:
+        "A uniquely theatrical day at sea aboard the Nefertari — a pharaonic-themed vessel with an underwater observation deck three meters below the waterline. The experience alternates between passive reef viewing through panoramic windows and active snorkeling at Marsa Mubarak, making it ideal for mixed groups including non-swimmers.",
+      narrativeAr:
+        "يوم بحري فريد من نوعه على متن نفرتاري — سفينة فرعونية الطابع بمنصة مراقبة تحت الماء على عمق ثلاثة أمتار تحت خط الماء. تتناوب التجربة بين مشاهدة الشعاب بشكل سلبي من خلال نوافذ بانورامية والغطس النشط في مرسى مبارك، مما يجعلها مثالية للمجموعات المختلطة بما فيها غير السباحين.",
+      steps: [
+        { time: "09:00", durationMinutes: 15, step: "Hotel pickup and transfer to marina", stepAr: "استقبال من الفندق والتوجه إلى المرسى" },
+        { time: "09:15", durationMinutes: 15, step: "Board the Nefertari boat — welcome orientation and tour of the pharaonic décor", stepAr: "الصعود على قارب نفرتاري — توجيه ترحيبي وجولة في الديكور الفرعوني" },
+        { time: "09:30", durationMinutes: 30, step: "Depart marina and sail towards Marsa Mubarak bay", stepAr: "المغادرة من المرسى والإبحار نحو خليج مرسى مبارك" },
+        { time: "10:00", durationMinutes: 60, step: "Underwater observation deck session 1 — panoramic window views of coral reef, turtles, rays, and reef fish as the boat drifts slowly", stepAr: "جلسة منصة المراقبة تحت الماء الأولى — مناظر بانورامية للشعاب المرجانية والسلاحف والراي وأسماك الشعاب بينما يسير القارب ببطء" },
+        { time: "11:00", durationMinutes: 90, step: "First snorkeling session at Marsa Mubarak — turtle encounters and coral gardens", stepAr: "جلسة الغطس الأولى في مرسى مبارك — لقاءات السلاحف وحدائق المرجان" },
+        { time: "12:30", durationMinutes: 60, step: "On-board lunch — Egyptian dishes served in the decorated dining area", stepAr: "غداء على القارب — أطباق مصرية تُقدَّم في منطقة الطعام المزخرفة" },
+        { time: "13:30", durationMinutes: 60, step: "Underwater observation deck session 2 — chance to spot dugongs in deeper water", stepAr: "جلسة منصة المراقبة تحت الماء الثانية — فرصة لرؤية أطواق البحر في المياه العميقة" },
+        { time: "14:30", durationMinutes: 60, step: "Second snorkeling session — free exploration near the boat", stepAr: "جلسة الغطس الثانية — استكشاف حر بالقرب من القارب" },
+        { time: "15:30", durationMinutes: 30, step: "Return to marina", stepAr: "العودة إلى المرسى" },
+        { time: "16:00", durationMinutes: 0, step: "Hotel drop-off", stepAr: "الإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Desert Quad Tour + Camel Ride + Dinner & Show",
@@ -172,6 +384,27 @@ const toursData = [
     ],
     includes: ["Quad bike", "Camel ride", "Bedouin dinner", "Show", "Hotel pickup and drop-off"],
     excludes: ["Alcoholic drinks", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "7 hours",
+      startTime: "15:30",
+      endTime: "22:30",
+      narrative:
+        "A sunset-timed desert adventure that makes the most of the cooler late afternoon and evening hours. The tour is deliberately scheduled to reach the dunes at the golden hour, ride the camel as the sun dips, and sit down to dinner under a sky blazing with stars.",
+      narrativeAr:
+        "مغامرة صحراوية موقوتة عند الغروب تستغل ساعات أواخر الظهيرة والمساء الأكثر برودة. الجولة مجدولة عمداً للوصول إلى الكثبان في الساعة الذهبية وركوب الجمل بينما تغرب الشمس والجلوس على العشاء تحت سماء تتوهج بالنجوم.",
+      steps: [
+        { time: "15:30", durationMinutes: 30, step: "Hotel pickup and drive into the Eastern Desert", stepAr: "استقبال من الفندق والتوجه إلى صحراء الشرق" },
+        { time: "16:00", durationMinutes: 15, step: "Arrival at desert basecamp — safety briefing and quad bike helmet fitting", stepAr: "الوصول إلى معسكر الصحراء — الإحاطة الأمنية وتجهيز خوذات الدراجة الرباعية" },
+        { time: "16:15", durationMinutes: 40, step: "Quad bike ride — 40 minutes through golden dunes and desert terrain towards the Bedouin village", stepAr: "جولة الكواد — 40 دقيقة عبر الكثبان الذهبية والتضاريس الصحراوية نحو القرية البدوية" },
+        { time: "16:55", durationMinutes: 45, step: "Arrive Bedouin village — sweet Bedouin tea, cultural exchange and desert life stories from local hosts", stepAr: "الوصول إلى القرية البدوية — شاي بدوي حلو وتبادل ثقافي وقصص حياة الصحراء من المضيفين المحليين" },
+        { time: "17:40", durationMinutes: 30, step: "Camel ride at sunset — ride through the cooling dunes as the sky turns orange and red", stepAr: "ركوب الجمل عند الغروب — ركوب عبر الكثبان المعتدلة بينما تتحول السماء إلى البرتقالي والأحمر" },
+        { time: "18:10", durationMinutes: 50, step: "Watch the sun set over the desert — photography time and free exploration of the dunes on foot", stepAr: "مشاهدة غروب الشمس فوق الصحراء — وقت التصوير والاستكشاف الحر للكثبان سيراً على الأقدام" },
+        { time: "19:00", durationMinutes: 30, step: "Campfire lit — traditional music begins, guests settle around the fire", stepAr: "إشعال نار المخيم — بدء الموسيقى التقليدية واستقرار الضيوف حول النار" },
+        { time: "19:30", durationMinutes: 60, step: "Live traditional Bedouin music and dance show around the campfire", stepAr: "عرض موسيقى وراقص بدوية تقليدية حية حول نار المخيم" },
+        { time: "20:30", durationMinutes: 90, step: "Bedouin dinner under the stars — grilled meats, rice, salads, flatbread and Bedouin tea", stepAr: "عشاء بدوي تحت النجوم — لحوم مشوية وأرز وسلطات وخبز مصري وشاي بدوي" },
+        { time: "22:00", durationMinutes: 30, step: "Return drive to hotel drop-off", stepAr: "رحلة العودة بالسيارة والإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Quad Tour + Camel Ride + Snorkeling in the Red Sea",
@@ -204,6 +437,25 @@ const toursData = [
     ],
     includes: ["Quad bike", "Camel ride", "Snorkeling equipment", "Guide", "Hotel pickup and drop-off"],
     excludes: ["Meals", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "3 hours",
+      startTime: "08:00",
+      endTime: "11:00",
+      narrative:
+        "A compact but exhilarating morning that packs three entirely different experiences — desert quad, camel, and Red Sea snorkeling — into just three hours. The early start ensures cool desert air for the quad ride, with the snorkeling session perfectly timed for calm morning sea conditions.",
+      narrativeAr:
+        "صباح مضغوط لكن مثير يجمع ثلاث تجارب مختلفة تماماً — كواد الصحراء والجمل والغطس في البحر الأحمر — في ثلاث ساعات فقط. الانطلاق المبكر يضمن هواء الصحراء البارد لجولة الكواد مع توقيت جلسة الغطس بشكل مثالي لهدوء البحر في الصباح.",
+      steps: [
+        { time: "08:00", durationMinutes: 15, step: "Hotel pickup and short drive to desert basecamp", stepAr: "استقبال من الفندق وقيادة قصيرة إلى معسكر الصحراء" },
+        { time: "08:15", durationMinutes: 15, step: "Safety briefing and quad bike helmet and gear fitting", stepAr: "الإحاطة الأمنية وتجهيز الخوذة ومعدات الدراجة الرباعية" },
+        { time: "08:30", durationMinutes: 60, step: "Quad bike ride — 1 hour, 25-30 km through Saharan dunes and rocky desert landscape to the Bedouin village", stepAr: "جولة الكواد — ساعة واحدة، 25-30 كم عبر كثبان الصحراء الكبرى والمشهد الصحراوي الصخري إلى القرية البدوية" },
+        { time: "09:30", durationMinutes: 20, step: "Bedouin village visit — sweet tea and brief cultural exchange with local inhabitants", stepAr: "زيارة القرية البدوية — شاي حلو وتبادل ثقافي موجز مع السكان المحليين" },
+        { time: "09:50", durationMinutes: 15, step: "Camel ride through the dunes back towards the road", stepAr: "ركوب الجمل عبر الكثبان عائداً نحو الطريق" },
+        { time: "10:05", durationMinutes: 10, step: "Transfer by bus from desert to the Red Sea coast", stepAr: "الانتقال بالحافلة من الصحراء إلى ساحل البحر الأحمر" },
+        { time: "10:15", durationMinutes: 30, step: "Snorkeling session in the Red Sea — rinse off the desert dust in crystal-clear water", stepAr: "جلسة الغطس في البحر الأحمر — ازل غبار الصحراء في مياه بلورية صافية" },
+        { time: "10:45", durationMinutes: 15, step: "Return transfer to hotel", stepAr: "رحلة العودة للفندق" },
+      ],
+    },
   },
   {
     title: "Red Sea Beginners Scuba Diving",
@@ -236,6 +488,27 @@ const toursData = [
     ],
     includes: ["Two dives", "All diving equipment", "Certified instructor", "Hotel pickup and drop-off"],
     excludes: ["Meals", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "6 hours",
+      startTime: "08:00",
+      endTime: "14:00",
+      narrative:
+        "A carefully structured six-hour introduction to scuba diving that never rushes a beginner. One full hour on dry land is dedicated to safety and technique before any water entry. Two dives at separate reef sites build confidence progressively, with a full surface interval between them. The 18-hour no-fly rule makes this best planned for non-departure days.",
+      narrativeAr:
+        "مقدمة مدروسة لمدة ست ساعات لتعلم الغوص لا تستعجل المبتدئ أبداً. ساعة كاملة على اليابسة مخصصة للسلامة والتقنية قبل أي دخول للماء. غوصتان في موقعي شعاب منفصلين تبنيان الثقة تدريجياً مع فترة استراحة كاملة على السطح بينهما. قاعدة عدم الطيران لمدة 18 ساعة تجعل هذا مناسباً بشكل أفضل في أيام غير المغادرة.",
+      steps: [
+        { time: "08:00", durationMinutes: 15, step: "Hotel pickup and transfer to dive centre", stepAr: "استقبال من الفندق والتوجه إلى مركز الغوص" },
+        { time: "08:15", durationMinutes: 60, step: "Dry land training — diving signals, mask clearing, regulator breathing, buoyancy basics and emergency procedures with certified instructor", stepAr: "التدريب على اليابسة — إشارات الغوص وتنظيف القناع والتنفس من منظم الضغط وأساسيات التعويم وإجراءات الطوارئ مع مدرب معتمد" },
+        { time: "09:15", durationMinutes: 15, step: "Equipment fitting — wetsuit, BCD, tank, fins and mask", stepAr: "تجهيز المعدات — بدلة الغوص وجاكيت التعويم والأسطوانة والزعانف والقناع" },
+        { time: "09:30", durationMinutes: 60, step: "First scuba dive at Marsa Alam reef site 1 — shallow dive (5-8m) with instructor, focus on coral life and technique", stepAr: "الغوصة الأولى في موقع شعاب مرسى علم 1 — غوصة ضحلة (5-8 م) مع المدرب، التركيز على الحياة المرجانية والتقنية" },
+        { time: "10:30", durationMinutes: 45, step: "Surface interval — rest on the boat, refreshments, instructor debrief and tips for the second dive", stepAr: "فترة الاستراحة على السطح — راحة على القارب ومرطبات وإحاطة المدرب ونصائح للغوصة الثانية" },
+        { time: "11:15", durationMinutes: 60, step: "Second scuba dive at reef site 2 — slightly deeper (8-12m), explore coral wall, moray eels, lionfish and reef sharks", stepAr: "الغوصة الثانية في موقع الشعاب 2 — أعمق قليلاً (8-12 م)، استكشاف جدار المرجان وأسماك المورايا والأسماك الأسد وأسماك قرش الشعاب" },
+        { time: "12:15", durationMinutes: 30, step: "Return to dive centre — equipment rinse and return", stepAr: "العودة إلى مركز الغوص — شطف المعدات وإعادتها" },
+        { time: "12:45", durationMinutes: 15, step: "Receive dive log entry and certificate of first dive from instructor", stepAr: "الحصول على تدوين دفتر الغوص وشهادة الغوصة الأولى من المدرب" },
+        { time: "13:00", durationMinutes: 60, step: "Optional: lunch near the dive centre before hotel drop-off", stepAr: "اختياري: غداء بالقرب من مركز الغوص قبل الإيصال للفندق" },
+        { time: "14:00", durationMinutes: 0, step: "Hotel drop-off", stepAr: "الإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Civitatis eSIM Card Egypt",
@@ -268,6 +541,7 @@ const toursData = [
     ],
     includes: ["eSIM data plan for selected duration"],
     excludes: ["Voice calls", "SMS"],
+    tourSchedule: null,
   },
   {
     title: "Red Sea Semi-Submarine Tour",
@@ -300,6 +574,24 @@ const toursData = [
     ],
     includes: ["Semi-submarine ride", "Hotel pickup and drop-off"],
     excludes: ["Meals", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "3 hours",
+      startTime: "10:00",
+      endTime: "13:00",
+      narrative:
+        "A relaxed three-hour coastal cruise aboard a semi-submarine, ideal for families, elderly guests, or anyone who wants the Red Sea experience without getting wet. The observation deck three meters below the waterline turns the sea floor into a living aquarium.",
+      narrativeAr:
+        "جولة ساحلية هادئة لمدة ثلاث ساعات على متن غواصة شبه غاطسة، مثالية للعائلات وكبار السن أو أي شخص يريد تجربة البحر الأحمر دون أن يبتل. منصة المراقبة على عمق ثلاثة أمتار تحت خط الماء تحول قاع البحر إلى حوض سمك حي.",
+      steps: [
+        { time: "10:00", durationMinutes: 15, step: "Hotel pickup and transfer to marina", stepAr: "استقبال من الفندق والتوجه إلى المرسى" },
+        { time: "10:15", durationMinutes: 15, step: "Board the semi-submarine — guide explains the vessel and the reef ecosystem", stepAr: "الصعود على الغواصة شبه الغاطسة — المرشد يشرح السفينة والنظام البيئي للشعاب" },
+        { time: "10:30", durationMinutes: 30, step: "Descend to underwater observation deck — panoramic window views as the vessel moves slowly along the reef", stepAr: "النزول إلى منصة المراقبة تحت الماء — مناظر بانورامية من النوافذ بينما تتحرك السفينة ببطء على طول الشعاب" },
+        { time: "11:00", durationMinutes: 30, step: "Observation deck session 2 — deeper reef section with schools of tropical fish and rays", stepAr: "جلسة منصة المراقبة الثانية — قسم الشعاب الأعمق مع أسراب الأسماك الاستوائية والراي" },
+        { time: "11:30", durationMinutes: 30, step: "Return to upper deck — guide commentary on marine life spotted, refreshments served", stepAr: "العودة إلى السطح العلوي — تعليق المرشد على الحياة البحرية التي شوهدت وتقديم المرطبات" },
+        { time: "12:00", durationMinutes: 30, step: "Final observation deck pass — turtle spotting zone near the seagrass meadows", stepAr: "المرور الأخير لمنصة المراقبة — منطقة مراقبة السلاحف بالقرب من مروج أعشاب البحر" },
+        { time: "12:30", durationMinutes: 30, step: "Return to marina and hotel drop-off", stepAr: "العودة إلى المرسى والإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Day Trip to Luxor from Marsa Alam",
@@ -332,6 +624,27 @@ const toursData = [
     ],
     includes: ["Guide", "Hotel pickup and drop-off", "Transport", "Entrance fees", "Lunch"],
     excludes: ["Tutankhamun tomb (extra fee)", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "11 hours",
+      startTime: "05:00",
+      endTime: "16:00",
+      narrative:
+        "A long but deeply rewarding day that crosses the Eastern Desert to reach Luxor — the world's greatest open-air museum. The 5 AM departure is non-negotiable: it places you at the Valley of the Kings before the tour-bus crowds arrive and before the temperature makes the outdoor sites uncomfortable. Every hour of sleep lost on the drive is repaid a hundredfold by what you find on the West Bank.",
+      narrativeAr:
+        "يوم طويل لكن مُجزٍ بعمق يعبر صحراء الشرق للوصول إلى الأقصر — أعظم متحف في الهواء الطلق في العالم. المغادرة الساعة 5 صباحاً ضرورية: تضعك في وادي الملوك قبل وصول حشود حافلات السياحة وقبل أن تجعل درجة الحرارة المواقع الخارجية غير مريحة. كل ساعة نوم تضيع في القيادة يُعاض عنها بألف ضعف بما تجده في الضفة الغربية.",
+      steps: [
+        { time: "05:00", durationMinutes: 15, step: "Hotel pickup — very early departure to beat the desert heat and tourist crowds in Luxor", stepAr: "استقبال من الفندق — مغادرة مبكرة جداً لتجنب حر الصحراء وحشود السياح في الأقصر" },
+        { time: "05:15", durationMinutes: 295, step: "Minibus journey west across the Eastern Desert to Luxor — approximately 5 hours, guide shares Egyptological context en route", stepAr: "رحلة الميني باص غرباً عبر صحراء الشرق إلى الأقصر — حوالي 5 ساعات، المرشد يشارك السياق الأثري على الطريق" },
+        { time: "10:10", durationMinutes: 20, step: "Arrive Luxor West Bank — brief orientation stop at the Colossi of Memnon", stepAr: "الوصول إلى الضفة الغربية للأقصر — توقف توجيهي قصير عند تمثالي ممنون" },
+        { time: "10:30", durationMinutes: 90, step: "Valley of the Kings — enter three elaborately decorated royal tombs with Egyptologist guide (tomb selection based on current access)", stepAr: "وادي الملوك — دخول ثلاثة مقابر ملكية مزخرفة بشكل رائع مع مرشد أثري (اختيار المقابر بناءً على الوصول الحالي)" },
+        { time: "12:00", durationMinutes: 45, step: "Mortuary Temple of Hatshepsut — the spectacular cliff-carved temple of Egypt's greatest female pharaoh", stepAr: "معبد الجنائز لحتشبسوت — المعبد الرائع المنحوت في الصخر لأعظم فرعونة في مصر" },
+        { time: "12:45", durationMinutes: 60, step: "Lunch at a local Luxor restaurant — Egyptian cuisine in the heart of ancient Thebes", stepAr: "الغداء في مطعم محلي في الأقصر — مطبخ مصري في قلب طيبة القديمة" },
+        { time: "13:45", durationMinutes: 30, step: "Optional: Nile felucca boat ride (extra fee) OR free time in the temple area", stepAr: "اختياري: جولة قارب فلوكة على النيل (رسوم إضافية) أو وقت حر في منطقة المعبد" },
+        { time: "14:15", durationMinutes: 5, step: "Final stop — Colossi of Memnon for photos", stepAr: "التوقف الأخير — تمثالا ممنون للتصوير" },
+        { time: "14:20", durationMinutes: 280, step: "Return minibus journey east across the desert back to Marsa Alam", stepAr: "رحلة الميني باص عائداً شرقاً عبر الصحراء إلى مرسى علم" },
+        { time: "19:00", durationMinutes: 0, step: "Arrive Marsa Alam — hotel drop-off", stepAr: "الوصول إلى مرسى علم — الإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Civitatis Travel Insurance",
@@ -363,6 +676,7 @@ const toursData = [
     ],
     includes: ["Travel insurance coverage as per selected plan"],
     excludes: ["Pre-existing medical conditions (check policy)"],
+    tourSchedule: null,
   },
   {
     title: "Sataya Reef Boat Trip + Snorkeling with Dolphins",
@@ -395,6 +709,27 @@ const toursData = [
     ],
     includes: ["Boat trip", "Snorkeling equipment", "Buffet lunch and drinks", "Guide", "Hotel pickup and drop-off"],
     excludes: ["Airport pickup (extra fee)", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "9 hours",
+      startTime: "06:30",
+      endTime: "15:30",
+      narrative:
+        "The flagship experience of Marsa Alam and one of the most extraordinary wildlife encounters in all of Egypt. The early departure is critical — spinner dolphins are most active and curious in the morning hours. Two separate snorkeling sessions are scheduled: the first for dolphin interaction in open water, the second for exploring the reef's caves and tunnel formations.",
+      narrativeAr:
+        "التجربة الرائدة في مرسى علم وواحدة من أكثر لقاءات الحياة البرية استثنائية في مصر بأكملها. المغادرة المبكرة أمر بالغ الأهمية — دلافين سبينر الأكثر نشاطاً وفضولاً في ساعات الصباح. جلستا غطس منفصلتان مجدولتان: الأولى للتفاعل مع الدلافين في المياه المفتوحة، والثانية لاستكشاف كهوف الشعاب وتكوينات الأنفاق.",
+      steps: [
+        { time: "06:30", durationMinutes: 15, step: "Hotel pickup — very early departure for the long southbound journey to Sataya", stepAr: "استقبال من الفندق — مغادرة مبكرة جداً للرحلة الطويلة جنوباً إلى الساتايا" },
+        { time: "06:45", durationMinutes: 15, step: "Board boat at marina — safety briefing and dolphin etiquette guidelines from guide", stepAr: "الصعود على القارب في المرسى — الإحاطة الأمنية وإرشادات آداب التعامل مع الدلافين من المرشد" },
+        { time: "07:00", durationMinutes: 150, step: "Boat journey south approximately 2.5 hours to Sataya Reef (Dolphin House)", stepAr: "رحلة القارب جنوباً حوالي 2.5 ساعة إلى شعاب الساتايا (بيت الدولفين)" },
+        { time: "09:30", durationMinutes: 15, step: "Arrive Sataya — observe the dolphin pod from the boat before entering the water", stepAr: "الوصول إلى الساتايا — مراقبة قطيع الدلافين من القارب قبل الدخول إلى الماء" },
+        { time: "09:45", durationMinutes: 120, step: "First snorkeling session — 2 hours in the water with wild resident spinner dolphins in their natural lagoon habitat", stepAr: "جلسة الغطس الأولى — ساعتان في الماء مع دلافين سبينر المقيمة البرية في موطن اللاغون الطبيعي الخاص بها" },
+        { time: "11:45", durationMinutes: 45, step: "Back on boat — rest, refreshments, guide narrates facts about spinner dolphins and Sataya Reef ecology", stepAr: "العودة للقارب — راحة ومرطبات والمرشد يروي حقائق عن دلافين سبينر وبيئة شعاب الساتايا" },
+        { time: "12:30", durationMinutes: 60, step: "Buffet lunch on board — fresh fruit, Egyptian dishes, grilled fish and soft drinks", stepAr: "غداء بوفيه على القارب — فاكهة طازجة وأطباق مصرية وسمك مشوي ومشروبات غازية" },
+        { time: "13:30", durationMinutes: 60, step: "Second snorkeling session — explore the reef's hidden caves, underwater tunnels and the outer wall with diverse coral life", stepAr: "جلسة الغطس الثانية — استكشاف الكهوف المخفية في الشعاب والأنفاق تحت الماء والجدار الخارجي بحياته المرجانية المتنوعة" },
+        { time: "14:30", durationMinutes: 60, step: "Return boat journey north to Marsa Alam marina", stepAr: "رحلة القارب عائداً شمالاً إلى مرسى مرسى علم" },
+        { time: "15:30", durationMinutes: 0, step: "Arrive marina — hotel drop-off", stepAr: "الوصول للمرسى — الإيصال للفندق" },
+      ],
+    },
   },
   {
     title: "Desert Camel Ride in Marsa Alam",
@@ -427,6 +762,22 @@ const toursData = [
     ],
     includes: ["Camel ride", "Instructor", "Tea/coffee", "Hotel pickup and drop-off"],
     excludes: ["Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "2 hours",
+      startTime: "07:00",
+      endTime: "09:00",
+      narrative:
+        "A short and sweet early-morning desert experience — perfect as an add-on to a beach day or as a gentle introduction to the Eastern Desert for families and first-time Egypt visitors. The early hour keeps it cool and the light is spectacular for photography.",
+      narrativeAr:
+        "تجربة صحراوية قصيرة ولطيفة في الصباح الباكر — مثالية كإضافة ليوم الشاطئ أو كمقدمة لطيفة لصحراء الشرق للعائلات وزوار مصر لأول مرة. الساعة المبكرة تجعلها باردة والضوء رائع للتصوير.",
+      steps: [
+        { time: "07:00", durationMinutes: 15, step: "Hotel pickup and short drive to camel stable at desert edge", stepAr: "استقبال من الفندق وقيادة قصيرة إلى إسطبل الجمال على حافة الصحراء" },
+        { time: "07:15", durationMinutes: 15, step: "Instructor introduction — meet your camel, learn mounting technique and basic camel guidance commands", stepAr: "تعريف المدرب — تعرف على جملك وتعلم تقنية الصعود وأوامر توجيه الجمل الأساسية" },
+        { time: "07:30", durationMinutes: 60, step: "One-hour camel ride through Eastern Desert dunes and acacia tree landscape — instructor shares camel history and Bedouin desert lore", stepAr: "جولة ركوب جمل لمدة ساعة عبر كثبان صحراء الشرق ومشهد أشجار السنط — المدرب يشارك تاريخ الجمال وتراث صحراء البدو" },
+        { time: "08:30", durationMinutes: 15, step: "Return to stables — dismount and farewell tea or coffee with the camel handlers", stepAr: "العودة إلى الإسطبلات — النزول من الجمل وشاي أو قهوة الوداع مع رعاة الجمال" },
+        { time: "08:45", durationMinutes: 15, step: "Return drive to hotel", stepAr: "رحلة العودة بالسيارة إلى الفندق" },
+      ],
+    },
   },
   {
     title: "Desert Quad Tour in Marsa Alam",
@@ -459,7 +810,25 @@ const toursData = [
     ],
     includes: ["Quad bike", "Safety equipment", "Guide", "Bedouin tea", "Hotel pickup and drop-off"],
     excludes: ["Meals", "Tips", "Personal expenses"],
+    tourSchedule: {
+      totalDuration: "3 hours",
+      startTime: "08:00",
+      endTime: "11:00",
+      narrative:
+        "A focused three-hour quad safari through the Eastern Desert, structured around two riding legs with a cultural pause at a Bedouin village in between. The morning departure exploits the cooler temperatures and golden desert light before the heat becomes intense.",
+      narrativeAr:
+        "سفاري كواد مركزة لمدة ثلاث ساعات عبر صحراء الشرق، مهيكلة حول ساقين للركوب مع توقف ثقافي في قرية بدوية بينهما. المغادرة الصباحية تستغل درجات الحرارة الأكثر برودة والضوء الصحراوي الذهبي قبل أن يصبح الحر شديداً.",
+      steps: [
+        { time: "08:00", durationMinutes: 15, step: "Hotel pickup and drive to desert basecamp", stepAr: "استقبال من الفندق والتوجه إلى معسكر الصحراء" },
+        { time: "08:15", durationMinutes: 15, step: "Safety briefing — helmet fitting, throttle and brake controls, emergency stop procedure", stepAr: "الإحاطة الأمنية — تجهيز الخوذة والتحكم بالخانق والفرامل وإجراء التوقف الطارئ" },
+        { time: "08:30", durationMinutes: 45, step: "First riding leg — quad bike through open desert dunes and rocky plateau towards the Bedouin village", stepAr: "الساق الأولى للركوب — كواد عبر الكثبان الصحراوية المفتوحة والهضبة الصخرية نحو القرية البدوية" },
+        { time: "09:15", durationMinutes: 30, step: "Bedouin village stop — sweet desert tea with local hosts, learn about nomadic desert life and Bedouin traditions", stepAr: "توقف القرية البدوية — شاي صحراء حلو مع المضيفين المحليين، تعرف على حياة الصحراء الرحلة والتقاليد البدوية" },
+        { time: "09:45", durationMinutes: 45, step: "Second riding leg — loop back through a different desert track with sand dunes and rocky desert plains", stepAr: "الساق الثانية للركوب — حلقة عودة عبر مسار صحراوي مختلف مع كثبان رملية وسهول صحراوية صخرية" },
+        { time: "10:30", durationMinutes: 15, step: "Return to basecamp — helmet and gear return", stepAr: "العودة إلى معسكر الصحراء — إعادة الخوذة والمعدات" },
+        { time: "10:45", durationMinutes: 15, step: "Return drive to hotel drop-off", stepAr: "رحلة العودة بالسيارة والإيصال للفندق" },
+      ],
+    },
   },
 ];
 
-export { cityData, toursData };
+export { cityData, cityItinerary, toursData };

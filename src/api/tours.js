@@ -1,4 +1,4 @@
-const BASE = "http://localhost:5000/api";
+const BASE = fetch("https://your-app.up.railway.app/api/tours");
 
 export async function getTours() {
   const res = await fetch(`${BASE}/tours`);

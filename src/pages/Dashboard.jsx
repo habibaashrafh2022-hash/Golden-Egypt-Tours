@@ -25,7 +25,7 @@ export default function Dashboard() {
     setLoading(true);
     setError("");
 
-    fetch("http://localhost:5000/api/dashboard", {
+    fetch("https://your-app.up.railway.app/api/tours/api/dashboard", {
       headers: {
         Authorization: `Bearer ${token}`
       }

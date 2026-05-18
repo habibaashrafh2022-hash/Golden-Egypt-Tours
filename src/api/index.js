@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = fetch("https://your-app.up.railway.app/api/tours");
 
 export const getAllCities = async () => {
   const res = await fetch(`${BASE_URL}/cities`);

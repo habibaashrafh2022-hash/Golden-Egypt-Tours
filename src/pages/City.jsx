@@ -1,7 +1,7 @@
 // ============================================================
 //  CityPage.jsx — Golden Egypt Tours
 //  Route: /city/:cityId
-//  Data source: API (http://localhost:5000/api)
+//  Data source: API fetch("https://your-app.up.railway.app/api/tours")
 // ============================================================
 
 import { useState, useEffect, useCallback } from "react";
