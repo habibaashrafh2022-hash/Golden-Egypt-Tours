@@ -25,7 +25,7 @@ export default function Dashboard() {
     setLoading(true);
     setError("");
 
-    fetch("https://your-app.up.railway.app/api/tours/api/dashboard", {
+    fetch("https://golden-egypt-tours-production.up.railway.app/tours/api/dashboard", {
       headers: {
         Authorization: `Bearer ${token}`
       }

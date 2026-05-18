@@ -1,4 +1,4 @@
-const BASE = fetch("https://your-app.up.railway.app/api/tours");
+const BASE = fetch("https://golden-egypt-tours-production.up.railway.app");
 
 export async function getTours() {
   const res = await fetch(`${BASE}/tours`);
