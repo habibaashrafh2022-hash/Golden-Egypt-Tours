@@ -1,0 +1,114 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 0.9s;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  z-index: 2;
+}
+
+.loading-emblem {
+  animation: emblemPulse 2s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+@keyframes emblemPulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(212,168,67,0.4)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 28px rgba(212,168,67,0.7)); transform: scale(1.04); }
+}
+
+.loading-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-brand-line {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  color: rgba(212,168,67,0.7);
+  font-weight: 200;
+}
+
+.loading-brand-main {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #fcd34d, #d4a843, #92660a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.08em;
+}
+
+.loading-phase {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  text-transform: uppercase;
+  height: 20px;
+  transition: opacity 0.4s;
+}
+
+.loading-bar-track {
+  width: 200px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fcd34d, #d4a843, #b8860b);
+  border-radius: 2px;
+  transition: width 0.15s ease;
+  box-shadow: 0 0 8px rgba(212,168,67,0.6);
+}
+
+.loading-percent {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: rgba(212,168,67,0.5);
+  font-weight: 300;
+}
+
+/* Particles */
+.loading-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #fcd34d, transparent);
+  border-radius: 50%;
+  animation: particleFloat var(--dur, 3s) ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  30% { opacity: 0.8; transform: translateY(-40px) scale(1); }
+  100% { opacity: 0; transform: translateY(-120px) scale(0.3); }
+}

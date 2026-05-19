@@ -1,0 +1,503 @@
+/* ============================================
+   GOLDEN EGYPT TOURS — GLOBAL DESIGN SYSTEM
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Josefin+Sans:wght@100;200;300;400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ─── CSS VARIABLES ─── */
+:root {
+  /* Gold Palette */
+  --gold-100: #fffbf0;
+  --gold-200: #fef3c7;
+  --gold-300: #fcd34d;
+  --gold-400: #f59e0b;
+  --gold-500: #d4a843;
+  --gold-600: #b8860b;
+  --gold-700: #92660a;
+  --gold-glow: #d4a843;
+
+  /* Gold Gradients */
+  --gradient-gold: linear-gradient(135deg, #f6d365 0%, #d4a843 40%, #b8860b 100%);
+  --gradient-gold-h: linear-gradient(90deg, #f6d365 0%, #d4a843 50%, #b8860b 100%);
+  --gradient-gold-text: linear-gradient(135deg, #fcd34d 0%, #d4a843 50%, #92660a 100%);
+  --gradient-hero: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.85) 100%);
+
+  /* Dark Luxury */
+  --black: #000000;
+  --dark-900: #050505;
+  --dark-800: #0a0a0a;
+  --dark-700: #111111;
+  --dark-600: #1a1a1a;
+  --dark-500: #222222;
+  --dark-400: #2d2d2d;
+  --dark-300: #3d3d3d;
+  --dark-200: #555555;
+  --dark-100: #888888;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-gold: #d4a843;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Josefin Sans', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+
+  /* Spacing */
+  --section-py: clamp(80px, 10vw, 140px);
+  --container-px: clamp(20px, 5vw, 80px);
+  --container-max: 1400px;
+
+  /* Transitions */
+  --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 0.2s var(--ease-luxury);
+  --transition-med: 0.4s var(--ease-luxury);
+  --transition-slow: 0.8s var(--ease-luxury);
+
+  /* Borders */
+  --border-gold: 1px solid rgba(212, 168, 67, 0.3);
+  --border-gold-bright: 1px solid rgba(212, 168, 67, 0.7);
+  --border-white: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Shadows */
+  --shadow-gold: 0 0 40px rgba(212, 168, 67, 0.15);
+  --shadow-gold-strong: 0 0 60px rgba(212, 168, 67, 0.3);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 100px;
+}
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--dark-900);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: none;
+  font-family: inherit;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-500);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(212, 168, 67, 0.6);
+  transition: width 0.3s var(--ease-luxury),
+              height 0.3s var(--ease-luxury),
+              border-color 0.3s;
+}
+
+.cursor-ring.hovering {
+  width: 56px;
+  height: 56px;
+  border-color: var(--gold-500);
+  background: rgba(212, 168, 67, 0.08);
+}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-gold-h);
+  z-index: 9999;
+  transform-origin: left;
+  transition: width 0.1s linear;
+}
+
+/* ─── TYPOGRAPHY ─── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.heading-sm {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* ─── GOLD TEXT ─── */
+.text-gold {
+  background: var(--gradient-gold-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gold-solid {
+  color: var(--gold-500);
+}
+
+/* ─── CONTAINER ─── */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+/* ─── SECTION ─── */
+.section {
+  padding: var(--section-py) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── SECTION HEADER ─── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 40px;
+  background: var(--gradient-gold-h);
+}
+
+.section-label::after {
+  width: 20px;
+}
+
+/* ─── GOLD LINE DIVIDER ─── */
+.gold-line {
+  width: 80px;
+  height: 2px;
+  background: var(--gradient-gold-h);
+  margin: 20px 0;
+}
+
+.gold-line-center {
+  margin: 20px auto;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  transition: all 0.35s var(--ease-luxury);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.3s;
+}
+
+.btn:hover::after {
+  background: rgba(255,255,255,0.06);
+}
+
+.btn-gold {
+  background: var(--gradient-gold);
+  color: var(--dark-900);
+  box-shadow: 0 4px 24px rgba(212, 168, 67, 0.3);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(212, 168, 67, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold-500);
+  color: var(--gold-500);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-primary);
+  border: var(--border-white);
+  backdrop-filter: blur(10px);
+}
+
+.btn-ghost:hover {
+  background: rgba(212, 168, 67, 0.1);
+  border-color: rgba(212, 168, 67, 0.4);
+}
+
+/* ─── GLASS CARD ─── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: var(--border-gold);
+  border-radius: var(--radius-lg);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(212, 168, 67, 0.5);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-4px);
+  transition: all 0.4s var(--ease-luxury);
+}
+
+/* ─── PHARAONIC PATTERN ─── */
+.pharaoh-pattern {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(212, 168, 67, 0.03) 10px,
+      rgba(212, 168, 67, 0.03) 11px
+    );
+}
+
+/* ─── GLOW EFFECTS ─── */
+.glow-gold {
+  box-shadow: var(--shadow-gold);
+}
+
+.glow-text {
+  text-shadow: 0 0 30px rgba(212, 168, 67, 0.4);
+}
+
+/* ─── ANIMATED UNDERLINE ─── */
+.link-gold {
+  position: relative;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.link-gold::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gradient-gold-h);
+  transition: width 0.4s var(--ease-luxury);
+}
+
+.link-gold:hover {
+  color: var(--gold-500);
+}
+
+.link-gold:hover::after {
+  width: 100%;
+}
+
+/* ─── GOLD TAG / BADGE ─── */
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(212, 168, 67, 0.12);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.3), transparent);
+  margin: 0;
+}
+
+/* ─── GRAIN TEXTURE OVERLAY ─── */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── LOADING SCREEN ─── */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--dark-900);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s var(--ease-luxury), visibility 0.8s;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-600);
+  border-radius: 2px;
+}
+
+/* ─── SELECTION ─── */
+::selection {
+  background: rgba(212, 168, 67, 0.3);
+  color: var(--gold-300);
+}
+
+/* ─── RESPONSIVE UTILITIES ─── */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+  :root {
+    --section-py: 60px;
+    --container-px: 20px;
+  }
+}

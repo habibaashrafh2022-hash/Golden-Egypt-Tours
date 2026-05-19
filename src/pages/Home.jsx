@@ -8,7 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AITripBuilder from "../components/AITripBuilder";
 import PaymentModal from "../components/PaymentModal";
 import { useGlobal } from "../context/GlobalContext";
-
+import Hero from '../components/Hero/Hero';
 // ─── CURRENCIES ───────────────────────────────────────────────
 const CURR = {
   USD:{s:"$",    r:1,      l:"USD — US Dollar"},

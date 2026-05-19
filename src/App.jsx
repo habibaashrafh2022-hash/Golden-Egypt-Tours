@@ -2,44 +2,174 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalContext";
 import { useState, useEffect } from "react";
 
-// ── Pages ──
-import Home           from "./pages/Home";
-import City           from "./pages/City";
-import Tour           from "./pages/Tour";
-import Hotels         from "./pages/Hotels";
-import Packages       from "./pages/Packages";
+// ── Existing Pages ──
+import Home            from "./pages/Home";
+import City            from "./pages/City";
+import Tour            from "./pages/Tour";
+import Hotels          from "./pages/Hotels";
+import Packages        from "./pages/Packages";
 import NileCruisesPage from "./pages/NileCruisesPage";
-import Login          from "./pages/Login";
-import Dashboard      from "./pages/Dashboard";
-import Booking        from "./pages/Booking";
-import AITripBuilder  from "./components/AITripBuilder";
+import Login           from "./pages/Login";
+import Dashboard       from "./pages/Dashboard";
+import Booking         from "./pages/Booking";
+import AITripBuilder   from "./components/AITripBuilder";
+
+// ── New Pages ──
+import About           from "./pages/About";
+import Contact         from "./pages/Contact";
+import FAQ             from "./pages/FAQ";
+import Blog            from "./pages/Blog";
+import BlogPost        from "./pages/BlogPost";
+import TravelGuides    from "./pages/TravelGuides";
+import Terms           from "./pages/Terms";
+import Privacy         from "./pages/Privacy";
+import BookingPolicy   from "./pages/BookingPolicy";
+import RefundPolicy    from "./pages/RefundPolicy";
+import Careers         from "./pages/Careers";
+import SearchResults   from "./pages/SearchResults";
+import Wishlist        from "./pages/Wishlist";
+import Compare         from "./pages/Compare";
+import AdminDashboard  from "./pages/admin/AdminDashboard";
+import AdminTours      from "./pages/admin/AdminTours";
+import AdminCities     from "./pages/admin/AdminCities";
+import AdminBookings   from "./pages/admin/AdminBookings";
+import AdminReviews    from "./pages/admin/AdminReviews";
+import AdminMessages   from "./pages/admin/AdminMessages";
+import NotFound        from "./pages/NotFound";
 
 // ── New Components ──
-import LoadingScreen  from "./components/LoadingScreen";
+import LoadingScreen   from "./components/LoadingScreen";
 
-
+// ── Guards ──
+import ProtectedRoute  from "./components/ProtectedRoute";
 
 // ── Inner app (needs to be inside GlobalProvider) ──
 function AppInner() {
- 
-
   return (
     <>
-     
-
       <BrowserRouter>
         <Routes>
-          <Route path="/"                element={<Home />} />
-          <Route path="/city/:cityId"    element={<City />} />
-          <Route path="/tour/:tourId"    element={<Tour />} />
-          <Route path="/booking/:tourId" element={<Booking />} />
-          <Route path="/Packages"        element={<Packages />} />
-          <Route path="/hotels"          element={<Hotels />} />
-          <Route path="/cruises"         element={<NileCruisesPage />} />
-          <Route path="/login"           element={<Login />} />
-          <Route path="/dashboard"       element={<Dashboard />} />
-          <Route path="/aitripbuilder"   element={<AITripBuilder />} />
-          <Route path="*"               element={<Navigate to="/" replace />} />
+
+          {/* ─────────────────────────────────────────────
+              PUBLIC ROUTES
+          ───────────────────────────────────────────── */}
+          <Route path="/"                    element={<Home />} />
+
+          {/* Destinations / Cities */}
+          <Route path="/destinations"        element={<City />} />
+          <Route path="/city/:cityId"        element={<City />} />
+
+          {/* Tours */}
+          <Route path="/tours"               element={<Packages />} />
+          <Route path="/tour/:tourId"        element={<Tour />} />
+
+          {/* Booking */}
+          <Route path="/booking/:tourId"     element={<Booking />} />
+
+          {/* Packages, Hotels, Cruises */}
+          <Route path="/packages"            element={<Packages />} />
+          <Route path="/hotels"              element={<Hotels />} />
+          <Route path="/cruises"             element={<NileCruisesPage />} />
+
+          {/* AI Planner */}
+          <Route path="/ai-planner"          element={<AITripBuilder />} />
+          <Route path="/aitripbuilder"       element={<Navigate to="/ai-planner" replace />} />
+
+          {/* Blog */}
+          <Route path="/blog"                element={<Blog />} />
+          <Route path="/blog/:slug"          element={<BlogPost />} />
+          <Route path="/travel-guides"       element={<TravelGuides />} />
+
+          {/* Company */}
+          <Route path="/about"               element={<About />} />
+          <Route path="/contact"             element={<Contact />} />
+          <Route path="/faq"                 element={<FAQ />} />
+          <Route path="/careers"             element={<Careers />} />
+
+          {/* Legal */}
+          <Route path="/terms"               element={<Terms />} />
+          <Route path="/privacy"             element={<Privacy />} />
+          <Route path="/booking-policy"      element={<BookingPolicy />} />
+          <Route path="/refund-policy"       element={<RefundPolicy />} />
+
+          {/* Search & Utils */}
+          <Route path="/search"              element={<SearchResults />} />
+          <Route path="/wishlist"            element={<Wishlist />} />
+          <Route path="/compare"             element={<Compare />} />
+
+          {/* Auth */}
+          <Route path="/login"               element={<Login />} />
+
+          {/* ─────────────────────────────────────────────
+              PROTECTED — USER DASHBOARD
+          ───────────────────────────────────────────── */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ─────────────────────────────────────────────
+              PROTECTED — ADMIN PANEL
+          ───────────────────────────────────────────── */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/tours"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminTours />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/cities"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminCities />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminReviews />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/messages"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminMessages />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ─────────────────────────────────────────────
+              FALLBACK
+          ───────────────────────────────────────────── */}
+          <Route path="404"                  element={<NotFound />} />
+          <Route path="*"                    element={<Navigate to="/404" replace />} />
+
         </Routes>
       </BrowserRouter>
     </>
