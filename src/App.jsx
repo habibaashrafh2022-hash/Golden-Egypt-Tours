@@ -31,17 +31,12 @@ import Wishlist        from "./pages/Wishlist";
 import Compare         from "./pages/Compare";
 import AdminDashboard  from "./pages/admin/AdminDashboard";
 import AdminTours      from "./pages/admin/AdminTours";
-import AdminCities     from "./pages/admin/AdminCities";
-import AdminBookings   from "./pages/admin/AdminBookings";
-import AdminReviews    from "./pages/admin/AdminReviews";
-import AdminMessages   from "./pages/admin/AdminMessages";
 import NotFound        from "./pages/NotFound";
 
 // ── New Components ──
-import LoadingScreen   from "./components/LoadingScreen";
+import LoadingScreen   from "./components/LoadingScreen/LoadingScreen";
 
-// ── Guards ──
-import ProtectedRoute  from "./components/ProtectedRoute";
+
 
 // ── Inner app (needs to be inside GlobalProvider) ──
 function AppInner() {
@@ -100,70 +95,9 @@ function AppInner() {
           {/* Auth */}
           <Route path="/login"               element={<Login />} />
 
-          {/* ─────────────────────────────────────────────
-              PROTECTED — USER DASHBOARD
-          ───────────────────────────────────────────── */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+          
 
-          {/* ─────────────────────────────────────────────
-              PROTECTED — ADMIN PANEL
-          ───────────────────────────────────────────── */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/tours"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminTours />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/cities"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminCities />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/bookings"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminBookings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/reviews"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminReviews />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/messages"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminMessages />
-              </ProtectedRoute>
-            }
-          />
-
+          
           {/* ─────────────────────────────────────────────
               FALLBACK
           ───────────────────────────────────────────── */}
