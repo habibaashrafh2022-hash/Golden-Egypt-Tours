@@ -8,7 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AITripBuilder from "../components/AITripBuilder";
 import PaymentModal from "../components/PaymentModal";
 import { useGlobal } from "../context/GlobalContext";
-import Hero from '../components/Hero/Hero';
+
 // ─── CURRENCIES ───────────────────────────────────────────────
 const CURR = {
   USD:{s:"$",    r:1,      l:"USD — US Dollar"},
@@ -1045,7 +1045,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         ))}
 
         
-
         {/* Overlays z-index:2 */}
         <div style={{position:"absolute",inset:0,zIndex:2,background:"linear-gradient(to bottom,rgba(5,3,9,.58) 0%,rgba(5,3,9,.08) 28%,rgba(5,3,9,.7) 72%,rgba(5,3,9,1) 100%)"}}/>
         <div style={{position:"absolute",inset:0,zIndex:2,background:"linear-gradient(to right,rgba(5,3,9,.5) 0%,transparent 60%)"}}/>
