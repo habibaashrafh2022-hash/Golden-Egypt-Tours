@@ -22,8 +22,13 @@ const PORT = process.env.PORT || 5000;
 // MIDDLEWARE
 // =======================
 app.use(cors({
-  origin: "https://golden-egypt-tours.vercel.app"
+  origin: [
+    "http://localhost:5173",
+    "https://golden-egypt-tours.vercel.app"
+  ],
+  credentials: true
 }));
+
 app.use(express.json());
 
 // simple logger
