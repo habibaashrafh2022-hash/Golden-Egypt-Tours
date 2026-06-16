@@ -1,8 +1,7 @@
 // ============================================================
 //  Home.jsx — Aurevian Tours ★ LEGENDARY EDITION ★
-//  FULL VERSION — Based on Golden Egypt Tours original code
-//  CHANGES: Rebranded · Beige palette · Split hero · Auto-translate
-//           Removed hotels/cruises sections · Real reviews
+//  REDESIGNED: Overlapping hero · New A logo · Auto translate
+//              AI Builder redesigned · Full mobile responsive
 // ============================================================
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -30,23 +29,21 @@ const CURR = {
   CAD:{s:"C$",   r:1.36,   l:"CAD — Canadian Dollar"},
 };
 
-// ─── SUPPORTED LANGUAGES for Google Translate ─────────────────
-const LANGS = {
-  en:{flag:"🇬🇧", label:"English",    gtCode:"en",  dir:"ltr"},
-  es:{flag:"🇪🇸", label:"Español",    gtCode:"es",  dir:"ltr"},
-  it:{flag:"🇮🇹", label:"Italiano",   gtCode:"it",  dir:"ltr"},
-  fr:{flag:"🇫🇷", label:"Français",   gtCode:"fr",  dir:"ltr"},
-  ar:{flag:"🇸🇦", label:"العربية",    gtCode:"ar",  dir:"rtl"},
-  de:{flag:"🇩🇪", label:"Deutsch",    gtCode:"de",  dir:"ltr"},
-  pt:{flag:"🇵🇹", label:"Português",  gtCode:"pt",  dir:"ltr"},
-  zh:{flag:"🇨🇳", label:"中文",        gtCode:"zh",  dir:"ltr"},
-  nl:{flag:"🇳🇱", label:"Nederlands", gtCode:"nl",  dir:"ltr"},
-  ja:{flag:"🇯🇵", label:"日本語",      gtCode:"ja",  dir:"ltr"},
-  ru:{flag:"🇷🇺", label:"Русский",    gtCode:"ru",  dir:"ltr"},
-  he:{flag:"🇮🇱", label:"עברית",      gtCode:"iw",  dir:"rtl"},
-  tr:{flag:"🇹🇷", label:"Türkçe",     gtCode:"tr",  dir:"ltr"},
-  ko:{flag:"🇰🇷", label:"한국어",      gtCode:"ko",  dir:"ltr"},
-};
+// ─── LANGUAGES (i18next-style labels for display) ─────────────
+const LANGS = [
+  {code:"en", label:"English",    flag:"🇬🇧", dir:"ltr"},
+  {code:"es", label:"Español",    flag:"🇪🇸", dir:"ltr"},
+  {code:"it", label:"Italiano",   flag:"🇮🇹", dir:"ltr"},
+  {code:"fr", label:"Français",   flag:"🇫🇷", dir:"ltr"},
+  {code:"de", label:"Deutsch",    flag:"🇩🇪", dir:"ltr"},
+  {code:"pt", label:"Português",  flag:"🇵🇹", dir:"ltr"},
+  {code:"zh", label:"中文",        flag:"🇨🇳", dir:"ltr"},
+  {code:"nl", label:"Nederlands", flag:"🇳🇱", dir:"ltr"},
+  {code:"ja", label:"日本語",      flag:"🇯🇵", dir:"ltr"},
+  {code:"ru", label:"Русский",    flag:"🇷🇺", dir:"ltr"},
+  {code:"tr", label:"Türkçe",     flag:"🇹🇷", dir:"ltr"},
+  {code:"ko", label:"한국어",      flag:"🇰🇷", dir:"ltr"},
+];
 
 // ─── DATA ─────────────────────────────────────────────────────
 const CITIES = [
@@ -73,80 +70,13 @@ const PACKAGES = [
   {title:"Desert & Oasis Explorer",          subtitle:"8 Days · Western Desert Wonders",          img:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80", badge:"Off-Beat",     badgeColor:"#FF9800", price:890,  days:"8D/7N",  tags:["Desert","Oasis","4x4 Safari"],             link:"/packages"},
 ];
 
-// Real-looking reviews with verified data
 const REVIEWS = [
-  {
-    name:"Sarah Mitchell",
-    flag:"🇺🇸",
-    city:"New York, USA",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=1",
-    date:"March 2025",
-    tourName:"Cairo & Luxor 8-Day Package",
-    text:"Absolutely extraordinary experience. The guides were PhD-level Egyptologists who brought history to life. The AI itinerary builder was spot-on — every price matched perfectly. Booking again next year!",
-    verified:true,
-    platform:"TripAdvisor"
-  },
-  {
-    name:"James & Emma Thornton",
-    flag:"🇬🇧",
-    city:"London, UK",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=15",
-    date:"January 2025",
-    tourName:"Honeymoon Egypt Luxury 10 Nights",
-    text:"We chose Aurevian for our honeymoon and it exceeded every expectation. Private sunrise at the Pyramids, a candlelit dinner on the Nile, and flawless logistics from start to finish. Worth every penny.",
-    verified:true,
-    platform:"Google Reviews"
-  },
-  {
-    name:"Amélie Fontaine",
-    flag:"🇫🇷",
-    city:"Lyon, France",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=5",
-    date:"November 2024",
-    tourName:"Nile Cruise Luxor → Aswan",
-    text:"Le service était irréprochable. Notre guide Mahmoud connaissait chaque hiéroglyphe par cœur. La croisière sur le Nil au coucher du soleil depuis le ballon était magique. Merci infiniment!",
-    verified:true,
-    platform:"Trustpilot"
-  },
-  {
-    name:"Klaus Weber",
-    flag:"🇩🇪",
-    city:"Munich, Germany",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=12",
-    date:"February 2025",
-    tourName:"Complete Egypt 10-Day Package",
-    text:"Perfekt organisiert von Anfang bis Ende! Unser Ägyptologe-Guide Hassan war ein wandelndes Lexikon. Die KI-Planung hat unsere Kosten auf den Cent genau vorhergesagt. Absolute Empfehlung!",
-    verified:true,
-    platform:"Google Reviews"
-  },
-  {
-    name:"Yuki Tanaka",
-    flag:"🇯🇵",
-    city:"Osaka, Japan",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=9",
-    date:"April 2025",
-    tourName:"Valley of the Kings Private Tour",
-    text:"Sunrise at Valley of the Kings with a private Egyptologist — a truly spiritual experience. Everything ran like clockwork. The team spoke Japanese fluently, which made us feel completely at ease.",
-    verified:true,
-    platform:"TripAdvisor"
-  },
-  {
-    name:"The Al-Rashidi Family",
-    flag:"🇸🇦",
-    city:"Riyadh, Saudi Arabia",
-    stars:5,
-    img:"https://i.pravatar.cc/80?img=22",
-    date:"December 2024",
-    tourName:"Family Egypt Adventure 14 Days",
-    text:"رحلة عائلية لا تُنسى! الأولاد كانوا مبهورين بالأهرامات والمومياوات. الفريق اهتم بكل التفاصيل من الإقامة حتى الوجبات. سنعود بالتأكيد مع باقة أطول المرة القادمة.",
-    verified:true,
-    platform:"Google Reviews"
-  },
+  {name:"Sarah Mitchell",          flag:"🇺🇸", city:"New York, USA",      stars:5, img:"https://i.pravatar.cc/80?img=1",  date:"March 2025",    tourName:"Cairo & Luxor 8-Day Package",       text:"Absolutely extraordinary experience. The guides were PhD-level Egyptologists who brought history to life. The AI itinerary builder was spot-on — every price matched perfectly. Booking again next year!", verified:true, platform:"TripAdvisor"},
+  {name:"James & Emma Thornton",   flag:"🇬🇧", city:"London, UK",         stars:5, img:"https://i.pravatar.cc/80?img=15", date:"January 2025",  tourName:"Honeymoon Egypt Luxury 10 Nights",  text:"We chose Aurevian for our honeymoon and it exceeded every expectation. Private sunrise at the Pyramids, a candlelit dinner on the Nile, and flawless logistics from start to finish. Worth every penny.", verified:true, platform:"Google Reviews"},
+  {name:"Amélie Fontaine",         flag:"🇫🇷", city:"Lyon, France",       stars:5, img:"https://i.pravatar.cc/80?img=5",  date:"November 2024", tourName:"Nile Cruise Luxor → Aswan",         text:"Le service était irréprochable. Notre guide Mahmoud connaissait chaque hiéroglyphe par cœur. La croisière sur le Nil au coucher du soleil depuis le ballon était magique. Merci infiniment!", verified:true, platform:"Trustpilot"},
+  {name:"Klaus Weber",             flag:"🇩🇪", city:"Munich, Germany",    stars:5, img:"https://i.pravatar.cc/80?img=12", date:"February 2025", tourName:"Complete Egypt 10-Day Package",      text:"Perfekt organisiert von Anfang bis Ende! Unser Ägyptologe-Guide Hassan war ein wandelndes Lexikon. Die KI-Planung hat unsere Kosten auf den Cent genau vorhergesagt. Absolute Empfehlung!", verified:true, platform:"Google Reviews"},
+  {name:"Yuki Tanaka",             flag:"🇯🇵", city:"Osaka, Japan",       stars:5, img:"https://i.pravatar.cc/80?img=9",  date:"April 2025",    tourName:"Valley of the Kings Private Tour",  text:"Sunrise at Valley of the Kings with a private Egyptologist — a truly spiritual experience. Everything ran like clockwork. The team spoke Japanese fluently, which made us feel completely at ease.", verified:true, platform:"TripAdvisor"},
+  {name:"The Al-Rashidi Family",   flag:"🇸🇦", city:"Riyadh, Saudi Arabia",stars:5, img:"https://i.pravatar.cc/80?img=22", date:"December 2024", tourName:"Family Egypt Adventure 14 Days",   text:"An unforgettable family trip! The children were amazed by the pyramids and mummies. The team handled every detail from accommodation to meals. We will definitely return with a longer package next time.", verified:true, platform:"Google Reviews"},
 ];
 
 const WHY = [
@@ -172,10 +102,10 @@ const SEARCH_ALL = [
 ];
 
 const GUIDE_LANGS = [
-  {v:"en",l:"English 🇬🇧"},{v:"ar",l:"العربية 🇸🇦"},{v:"es",l:"Español 🇪🇸"},
+  {v:"en",l:"English 🇬🇧"},{v:"ar",l:"Arabic 🇸🇦"},{v:"es",l:"Español 🇪🇸"},
   {v:"it",l:"Italiano 🇮🇹"},{v:"fr",l:"Français 🇫🇷"},{v:"de",l:"Deutsch 🇩🇪"},
-  {v:"pt",l:"Português 🇵🇹"},{v:"zh",l:"中文 🇨🇳"},{v:"nl",l:"Nederlands 🇳🇱"},
-  {v:"ja",l:"日本語 🇯🇵"},{v:"ru",l:"Русский 🇷🇺"},{v:"he",l:"עברית 🇮🇱"},
+  {v:"pt",l:"Português 🇵🇹"},{v:"zh",l:"Chinese 🇨🇳"},{v:"nl",l:"Nederlands 🇳🇱"},
+  {v:"ja",l:"Japanese 🇯🇵"},{v:"ru",l:"Русский 🇷🇺"},{v:"he",l:"Hebrew 🇮🇱"},
 ];
 
 const PACKAGES_COUNT = 8;
@@ -184,70 +114,16 @@ const Stars = ({n}) => <span style={{color:"#C9A84C",letterSpacing:1}}>{"★".re
 
 // ─── SHARED STYLES ────────────────────────────────────────────
 const S = {
-  card:{
-    background:"linear-gradient(145deg,rgba(245,238,220,.97),rgba(252,247,235,1))",
-    border:"1px solid rgba(193,156,60,.2)",
-    borderRadius:20,
-    overflow:"hidden",
-    transition:"all .4s cubic-bezier(.25,.8,.25,1)",
-    boxShadow:"0 8px 32px rgba(180,140,60,.12)",
-  },
-  cardBody:{ padding:"18px 20px 22px" },
-  cardName:{
-    fontFamily:"'Cinzel',serif",
-    fontSize:"clamp(13px,1.4vw,16px)",
-    fontWeight:700,
-    color:"#3C2A0E",
-    lineHeight:1.35,
-    marginBottom:8,
-    letterSpacing:.4,
-  },
-  sectionHeader:{
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"flex-end",
-    marginBottom:"clamp(26px,4vw,48px)",
-  },
-  sectionTitleWrap:{ flex:1 },
-  sectionEyebrow:{
-    display:"block",
-    fontSize:10,
-    color:"#A07828",
-    letterSpacing:5,
-    textTransform:"uppercase",
-    marginBottom:10,
-    fontWeight:700,
-    fontFamily:"'Josefin Sans',sans-serif",
-  },
-  sectionTitle:{
-    fontFamily:"'Cinzel',serif",
-    fontSize:"clamp(24px,4vw,48px)",
-    fontWeight:700,
-    color:"#2C1A06",
-    lineHeight:1.15,
-  },
-  viewAll:{
-    background:"transparent",
-    border:"1px solid rgba(160,120,40,.3)",
-    color:"#A07828",
-    borderRadius:9,
-    padding:"9px 22px",
-    cursor:"pointer",
-    fontSize:10,
-    letterSpacing:2.5,
-    textTransform:"uppercase",
-    fontFamily:"'Josefin Sans',sans-serif",
-    transition:"all .2s",
-    whiteSpace:"nowrap",
-    marginLeft:20,
-  },
   section:{ padding:"clamp(52px,8vw,100px) clamp(16px,4vw,48px)" },
-  divider:{ height:1, background:"linear-gradient(to right,transparent,rgba(193,156,60,.35),transparent)", margin:"0 clamp(16px,4vw,48px)" },
+  sectionHeader:{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:"clamp(26px,4vw,48px)"},
+  sectionTitleWrap:{ flex:1 },
+  sectionEyebrow:{display:"block",fontSize:10,color:"#A07828",letterSpacing:5,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"},
+  sectionTitle:{fontFamily:"'Cinzel',serif",fontSize:"clamp(24px,4vw,48px)",fontWeight:700,color:"#2C1A06",lineHeight:1.15},
 };
 
 // ─── CSS ──────────────────────────────────────────────────────
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600;700&display=swap');
 
 :root{
   --g:#C9A84C; --gl:#E8C96D; --gd:rgba(201,168,76,.1); --gb:rgba(201,168,76,.2);
@@ -256,6 +132,7 @@ const CSS = `
   --text:#2C1A06; --dim:rgba(44,26,6,.65);
   --card:#FBF7EE; --cardb:#F5EED8;
   --nav-bg:rgba(250,246,237,.97);
+  --hero-h: 100vh;
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -263,7 +140,7 @@ html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:'Josefin Sans','Noto Sans Arabic',sans-serif;
+  font-family:'Josefin Sans',sans-serif;
   overflow-x:hidden;
 }
 ::selection{background:rgba(201,168,76,.3);color:#2C1A06;}
@@ -271,45 +148,41 @@ body{
 ::-webkit-scrollbar-track{background:var(--bg2);}
 ::-webkit-scrollbar-thumb{background:rgba(193,156,60,.4);border-radius:2px;}
 
-/* Papyrus-like grain overlay */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
     radial-gradient(ellipse 120% 60% at 10% 5%,rgba(220,185,100,.07) 0%,transparent 55%),
     radial-gradient(ellipse 90% 90% at 90% 90%,rgba(180,140,60,.05) 0%,transparent 55%),
-    radial-gradient(ellipse 70% 55% at 50% 50%,rgba(210,170,80,.04) 0%,transparent 65%),
     linear-gradient(170deg,#FAF6ED 0%,#F3ECD8 35%,#EDE3C8 65%,#F0E9D0 100%);
 }
 
-.grain{
-  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px 200px;
-}
+  background-size:200px 200px;}
 
-/* Hieroglyphs background layer */
-.hiero-bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.04;
-}
+.hiero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.035;}
 
-@keyframes heroZoom  {0%{transform:scale(1)}100%{transform:scale(1.07)}}
-@keyframes fadeUp    {from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
-@keyframes fadeIn    {from{opacity:0}to{opacity:1}}
-@keyframes slideD    {from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
-@keyframes spin      {to{transform:rotate(360deg)}}
-@keyframes marquee   {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes gradShift {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes scrollB   {0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(9px);opacity:1}}
-@keyframes glowGold  {0%,100%{filter:drop-shadow(0 0 12px rgba(201,168,76,.6))}50%{filter:drop-shadow(0 0 32px rgba(232,201,109,.9)) brightness(1.2)}}
-@keyframes borderS   {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes popIn     {from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-@keyframes float     {0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-@keyframes shimmer   {0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes pulseRing {0%{opacity:.6;transform:scale(1)}50%{opacity:.15;transform:scale(1.05)}100%{opacity:.6;transform:scale(1)}}
-@keyframes sandDrift {0%,100%{transform:translateX(0) rotate(0deg)}50%{transform:translateX(8px) rotate(2deg)}}
-@keyframes reveal    {from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0% 0 0)}}
+/* ── ANIMATIONS ── */
+@keyframes heroZoom   {0%{transform:scale(1)}100%{transform:scale(1.07)}}
+@keyframes fadeUp     {from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes fadeIn     {from{opacity:0}to{opacity:1}}
+@keyframes slideD     {from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes spin       {to{transform:rotate(360deg)}}
+@keyframes marquee    {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes gradShift  {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes scrollB    {0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(9px);opacity:1}}
+@keyframes glowGold   {0%,100%{filter:drop-shadow(0 0 12px rgba(201,168,76,.6))}50%{filter:drop-shadow(0 0 32px rgba(232,201,109,.9)) brightness(1.2)}}
+@keyframes borderS    {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes popIn      {from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes float      {0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulseRing  {0%{opacity:.6;transform:scale(1)}50%{opacity:.15;transform:scale(1.05)}100%{opacity:.6;transform:scale(1)}}
+@keyframes shimmer    {0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes riverFlow  {0%{stroke-dashoffset:200}100%{stroke-dashoffset:0}}
+@keyframes logoGlow   {0%,100%{filter:drop-shadow(0 0 6px rgba(201,168,76,.4))}50%{filter:drop-shadow(0 0 18px rgba(232,201,109,.7))}}
+@keyframes waveHero   {0%{transform:scaleX(1)}50%{transform:scaleX(1.04)}100%{transform:scaleX(1)}}
+@keyframes particleDrift{0%{opacity:0;transform:translateY(10px)}20%{opacity:1}80%{opacity:.6}100%{opacity:0;transform:translateY(-80px) translateX(20px)}}
 
-/* Gold text gradient */
+/* ── GOLD GRADIENT TEXT ── */
 .gta{
   background:linear-gradient(90deg,#8B6010,#C9A84C,#E8C96D,#C9A84C,#8B6010);
   background-size:300% 100%;
@@ -329,23 +202,21 @@ body::before{
   background-size:400% 400%;animation:borderS 5s ease infinite;
 }
 
-/* Card hovers */
+/* ── CARD HOVER ── */
 .cc{transition:all .45s cubic-bezier(.25,.8,.25,1)!important;}
 .cc:hover{transform:translateY(-8px) scale(1.01)!important;box-shadow:0 28px 72px rgba(180,140,60,.2)!important;}
 .cc:hover .ci{transform:scale(1.1)!important;}
 .cc:hover .co{opacity:.2!important;}
 .cc:hover .ca{opacity:1!important;transform:none!important;}
 .cc:hover .ctag{opacity:1!important;}
-
 .wc:hover{transform:translateY(-6px)!important;border-color:rgba(201,168,76,.45)!important;box-shadow:0 24px 60px rgba(180,140,60,.15)!important;}
 .wc:hover .wi{transform:scale(1.25) rotate(10deg)!important;}
 .rc:hover{transform:translateY(-5px)!important;border-color:rgba(201,168,76,.4)!important;box-shadow:0 18px 48px rgba(180,140,60,.12)!important;}
-
 .pkgc{transition:all .4s cubic-bezier(.25,.8,.25,1)!important;}
 .pkgc:hover{transform:translateY(-10px) scale(1.01)!important;border-color:rgba(201,168,76,.45)!important;box-shadow:0 36px 90px rgba(180,140,60,.22)!important;}
 .pkgc:hover .pkgi{transform:scale(1.08)!important;}
 
-/* Buttons */
+/* ── BUTTONS ── */
 .btn-gold{
   background:linear-gradient(135deg,#A07828,#C9A84C,#E8C96D);
   color:#FAF6ED;border:none;border-radius:10px;padding:13px 28px;
@@ -361,23 +232,115 @@ body::before{
   font-family:'Josefin Sans',sans-serif;transition:all .2s;white-space:nowrap;
 }
 .btn-ghost:hover{background:rgba(201,168,76,.1);border-color:rgba(160,120,40,.6);}
-
-/* Nav link hover */
 .nla:hover{color:#A07828!important;}
 .si:hover{background:rgba(201,168,76,.07)!important;}
 .chip:hover{background:rgba(201,168,76,.18)!important;color:#8B6010!important;border-color:rgba(160,120,40,.5)!important;}
 .dd:hover{background:rgba(201,168,76,.08)!important;color:#A07828!important;}
 .ai-feat:hover{background:rgba(201,168,76,.06)!important;padding-left:18px!important;}
+.lang-btn:hover{background:rgba(201,168,76,.12)!important;border-color:rgba(160,120,40,.5)!important;}
 
-/* Hero split layout */
-.hero-split{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+/* ═══════════════════════════════════════════
+   HERO — CINEMATIC OVERLAPPING LAYOUT
+═══════════════════════════════════════════ */
+.hero-wrap{
+  position:relative;
+  width:100%;
   min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
 }
+
+/* Full-bleed image behind everything */
+.hero-bg-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 38%;
+  animation:heroZoom 22s ease-in-out infinite alternate;
+  z-index:0;
+}
+
+/* Multi-layer cinematic overlay */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(90deg,rgba(250,246,237,.97) 0%,rgba(250,246,237,.85) 38%,rgba(250,246,237,.3) 62%,rgba(250,246,237,.05) 100%),
+    linear-gradient(to bottom,rgba(44,26,6,.5) 0%,transparent 25%,rgba(44,26,6,.4) 100%);
+}
+
+/* Gold shimmer right edge */
+.hero-edge{
+  position:absolute;top:0;bottom:0;right:0;width:3px;z-index:3;
+  background:linear-gradient(to bottom,transparent,rgba(232,201,109,.9),rgba(201,168,76,1),rgba(232,201,109,.9),transparent);
+}
+
+/* Left content panel — floats over image */
+.hero-content{
+  position:relative;z-index:4;
+  width:min(600px,58%);
+  padding:clamp(80px,10vh,120px) clamp(24px,5vw,72px) clamp(50px,7vh,90px);
+}
+
+/* Right — image badges zone */
+.hero-badges{
+  position:absolute;
+  right:clamp(16px,4vw,48px);
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:flex-end;
+}
+
+/* Floating stat cards on image */
+.hero-stat{
+  background:rgba(250,246,237,.93);
+  backdrop-filter:blur(16px);
+  border:1.5px solid rgba(193,156,60,.45);
+  border-radius:16px;
+  padding:14px 20px;
+  text-align:center;
+  box-shadow:0 8px 32px rgba(180,140,60,.18);
+  animation:fadeUp .8s ease both;
+  min-width:120px;
+}
+
+/* Gold wave separator between hero and content below */
+.hero-wave{
+  position:absolute;bottom:-2px;left:0;right:0;z-index:6;
+  line-height:0;
+}
+
+/* Floating particles in hero */
+.hero-particle{
+  position:absolute;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:rgba(201,168,76,.6);
+  animation:particleDrift 6s ease-in-out infinite;
+  z-index:3;
+  pointer-events:none;
+}
+
+/* Search bar overlay — sits at bottom of hero */
+.hero-search{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  z-index:7;
+  background:rgba(243,236,216,.97);
+  backdrop-filter:blur(20px);
+  border-top:1.5px solid rgba(193,156,60,.3);
+  padding:clamp(14px,2.5vw,22px) clamp(16px,4vw,48px);
+}
+
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero-split{grid-template-columns:1fr!important;}
-  .hero-img-col{min-height:45vh!important;order:-1;}
+  .hero-content{width:100%;padding:clamp(80px,12vh,110px) 20px 220px;}
+  .hero-badges{right:16px;top:auto;bottom:clamp(100px,14vh,160px);transform:none;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:10px;}
+  .hero-stat{min-width:100px;padding:10px 14px;}
   .dn{display:none!important;}.dm{display:flex!important;}
   .g2{grid-template-columns:1fr!important;}.g3{grid-template-columns:1fr 1fr!important;}
   .g4{grid-template-columns:1fr 1fr!important;}.dtop{grid-template-columns:1fr 1fr!important;}
@@ -385,23 +348,122 @@ body::before{
   .ftg{grid-template-columns:1fr 1fr!important;}.whyg{grid-template-columns:1fr 1fr!important;}
   .revg{grid-template-columns:1fr!important;}.pkgg{grid-template-columns:1fr!important;}
   .aig{grid-template-columns:1fr!important;}.statg{grid-template-columns:repeat(2,1fr)!important;}
+  .ai-features-grid{grid-template-columns:1fr 1fr!important;}
 }
-@media(max-width:480px){
+@media(max-width:640px){
+  .hero-content{padding:76px 16px 200px;}
+  .hero-badges{right:12px;bottom:clamp(90px,13vh,130px);gap:8px;}
+  .hero-stat{min-width:88px;padding:8px 12px;}
   .g3{grid-template-columns:1fr!important;}.g4{grid-template-columns:1fr!important;}
   .dtop{grid-template-columns:1fr!important;}.dbot{grid-template-columns:1fr 1fr!important;}
   .ftg{grid-template-columns:1fr!important;}.whyg{grid-template-columns:1fr!important;}
   .statg{grid-template-columns:1fr 1fr!important;}
-  .hero-split{grid-template-columns:1fr!important;}
+  .ai-features-grid{grid-template-columns:1fr!important;}
+  .hero-search{padding:12px 14px;}
 }
 
-/* Google Translate widget overrides */
-.goog-te-banner-frame{display:none!important;}
-.goog-te-gadget{font-size:0!important;}
-.goog-te-gadget .goog-te-combo{display:none!important;}
-body{top:0!important;}
-#goog-gt-tt{display:none!important;}
-.VIpgJd-ZVi9od-aZ2wEe-wOHMyf{display:none!important;}
+/* ── LOGO ANIMATION ── */
+.logo-river{
+  stroke-dasharray:120;
+  stroke-dashoffset:120;
+  animation:riverFlow 2.4s ease forwards;
+  animation-delay:.3s;
+}
+.logo-wrap:hover svg{animation:logoGlow .8s ease forwards;}
+.logo-A path, .logo-A line, .logo-A rect, .logo-A circle, .logo-A ellipse, .logo-A polyline{
+  transition:all .4s ease;
+}
+.logo-wrap:hover .logo-A{filter:drop-shadow(0 0 10px rgba(232,201,109,.6));}
+
+/* ── AI BUILDER ── */
+.ai-features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:20px;
+}
+.ai-feat-card{
+  background:rgba(201,168,76,.06);
+  border:1.5px solid rgba(193,156,60,.18);
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  transition:all .25s;
+}
+.ai-feat-card:hover{background:rgba(201,168,76,.12)!important;border-color:rgba(193,156,60,.4)!important;transform:translateY(-2px);}
 `;
+
+// ─── AUREVIAN LOGO — "A" with River Path ──────────────────────
+function AurevianLogo({size=46, animate=false}){
+  return(
+    <svg
+      width={size} height={size}
+      viewBox="0 0 56 56"
+      className="logo-A"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="lgA" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#8B6010"/>
+          <stop offset="45%"  stopColor="#C9A84C"/>
+          <stop offset="100%" stopColor="#E8C96D"/>
+        </linearGradient>
+        <linearGradient id="lgRiver" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#7CB9E8" stopOpacity="0.9"/>
+          <stop offset="50%"  stopColor="#4FC3F7" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#7CB9E8" stopOpacity="0.5"/>
+        </linearGradient>
+      </defs>
+
+      {/* ── Outer octagonal frame ── */}
+      <polygon
+        points="28,2 46,10 54,28 46,46 28,54 10,46 2,28 10,10"
+        fill="none"
+        stroke="url(#lgA)"
+        strokeWidth="1.2"
+        opacity="0.7"
+      />
+
+      {/* ── Large "A" letterform ── */}
+      {/* Left stroke */}
+      <line x1="11" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
+      {/* Right stroke */}
+      <line x1="45" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
+
+      {/* ── Crossbar replaced by flowing river path ── */}
+      <path
+        className={animate ? "logo-river" : ""}
+        d="M17 32 Q20 29 23 32 Q26 35 29 32 Q32 29 35 32 Q38 35 39 32"
+        stroke="url(#lgRiver)"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.95"
+      />
+
+      {/* ── Small pyramid echo at base ── */}
+      <polyline
+        points="21,44 28,36 35,44"
+        fill="none"
+        stroke="url(#lgA)"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.5"
+      />
+
+      {/* ── Apex star dot ── */}
+      <circle cx="28" cy="10" r="2.2" fill="url(#lgA)" opacity="0.9"/>
+
+      {/* ── Two small flanking dots (like eye pupils) ── */}
+      <circle cx="22" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
+      <circle cx="34" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
+    </svg>
+  );
+}
 
 // ─── CITY CARD ────────────────────────────────────────────────
 function CityCard({c, navigate, large}){
@@ -426,7 +488,7 @@ function CityCard({c, navigate, large}){
       <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"14px 16px"}}>
         <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(250,246,237,.55)",marginBottom:5,opacity:hov?1:0,transition:"opacity .3s"}}>{c.desc}</div>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-          <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:large?"clamp(17px,2vw,24px)":"clamp(12px,1.3vw,16px)",color:"#FAF6ED",marginBottom:0,textShadow:"0 2px 16px rgba(0,0,0,.6)"}}>{c.name}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:large?"clamp(17px,2vw,24px)":"clamp(12px,1.3vw,16px)",color:"#FAF6ED",textShadow:"0 2px 16px rgba(0,0,0,.6)"}}>{c.name}</div>
           <span className="ca" style={{color:color,fontSize:15,opacity:0,transform:"translateX(-10px)",transition:"all .35s"}}>→</span>
         </div>
       </div>
@@ -522,8 +584,8 @@ function VideoPreview(){
           border:"1.5px solid rgba(193,156,60,.5)",borderRadius:16,padding:"10px 16px",
           cursor:"pointer",display:"flex",alignItems:"center",gap:10,transition:"all .3s ease",
           boxShadow:"0 8px 32px rgba(180,140,60,.2)"}}
-        onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(160,120,40,.85)";e.currentTarget.style.boxShadow="0 8px 32px rgba(160,120,40,.3)";e.currentTarget.style.transform="translateY(-2px)";}}
-        onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(193,156,60,.5)";e.currentTarget.style.boxShadow="0 8px 32px rgba(180,140,60,.2)";e.currentTarget.style.transform="none";}}>
+        onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(160,120,40,.85)";e.currentTarget.style.transform="translateY(-2px)";}}
+        onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(193,156,60,.5)";e.currentTarget.style.transform="none";}}>
         <div style={{width:52,height:36,borderRadius:8,overflow:"hidden",position:"relative",flexShrink:0}}>
           <video src="/videos/egypt-hero.mp4" style={{width:"100%",height:"100%",objectFit:"cover"}} muted playsInline preload="metadata"
             onMouseEnter={e=>e.target.play().catch(()=>{})} onMouseLeave={e=>e.target.pause()}/>
@@ -531,7 +593,7 @@ function VideoPreview(){
             <div style={{width:0,height:0,borderTop:"6px solid transparent",borderBottom:"6px solid transparent",borderLeft:"10px solid #C9A84C",marginLeft:2}}/>
           </div>
         </div>
-        <div style={{textAlign:"left"}}>
+        <div>
           <div style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:"#A07828",letterSpacing:"0.15em",textTransform:"uppercase"}}>Watch Film</div>
           <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(107,78,26,.6)",marginTop:2}}>Egypt Experience</div>
         </div>
@@ -542,7 +604,7 @@ function VideoPreview(){
           <div onClick={e=>e.stopPropagation()} style={{position:"relative",width:"min(900px,95vw)",borderRadius:20,overflow:"hidden",border:"1.5px solid rgba(193,156,60,.4)",boxShadow:"0 40px 100px rgba(44,26,6,.6)",animation:"popIn .3s ease"}}>
             <div style={{height:2,background:"linear-gradient(90deg,transparent,#C9A84C,#E8C96D,#C9A84C,transparent)"}}/>
             <video src="/videos/egypt-hero.mp4" autoPlay controls style={{width:"100%",display:"block",background:"#2C1A06"}}/>
-            <button onClick={()=>setOpen(false)} style={{position:"absolute",top:12,right:12,width:36,height:36,borderRadius:"50%",background:"rgba(250,246,237,.9)",border:"1.5px solid rgba(193,156,60,.5)",color:"#A07828",fontSize:16,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(8px)"}}>✕</button>
+            <button onClick={()=>setOpen(false)} style={{position:"absolute",top:12,right:12,width:36,height:36,borderRadius:"50%",background:"rgba(250,246,237,.9)",border:"1.5px solid rgba(193,156,60,.5)",color:"#A07828",fontSize:16,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
           </div>
         </div>
       )}
@@ -550,31 +612,44 @@ function VideoPreview(){
   );
 }
 
-// ─── GOOGLE TRANSLATE WIDGET ──────────────────────────────────
-function GoogleTranslateWidget({visible, onClose}){
-  useEffect(()=>{
-    if(!document.getElementById("google-translate-script")){
-      window.googleTranslateElementInit=()=>{
-        new window.google.translate.TranslateElement({
-          pageLanguage:"en",
-          includedLanguages:"en,ar,fr,es,de,it,pt,ru,zh-CN,ja,nl,he,tr,ko",
-          layout:window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay:false,
-        },"google_translate_element");
-      };
-      const s=document.createElement("script");
-      s.id="google-translate-script";
-      s.src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      s.async=true;
-      document.head.appendChild(s);
-    }
-  },[]);
-  if(!visible)return null;
+// ─── LANGUAGE SELECTOR (replaces Google Translate widget) ─────
+// Uses a simple page-reload approach with Google Translate via URL
+// Or can be wired to i18next if available
+function LanguageSelector({visible, onClose, currentLang, onSelect}){
+  if(!visible) return null;
   return(
-    <div style={{position:"absolute",top:"calc(100%+8px)",right:0,background:"linear-gradient(145deg,#FAF6ED,#F3ECD8)",border:"1.5px solid rgba(193,156,60,.35)",borderRadius:14,padding:"16px 18px",zIndex:2000,boxShadow:"0 24px 60px rgba(44,26,6,.15)",animation:"slideD .2s ease",minWidth:220}}>
-      <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 Select Language</div>
-      <div id="google_translate_element"/>
-      <div style={{marginTop:12,fontSize:10,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",textAlign:"center"}}>Powered by Google Translate</div>
+    <div style={{
+      position:"absolute",top:"calc(100% + 8px)",right:0,
+      background:"linear-gradient(145deg,#FAF6ED,#F3ECD8)",
+      border:"1.5px solid rgba(193,156,60,.35)",borderRadius:16,
+      padding:"12px",zIndex:2000,
+      boxShadow:"0 24px 60px rgba(44,26,6,.15)",
+      animation:"slideD .2s ease",
+      minWidth:220,maxHeight:360,overflowY:"auto",
+    }}>
+      <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",padding:"0 4px"}}>🌍 Select Language</div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6}}>
+        {LANGS.map(lang=>(
+          <button
+            key={lang.code}
+            className="lang-btn"
+            onClick={()=>{ onSelect(lang.code, lang.dir); onClose(); }}
+            style={{
+              background:currentLang===lang.code?"rgba(201,168,76,.18)":"rgba(201,168,76,.05)",
+              border:`1.5px solid ${currentLang===lang.code?"rgba(160,120,40,.5)":"rgba(193,156,60,.18)"}`,
+              borderRadius:10,padding:"8px 10px",cursor:"pointer",
+              display:"flex",alignItems:"center",gap:8,
+              fontSize:11,color:currentLang===lang.code?"#8B6010":"rgba(44,26,6,.65)",
+              fontFamily:"'Josefin Sans',sans-serif",
+              fontWeight:currentLang===lang.code?700:400,
+              transition:"all .15s",textAlign:"left",
+            }}
+          >
+            <span style={{fontSize:16}}>{lang.flag}</span>
+            <span>{lang.label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -587,10 +662,11 @@ export default function Home(){
   const { language:globalLang, currency:globalCur, setLanguage:setGlobalLang, setCurrency:setGlobalCur, formatPrice } = useGlobal();
 
   const [cur,  setCurLocal]  = useState(globalCur  || "USD");
+  const [uiLang, setUiLang]  = useState("en");
   const [scrolled,setSc]     = useState(false);
   const [mMenu,setMMenu]     = useState(false);
   const [cO,setCO]           = useState(false);
-  const [tO,setTO]           = useState(false);  // translate dropdown
+  const [langOpen,setLangOpen] = useState(false);
   const [adults,setAdults]   = useState(2);
   const [kids,setKids]       = useState(0);
   const [gO,setGO]           = useState(false);
@@ -613,6 +689,44 @@ export default function Home(){
   const setCur=(code)=>{setCurLocal(code);setGlobalCur(code);};
   const fmtP=(p)=>formatPrice?formatPrice(p):fmt(p,cur);
 
+  // Language selection handler — uses i18next if available, else sets dir attribute
+  const handleLangSelect = useCallback((code, dir) => {
+    setUiLang(code);
+    if(setGlobalLang) setGlobalLang(code);
+    // Set document direction for RTL languages
+    document.documentElement.setAttribute("lang", code);
+    document.documentElement.setAttribute("dir", dir || "ltr");
+    // If i18next is available via window
+    if(window.i18n && window.i18n.changeLanguage){
+      window.i18n.changeLanguage(code);
+    }
+    // Fallback: use Google Translate programmatically
+    if(window.google && window.google.translate){
+      try{
+        const selectEl = document.querySelector(".goog-te-combo");
+        if(selectEl){ selectEl.value = code; selectEl.dispatchEvent(new Event("change")); }
+      }catch(e){}
+    }
+  }, [setGlobalLang]);
+
+  // Load Google Translate silently (hidden widget) as translation engine
+  useEffect(()=>{
+    if(!document.getElementById("gt-script")){
+      window.googleTranslateElementInit=()=>{
+        new window.google.translate.TranslateElement({
+          pageLanguage:"en",
+          includedLanguages:"en,ar,fr,es,de,it,pt,ru,zh-CN,ja,nl,he,tr,ko",
+          autoDisplay:false,
+        },"gt-hidden");
+      };
+      const s=document.createElement("script");
+      s.id="gt-script";
+      s.src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      s.async=true;
+      document.head.appendChild(s);
+    }
+  },[]);
+
   useEffect(()=>{if(globalCur)setCurLocal(globalCur);},[globalCur]);
   useEffect(()=>{const fn=()=>setSc(window.scrollY>52);window.addEventListener("scroll",fn,{passive:true});return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const id=setInterval(()=>setStep(s=>(s+1)%4),2400);return()=>clearInterval(id);},[]);
@@ -633,8 +747,17 @@ export default function Home(){
     v.play().catch(()=>{
       const retry=()=>{v.play().catch(()=>{});};
       document.addEventListener("click",retry,{once:true});
-      document.addEventListener("touchstart",retry,{once:true});
     });
+  },[]);
+
+  // Close dropdowns on outside click
+  useEffect(()=>{
+    const fn=(e)=>{
+      if(!e.target.closest(".lang-dd")) setLangOpen(false);
+      if(!e.target.closest(".cur-dd"))  setCO(false);
+    };
+    document.addEventListener("mousedown",fn);
+    return()=>document.removeEventListener("mousedown",fn);
   },[]);
 
   const buildAI=useCallback(async()=>{
@@ -645,7 +768,7 @@ export default function Home(){
         method:"POST",
         headers:{"Content-Type":"application/json","anthropic-dangerous-direct-browser-access":"true"},
         body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",max_tokens:1400,
+          model:"claude-sonnet-4-6",max_tokens:1400,
           system:`You are a senior Egypt travel specialist at Aurevian Tours, a luxury travel company.
 Create a COMPLETE, PROFESSIONAL travel itinerary:
 
@@ -696,105 +819,57 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
   const fi=e=>{e.target.style.borderColor="rgba(160,120,40,.65)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";};
   const fo=e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";};
 
+  const currentLangObj = LANGS.find(l=>l.code===uiLang) || LANGS[0];
+
   return(
-    <div style={{background:"#FAF6ED",color:"#2C1A06",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans','Noto Sans Arabic',sans-serif",position:"relative"}}>
+    <div style={{background:"#FAF6ED",color:"#2C1A06",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans',sans-serif",position:"relative"}}>
       <style>{CSS}</style>
       <div className="grain"/>
 
-      {/* ── Hieroglyphic Wall ── */}
+      {/* Hidden Google Translate engine */}
+      <div id="gt-hidden" style={{display:"none"}}/>
+
+      {/* Hieroglyphic background */}
       <div className="hiero-bg">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",inset:0}}>
           <defs>
-            <g id="c1">
-              <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/>
-              <ellipse cx="35" cy="32" rx="14" ry="10" fill="none" stroke="#A07828" strokeWidth="1.1"/>
-              <ellipse cx="35" cy="32" rx="7" ry="5" fill="none" stroke="#A07828" strokeWidth="1"/>
-              <circle cx="35" cy="32" r="2.5" fill="#A07828"/>
-              <line x1="21" y1="32" x2="14" y2="32" stroke="#A07828" strokeWidth="1.1"/>
-              <path d="M21 26 Q13 32 21 38" fill="none" stroke="#A07828" strokeWidth="1.1"/>
-              <rect x="18" y="50" width="34" height="3.5" rx="1.5" fill="#A07828"/>
-              <rect x="20" y="58" width="26" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="18" y="66" width="34" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="22" y="74" width="22" height="3" rx="1.5" fill="#A07828"/>
-              <circle cx="35" cy="90" r="5" fill="none" stroke="#A07828" strokeWidth="1"/>
-            </g>
-            <g id="c2">
-              <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/>
-              <ellipse cx="35" cy="28" rx="12" ry="14" fill="none" stroke="#A07828" strokeWidth="1.1"/>
-              <rect x="20" y="42" width="30" height="18" rx="3" fill="none" stroke="#A07828" strokeWidth="1"/>
-              <line x1="20" y1="48" x2="50" y2="48" stroke="#A07828" strokeWidth="0.8"/>
-              <rect x="18" y="68" width="34" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="22" y="76" width="26" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="18" y="84" width="34" height="3" rx="1.5" fill="#A07828"/>
-              <polygon points="35,94 42,104 28,104" fill="none" stroke="#A07828" strokeWidth="1"/>
-            </g>
-            <g id="c3">
-              <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/>
-              <polygon points="35,18 55,48 15,48" fill="none" stroke="#A07828" strokeWidth="1.2"/>
-              <circle cx="35" cy="62" r="7" fill="none" stroke="#A07828" strokeWidth="1.1"/>
-              <rect x="18" y="80" width="34" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="22" y="88" width="26" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="18" y="96" width="34" height="3" rx="1.5" fill="#A07828"/>
-            </g>
-            <g id="c4">
-              <rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/>
-              <rect x="18" y="16" width="34" height="3" rx="1.5" fill="#A07828"/>
-              <circle cx="35" cy="50" r="10" fill="none" stroke="#A07828" strokeWidth="1.2"/>
-              <line x1="35" y1="60" x2="35" y2="78" stroke="#A07828" strokeWidth="1.4"/>
-              <line x1="26" y1="66" x2="44" y2="66" stroke="#A07828" strokeWidth="1.4"/>
-              <rect x="20" y="84" width="30" height="3" rx="1.5" fill="#A07828"/>
-              <rect x="18" y="92" width="34" height="3" rx="1.5" fill="#A07828"/>
-            </g>
+            <g id="c1"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><ellipse cx="35" cy="32" rx="14" ry="10" fill="none" stroke="#A07828" strokeWidth="1.1"/><ellipse cx="35" cy="32" rx="7" ry="5" fill="none" stroke="#A07828" strokeWidth="1"/><circle cx="35" cy="32" r="2.5" fill="#A07828"/><rect x="18" y="50" width="34" height="3.5" rx="1.5" fill="#A07828"/><rect x="20" y="58" width="26" height="3" rx="1.5" fill="#A07828"/><rect x="18" y="66" width="34" height="3" rx="1.5" fill="#A07828"/></g>
+            <g id="c2"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><ellipse cx="35" cy="28" rx="12" ry="14" fill="none" stroke="#A07828" strokeWidth="1.1"/><rect x="20" y="42" width="30" height="18" rx="3" fill="none" stroke="#A07828" strokeWidth="1"/><rect x="18" y="68" width="34" height="3" rx="1.5" fill="#A07828"/><rect x="22" y="76" width="26" height="3" rx="1.5" fill="#A07828"/></g>
+            <g id="c3"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><polygon points="35,18 55,48 15,48" fill="none" stroke="#A07828" strokeWidth="1.2"/><circle cx="35" cy="62" r="7" fill="none" stroke="#A07828" strokeWidth="1.1"/><rect x="18" y="80" width="34" height="3" rx="1.5" fill="#A07828"/></g>
           </defs>
           {[0,1,2,3,4,5,6,7,8,9].map(i=>(
             <g key={i}>
-              <use href={`#c${(i%4)+1}`} transform={`translate(${i*155+30}, 40) rotate(${i%2===0?-3:3})`} opacity="0.9"/>
-              <use href={`#c${((i+1)%4)+1}`} transform={`translate(${i*155+30}, 200) rotate(${i%2===0?2:-2})`} opacity="0.8"/>
-              <use href={`#c${((i+2)%4)+1}`} transform={`translate(${i*155+30}, 360) rotate(${i%2===0?-4:4})`} opacity="0.85"/>
-              <use href={`#c${((i+3)%4)+1}`} transform={`translate(${i*155+30}, 520) rotate(${i%2===0?3:-3})`} opacity="0.75"/>
+              <use href={`#c${(i%3)+1}`} transform={`translate(${i*155+30}, 40) rotate(${i%2===0?-3:3})`} opacity="0.9"/>
+              <use href={`#c${((i+1)%3)+1}`} transform={`translate(${i*155+30}, 200) rotate(${i%2===0?2:-2})`} opacity="0.8"/>
+              <use href={`#c${((i+2)%3)+1}`} transform={`translate(${i*155+30}, 360) rotate(${i%2===0?-4:4})`} opacity="0.7"/>
+              <use href={`#c${(i%3)+1}`} transform={`translate(${i*155+30}, 520) rotate(${i%2===0?3:-3})`} opacity="0.65"/>
             </g>
           ))}
         </svg>
       </div>
 
       {/* ══════════════ NAV ══════════════ */}
-      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:1000,height:66,
+      <nav style={{
+        position:"fixed",top:0,left:0,right:0,zIndex:1000,height:66,
         background:scrolled?"rgba(250,246,237,.98)":"rgba(250,246,237,.75)",
         backdropFilter:scrolled?"blur(28px)":"blur(10px)",
         borderBottom:scrolled?"1px solid rgba(193,156,60,.25)":"1px solid rgba(193,156,60,.1)",
         display:"flex",alignItems:"center",justifyContent:"space-between",
         padding:"0 clamp(14px,4vw,44px)",transition:"all .45s ease",
-        boxShadow:scrolled?"0 4px 32px rgba(180,140,60,.12)":"none"}}>
+        boxShadow:scrolled?"0 4px 32px rgba(180,140,60,.12)":"none"
+      }}>
         {scrolled&&<div style={{position:"absolute",bottom:0,left:0,right:0,height:1,background:"linear-gradient(90deg,transparent,rgba(193,156,60,.5),rgba(232,201,109,.7),rgba(193,156,60,.5),transparent)",opacity:.7}}/>}
 
-        {/* AUREVIAN LOGO */}
-        <div style={{display:"flex",alignItems:"center",gap:12,cursor:"pointer",flexShrink:0}} onClick={()=>navigate("/")}>
-          {/* Custom Logo Mark */}
-          <div style={{width:46,height:46,position:"relative",flexShrink:0}}>
-            <svg viewBox="0 0 46 46" style={{width:"100%",height:"100%"}}>
-              {/* Outer ring */}
-              <circle cx="23" cy="23" r="21" fill="none" stroke="url(#navGold)" strokeWidth="1.2"/>
-              {/* Eye of Ra simplified */}
-              <ellipse cx="23" cy="21" rx="10" ry="7" fill="none" stroke="url(#navGold)" strokeWidth="1.1"/>
-              <circle cx="23" cy="21" r="3.5" fill="url(#navGold)"/>
-              {/* Pyramid base line */}
-              <line x1="10" y1="32" x2="36" y2="32" stroke="url(#navGold)" strokeWidth="1.2"/>
-              {/* Pyramid */}
-              <polygon points="23,26 33,32 13,32" fill="none" stroke="url(#navGold)" strokeWidth="1"/>
-              <defs>
-                <linearGradient id="navGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8B6010"/>
-                  <stop offset="50%" stopColor="#C9A84C"/>
-                  <stop offset="100%" stopColor="#E8C96D"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
+        {/* ── NEW LOGO ── */}
+        <div className="logo-wrap" style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer",flexShrink:0}} onClick={()=>navigate("/")}>
+          <AurevianLogo size={46} animate/>
           <div>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(13px,1.6vw,17px)",fontWeight:700,
+            <div style={{
+              fontFamily:"'Cinzel',serif",fontSize:"clamp(13px,1.6vw,17px)",fontWeight:700,
               background:"linear-gradient(135deg,#8B6010,#C9A84C,#8B6010)",
               WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
-              backgroundClip:"text",letterSpacing:"0.18em",lineHeight:1}}>AUREVIAN</div>
+              backgroundClip:"text",letterSpacing:"0.18em",lineHeight:1
+            }}>AUREVIAN</div>
             <div style={{fontSize:"clamp(6px,.85vw,7px)",color:"#A07828",letterSpacing:"0.35em",marginTop:2,fontFamily:"'Josefin Sans',sans-serif",fontWeight:600}}>EGYPT TOURS & EXPERIENCES</div>
           </div>
         </div>
@@ -809,18 +884,29 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         </ul>
 
         <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
-          {/* Translate Button */}
-          <div style={{position:"relative"}} className="dn">
-            <button onClick={()=>{setTO(!tO);setCO(false);}}
-              style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",padding:"6px 14px",borderRadius:8,cursor:"pointer",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",gap:6,fontFamily:"'Josefin Sans',sans-serif",letterSpacing:"0.12em"}}>
-              🌍 Translate ▾
+          {/* Language selector */}
+          <div className="lang-dd" style={{position:"relative"}} >
+            <button
+              className="dn"
+              onClick={()=>{setLangOpen(!langOpen);setCO(false);}}
+              style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",padding:"6px 13px",borderRadius:8,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:6,letterSpacing:"0.1em"}}
+            >
+              <span style={{fontSize:14}}>{currentLangObj.flag}</span>
+              <span>{currentLangObj.label}</span>
+              <span style={{fontSize:9,opacity:.7}}>▾</span>
             </button>
-            <GoogleTranslateWidget visible={tO} onClose={()=>setTO(false)}/>
+            <LanguageSelector
+              visible={langOpen}
+              onClose={()=>setLangOpen(false)}
+              currentLang={uiLang}
+              onSelect={handleLangSelect}
+            />
           </div>
 
           {/* Currency */}
-          <div style={{position:"relative"}} className="dn">
-            <button onClick={()=>{setCO(!cO);setTO(false);}}
+          <div className="cur-dd" style={{position:"relative"}}>
+            <button onClick={()=>{setCO(!cO);setLangOpen(false);}}
+              className="dn"
               style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",padding:"6px 13px",borderRadius:8,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>
               {CURR[cur]?.s} {cur} ▾
             </button>
@@ -847,10 +933,19 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           {[["Home","/"],["Tours","/tours"],["Destinations","/destinations"],["AI Planner","/ai"],["About","/about"],["Contact","/contact"]].map(([label,path])=>(
             <Link key={path} to={path} style={{display:"block",padding:"13px 0",borderBottom:"1px solid rgba(193,156,60,.1)",color:"rgba(44,26,6,.65)",fontSize:13,letterSpacing:"0.18em",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Josefin Sans',sans-serif"}} onClick={()=>setMMenu(false)}>{label}</Link>
           ))}
-          <div style={{marginTop:18}}>
-            <div id="google_translate_element_mobile"/>
+          {/* Mobile language grid */}
+          <div style={{marginTop:16,marginBottom:10}}>
+            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 Language</div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+              {LANGS.map(lang=>(
+                <button key={lang.code} onClick={()=>{handleLangSelect(lang.code,lang.dir);setMMenu(false);}}
+                  style={{background:uiLang===lang.code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:uiLang===lang.code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:5}}>
+                  {lang.flag} {lang.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div style={{display:"flex",gap:6,marginTop:10,flexWrap:"wrap"}}>
+          <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:10}}>
             {Object.entries(CURR).slice(0,8).map(([code,{s}])=>(
               <button key={code} onClick={()=>{setCur(code);setMMenu(false);}} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:cur===code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:10,fontFamily:"'Josefin Sans',sans-serif"}}>{s} {code}</button>
             ))}
@@ -859,22 +954,29 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         </div>
       )}
 
-      {/* ══════════════ HERO — SPLIT LAYOUT ══════════════ */}
-      <section style={{position:"relative",minHeight:"100vh",paddingTop:66,overflow:"hidden"}}>
-        <div className="hero-split" style={{minHeight:"calc(100vh - 66px)"}}>
+      {/* ══════════════ HERO — CINEMATIC OVERLAY ══════════════ */}
+      <section style={{position:"relative",paddingTop:66}}>
+        <div className="hero-wrap">
+          {/* Full-bleed background image */}
+          <img className="hero-bg-img" src={HERO_IMG} alt="Sphinx and Pyramids of Giza"
+            onError={e=>e.target.src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1600&q=80"}/>
 
-          {/* LEFT: Text Content */}
-          <div style={{
-            display:"flex",flexDirection:"column",justifyContent:"center",
-            padding:"clamp(40px,7vw,90px) clamp(24px,5vw,72px)",
-            background:"linear-gradient(135deg,#FAF6ED 0%,#F3ECD8 60%,#EDE3C8 100%)",
-            position:"relative",zIndex:2,
-          }}>
-            {/* Subtle gold horizontal line top */}
-            <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:"linear-gradient(90deg,transparent,rgba(201,168,76,.6),rgba(232,201,109,.9),rgba(201,168,76,.6),transparent)"}}/>
+          {/* Cinematic overlay */}
+          <div className="hero-overlay"/>
 
+          {/* Gold edge stripe */}
+          <div className="hero-edge"/>
+
+          {/* Floating particles */}
+          {[15,32,55,72,88].map((left,i)=>(
+            <div key={i} className="hero-particle"
+              style={{left:`${left}%`,bottom:"20%",animationDelay:`${i*1.2}s`,animationDuration:`${5+i}s`}}/>
+          ))}
+
+          {/* ── LEFT: Text Content ── */}
+          <div className="hero-content">
             <div style={{animation:"fadeUp .8s ease both"}}>
-              {/* Eyebrow tag */}
+              {/* Eyebrow */}
               <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.4)",borderRadius:32,padding:"6px 18px",marginBottom:28,backdropFilter:"blur(8px)"}}>
                 <span style={{color:"#A07828",fontSize:9,letterSpacing:"0.35em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Award-Winning Egypt Specialists Since 2009</span>
               </div>
@@ -897,14 +999,13 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                 <div style={{flex:1,height:1,background:"linear-gradient(to left,rgba(193,156,60,.5),transparent)"}}/>
               </div>
 
-              {/* Creative description */}
               <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(14px,1.6vw,20px)",color:"rgba(44,26,6,.65)",lineHeight:1.85,marginBottom:32,maxWidth:460,opacity:0,animation:"fadeUp .8s ease .2s forwards"}}>
-                Where ancient pharaohs whispered their secrets to the stones, and the Nile carried civilisations across five millennia of wonder — your extraordinary journey begins here.
+                Where ancient pharaohs whispered their secrets to the stones, and the Nile carried civilisations across five millennia of wonder.
               </p>
 
-              {/* Stats row */}
+              {/* Stats */}
               <div style={{display:"flex",gap:24,marginBottom:36,opacity:0,animation:"fadeUp .8s ease .3s forwards"}}>
-                {[["4.9★","TripAdvisor Rating"],["50K+","Happy Travellers"],["15+","Years of Excellence"]].map(([n,l])=>(
+                {[["4.9★","TripAdvisor"],["50K+","Travellers"],["15+","Years"]].map(([n,l])=>(
                   <div key={l}>
                     <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(16px,1.8vw,22px)",fontWeight:700,color:"#A07828"}}>{n}</div>
                     <div style={{fontSize:9,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",marginTop:3}}>{l}</div>
@@ -929,7 +1030,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
               {/* Trust badges */}
               <div style={{display:"flex",gap:10,marginTop:28,flexWrap:"wrap",opacity:0,animation:"fadeUp .8s ease .5s forwards"}}>
-                {[["✓","Best Price Guarantee"],["✓","Local Egyptian Expert"],["✓","24/7 Support"],["✓","98% Satisfaction"]].map(([ic,l])=>(
+                {[["✓","Best Price"],["✓","Local Expert"],["✓","24/7 Support"],["✓","98% Satisfaction"]].map(([ic,l])=>(
                   <div key={l} style={{display:"flex",alignItems:"center",gap:5,fontSize:10,color:"rgba(107,78,26,.6)",fontFamily:"'Josefin Sans',sans-serif"}}>
                     <span style={{color:"#A07828",fontWeight:700}}>{ic}</span>{l}
                   </div>
@@ -938,124 +1039,115 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             </div>
           </div>
 
-          {/* RIGHT: Image + Video */}
-          <div className="hero-img-col" style={{position:"relative",overflow:"hidden",minHeight:"100%"}}>
-            {/* Main hero image */}
-            <img src={HERO_IMG} alt="Sphinx and Pyramids of Giza"
-              style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 38%",animation:"heroZoom 22s ease-in-out infinite alternate"}}
-              onError={e=>e.target.src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1200&q=80"}/>
-
-            {/* Dark overlay gradient */}
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(to right,rgba(250,246,237,.15) 0%,rgba(250,246,237,.02) 30%,transparent 60%)"}}/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(44,26,6,.3) 0%,transparent 30%,rgba(44,26,6,.5) 100%)"}}/>
-
-            {/* Gold shimmer stripe on left edge */}
-            <div style={{position:"absolute",top:0,bottom:0,left:0,width:3,background:"linear-gradient(to bottom,transparent,rgba(232,201,109,.7),rgba(201,168,76,.9),rgba(232,201,109,.7),transparent)"}}/>
-
+          {/* ── RIGHT: Floating badge cards on photo ── */}
+          <div className="hero-badges">
             {/* Location badge */}
-            <div style={{position:"absolute",top:24,left:24,zIndex:5}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(250,246,237,.88)",backdropFilter:"blur(14px)",border:"1.5px solid rgba(193,156,60,.45)",borderRadius:10,padding:"8px 14px",animation:"fadeIn .8s ease .3s both"}}>
-                <span style={{fontSize:12,color:"#A07828"}}>📍</span>
-                <span style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"rgba(107,78,26,.7)",letterSpacing:"0.25em",textTransform:"uppercase"}}>Giza, Egypt</span>
-                <span style={{width:1,height:10,background:"rgba(193,156,60,.4)",margin:"0 4px"}}/>
+            <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(250,246,237,.88)",backdropFilter:"blur(14px)",border:"1.5px solid rgba(193,156,60,.45)",borderRadius:10,padding:"8px 14px",animation:"fadeIn .8s ease .3s both"}}>
+              <span style={{fontSize:12,color:"#A07828"}}>📍</span>
+              <div>
+                <span style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"rgba(107,78,26,.7)",letterSpacing:"0.25em",textTransform:"uppercase",display:"block"}}>Giza, Egypt</span>
                 <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(107,78,26,.55)"}}>Sphinx & Pyramids</span>
               </div>
             </div>
 
-            {/* Rating card — bottom right */}
-            <div style={{position:"absolute",bottom:28,right:24,zIndex:5,animation:"fadeUp .8s ease .4s both"}}>
-              <div style={{background:"rgba(250,246,237,.93)",backdropFilter:"blur(16px)",border:"1.5px solid rgba(193,156,60,.45)",borderRadius:16,padding:"14px 18px",textAlign:"center",boxShadow:"0 8px 32px rgba(180,140,60,.18)"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:28,fontWeight:700,color:"#A07828",lineHeight:1}}>4.9</div>
-                <div style={{color:"#C9A84C",fontSize:14,letterSpacing:2,margin:"4px 0"}}>★★★★★</div>
-                <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase"}}>Trusted by 5000+ Travellers</div>
-              </div>
+            {/* Rating card */}
+            <div className="hero-stat" style={{animationDelay:".4s"}}>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:28,fontWeight:700,color:"#A07828",lineHeight:1}}>4.9</div>
+              <div style={{color:"#C9A84C",fontSize:14,letterSpacing:2,margin:"4px 0"}}>★★★★★</div>
+              <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase"}}>5,000+ Reviews</div>
             </div>
 
-            {/* Video preview button */}
+            {/* Tours count */}
+            <div className="hero-stat" style={{animationDelay:".55s"}}>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:24,fontWeight:700,color:"#A07828",lineHeight:1}}>200+</div>
+              <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase",marginTop:4}}>Curated Tours</div>
+            </div>
+
+            {/* Video preview */}
             <VideoPreview/>
-
-            {/* Floating hieroglyphs */}
-            {["𓂀","𓅓","𓇋","𓆣"].map((h,i)=>(
-              <div key={i} style={{position:"absolute",zIndex:3,fontSize:`${24+i*4}px`,color:"rgba(201,168,76,.15)",fontFamily:"serif",
-                left:`${[15,70,35,80][i]}%`,top:`${[20,15,65,55][i]}%`,
-                animation:`float ${4+i*.9}s ease-in-out infinite`,animationDelay:`${i*.8}s`,pointerEvents:"none"}}>{h}</div>
-            ))}
           </div>
-        </div>
 
-        {/* Search bar — full width below hero split */}
-        <div style={{position:"relative",zIndex:10,background:"rgba(243,236,216,.97)",backdropFilter:"blur(20px)",borderTop:"1.5px solid rgba(193,156,60,.3)",borderBottom:"1.5px solid rgba(193,156,60,.2)",padding:"clamp(14px,2.5vw,22px) clamp(16px,4vw,48px)"}}>
-          <div style={{maxWidth:1100,margin:"0 auto"}}>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
-              <span style={{color:"#8B6010",fontSize:11,letterSpacing:"0.25em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✈ Find Your Perfect Egypt Experience</span>
-              <button onClick={()=>setAdv(!adv)} style={{background:adv?"rgba(201,168,76,.15)":"transparent",border:"1.5px solid rgba(193,156,60,.3)",color:adv?"#A07828":"rgba(107,78,26,.5)",borderRadius:7,padding:"4px 14px",cursor:"pointer",fontSize:10,letterSpacing:"0.1em",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif"}}>Advanced Search {adv?"▲":"▾"}</button>
-            </div>
-            <div style={{position:"relative"}}>
-              <span style={{position:"absolute",left:15,top:"50%",transform:"translateY(-50%)",color:"rgba(107,78,26,.45)",fontSize:17}}>🔍</span>
-              <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search destinations, tours, experiences…" style={{...iS,paddingLeft:46,paddingRight:44,background:"rgba(250,246,237,.9)"}} onFocus={fi} onBlur={fo}/>
-              {q&&<button onClick={()=>{setQ("");setRes([]);}} style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"transparent",border:"none",color:"rgba(107,78,26,.3)",cursor:"pointer",fontSize:17}}>✕</button>}
-            </div>
-            {res.length>0&&(
-              <div style={{background:"rgba(250,246,237,.99)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:14,marginTop:8,overflow:"hidden",maxHeight:360,overflowY:"auto",animation:"slideD .2s ease",boxShadow:"0 18px 48px rgba(180,140,60,.12)"}}>
-                {res.map((r,i)=>(
-                  <div key={i} className="si" onClick={()=>{navigate(r.url);setQ("");setRes([]);setAdv(false);}} style={{display:"flex",alignItems:"center",gap:13,padding:"12px 16px",cursor:"pointer",borderBottom:"1px solid rgba(193,156,60,.08)",transition:"background .15s"}}>
-                    <img src={r.img} alt="" style={{width:58,height:46,borderRadius:10,objectFit:"cover",flexShrink:0}} onError={e=>e.target.style.display="none"}/>
-                    <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:600,color:"#2C1A06"}}>{r.title}</div>
-                      <div style={{fontSize:11,color:"#9C7A3C",marginTop:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{r.sub}</div>
-                    </div>
-                    <div style={{background:r.color?`${r.color}18`:"rgba(201,168,76,.1)",border:`1px solid ${r.color||"rgba(193,156,60,.3)"}`,borderRadius:6,padding:"2px 10px",fontSize:9,color:r.color||"#A07828",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0}}>{r.tag}</div>
-                  </div>
-                ))}
+          {/* Floating hieroglyphs on image */}
+          {["𓂀","𓅓","𓇋","𓆣"].map((h,i)=>(
+            <div key={i} style={{position:"absolute",zIndex:3,fontSize:`${24+i*4}px`,color:"rgba(201,168,76,.12)",fontFamily:"serif",
+              left:`${[62,78,70,85][i]}%`,top:`${[25,18,62,50][i]}%`,
+              animation:`float ${4+i*.9}s ease-in-out infinite`,animationDelay:`${i*.8}s`,pointerEvents:"none"}}>{h}</div>
+          ))}
+
+          {/* Scroll indicator */}
+          <div style={{position:"absolute",bottom:clamp(80,120),left:"50%",display:"flex",flexDirection:"column",alignItems:"center",gap:6,zIndex:4,animation:"scrollB 3s ease-in-out infinite"}}>
+            <span style={{fontSize:7,letterSpacing:"0.5em",color:"rgba(107,78,26,.4)",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>SCROLL</span>
+            <div style={{width:1,height:38,background:"linear-gradient(to bottom,rgba(193,156,60,.5),transparent)"}}/>
+          </div>
+
+          {/* ── Search bar — bottom of hero ── */}
+          <div className="hero-search">
+            <div style={{maxWidth:1100,margin:"0 auto"}}>
+              <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
+                <span style={{color:"#8B6010",fontSize:11,letterSpacing:"0.25em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✈ Find Your Perfect Egypt Experience</span>
+                <button onClick={()=>setAdv(!adv)} style={{background:adv?"rgba(201,168,76,.15)":"transparent",border:"1.5px solid rgba(193,156,60,.3)",color:adv?"#A07828":"rgba(107,78,26,.5)",borderRadius:7,padding:"4px 14px",cursor:"pointer",fontSize:10,letterSpacing:"0.1em",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif"}}>Advanced {adv?"▲":"▾"}</button>
               </div>
-            )}
-            {q&&!res.length&&<div style={{padding:"14px 16px",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:14,color:"#9C7A3C"}}>No results for "{q}" — try "Luxor", "Pyramids", "cruise"…</div>}
-            {adv&&(
-              <div className="sg" style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1.2fr auto",gap:11,marginTop:12,animation:"fadeUp .3s ease"}}>
-                {[{label:"Check-in",type:"date"},{label:"Check-out",type:"date"}].map((f,i)=>(
-                  <div key={i} style={{display:"flex",flexDirection:"column",gap:5}}>
-                    <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</span>
-                    <input type={f.type} style={{...iS,colorScheme:"light"}} onFocus={fi} onBlur={fo}/>
-                  </div>
-                ))}
-                <div style={{display:"flex",flexDirection:"column",gap:5,position:"relative"}}>
-                  <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>👥 Guests</span>
-                  <div onClick={()=>setGO(!gO)} style={{...iS,cursor:"pointer",userSelect:"none"}}>{adults} Adults · {kids} Children ▾</div>
-                  {gO&&(
-                    <div style={{position:"absolute",top:"calc(100%+8px)",left:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:13,padding:"16px",minWidth:220,zIndex:100,boxShadow:"0 24px 64px rgba(44,26,6,.12)",animation:"slideD .2s ease"}} onClick={e=>e.stopPropagation()}>
-                      {[["Adults",adults,setAdults,1],["Children",kids,setKids,0]].map(([lbl,val,set,min])=>(
-                        <div key={lbl} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-                          <span style={{fontSize:14,color:"#2C1A06",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</span>
-                          <div style={{display:"flex",alignItems:"center",gap:13}}>
-                            <button onClick={()=>set(Math.max(min,val-1))} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>−</button>
-                            <span style={{color:"#A07828",fontWeight:700,minWidth:18,textAlign:"center"}}>{val}</span>
-                            <button onClick={()=>set(val+1)} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>+</button>
+              <div style={{position:"relative"}}>
+                <span style={{position:"absolute",left:15,top:"50%",transform:"translateY(-50%)",color:"rgba(107,78,26,.45)",fontSize:17}}>🔍</span>
+                <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search destinations, tours, experiences…" style={{...iS,paddingLeft:46,paddingRight:44,background:"rgba(250,246,237,.9)"}} onFocus={fi} onBlur={fo}/>
+                {q&&<button onClick={()=>{setQ("");setRes([]);}} style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"transparent",border:"none",color:"rgba(107,78,26,.3)",cursor:"pointer",fontSize:17}}>✕</button>}
+              </div>
+              {res.length>0&&(
+                <div style={{background:"rgba(250,246,237,.99)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:14,marginTop:8,overflow:"hidden",maxHeight:360,overflowY:"auto",animation:"slideD .2s ease",boxShadow:"0 18px 48px rgba(180,140,60,.12)"}}>
+                  {res.map((r,i)=>(
+                    <div key={i} className="si" onClick={()=>{navigate(r.url);setQ("");setRes([]);setAdv(false);}} style={{display:"flex",alignItems:"center",gap:13,padding:"12px 16px",cursor:"pointer",borderBottom:"1px solid rgba(193,156,60,.08)",transition:"background .15s"}}>
+                      <img src={r.img} alt="" style={{width:58,height:46,borderRadius:10,objectFit:"cover",flexShrink:0}} onError={e=>e.target.style.display="none"}/>
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:600,color:"#2C1A06"}}>{r.title}</div>
+                        <div style={{fontSize:11,color:"#9C7A3C",marginTop:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{r.sub}</div>
+                      </div>
+                      <div style={{background:r.color?`${r.color}18`:"rgba(201,168,76,.1)",border:`1px solid ${r.color||"rgba(193,156,60,.3)"}`,borderRadius:6,padding:"2px 10px",fontSize:9,color:r.color||"#A07828",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0}}>{r.tag}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {q&&!res.length&&<div style={{padding:"14px 16px",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:14,color:"#9C7A3C"}}>No results for "{q}" — try "Luxor", "Pyramids", "cruise"…</div>}
+              {adv&&(
+                <div className="sg" style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1.2fr auto",gap:11,marginTop:12,animation:"fadeUp .3s ease"}}>
+                  {[{label:"Check-in",type:"date"},{label:"Check-out",type:"date"}].map((f,i)=>(
+                    <div key={i} style={{display:"flex",flexDirection:"column",gap:5}}>
+                      <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</span>
+                      <input type={f.type} style={{...iS,colorScheme:"light"}} onFocus={fi} onBlur={fo}/>
+                    </div>
+                  ))}
+                  <div style={{display:"flex",flexDirection:"column",gap:5,position:"relative"}}>
+                    <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Guests</span>
+                    <div onClick={()=>setGO(!gO)} style={{...iS,cursor:"pointer",userSelect:"none"}}>{adults} Adults · {kids} Children ▾</div>
+                    {gO&&(
+                      <div style={{position:"absolute",top:"calc(100%+8px)",left:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:13,padding:"16px",minWidth:220,zIndex:100,boxShadow:"0 24px 64px rgba(44,26,6,.12)",animation:"slideD .2s ease"}} onClick={e=>e.stopPropagation()}>
+                        {[["Adults",adults,setAdults,1],["Children",kids,setKids,0]].map(([lbl,val,set,min])=>(
+                          <div key={lbl} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+                            <span style={{fontSize:14,color:"#2C1A06",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</span>
+                            <div style={{display:"flex",alignItems:"center",gap:13}}>
+                              <button onClick={()=>set(Math.max(min,val-1))} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>−</button>
+                              <span style={{color:"#A07828",fontWeight:700,minWidth:18,textAlign:"center"}}>{val}</span>
+                              <button onClick={()=>set(val+1)} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>+</button>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:5}}>
+                    <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Tour Type</span>
+                    <select style={{...iS,cursor:"pointer"}} onFocus={fi} onBlur={fo}>
+                      {["All Types","Day Tour","Nile Cruise","Multi-Day","Adventure","Cultural","Private","Honeymoon","Family"].map(o=><option key={o} style={{background:"#FAF6ED"}}>{o}</option>)}
+                    </select>
+                  </div>
+                  <button onClick={()=>{if(res.length)navigate(res[0].url);else navigate("/tours");}} className="btn-gold" style={{alignSelf:"flex-end",padding:"11px 18px",fontSize:11}}>Search</button>
                 </div>
-                <div style={{display:"flex",flexDirection:"column",gap:5}}>
-                  <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>🗺 Tour Type</span>
-                  <select style={{...iS,cursor:"pointer"}} onFocus={fi} onBlur={fo}>
-                    {["All Types","Day Tour","Nile Cruise","Multi-Day","Adventure","Cultural","Private","Honeymoon","Family"].map(o=><option key={o} style={{background:"#FAF6ED"}}>{o}</option>)}
-                  </select>
-                </div>
-                <button onClick={()=>{if(res.length)navigate(res[0].url);else navigate("/tours");}} className="btn-gold" style={{alignSelf:"flex-end",padding:"11px 18px",fontSize:11}}>🔍 Search</button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div style={{position:"absolute",bottom:24,left:"50%",display:"flex",flexDirection:"column",alignItems:"center",gap:6,zIndex:4,animation:"scrollB 3s ease-in-out infinite"}}>
-          <span style={{fontSize:7,letterSpacing:"0.5em",color:"rgba(107,78,26,.4)",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>SCROLL</span>
-          <div style={{width:1,height:38,background:"linear-gradient(to bottom,rgba(193,156,60,.5),transparent)"}}/>
         </div>
       </section>
 
-      {/* ══════════════ STATS ══════════════ */}
+      {/* ══════════════ STATS BAR ══════════════ */}
       <div style={{background:"linear-gradient(135deg,#EDE3C8,#E6D9B4)",borderTop:"1.5px solid rgba(193,156,60,.25)",borderBottom:"1.5px solid rgba(193,156,60,.25)"}}>
         <div className="statg" style={{maxWidth:1060,margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)",padding:"clamp(18px,3vw,26px) clamp(16px,4vw,40px)"}}>
           {[["50K+","Happy Travelers","🧳"],["200+","Curated Tours","🗺️"],["4.9★","Avg Rating","⭐"],["15+","Years of Excellence","🏆"]].map(([n,l,ic],i)=>(
@@ -1105,7 +1197,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <span style={S.sectionEyebrow}>✦ Handpicked Experiences</span>
             <h2 style={S.sectionTitle}>Featured Egypt Tours</h2>
           </div>
-          <button onClick={()=>navigate("/packages")} className="btn-ghost">View All Tours →</button>
+          <button onClick={()=>navigate("/packages")} className="btn-ghost">View All →</button>
         </div>
         <div className="pkgg" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:22}}>
           {PACKAGES.map((p,i)=>(
@@ -1122,15 +1214,11 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
               }}>
               <div style={{position:"relative",height:220,overflow:"hidden",background:"#EDE3C8"}}>
                 <img className="pkgi" src={p.img} alt={p.title}
-                  style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",transition:"transform .6s ease",display:"block"}}
+                  style={{width:"100%",height:"100%",objectFit:"cover",transition:"transform .6s ease",display:"block"}}
                   onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${p.title.slice(0,10)}`}/>
                 <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(44,26,6,.88) 0%,rgba(44,26,6,.1) 50%,transparent 100%)"}}/>
-                <div style={{position:"absolute",top:12,left:12,background:`${p.badgeColor}22`,border:`1.5px solid ${p.badgeColor}55`,color:p.badgeColor,fontSize:9,fontWeight:700,padding:"4px 12px",borderRadius:20,textTransform:"uppercase",letterSpacing:"0.12em",backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>
-                  {p.badge}
-                </div>
-                <div style={{position:"absolute",top:12,right:12,background:"rgba(250,246,237,.88)",border:"1px solid rgba(193,156,60,.3)",color:"rgba(107,78,26,.85)",fontSize:9,padding:"4px 10px",borderRadius:8,backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>
-                  {p.days}
-                </div>
+                <div style={{position:"absolute",top:12,left:12,background:`${p.badgeColor}22`,border:`1.5px solid ${p.badgeColor}55`,color:p.badgeColor,fontSize:9,fontWeight:700,padding:"4px 12px",borderRadius:20,textTransform:"uppercase",letterSpacing:"0.12em",backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>{p.badge}</div>
+                <div style={{position:"absolute",top:12,right:12,background:"rgba(250,246,237,.88)",border:"1px solid rgba(193,156,60,.3)",color:"rgba(107,78,26,.85)",fontSize:9,padding:"4px 10px",borderRadius:8,backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>{p.days}</div>
                 <div style={{position:"absolute",bottom:14,left:14,right:14}}>
                   <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(14px,1.5vw,18px)",fontWeight:700,color:"#FAF6ED",marginBottom:4}}>{p.title}</div>
                   <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"rgba(250,246,237,.6)"}}>{p.subtitle}</div>
@@ -1192,65 +1280,80 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
       <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
 
-      {/* ══════════════ AI BUILDER ══════════════ */}
+      {/* ══════════════ AI BUILDER — REDESIGNED ══════════════ */}
       <section id="ai-sec" style={S.section}>
         <div {...rv("ai")} style={{...rv("ai").style}}>
+
+          {/* Header */}
           <div style={{textAlign:"center",marginBottom:"clamp(28px,4vw,52px)"}}>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🤖 AI-Powered Planning · NEW</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:32,padding:"8px 22px",marginBottom:18}}>
+              <span style={{fontSize:18}}>🤖</span>
+              <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.35em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>AI-Powered Planning</span>
+              <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:20,padding:"2px 10px",fontSize:8,fontWeight:700,letterSpacing:"0.15em",fontFamily:"'Josefin Sans',sans-serif"}}>NEW</span>
+            </div>
             <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(24px,4vw,48px)",fontWeight:700,marginBottom:10,color:"#2C1A06"}}>Build Your Perfect Egypt Trip with AI</h2>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.8vw,18px)",maxWidth:680,margin:"0 auto"}}>Answer a few simple questions and get your personalised Egypt itinerary in seconds</p>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.8vw,18px)",maxWidth:680,margin:"0 auto"}}>
+              Describe your dream journey — get a complete, priced itinerary in seconds
+            </p>
           </div>
 
-          <div className="aig" style={{display:"grid",gridTemplateColumns:"1fr 1.5fr",gap:32,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
+          <div className="aig" style={{display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:32,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
 
-            {/* Left — features */}
-            <div style={{display:"flex",flexDirection:"column",gap:14}}>
-              <div style={{background:"linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.03))",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:20,padding:"28px 24px"}}>
-                <div style={{fontSize:44,textAlign:"center",marginBottom:14,animation:"float 4s ease-in-out infinite"}}>𓂀</div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:"#8B6010",textAlign:"center",marginBottom:6}}>Smart Egypt AI</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"#9C7A3C",textAlign:"center",marginBottom:20,lineHeight:1.6}}>Powered by Claude AI — the world's most capable travel planning assistant</div>
+            {/* ── Left: Feature cards ── */}
+            <div>
+              {/* Main feature intro card */}
+              <div style={{background:"linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03))",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:20,padding:"24px",marginBottom:16,textAlign:"center"}}>
+                <div style={{fontSize:44,marginBottom:10,animation:"float 4s ease-in-out infinite"}}>𓂀</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:"#8B6010",marginBottom:6}}>Smart Egypt AI</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"#9C7A3C",lineHeight:1.6}}>Powered by Claude — the world's most capable travel planning intelligence</div>
+              </div>
+
+              {/* Feature grid — 3 columns */}
+              <div className="ai-features-grid">
                 {[
-                  {icon:"📅",label:"Day-by-Day Itinerary",desc:"Detailed schedule for every day"},
-                  {icon:"💰",label:"Real Price Breakdown",desc:"Accurate costs for every item"},
-                  {icon:"🏨",label:"Hotel Recommendations",desc:"Curated luxury & mid-range picks"},
-                  {icon:"🗺️",label:"Transport Planning",desc:"How to get between every city"},
-                  {icon:"🍽️",label:"Dining Highlights",desc:"Best restaurants & local cuisine"},
-                  {icon:"📋",label:"Practical Tips",desc:"Visa, weather, culture & packing"},
+                  {icon:"📅",label:"Day-by-Day",desc:"Detailed schedule"},
+                  {icon:"💰",label:"Real Prices",desc:"Accurate costs"},
+                  {icon:"🏨",label:"Hotels",desc:"Curated picks"},
+                  {icon:"🗺️",label:"Transport",desc:"Between cities"},
+                  {icon:"🍽️",label:"Dining",desc:"Best restaurants"},
+                  {icon:"📋",label:"Tips",desc:"Visa & culture"},
                 ].map((f,i)=>(
-                  <div key={i} className="ai-feat" style={{display:"flex",alignItems:"center",gap:12,padding:"9px 12px",borderRadius:10,border:"1.5px solid transparent",marginBottom:5,transition:"all .25s",cursor:"default"}}>
+                  <div key={i} className="ai-feat-card">
                     <span style={{fontSize:20,flexShrink:0}}>{f.icon}</span>
                     <div>
-                      <div style={{fontSize:11,fontWeight:700,color:"#2C1A06",letterSpacing:.5,fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</div>
-                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:12,color:"#9C7A3C",marginTop:1}}>{f.desc}</div>
+                      <div style={{fontSize:10,fontWeight:700,color:"#2C1A06",letterSpacing:.5,fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</div>
+                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,color:"#9C7A3C",marginTop:1}}>{f.desc}</div>
                     </div>
-                    <span style={{marginLeft:"auto",color:"rgba(160,120,40,.5)",fontSize:11}}>✓</span>
                   </div>
                 ))}
               </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+
+              {/* Mini trust pills */}
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:12}}>
                 {[["🔒","Secure","Bank-grade"],["⚡","Instant","In seconds"],["🌍","14 Langs","Multilingual"],["💯","Free","No cost"]].map(([ic,t2,d])=>(
                   <div key={t2} style={{background:"rgba(201,168,76,.07)",border:"1.5px solid rgba(193,156,60,.18)",borderRadius:12,padding:"12px",textAlign:"center"}}>
-                    <div style={{fontSize:20,marginBottom:4}}>{ic}</div>
+                    <div style={{fontSize:18,marginBottom:3}}>{ic}</div>
                     <div style={{fontSize:10,fontWeight:700,color:"#8B6010",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif"}}>{t2}</div>
-                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,color:"#9C7A3C",marginTop:2}}>{d}</div>
+                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,color:"#9C7A3C",marginTop:1}}>{d}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right — chat */}
+            {/* ── Right: Chat panel ── */}
             <div className="ab" style={{borderRadius:22,position:"relative"}}>
-              <div style={{background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:22,padding:"clamp(24px,4vw,44px)",position:"relative",overflow:"hidden",boxShadow:"0 12px 48px rgba(180,140,60,.12)"}}>
+              <div style={{background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:22,padding:"clamp(24px,4vw,40px)",position:"relative",overflow:"hidden",boxShadow:"0 12px 48px rgba(180,140,60,.12)"}}>
                 <div style={{position:"absolute",top:16,right:20,fontSize:36,color:"rgba(193,156,60,.06)",pointerEvents:"none",fontFamily:"serif",letterSpacing:8}}>𓂀 𓅓 𓇋</div>
 
                 <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
 
                 <textarea value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
-                  placeholder={`e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500`}
+                  placeholder="e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500"
                   style={{width:"100%",background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:13,padding:"15px 17px",color:"#2C1A06",fontSize:14,outline:"none",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.75,resize:"vertical",transition:"all .25s",marginBottom:14}}
                   onFocus={e=>{e.target.style.borderColor="rgba(160,120,40,.6)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";}}
                   onBlur={e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";}}/>
 
+                {/* Quick chips */}
                 <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
                   {[
                     "10 days Egypt $3,500 for 2 — Cairo, Nile cruise, Hurghada",
@@ -1260,7 +1363,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                   ].map((ch,i)=>(
                     <button key={i} className="chip" onClick={()=>setAiQ(ch)}
                       style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.25)",color:"rgba(44,26,6,.65)",borderRadius:22,padding:"6px 15px",fontSize:11,cursor:"pointer",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif"}}>
-                      {ch.length>48?ch.slice(0,45)+"…":ch}
+                      {ch.length>42?ch.slice(0,40)+"…":ch}
                     </button>
                   ))}
                 </div>
@@ -1268,7 +1371,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                 <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()}
                   style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:13,padding:"17px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:14,letterSpacing:"0.22em",textTransform:"uppercase",boxShadow:"0 8px 36px rgba(160,120,40,.3)",transition:"all .25s",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:12,fontFamily:"'Josefin Sans',sans-serif"}}>
                   {aiLoad
-                    ?<><div style={{width:18,height:18,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your perfect Egypt journey…</>
+                    ?<><div style={{width:18,height:18,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your perfect itinerary…</>
                     :"🤖 Generate My Egypt Itinerary"
                   }
                 </button>
@@ -1348,24 +1451,15 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
               boxShadow:"0 6px 24px rgba(180,140,60,.1)",
               opacity:vis[`rv${i}`]?1:0,transform:vis[`rv${i}`]?"none":"translateY(24px)",
               transition:`opacity .7s ease ${i*.08}s,transform .7s ease ${i*.08}s,all .33s`}}>
-
-              {/* Quote mark */}
               <div style={{position:"absolute",top:-6,right:18,fontFamily:"'Cormorant Garamond',serif",fontSize:60,color:"rgba(193,156,60,.12)",lineHeight:1}}>"</div>
-
-              {/* Platform + verified badge */}
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
                 <span style={{background:"rgba(201,168,76,.1)",border:"1px solid rgba(193,156,60,.25)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#8B6010",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{r.platform}</span>
                 {r.verified&&<span style={{background:"rgba(37,211,102,.1)",border:"1px solid rgba(37,211,102,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#1A9E50",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>✓ Verified</span>}
                 <span style={{marginLeft:"auto",fontSize:9,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.date}</span>
               </div>
-
               <Stars n={r.stars}/>
-
-              {/* Tour name */}
               <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"#A07828",letterSpacing:"0.15em",textTransform:"uppercase",marginTop:8,marginBottom:6,fontWeight:700}}>{r.tourName}</div>
-
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(12px,1.4vw,14px)",color:"rgba(44,26,6,.7)",lineHeight:1.82,margin:"0 0 16px",position:"relative"}}>{r.text}</p>
-
+              <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(12px,1.4vw,14px)",color:"rgba(44,26,6,.7)",lineHeight:1.82,margin:"0 0 16px"}}>{r.text}</p>
               <div style={{display:"flex",alignItems:"center",gap:10,paddingTop:14,borderTop:"1px solid rgba(193,156,60,.15)"}}>
                 <img src={r.img} alt={r.name} style={{width:42,height:42,borderRadius:"50%",border:"2px solid rgba(193,156,60,.35)",objectFit:"cover"}}/>
                 <div>
@@ -1388,9 +1482,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         ))}
         <div {...rv("cta")} style={{position:"relative",padding:"clamp(40px,6vw,84px) clamp(24px,6vw,84px)",textAlign:"center",...rv("cta").style}}>
           <div style={{fontSize:9,color:"rgba(232,201,109,.8)",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:16,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Start Your Journey</div>
-          <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,4.5vw,54px)",fontWeight:700,marginBottom:14,color:"#FAF6ED",lineHeight:1.1}}>
-            Ready to Explore Egypt?
-          </h2>
+          <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,4.5vw,54px)",fontWeight:700,marginBottom:14,color:"#FAF6ED",lineHeight:1.1}}>Ready to Explore Egypt?</h2>
           <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.55)",fontSize:"clamp(14px,1.8vw,18px)",marginBottom:32,maxWidth:540,margin:"0 auto 32px",lineHeight:1.8}}>Let's build your perfect journey</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
             <button onClick={()=>setBookItem({title:"Book Your Egypt Adventure"})} className="btn-gold" style={{padding:"15px 38px",fontSize:13}}>✈ Start Planning Now</button>
@@ -1420,30 +1512,12 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       {/* ══════════════ FOOTER ══════════════ */}
       <footer style={{background:"linear-gradient(135deg,#EDE3C8,#E0D4A8)",borderTop:"1.5px solid rgba(193,156,60,.25)",padding:"clamp(40px,6vw,72px) clamp(16px,4vw,48px) clamp(20px,3vw,28px)"}}>
         <div className="ftg" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1.5fr",gap:"clamp(24px,4vw,52px)",marginBottom:"clamp(28px,4vw,48px)"}}>
-          {/* Brand column */}
+          {/* Brand */}
           <div>
             <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,cursor:"pointer"}} onClick={()=>navigate("/")}>
-              <div style={{width:48,height:48,position:"relative",flexShrink:0}}>
-                <svg viewBox="0 0 46 46" style={{width:"100%",height:"100%"}}>
-                  <circle cx="23" cy="23" r="21" fill="none" stroke="url(#ftGold)" strokeWidth="1.2"/>
-                  <ellipse cx="23" cy="21" rx="10" ry="7" fill="none" stroke="url(#ftGold)" strokeWidth="1.1"/>
-                  <circle cx="23" cy="21" r="3.5" fill="url(#ftGold)"/>
-                  <line x1="10" y1="32" x2="36" y2="32" stroke="url(#ftGold)" strokeWidth="1.2"/>
-                  <polygon points="23,26 33,32 13,32" fill="none" stroke="url(#ftGold)" strokeWidth="1"/>
-                  <defs>
-                    <linearGradient id="ftGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#8B6010"/>
-                      <stop offset="50%" stopColor="#C9A84C"/>
-                      <stop offset="100%" stopColor="#E8C96D"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
+              <AurevianLogo size={48}/>
               <div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,
-                  background:"linear-gradient(135deg,#8B6010,#C9A84C)",
-                  WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",
-                  letterSpacing:"0.18em"}}>AUREVIAN</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,background:"linear-gradient(135deg,#8B6010,#C9A84C)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",letterSpacing:"0.18em"}}>AUREVIAN</div>
                 <div style={{fontSize:7,color:"#9C7A3C",letterSpacing:"0.35em",fontFamily:"'Josefin Sans',sans-serif"}}>EGYPT TOURS & EXPERIENCES</div>
               </div>
             </div>
@@ -1457,26 +1531,20 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
               ))}
             </div>
           </div>
-
-          {/* Explore */}
           <div>
             <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Explore</div>
             {["Egypt Tours","Destinations","Day Trips","Travel Guide","AI Trip Planner"].map(lnk=>(
-              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.4}}
+              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif"}}
                 onMouseOver={e=>e.target.style.color="#8B6010"} onMouseOut={e=>e.target.style.color="#9C7A3C"}>{lnk}</a>
             ))}
           </div>
-
-          {/* Company */}
           <div>
             <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Company</div>
             {["About Us","Why Aurevian","Reviews","Terms & Conditions","Privacy Policy"].map(lnk=>(
-              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.4}}
+              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif"}}
                 onMouseOver={e=>e.target.style.color="#8B6010"} onMouseOut={e=>e.target.style.color="#9C7A3C"}>{lnk}</a>
             ))}
           </div>
-
-          {/* Contact */}
           <div>
             <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Contact Us</div>
             {[
@@ -1495,7 +1563,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             </div>
           </div>
         </div>
-
         <div style={{borderTop:"1px solid rgba(193,156,60,.15)",paddingTop:"clamp(16px,3vw,22px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
           <span style={{color:"rgba(107,78,26,.5)",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>© 2026 Aurevian Egypt Tours & Experiences. All rights reserved.</span>
           <div style={{display:"flex",gap:8}}>
@@ -1520,3 +1587,6 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
     </div>
   );
 }
+
+// Helper to avoid undefined `clamp` reference in JS (it's CSS-only)
+function clamp(min, max){ return `clamp(${min}px,${(min+max)/2/10}vw,${max}px)`; }
