@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import mongoose from "mongoose";
-
+import path from "path";
 mongoose.connect(process.env.MONGO_URI, {
   tls: true,
   tlsAllowInvalidCertificates: true,
@@ -30,7 +30,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
+app.use(express.static(path.join(process.cwd(), "public")));
 // simple logger
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -55,7 +55,9 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/cities", cityRoutes);
 app.use("/api/tours", tourRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-
+app.get("/test-image", (req, res) => {
+  res.sendFile(process.cwd() + "/public/images/tours/westsolo.jpeg");
+});
 // =======================
 // GLOBAL ERROR HANDLER ← الأخير دايماً
 // =======================

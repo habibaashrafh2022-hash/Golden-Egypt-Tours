@@ -6,9 +6,9 @@ import { useState, useEffect } from "react";
 import Home            from "./pages/Home";
 import City            from "./pages/City";
 import Tour            from "./pages/Tour";
-import Hotels          from "./pages/Hotels";
+
 import Packages        from "./pages/Packages";
-import NileCruisesPage from "./pages/NileCruisesPage";
+
 import Login           from "./pages/Login";
 import Dashboard       from "./pages/Dashboard";
 import Booking         from "./pages/Booking";
@@ -63,8 +63,7 @@ function AppInner() {
 
           {/* Packages, Hotels, Cruises */}
           <Route path="/packages"            element={<Packages />} />
-          <Route path="/hotels"              element={<Hotels />} />
-          <Route path="/cruises"             element={<NileCruisesPage />} />
+         
 
           {/* AI Planner */}
           <Route path="/ai-planner"          element={<AITripBuilder />} />
