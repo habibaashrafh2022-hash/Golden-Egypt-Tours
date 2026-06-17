@@ -91,7 +91,7 @@ const tourSchema = new mongoose.Schema(
     difficulty: { type: String, default: "Easy" },
     minAge: { type: Number, default: 0 },
     groupSize: { type: Number, default: 15 },
-    meetingPoint: { type: String },
+   meetingPoint: { type: mongoose.Schema.Types.Mixed },
     cancellation: { type: String },
 
     // ── STATS ──

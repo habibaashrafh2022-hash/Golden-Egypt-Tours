@@ -18,7 +18,7 @@ const toursData = [
   {
     title: "Valley of the Kings and Queens, Colossi & Hatshepsut Tour",
     titleAr: "",
-    image: "/../images/tours/westsolo.jpeg",
+  images: ["/images/tours/westsolo.jpeg"],
     slug: "valley-kings-queens-colossi-hatshepsut-luxor",
     description:
       "Step into the heart of ancient Thebes on this unforgettable excursion to the most famous royal necropolis in Egypt. You'll explore the Valley of the Kings, where legendary pharaohs like Tutankhamun, Ramses II, and Seti I were laid to rest in elaborately decorated tombs carved deep into the limestone cliffs. The tour also includes a visit to the Valley of the Queens, the majestic Mortuary Temple of Hatshepsut dramatically carved into the cliff face at Deir el-Bahari, and the iconic Colossi of Memnon — two enormous quartzite statues standing sentinel over the West Bank plain. With an expert licensed guide leading the way, every tomb and temple comes alive with the stories of gods, pharaohs, and the ancient Egyptian vision of the afterlife. This is the essential West Bank experience, covering four of the most important archaeological sites in the world in a single morning.",
@@ -146,7 +146,7 @@ const toursData = [
   {
     title: "Abydos & Dendera Temple Day Trip",
     titleAr: "",
-    image: "/images/tours/dendera.jpeg",
+    images: ["/images/tours/dendera.jpeg"],
     slug: "abydos-dendera-temple-day-trip-luxor",
     description:
       "Leave Luxor behind on this fascinating full-day excursion to two of Egypt's most sacred and beautifully preserved ancient temples — both rarely visited and utterly extraordinary. Abydos was considered the holiest city in all of ancient Egypt, the mythological burial place of Osiris himself, and its temple built by Seti I contains some of the finest and most vibrantly coloured reliefs found anywhere in the country. Dendera is home to the famous Temple of Hathor — one of the best-preserved temples in Egypt — celebrated for its breathtaking astronomical ceiling, perfectly intact roof, and the famous Dendera Zodiac. Together, these two temples offer a completely different perspective on ancient Egyptian religion and art from the more visited sites around Luxor itself.",
@@ -279,7 +279,7 @@ const toursData = [
   {
     title: "4-Day Nile Cruise from Luxor to Aswan",
     titleAr: "",
-    image: "/images/tours/cruise.jpeg",
+  images: ["/images/tours/cruise.jpeg"],
     slug: "4-day-nile-cruise-luxor-aswan",
     description:
       "Embark on one of the most iconic journeys in the world — a 4-night cruise along the legendary Nile River from Luxor to Aswan aboard a comfortable cruise ship. Sail past golden riverbanks, palm-fringed villages, and ancient ruins while visiting some of Egypt's greatest treasures: the Valley of the Kings, Karnak Temple, the perfectly preserved Temple of Horus at Edfu, the unique double temple of Kom Ombo, and the magnificent Philae Temple on its island in the Aswan reservoir. Enjoy a traditional felucca sailing boat ride among Aswan's granite islands. All meals, guided excursions, and onboard accommodation are included, making this the most seamless and rewarding way to experience the heart of ancient Egypt.",
@@ -606,7 +606,7 @@ const toursData = [
   {
     title: "Valley of the Nobles, Medinet Habu & Deir el-Medina Tour",
     titleAr: "",
-    image: "/images/tours/habu.jpeg",
+   images: ["/images/tours/habu.jpeg"],
     slug: "valley-nobles-medinet-habu-deir-medina-luxor",
     description:
       "Discover the lesser-known but equally fascinating side of Luxor's West Bank on this tour of three remarkable ancient sites that most tourists never see. The Valley of the Nobles contains some of the most vividly painted and humanly relatable tombs in all of Egypt — showing daily life, feasting, hunting, music, and farming rather than religious texts. Medinet Habu is the massive mortuary temple of Ramses III, arguably the best-preserved temple on the entire West Bank, covered in extraordinary military reliefs. And Deir el-Medina gives a rare and deeply moving glimpse into the lives of the ordinary craftsmen and artists who spent their careers building and decorating the royal tombs in the Valley of the Kings — the workers who made all the rest of it possible.",
@@ -720,7 +720,7 @@ const toursData = [
   {
     title: "Complete Guided Tour of Luxor",
     titleAr: "",
-    image: "/images/tours/completo.jpeg",
+    images: ["/images/tours/completo.jpeg"],
     slug: "complete-guided-tour-luxor",
     description:
       "Experience the very best of Luxor in a single carefully crafted day — the most comprehensive one-day tour available anywhere in the city. This tour takes you to the five most iconic landmarks on both the East and West Banks of the Nile: the Colossi of Memnon, the Valley of the Kings, the Mortuary Temple of Hatshepsut, the vast Karnak Temple complex, and Luxor Temple. With a knowledgeable licensed guide leading the way throughout, every monument comes alive through the stories of the ancient world — from the ritual burial of pharaohs in the Valley of the Kings to the 2,000-year construction history of Karnak and the breathtaking night illumination of Luxor Temple. This is Aurevian Tours' flagship Luxor experience.",
@@ -856,7 +856,7 @@ const toursData = [
   {
     title: "Transfers in Luxor",
     titleAr: "",
-    image: "/images/tours/calesa.jpeg",
+   images: ["/images/tours/calesa.jpeg"],
     slug: "transfers-luxor",
     description:
       "Travel comfortably and safely around Luxor with our private door-to-door transfer service. Whether you need a ride from the airport, your hotel, the cruise ship dock, or any other address, a professional Aurevian Tours chauffeur will be waiting for you and will take you to your destination quickly and smoothly. Available 24 hours a day, 7 days a week — for arrivals, departures, inter-city transfers, or simply getting between sites without the hassle of negotiating local taxis.",
@@ -948,7 +948,7 @@ const toursData = [
   {
     title: "Luxor Hot Air Balloon Ride",
     titleAr: "",
-    image: "/images/tours/balloon.jpeg",
+    images: ["/images/tours/balloon.jpeg"],
     slug: "luxor-hot-air-balloon-ride",
     description:
       "Soar above the ancient wonders of Luxor at sunrise on a breathtaking hot air balloon ride — one of the most magical and sought-after experiences in all of Egypt. As you gently float 300–600 metres above the West Bank at dawn, you'll be treated to sweeping 360-degree aerial views of the Valley of the Kings, the Mortuary Temple of Hatshepsut, Medinet Habu, the Colossi of Memnon, and the great Karnak Temple complex on the East Bank — with the silver ribbon of the Nile threading through the green valley between the golden desert on both sides. The first light of dawn transforming the ancient landscape below is a sight that stays with you forever. Flown by CAA-certified pilots with an outstanding safety record.",
@@ -1071,7 +1071,7 @@ const toursData = [
   {
     title: "Luxor & Karnak Temples Guided Tour",
     titleAr: "",
-    image: "/images/tours/east.jpeg",
+   images: ["/images/tours/east.jpeg"],
     slug: "luxor-karnak-temples-guided-tour",
     description:
       "Explore two of the most awe-inspiring temples in the ancient world on this specially timed evening guided tour — designed to avoid the midday heat and experience both temples in the most beautiful light of the day. Beginning at the massive Karnak Temple in the golden late afternoon, you'll walk through its famous Great Hypostyle Hall with its 134 towering columns, and learn the stories of the 30 pharaohs who contributed to its construction over 2,000 years. The tour then walks the newly excavated Avenue of the Sphinxes — open to visitors again for the first time in centuries — before arriving at the illuminated Luxor Temple after dark, one of the most beautiful sights in all of Egypt.",
@@ -1182,7 +1182,7 @@ const toursData = [
   {
     title: "Karnak Temple Guided Tour",
     titleAr: "",
-    image: "/images/tours/karnak.jpeg",
+   images: ["/images/tours/karnak.jpeg"],
     slug: "karnak-temple-guided-tour-luxor",
     description:
       "Dedicated entirely to the grandest temple complex in ancient Egypt — and arguably the most impressive ancient building anywhere in the world — this guided tour takes you deep into the extraordinary world of Karnak. The sanctuary of Amun-Ra was the beating heart of religious and political life in ancient Thebes for over 2,000 years, and its sheer scale is overwhelming: the perimeter wall stretches 2,400 metres, the Great Hypostyle Hall alone covers 5,000 square metres, and the tallest columns reach 23 metres high. Walk through the columned halls, admire the Sacred Lake, and discover the obelisks, shrines, and sacred spaces built by some of Egypt's most powerful rulers over two millennia of continuous construction.",
@@ -1302,7 +1302,7 @@ const toursData = [
   {
     title: "Karnak Temple Light & Sound Show",
     titleAr: "",
-    image: "/images/tours/sound.jpeg",
+   images: ["/images/tours/sound.jpeg"],
     slug: "karnak-temple-light-sound-show-luxor",
     description:
       "Experience the ancient world come to life at Karnak after dark with this spectacular light and sound show — one of the most atmospheric evening experiences in Egypt. As night falls over the temple, dramatic coloured lighting illuminates the towering columns, obelisks, and Sacred Lake while a professional narration carries you back thousands of years through the story of ancient Egypt — told through the voices of its gods and pharaohs. You walk through the temple complex in stages, with each area dramatically revealed by light as the narrative reaches it, culminating in a breathtaking finale at the Sacred Lake where the entire illuminated temple is reflected in the still water.",
@@ -1398,7 +1398,7 @@ const toursData = [
   {
     title: "Edfu & Kom Ombo Day Trip from Luxor",
     titleAr: "",
-    image: "/images/tours/edfu.jpeg",
+    images: ["/images/tours/edfu.jpeg"],
     slug: "edfu-kom-ombo-day-trip-luxor",
     description:
       "Head south from Luxor on this remarkable full-day excursion to two of Egypt's most impressive and best-preserved ancient temples. At Edfu — arriving in style on a traditional horse-drawn carriage through the local streets — you'll visit the Temple of Horus, the most completely preserved ancient temple in Egypt, with its towering 36-metre entrance pylons, extraordinary intact interior, and famous black granite Horus falcon. Kom Ombo then offers a completely unique experience: the only ancient Egyptian temple simultaneously dedicated to two gods, with a perfectly symmetrical dual design, mummified crocodiles in the onsite museum, and an extraordinary riverside setting on a Nile bend.",
@@ -1533,7 +1533,7 @@ const toursData = [
   {
     title: "Luxor Tour by Horse-Drawn Carriage",
     titleAr: "",
-    image: "/images/tours/calesa.jpeg",
+    images: ["/images/tours/calesa.jpeg"],
     slug: "luxor-tour-horse-drawn-carriage",
     description:
       "Discover the charm and character of Luxor in the most traditional and unhurried way possible — aboard a classic horse-drawn carriage clip-clopping through the city's streets. This relaxed tour takes you along the stunning Nile Corniche past the entrance of Luxor Temple, through the real backstreets and market quarters of the city, and back along the river as the afternoon light turns golden. A perfect introduction to Luxor for first-time visitors, a wonderful experience for families with children, and a genuinely different perspective on the city for those who have done all the temples and want to experience Luxor as a living place rather than just a museum.",
@@ -1641,7 +1641,7 @@ const toursData = [
   {
     title: "Luxor Museum & Museum of Mummification Guided Tour",
     titleAr: "",
-    image: "/images/tours/museum.jpeg",
+   images: ["/images/tours/museum.jpeg"],
     slug: "luxor-museum-mummification-guided-tour",
     description:
       "Dive into Luxor's extraordinary archaeological heritage with this guided tour of two of Egypt's finest and most rewarding museums. The Luxor Museum houses a world-class collection of Theban artifacts — including royal statues of breathtaking quality, golden objects from Tutankhamun's tomb, a reconstructed wall of Akhenaten, and two royal mummies — displayed in a beautifully designed space that puts most national museums to shame. The nearby Museum of Mummification is the only museum in Egypt dedicated exclusively to the ancient art and science of preserving the dead, with genuine mummies, embalming tools, and canopic equipment on display. Best visited before the temples to give everything else you see in Luxor its full context.",
@@ -1752,7 +1752,7 @@ const toursData = [
   {
     title: "Sunset Felucca Trip to Banana Island",
     titleAr: "",
-    image: "/images/tours/faluca.jpeg",
+   images: ["/images/tours/faluca.jpeg"],
     slug: "sunset-felucca-trip-banana-island-luxor",
     description:
       "Unwind completely on a peaceful felucca sailing trip along the Nile at golden hour — the perfect antidote to a day of intense temple touring. Glide silently across the calm river toward Banana Island, a lush and tranquil working agricultural island approximately 8 kilometres north of Luxor, famous for its banana plantations, mango trees, guava, papyrus reeds, and tropical greenery. Stroll through the island's cool fruit gardens before sailing back to Luxor as the sun descends behind the West Bank hills — the sky turning orange, pink, and deep purple above the ancient mountains. One of the most peaceful and memorable evenings available anywhere in Egypt.",
@@ -1867,7 +1867,7 @@ const toursData = [
   {
     title: "Egypt Tour Package: 8 Days All-Inclusive from Luxor",
     titleAr: "",
-    image: "/images/tours/completo.jpeg",
+   images: ["/images/tours/cruise.jpeg"],
     slug: "egypt-tour-package-8-days-all-inclusive-luxor",
     description:
       "Experience the very best of Egypt in 8 unforgettable all-inclusive days — Aurevian Tours' most comprehensive Egypt itinerary, starting from Luxor and ending in Cairo. This extraordinary journey covers the greatest ancient landmarks in the country: the colossal temple complexes of Karnak and Hatshepsut in Luxor, the Valley of the Kings, the temples of Edfu and Kom Ombo, the magical island temple of Philae in Aswan, the remote and breathtaking temples of Abu Simbel near the Sudanese border, and the iconic Pyramids of Giza and Great Sphinx in Cairo. All 4-star accommodation, internal transport and flights, all meals, guided excursions, and entrance fees are included — everything taken care of, so you can focus entirely on the experience.",

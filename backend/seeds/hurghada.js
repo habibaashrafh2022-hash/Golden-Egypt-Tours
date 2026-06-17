@@ -2631,5 +2631,5 @@ const toursData = [
   },
 ];
 
-export { toursData };
+export { cityData, toursData };
 
