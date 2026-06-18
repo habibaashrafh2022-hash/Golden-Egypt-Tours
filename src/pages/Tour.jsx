@@ -658,7 +658,7 @@ export default function TourPage(){
   const price = tour.price?.discounted || tour.price?.original || 0;
   const score = tour.rating?.score || 4.9;
   const reviews = tour.rating?.reviews || 0;
-  const destination = tour.city || tour.destination || tour.category || "Egypt";
+  const destination = (typeof tour.city === "object" ? (tour.city?.name || tour.city?.nameAr) : tour.city) || tour.destination || tour.category || "Egypt";
 
   const includes = tour.includes?.length ? tour.includes : DEFAULT_INCLUDES;
   const excludes = tour.excludes?.length ? tour.excludes : DEFAULT_EXCLUDES;
