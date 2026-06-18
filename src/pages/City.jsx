@@ -63,18 +63,149 @@ const BRAND_STATS = [
   {ic:"clock",  val:"24/7",    label:"Support"},
 ];
 
-// ─── ASSET CONVENTION ───────────────────────────────────────────
-// Every image/video below follows one predictable path so the
-// content team can drop real files in without touching code:
-//   /images/cities/{slug}-hero.jpg
-//   /images/attractions/{slug}/{n}.jpg
-//   /images/gallery/{slug}/{n}.jpg
-//   /videos/cities/{slug}.mp4
-// If a file isn't there yet, onError swaps in a branded
-// placeholder so the layout never breaks.
-const heroPath  = slug => `/images/cities/${slug}-hero.jpg`;
-const attPath   = (slug,n) => `/images/attractions/${slug}/${n}.jpg`;
-const galPath   = (slug,n) => `/images/gallery/${slug}/${n}.jpg`;
+// ─── REAL IMAGE LIBRARY ─────────────────────────────────────────
+// High-quality Unsplash images per city. When you upload your own
+// photos, replace these URLs with your local paths. The fallback
+// chain: CITY_IMAGES → local /images/... path → branded placeholder.
+const CITY_IMAGES = {
+  cairo:{
+    hero:"https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=640&q=85",
+      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=640&q=85",
+      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=640&q=85",
+      "https://images.unsplash.com/photo-1601296235943-f35c7be37685?w=640&q=85",
+      "https://images.unsplash.com/photo-1630495556496-e6db4c99dbd1?w=640&q=85",
+      "https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=900&q=85",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=900&q=85",
+      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=900&q=85",
+      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=900&q=85",
+      "https://images.unsplash.com/photo-1601296235943-f35c7be37685?w=900&q=85",
+      "https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?w=900&q=85",
+    ],
+  },
+  luxor:{
+    hero:"https://images.unsplash.com/photo-1590422749897-47726d2b5fb5?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1590422749897-47726d2b5fb5?w=640&q=85",
+      "https://images.unsplash.com/photo-1558959357-5bc0e8219490?w=640&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=640&q=85",
+      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=640&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=640&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1590422749897-47726d2b5fb5?w=900&q=85",
+      "https://images.unsplash.com/photo-1558959357-5bc0e8219490?w=900&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=900&q=85",
+      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=900&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&q=85",
+    ],
+  },
+  aswan:{
+    hero:"https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=640&q=85",
+      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=640&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=640&q=85",
+      "https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?w=640&q=85",
+      "https://images.unsplash.com/photo-1601296235943-f35c7be37685?w=640&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=900&q=85",
+      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=900&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=900&q=85",
+      "https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?w=900&q=85",
+      "https://images.unsplash.com/photo-1601296235943-f35c7be37685?w=900&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&q=85",
+    ],
+  },
+  alexandria:{
+    hero:"https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=640&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=640&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=640&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=640&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=640&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=900&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=900&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=900&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=900&q=85",
+    ],
+  },
+  hurghada:{
+    hero:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=640&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=640&q=85",
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=640&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=640&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=640&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=900&q=85",
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=900&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=900&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=900&q=85",
+    ],
+  },
+  "sharm-el-sheikh":{
+    hero:"https://images.unsplash.com/photo-1548574505-5e239809ee19?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=640&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=640&q=85",
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=640&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=640&q=85",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=640&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&q=85",
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=900&q=85",
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=900&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=900&q=85",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&q=85",
+    ],
+  },
+  "marsa-alam":{
+    hero:"https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=1800&q=90",
+    attractions:[
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=640&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=640&q=85",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=640&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=640&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=640&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=640&q=85",
+    ],
+    gallery:[
+      "https://images.unsplash.com/photo-1560275619-4cc5a455b0a6?w=900&q=85",
+      "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=900&q=85",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=85",
+      "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=900&q=85",
+      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf9?w=900&q=85",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&q=85",
+    ],
+  },
+};
+
+const heroPath  = slug => CITY_IMAGES[slug]?.hero    || `/images/cities/${slug}-hero.jpg`;
+const attPath   = (slug,n) => CITY_IMAGES[slug]?.attractions?.[n-1] || `/images/attractions/${slug}/${n}.jpg`;
+const galPath   = (slug,n) => CITY_IMAGES[slug]?.gallery?.[n-1]     || `/images/gallery/${slug}/${n}.jpg`;
 const videoPath = slug => `/videos/cities/${slug}.mp4`;
 const placeholder = (text,bg="F3ECD8",fg="A07828") => `https://placehold.co/640x480/${bg}/${fg}?text=${encodeURIComponent(text)}`;
 
@@ -317,6 +448,20 @@ const badgeFor = (tour, i) => {
   return BADGES[i % BADGES.length];
 };
 
+// ─── TOUR CATEGORY LABELS — used to group the full tour list ────
+// ─── into organized, named rows (no "view all" page needed) ────
+const CAT_META = {
+  "Guided tours and free tours": {icon:"🏛️", label:"Guided & Walking Tours"},
+  "Day trip":                    {icon:"🗺️", label:"Day Trips"},
+  "Tour packages":                {icon:"📦", label:"Multi-Day Packages"},
+  "Aerial tours":                  {icon:"🎈", label:"Aerial Experiences"},
+  "Boat tour":                      {icon:"⛴", label:"Nile & Boat Tours"},
+  "Adventure and nature":            {icon:"⚡", label:"Adventure & Nature"},
+  "Transfers":                        {icon:"🚗", label:"Transfers"},
+  "Performances":                      {icon:"🎭", label:"Shows & Performances"},
+};
+const catMetaFor = cat => CAT_META[cat] || {icon:"✦", label:cat||"More Experiences"};
+
 // ─── ICONS — tiny inline SVGs, no external icon dependency ──────
 const Ic = {
   trophy:p=>(<svg viewBox="0 0 24 24" width={p.s||14} height={p.s||14} fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 5H4a1 1 0 0 0-1 1 4 4 0 0 0 4 4"/><path d="M17 5h3a1 1 0 0 1 1 1 4 4 0 0 1-4 4"/><path d="M12 13v4M9 20h6M10 17h4v3h-4z"/></svg>),
@@ -347,27 +492,43 @@ const Ic = {
   tiktok:p=>(<svg viewBox="0 0 24 24" width={p.s||15} height={p.s||15} fill="currentColor"><path d="M14 3c.4 2 1.9 3.4 4 3.6v2.7c-1.5 0-2.9-.4-4-1.2v6.4A4.5 4.5 0 1 1 9.5 10v2.7a1.8 1.8 0 1 0 1.8 1.8V3H14Z"/></svg>),
 };
 
-// ─── AUREVIAN LOGO ────────────────────────────────────────────
+// ─── LOGO ────────────────────────────────────────────────────
 function AurevianLogo({size=44}){
   return(
-    <svg width={size} height={size} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="lgA2" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B6010"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8C96D"/>
+        <linearGradient id="aurPyr" x1="8%" y1="0%" x2="95%" y2="100%">
+          <stop offset="0%" stopColor="#7E5A0E"/>
+          <stop offset="50%" stopColor="#C9A84C"/>
+          <stop offset="100%" stopColor="#F0D78C"/>
         </linearGradient>
-        <linearGradient id="lgRiver2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#7CB9E8" stopOpacity="0.9"/><stop offset="50%" stopColor="#4FC3F7" stopOpacity="1"/><stop offset="100%" stopColor="#7CB9E8" stopOpacity="0.5"/>
+        <linearGradient id="aurRing" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#E8C96D"/>
+          <stop offset="100%" stopColor="#8B6010"/>
         </linearGradient>
       </defs>
-      <polygon points="28,2 46,10 54,28 46,46 28,54 10,46 2,28 10,10" fill="none" stroke="url(#lgA2)" strokeWidth="1.2" opacity="0.7"/>
-      <line x1="11" y1="44" x2="28" y2="10" stroke="url(#lgA2)" strokeWidth="3.2" strokeLinecap="round"/>
-      <line x1="45" y1="44" x2="28" y2="10" stroke="url(#lgA2)" strokeWidth="3.2" strokeLinecap="round"/>
-      <path d="M17 32 Q20 29 23 32 Q26 35 29 32 Q32 29 35 32 Q38 35 39 32" stroke="url(#lgRiver2)" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.95"/>
-      <polyline points="21,44 28,36 35,44" fill="none" stroke="url(#lgA2)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
-      <circle cx="28" cy="10" r="2.2" fill="url(#lgA2)" opacity="0.9"/>
-      <circle cx="22" cy="19" r="1.1" fill="url(#lgA2)" opacity="0.4"/>
-      <circle cx="34" cy="19" r="1.1" fill="url(#lgA2)" opacity="0.4"/>
+      <circle cx="32" cy="32" r="29.5" stroke="url(#aurRing)" strokeWidth="1" opacity="0.5"/>
+      <circle cx="32" cy="32" r="25.6" stroke="url(#aurRing)" strokeWidth="0.6" opacity="0.32"/>
+      <line x1="11.5" y1="49.5" x2="52.5" y2="49.5" stroke="url(#aurRing)" strokeWidth="1" strokeLinecap="round" opacity="0.4"/>
+      <path d="M32 12.5 L50.5 49 L13.5 49 Z" fill="url(#aurPyr)"/>
+      <circle cx="32" cy="34.5" r="6.2" fill="#FBEFC8" opacity="0.95"/>
+      <rect x="19.5" y="33.1" width="25" height="2.7" fill="#FBEFC8"/>
+      <circle cx="32" cy="12.5" r="1.5" fill="#F7E2A0"/>
     </svg>
+  );
+}
+
+function BrandMark({size=44, dark}){
+  const navigate = useNavigate();
+  return(
+    <div style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer",flexShrink:0}} onClick={()=>navigate("/")}>
+      <AurevianLogo size={size}/>
+      <div style={{lineHeight:1}}>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(13px,1.6vw,17px)",fontWeight:700,letterSpacing:"0.1em",color:dark?"#FAF6ED":"#231A0E"}}>AUREVIAN</div>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(11px,1.3vw,14px)",fontWeight:600,letterSpacing:"0.22em",color:dark?"rgba(250,246,237,.75)":"#8B6010",marginTop:1}}>TOURS</div>
+        <div style={{fontSize:"clamp(6px,.8vw,7px)",color:dark?"rgba(250,246,237,.5)":"#9C7A3C",letterSpacing:"0.28em",marginTop:3,fontFamily:"'Josefin Sans',sans-serif",fontWeight:600}}>LUXURY EGYPT JOURNEYS</div>
+      </div>
+    </div>
   );
 }
 
@@ -551,11 +712,18 @@ button{font-family:inherit;}
 .cp-att-desc{font-family:'Cormorant Garamond',serif;font-size:11.5px;color:#9C7A3C;line-height:1.4;display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
 .cp-att-arrow{color:#A07828;flex-shrink:0;margin-top:1px;}
 
-/* ── GALLERY ── */
-.cp-gal-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
-.cp-gal-it{position:relative;border-radius:12px;overflow:hidden;height:130px;cursor:pointer;}
+/* ── GALLERY — bento mosaic (creative, no "view all" needed) ── */
+.cp-gal-row{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:118px;gap:12px;}
+.cp-gal-it{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;}
+.cp-gal-it:nth-child(1){grid-column:1/3;grid-row:1/3;}
+.cp-gal-it:nth-child(2){grid-column:3/4;grid-row:1/2;}
+.cp-gal-it:nth-child(3){grid-column:4/5;grid-row:1/2;}
+.cp-gal-it:nth-child(4){grid-column:3/4;grid-row:2/3;}
+.cp-gal-it:nth-child(5){grid-column:4/5;grid-row:2/3;}
+.cp-gal-it:nth-child(6){grid-column:1/5;grid-row:3/4;}
 .cp-gal-it img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
-.cp-gal-it:hover img{transform:scale(1.1);}
+.cp-gal-it:hover img{transform:scale(1.08);}
+.cp-gal-it::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,12,4,.22),transparent 45%);pointer-events:none;}
 
 /* ── TOURS ── */
 .cp-tour-row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
@@ -577,6 +745,9 @@ button{font-family:inherit;}
 .cp-card-fc{font-size:10px;color:#2F8F63;display:flex;align-items:center;gap:4px;margin-bottom:8px;}
 .cp-card-btn{width:100%;padding:9px;border-radius:8px;background:linear-gradient(135deg,#A07828,#C9A84C);color:#FAF6ED;border:none;font-size:9.5px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;cursor:pointer;margin-top:8px;}
 .cp-card-btn:hover{box-shadow:0 6px 20px rgba(160,120,40,.4);}
+.cp-cat-title{display:flex;align-items:center;gap:9px;font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:#2C1A06;}
+.cp-cat-ic{font-size:17px;}
+.cp-cat-count{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;color:#A07828;background:rgba(201,168,76,.14);border-radius:20px;padding:2px 9px;}
 
 /* ── HORIZONTAL SCROLL (mobile fallback for grids) ── */
 .cp-scrollx{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-ms-overflow-style:none;scrollbar-width:none;padding-bottom:4px;}
@@ -637,7 +808,7 @@ button{font-family:inherit;}
   .cp-att-row,.cp-gal-row,.cp-tour-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;}
   .cp-att-row::-webkit-scrollbar,.cp-gal-row::-webkit-scrollbar,.cp-tour-row::-webkit-scrollbar{display:none;}
   .cp-att-row > *{min-width:160px;scroll-snap-align:start;}
-  .cp-gal-row > *{min-width:150px;scroll-snap-align:start;}
+  .cp-gal-row > *{min-width:150px;height:140px;scroll-snap-align:start;}
   .cp-tour-row > *{min-width:230px;scroll-snap-align:start;}
   .cp-ftop{grid-template-columns:1fr 1fr;gap:28px;}
   .cp-ftop > div:nth-child(1){grid-column:1/-1;}
@@ -655,8 +826,171 @@ button{font-family:inherit;}
   .cp-ftop{grid-template-columns:1fr;}
   .cp-ftop > div{grid-column:1/-1!important;}
 }
+/* ── BOOKING MODAL ── */
+.cp-modal-bg{position:fixed;inset:0;background:rgba(44,26,6,.72);backdrop-filter:blur(18px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .22s ease;}
+.cp-modal{background:linear-gradient(145deg,#FAF6ED,#F3ECD8);border:1.5px solid rgba(193,156,60,.35);border-radius:22px;width:min(520px,96vw);max-height:92vh;overflow-y:auto;box-shadow:0 60px 140px rgba(44,26,6,.35);animation:slideD .28s ease;}
+.cp-modal-head{padding:22px 26px 16px;border-bottom:1px solid rgba(193,156,60,.18);display:flex;justify-content:space-between;align-items:flex-start;}
+.cp-modal-body{padding:22px 26px 26px;}
+.cp-minp{background:rgba(201,168,76,.06);border:1.5px solid rgba(193,156,60,.25);border-radius:10px;padding:11px 13px;color:#2C1A06;font-size:13px;outline:none;width:100%;font-family:'Cormorant Garamond',serif;transition:border-color .2s,box-shadow .2s;}
+.cp-minp:focus{border-color:rgba(160,120,40,.65);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.cp-mlabel{font-size:9px;color:#A07828;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:6px;font-weight:700;font-family:'Josefin Sans',sans-serif;}
+.cp-mstep{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;transition:all .25s;}
+.cp-mstep.done{background:linear-gradient(135deg,#A07828,#C9A84C);color:#FAF6ED;}
+.cp-mstep.pending{background:rgba(201,168,76,.12);border:1.4px solid rgba(193,156,60,.3);color:#A07828;}
+
+/* ── RTL SUPPORT (Arabic) ── */
+[dir="rtl"] .cp-bar{flex-direction:row-reverse;}
+[dir="rtl"] .cp-bar-stats{flex-direction:row-reverse;}
+[dir="rtl"] .cp-bar-right{flex-direction:row-reverse;}
+[dir="rtl"] .cp-nav{flex-direction:row-reverse;}
+[dir="rtl"] .cp-navlinks{flex-direction:row-reverse;}
+[dir="rtl"] .cp-navright{flex-direction:row-reverse;}
+[dir="rtl"] .cp-logo-wrap{flex-direction:row-reverse;}
+[dir="rtl"] .cp-logo-name,[dir="rtl"] .cp-logo-sub{text-align:right;}
+[dir="rtl"] .cp-crumb{flex-direction:row-reverse;}
+[dir="rtl"] .ch-content{padding-left:clamp(14px,4vw,44px);padding-right:clamp(14px,4vw,44px);}
+[dir="rtl"] .ch-overlay{background:linear-gradient(280deg,rgba(20,12,4,.86) 0%,rgba(20,12,4,.62) 32%,rgba(20,12,4,.22) 58%,rgba(20,12,4,.08) 100%),linear-gradient(to top,rgba(10,6,2,.35) 0%,transparent 35%);}
+[dir="rtl"] .ch-title,[dir="rtl"] .ch-tagline,[dir="rtl"] .ch-desc{text-align:right;}
+[dir="rtl"] .ch-btns{flex-direction:row-reverse;justify-content:flex-end;}
+[dir="rtl"] .cp-statscard{flex-direction:row-reverse;}
+[dir="rtl"] .cp-stat-it{flex-direction:row-reverse;}
+[dir="rtl"] .cp-about-text p,[dir="rtl"] .cp-about-title{text-align:right;}
+[dir="rtl"] .cp-why-item{flex-direction:row-reverse;}
+[dir="rtl"] .cp-sec-head{flex-direction:row-reverse;}
+[dir="rtl"] .cp-sec-link{flex-direction:row-reverse;}
+[dir="rtl"] .cp-att-desc{flex-direction:row-reverse;}
+[dir="rtl"] .cp-card-body{text-align:right;}
+[dir="rtl"] .cp-card-badge{left:auto;right:10px;}
+[dir="rtl"] .cp-card-foot{flex-direction:row-reverse;}
+[dir="rtl"] .cp-cat-title{flex-direction:row-reverse;}
+[dir="rtl"] .cp-cta{flex-direction:row-reverse;}
+[dir="rtl"] .cp-cta-feat{flex-direction:row-reverse;}
+[dir="rtl"] .cp-ftop{direction:rtl;}
+[dir="rtl"] .cp-fcontact-row{flex-direction:row-reverse;}
+[dir="rtl"] .cp-float-wa{right:auto;left:18px;}
+[dir="rtl"] .cp-float-top{right:auto;left:18px;}
+[dir="rtl"] .dropP{right:auto;left:0;}
+[dir="rtl"] .cp-mmenu a,[dir="rtl"] .cp-mmenu button{text-align:right;}
+[dir="rtl"] .cp-destdrop{left:auto;right:50%;transform:translateX(50%);}
+[dir="rtl"] .cp-modal-head,[dir="rtl"] .cp-modal-body{direction:rtl;text-align:right;}
+[dir="rtl"] .cp-minp{text-align:right;}
 `}</style>
-);
+  );
+
+// ─── BOOKING MODAL ───────────────────────────────────────────
+function BookingModal({tour, cityName, onClose, formatPrice}){
+  const [step,setStep] = useState(1);
+  const [busy,setBusy] = useState(false);
+  const [f,setF] = useState({name:"",email:"",whatsapp:"",date:"",guests:"2",pickup:"",notes:""});
+  const upd = k => e => setF(p=>({...p,[k]:e.target.value}));
+  const price = tour?.price?.discounted ?? tour?.price?.original ?? 0;
+  const total = price * parseInt(f.guests||1);
+  const ok1 = f.name && f.email && f.whatsapp;
+  const ok2 = f.date && f.pickup;
+  const ref = `AUR-${Date.now().toString().slice(-6)}`;
+  const waMsg = encodeURIComponent(`🏛️ *New Booking — Aurevian Tours*\n\n📋 *${tour?.title||"Tour"}*\n📍 City: ${cityName}\n\n👤 Name: ${f.name}\n📱 WhatsApp: ${f.whatsapp}\n✉️ Email: ${f.email}\n📅 Date: ${f.date}\n👥 Guests: ${f.guests}\n📍 Pick-up: ${f.pickup}\n📝 Notes: ${f.notes||"None"}\n💰 Total: ${formatPrice(total)}\n\nRef: ${ref}`);
+  const submit = () => { setBusy(true); setTimeout(()=>{setBusy(false);setStep(3);},1400); };
+
+  const inpStyle = {background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:10,padding:"11px 13px",color:"#2C1A06",fontSize:13,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif"};
+
+  if(!tour) return null;
+  return(
+    <div className="cp-modal-bg" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="cp-modal">
+        <div className="cp-modal-head">
+          <div>
+            <div style={{fontSize:9,color:"#A07828",letterSpacing:".2em",textTransform:"uppercase",marginBottom:6,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian · {cityName}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:"#2C1A06",lineHeight:1.35,maxWidth:370}}>{tour.title}</div>
+          </div>
+          <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
+        </div>
+
+        <div className="cp-modal-body">
+          {step===3 ? (
+            <div style={{textAlign:"center",padding:"22px 0",animation:"fadeIn .35s ease"}}>
+              <div style={{fontSize:54,marginBottom:14}}>✅</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",marginBottom:8}}>Booking Confirmed!</div>
+              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:"#9C7A3C",lineHeight:1.8,marginBottom:24}}>
+                Our team will contact you within 2 hours.<br/>
+                Reference: <strong style={{color:"#A07828"}}>{ref}</strong>
+              </div>
+              <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+                <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:10,padding:"12px 20px",textDecoration:"none",fontWeight:700,fontSize:12,display:"flex",alignItems:"center",gap:7,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
+                <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:10,padding:"12px 20px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* step indicator */}
+              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:20}}>
+                {[1,2].map(s=>(
+                  <div key={s} style={{display:"flex",alignItems:"center",gap:8}}>
+                    <div className={`cp-mstep ${step>=s?"done":"pending"}`}>{s}</div>
+                    {s<2&&<div style={{width:36,height:1,background:step>=2?"rgba(160,120,40,.4)":"rgba(193,156,60,.2)"}}/>}
+                  </div>
+                ))}
+                <span style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginLeft:6}}>{step===1?"Personal Details":"Trip Details"}</span>
+              </div>
+
+              {step===1 && (
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,animation:"fadeIn .25s ease"}}>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <label className="cp-mlabel">Full Name *</label>
+                    <input className="cp-minp" value={f.name} onChange={upd("name")} placeholder="Your full name"/>
+                  </div>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <label className="cp-mlabel">Email *</label>
+                    <input className="cp-minp" type="email" value={f.email} onChange={upd("email")} placeholder="your@email.com"/>
+                  </div>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <label className="cp-mlabel">WhatsApp * 📱</label>
+                    <input className="cp-minp" type="tel" value={f.whatsapp} onChange={upd("whatsapp")} placeholder="+1 234 567 8900"/>
+                  </div>
+                  <div style={{gridColumn:"1/-1",marginTop:4}}>
+                    <button onClick={()=>setStep(2)} disabled={!ok1} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:13,cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:".16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:!ok1?.45:1}}>Next — Trip Details →</button>
+                  </div>
+                </div>
+              )}
+
+              {step===2 && (
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,animation:"fadeIn .25s ease"}}>
+                  <div>
+                    <label className="cp-mlabel">Tour Date *</label>
+                    <input className="cp-minp" type="date" value={f.date} onChange={upd("date")} style={{colorScheme:"light"}}/>
+                  </div>
+                  <div>
+                    <label className="cp-mlabel">Guests</label>
+                    <input className="cp-minp" type="number" min="1" value={f.guests} onChange={upd("guests")}/>
+                  </div>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <label className="cp-mlabel">Pick-up Location * 📍</label>
+                    <input className="cp-minp" value={f.pickup} onChange={upd("pickup")} placeholder="Hotel name / address"/>
+                  </div>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <label className="cp-mlabel">Notes</label>
+                    <textarea className="cp-minp" rows={2} value={f.notes} onChange={upd("notes")} placeholder="Special requests…" style={{resize:"none"}}/>
+                  </div>
+                  <div style={{gridColumn:"1/-1",background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",borderRadius:9,padding:"9px 13px",display:"flex",justifyContent:"space-between",fontFamily:"'Cormorant Garamond',serif",fontSize:13,color:"#6B4E1A"}}>
+                    <span>{f.guests} × {formatPrice(price)}</span>
+                    <strong style={{color:"#A07828"}}>{formatPrice(total)}</strong>
+                  </div>
+                  <div style={{gridColumn:"1/-1",display:"flex",gap:9}}>
+                    <button onClick={()=>setStep(1)} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:10,padding:"12px 16px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>← Back</button>
+                    <button onClick={submit} disabled={busy||!ok2} style={{flex:1,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:12,cursor:busy?"wait":"pointer",fontWeight:700,fontSize:11,letterSpacing:".14em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(!ok2||busy)?.45:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                      {busy?<><div style={{width:14,height:14,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Processing…</>:"✈ Confirm Booking"}
+                    </button>
+                    <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:10,padding:"12px 16px",textDecoration:"none",fontSize:18,display:"flex",alignItems:"center"}}>💬</a>
+                  </div>
+                  <div style={{gridColumn:"1/-1",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C"}}>Free cancellation up to 24 hours before · No charge until confirmed</div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ─── TOP UTILITY BAR ─────────────────────────────────────────
 function TopBar({uiLang, cur, langOpen, curOpen, setLangOpen, setCurOpen, onLangSelect, onCurSelect, currentLangObj}){
@@ -702,13 +1036,7 @@ function MainNav({navigate, allCities, mMenu, setMMenu}){
   const [destOpen, setDestOpen] = useState(false);
   return(
     <nav className="cp-nav">
-      <div className="cp-logo-wrap" onClick={()=>navigate("/")}>
-        <AurevianLogo size={42}/>
-        <div>
-          <div className="cp-logo-name">AUREVIAN</div>
-          <div className="cp-logo-sub">LUXURY EGYPT JOURNEYS</div>
-        </div>
-      </div>
+      <BrandMark size={42}/>
 
       <ul className="cp-navlinks">
         {NAV_ITEMS.map(item=>(
@@ -739,10 +1067,7 @@ function MainNav({navigate, allCities, mMenu, setMMenu}){
       {mMenu && (
         <div className="cp-mmenu">
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-            <div className="cp-logo-wrap" onClick={()=>{navigate("/");setMMenu(false);}}>
-              <AurevianLogo size={38}/>
-              <div className="cp-logo-name" style={{fontSize:13}}>AUREVIAN</div>
-            </div>
+            <BrandMark size={38}/>
             <button onClick={()=>setMMenu(false)} style={{background:"none",border:"none",fontSize:22,color:"#2C1A06",cursor:"pointer"}}>✕</button>
           </div>
           {NAV_ITEMS.map(item=> item.dest ? null : (
@@ -871,7 +1196,6 @@ function AttractionsSection({meta, cityName, navigate}){
           <div className="cp-sec-title">Must-See Wonders in {cityName}</div>
         </div>
         <div className="cp-sec-link">
-          <Link to={`/tours?city=${meta.slug}`}>View All Attractions</Link>
           <button className="cp-arrowbtn" onClick={()=>scroll(-1)}><Ic.chevL/></button>
           <button className="cp-arrowbtn" onClick={()=>scroll(1)}><Ic.chevR/></button>
         </div>
@@ -898,13 +1222,8 @@ function AttractionsSection({meta, cityName, navigate}){
 function GallerySection({meta, cityName}){
   return(
     <section className="cp-sec" id="cp-gallery" style={{paddingTop:8}}>
-      <div className="cp-sec-head">
-        <div>
-          <div className="cp-sec-eyebrow">Explore {cityName} Gallery</div>
-          <div className="cp-sec-title">Breathtaking Views of {cityName}</div>
-        </div>
-        <div className="cp-sec-link"><Link to={`/gallery/${meta.slug}`}>View Full Gallery <Ic.arrow/></Link></div>
-      </div>
+      <div className="cp-sec-eyebrow">Explore {cityName} Gallery</div>
+      <div className="cp-sec-title" style={{marginBottom:22}}>Breathtaking Views of {cityName}</div>
       <div className="cp-gal-row">
         {[1,2,3,4,5,6].map(n=>{
           const src = galPath(meta.slug, n);
@@ -920,7 +1239,7 @@ function GallerySection({meta, cityName}){
 }
 
 // ─── TOUR CARD ──────────────────────────────────────────────
-function TourCard({tour, index, formatPrice, navigate}){
+function TourCard({tour, index, formatPrice, navigate, onBook}){
   const price = tour.price?.discounted ?? tour.price?.original ?? 0;
   const score = tour.rating?.score || 0;
   const reviews = tour.rating?.reviews || 0;
@@ -940,37 +1259,55 @@ function TourCard({tour, index, formatPrice, navigate}){
           {tour.freeCancellation && <div className="cp-card-fc"><Ic.check s={11}/>Free Cancellation</div>}
           <div className="cp-card-from">From</div>
           <span className="cp-card-amt">{formatPrice(price)}</span><span className="cp-card-per"> / person</span>
-          <button className="cp-card-btn" onClick={e=>{e.stopPropagation();navigate(`/tour/${tour._id}`);}}>View Tour</button>
+          <button className="cp-card-btn" onClick={e=>{e.stopPropagation();onBook&&onBook(tour);}}>Book Now</button>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── FEATURED TOURS ─────────────────────────────────────────
-function ToursSection({tours, cityName, citySlug, formatPrice, navigate}){
+// ─── FEATURED TOURS — grouped by category, fully shown ────────
+// ─── (no "View All" link — everything lives on this page) ─────
+function TourCategoryRow({category, list, formatPrice, navigate, onBook}){
   const rowRef = useRef(null);
   const scroll = dir => rowRef.current?.scrollBy({left: dir*280, behavior:"smooth"});
-  const featured = [...tours].sort((a,b)=>(b.rating?.reviews||0)-(a.rating?.reviews||0)).slice(0,5);
+  const cm = catMetaFor(category);
+  return(
+    <div style={{marginBottom:32}}>
+      <div className="cp-sec-head" style={{marginBottom:16}}>
+        <div className="cp-cat-title"><span className="cp-cat-ic">{cm.icon}</span>{cm.label}<span className="cp-cat-count">{list.length}</span></div>
+        {list.length>3 && (
+          <div className="cp-sec-link">
+            <button className="cp-arrowbtn" onClick={()=>scroll(-1)}><Ic.chevL/></button>
+            <button className="cp-arrowbtn" onClick={()=>scroll(1)}><Ic.chevR/></button>
+          </div>
+        )}
+      </div>
+      <div className="cp-tour-row" ref={rowRef}>
+        {list.map((t,i)=><TourCard key={t._id} tour={t} index={i} formatPrice={formatPrice} navigate={navigate} onBook={onBook}/>)}
+      </div>
+    </div>
+  );
+}
+
+function ToursSection({tours, cityName, formatPrice, navigate, onBook}){
+  const groups = [];
+  const seen = {};
+  tours.forEach(t=>{
+    const cat = t.category || "More Experiences";
+    if(!seen[cat]){ seen[cat]=[]; groups.push([cat, seen[cat]]); }
+    seen[cat].push(t);
+  });
+  groups.sort((a,b)=>b[1].length-a[1].length);
+
   return(
     <section className="cp-sec" id="cp-tours" style={{paddingTop:8}}>
-      <div className="cp-sec-head">
-        <div>
-          <div className="cp-sec-eyebrow">Featured Tours in {cityName}</div>
-          <div className="cp-sec-title">Handpicked Experiences Just for You</div>
-        </div>
-        <div className="cp-sec-link">
-          <Link to={`/tours?city=${citySlug}`}>View All Tours</Link>
-          <button className="cp-arrowbtn" onClick={()=>scroll(-1)}><Ic.chevL/></button>
-          <button className="cp-arrowbtn" onClick={()=>scroll(1)}><Ic.chevR/></button>
-        </div>
-      </div>
-      {featured.length===0 ? (
+      <div className="cp-sec-eyebrow">Featured Tours in {cityName}</div>
+      <div className="cp-sec-title" style={{marginBottom:26}}>Handpicked Experiences Just for You</div>
+      {groups.length===0 ? (
         <div style={{textAlign:"center",padding:"50px 0",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C"}}>New experiences in {cityName} are being added soon.</div>
       ) : (
-        <div className="cp-tour-row" ref={rowRef}>
-          {featured.map((t,i)=><TourCard key={t._id} tour={t} index={i} formatPrice={formatPrice} navigate={navigate}/>)}
-        </div>
+        groups.map(([cat, list])=><TourCategoryRow key={cat} category={cat} list={list} formatPrice={formatPrice} navigate={navigate} onBook={onBook}/>)
       )}
     </section>
   );
@@ -1012,10 +1349,7 @@ function Footer({allCities, navigate}){
     <footer className="cp-footer">
       <div className="cp-ftop">
         <div>
-          <div className="cp-logo-wrap" onClick={()=>navigate("/")} style={{marginBottom:14}}>
-            <AurevianLogo size={44}/>
-            <div><div className="cp-logo-name">AUREVIAN</div><div className="cp-logo-sub">LUXURY EGYPT JOURNEYS</div></div>
-          </div>
+          <div style={{marginBottom:14}}><BrandMark size={44}/></div>
           <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#7A5B22",fontSize:13,lineHeight:1.75,marginBottom:14,maxWidth:260}}>We craft luxury journeys across Egypt with passion, expertise and attention to every detail.</p>
           <div className="cp-fsocial">
             <a className="cp-fsoc-ic" href="#" aria-label="Facebook"><Ic.fb/></a>
@@ -1077,6 +1411,7 @@ export default function CityPage() {
   const [uiLang,setUiLang] = useState(globalLang||"en");
   const [cur,setCur] = useState(globalCur||"USD");
   const [heroSrc,setHeroSrc] = useState("");
+  const [bookTour,setBookTour] = useState(null);
 
   const meta = getMeta(cityId);
   const fmtP = p => formatPrice ? formatPrice(p) : fmt(p,cur);
@@ -1179,13 +1514,15 @@ export default function CityPage() {
       <AboutSection meta={meta} cityName={cityName}/>
       <AttractionsSection meta={meta} cityName={cityName} navigate={navigate}/>
       <GallerySection meta={meta} cityName={cityName}/>
-      <ToursSection tours={tours} cityName={cityName} citySlug={cityId} formatPrice={fmtP} navigate={navigate}/>
+      <ToursSection tours={tours} cityName={cityName} formatPrice={fmtP} navigate={navigate} onBook={setBookTour}/>
 
       <CTABanner cityName={cityName}/>
       <Footer allCities={allCities} navigate={navigate}/>
 
       <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer" className="cp-float-wa"><Ic.whatsapp s={16}/> <span>WhatsApp</span></a>
       <button className="cp-float-top" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>▲</button>
+
+      {bookTour && <BookingModal tour={bookTour} cityName={cityName} onClose={()=>setBookTour(null)} formatPrice={fmtP}/>}
     </div>
   );
 }

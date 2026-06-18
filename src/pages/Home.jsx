@@ -70,7 +70,7 @@ const CITIES = [
   {id:"ain-sokhna", name:"Ain Sokhna",      img:"/images/home/sokhna.jpeg",   desc:"Red Sea Riviera",                  tag:"Relaxation", tours:31,  color:"#FF8A65", icon:"🌴", rating:4.5, reviews:298,  price:18},
 ];
 
-const HERO_IMG = "/images/home/sphinx-pyramids.jpeg";
+const HERO_IMG = "/images/home/hero.jpeg";
 const CTA_IMG  = CITIES.find(c=>c.id==="aswan")?.img || HERO_IMG;
 
 // ─── FEATURED TOURS ─────────────────────────────────────────────
@@ -83,7 +83,18 @@ const PACKAGES = [
   {title:"Desert & Oasis Explorer",          subtitle:"8 Days · Western Desert Wonders",          img:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80", badge:"Off-Beat",     badgeColor:"#FF9800", price:890,  days:"8D/7N",  rating:4.7, reviews:180,  link:"/packages"},
 ];
 
-// ─── REVIEWS ────────────────────────────────────────────────────
+// ─── BEST SELLER TOURS ───────────────────────────────────────────
+const BESTSELLER_TOURS = [
+  {id:"bs1", title:"Complete Cairo Tour + Tickets",         location:"Cairo",      img:"/images/tours/camel-sunset.jpeg", duration:"8 hours",   price:64.67, rating:4.4, reviews:1893, link:"/tours/complete-cairo-tour-tickets"},
+  {id:"bs2", title:"Pyramids of Giza, Memphis & Saqqara",  location:"Giza",       img:"/images/tours/saqqara.jpeg",      duration:"3–8 hours", price:76.15, rating:4.3, reviews:1436, link:"/tours/pyramids-giza-memphis-saqqara-cairo"},
+  {id:"bs3", title:"Complete Guided Tour of Luxor",         location:"Luxor",      img:"/images/tours/completo.jpeg",     duration:"7h 30min",  price:97.47, rating:4.3, reviews:211,  link:"/tours/complete-guided-tour-luxor"},
+  {id:"bs4", title:"Luxor Hot Air Balloon Ride",            location:"Luxor",      img:"/images/tours/balloon.jpeg",      duration:"2 hours",   price:105.76,rating:3.9, reviews:142,  link:"/tours/luxor-hot-air-balloon-ride"},
+  {id:"bs5", title:"Alexandria Day Trip from Cairo",        location:"Alexandria", img:"/images/tours/alex.jpeg",         duration:"12 hours",  price:84.35, rating:4.1, reviews:574,  link:"/tours/alexandria-day-trip-cairo"},
+  {id:"bs6", title:"Abydos & Dendera Temple Day Trip",      location:"Luxor",      img:"/images/tours/dendera.jpeg",      duration:"10 hours",  price:97.47, rating:3.9, reviews:99,   link:"tour/6a33d5631962528a783a4126"},
+  {id:"bs7", title:"Edfu & Kom Ombo Day Trip from Luxor",   location:"Luxor",      img:"/images/tours/edfu.jpeg",         duration:"10 hours",  price:77.79, rating:3.8, reviews:28,   link:"/tours/edfu-kom-ombo-day-trip-luxor"},
+];
+
+
 const REVIEWS = [
   {name:"Sarah Mitchell",        flag:"🇺🇸", city:"New York, USA",       stars:5, img:"https://i.pravatar.cc/80?img=1",  date:"March 2025",    tourName:"Cairo & Luxor 8-Day Package",      text:"Absolutely extraordinary experience. The guides were PhD-level Egyptologists who brought history to life. The AI itinerary builder was spot-on — every price matched perfectly. Booking again next year!", verified:true, platform:"TripAdvisor", photos:[CITIES[0].img,CITIES[1].img,CITIES[8].img]},
   {name:"James & Emma Thornton", flag:"🇬🇧", city:"London, UK",          stars:5, img:"https://i.pravatar.cc/80?img=15", date:"January 2025",  tourName:"Honeymoon Egypt Luxury 10 Nights", text:"We chose Aurevian for our honeymoon and it exceeded every expectation. Private sunrise at the Pyramids, a candlelit dinner on the Nile, and flawless logistics from start to finish. Worth every penny.", verified:true, platform:"Google Reviews", photos:[CITIES[1].img,CITIES[2].img,CITIES[4].img]},
@@ -247,34 +258,83 @@ body{background:var(--bg);color:var(--ink);font-family:'Josefin Sans',sans-serif
   .av-stats-row{grid-template-columns:1fr 1fr;}
   .av-footer-grid{grid-template-columns:1fr 1fr;}
 }
+
+/* ───────────────── Heritage frieze divider ───────────────── */
+.av-frieze{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,28px);padding:6px 10px;}
+.av-frieze::before,.av-frieze::after{content:"";flex:1 1 auto;height:1px;max-width:160px;background:linear-gradient(90deg,transparent,rgba(193,156,60,.6),transparent);}
+.av-frieze .av-glyph{flex-shrink:0;opacity:.85;}
+.av-frieze.dark::before,.av-frieze.dark::after{background:linear-gradient(90deg,transparent,rgba(232,201,109,.45),transparent);}
+
+/* ───────────────── Destinations — bento mosaic ───────────────── */
+.av-papyrus{background-image:radial-gradient(rgba(139,96,16,.05) 1px,transparent 1.4px),repeating-linear-gradient(123deg,rgba(139,96,16,.028) 0px,rgba(139,96,16,.028) 1px,transparent 1px,transparent 13px);background-size:15px 15px,auto;}
+.av-dest-frame{position:relative;border:1px solid rgba(193,156,60,.3);border-radius:26px;padding:clamp(14px,2.4vw,26px);background:rgba(255,255,255,.4);}
+.av-dest-frame::before,.av-dest-frame::after{content:"";position:absolute;width:26px;height:26px;border:1.5px solid rgba(160,120,40,.5);opacity:.7;}
+.av-dest-frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;border-radius:14px 0 0 0;}
+.av-dest-frame::after{bottom:-1px;right:-1px;border-left:none;border-top:none;border-radius:0 0 14px 0;}
+.av-dest-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:168px;gap:14px;grid-auto-flow:dense;}
+.av-dest-tile{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid rgba(35,26,14,.1);box-shadow:0 8px 24px rgba(35,26,14,.12);background:#000;transition:transform .4s cubic-bezier(.25,.8,.25,1),box-shadow .4s;}
+.av-dest-tile:hover{transform:translateY(-6px);box-shadow:0 26px 54px rgba(35,26,14,.24);}
+.av-dest-tile:hover .av-img{transform:scale(1.09);}
+.av-dest-tile.big{grid-column:span 2;grid-row:span 2;}
+.av-dest-tile.wide{grid-column:span 2;}
+@media(max-width:1040px){
+  .av-dest-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:152px;}
+}
+@media(max-width:640px){
+  .av-dest-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:138px;gap:9px;}
+  .av-dest-tile.big{grid-row:span 2;}
+  .av-dest-frame{border-radius:20px;}
+}
+
+/* ───────────────── Best Seller Tours ───────────────── */
+.av-best-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:1040px){.av-best-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.av-best-grid{grid-template-columns:1fr;}}
+.av-best-card{position:relative;border-radius:18px;overflow:hidden;cursor:pointer;background:#fff;border:1px solid rgba(35,26,14,.08);box-shadow:0 8px 26px rgba(35,26,14,.08);transition:transform .4s cubic-bezier(.25,.8,.25,1),box-shadow .4s;}
+.av-best-card:hover{transform:translateY(-7px);box-shadow:0 26px 54px rgba(35,26,14,.18);}
+.av-best-card:hover .av-img{transform:scale(1.08);}
+
+/* ───────────────── AI Itinerary Scroll ───────────────── */
+.av-ai-scroll{position:relative;background:linear-gradient(170deg,#fffdf6,#fbf3da);border:1.5px solid rgba(193,156,60,.4);border-radius:24px;padding:clamp(22px,4vw,38px);box-shadow:0 26px 64px rgba(35,26,14,.16);overflow:hidden;}
+.av-ai-scroll::before{content:"";position:absolute;top:0;left:0;right:0;height:7px;background:linear-gradient(90deg,#8B6010,#E8C96D 35%,#8B6010 65%,#E8C96D);opacity:.85;}
+.av-ai-grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:clamp(18px,3vw,28px);max-width:1120px;margin:0 auto;align-items:start;}
+@media(max-width:860px){
+  .av-ai-grid{grid-template-columns:1fr;gap:18px;}
+}
+.av-ai-feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+@media(max-width:860px) and (min-width:481px){.av-ai-feat-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.av-ai-feat-grid{grid-template-columns:repeat(2,1fr);}}
+.av-ai-textarea{width:100%;background:rgba(201,168,76,.06);border:1.5px solid rgba(193,156,60,.3);border-radius:14px;padding:14px 16px;color:#231A0E;font-size:14px;outline:none;font-family:'Cormorant Garamond',serif;line-height:1.7;resize:vertical;margin-bottom:13px;}
+.av-ai-textarea:focus{border-color:rgba(160,120,40,.7);box-shadow:0 0 0 3px rgba(201,168,76,.12);}
 `;
 
 // ════════════════════════════════════════════════════════════════
 //  LOGO
 // ════════════════════════════════════════════════════════════════
 function AurevianLogo({size=44}){
+  // A monogram built from one shape: the Great Pyramid silhouette IS the letter "A",
+  // its crossbar reimagined as the horizon line bisecting a setting sun — held inside
+  // a thin cartouche seal. Heritage first, lettermark second, modern restraint throughout.
   return(
-    <svg width={size} height={size} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="lgA" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B6010"/>
-          <stop offset="45%" stopColor="#C9A84C"/>
-          <stop offset="100%" stopColor="#E8C96D"/>
+        <linearGradient id="aurPyr" x1="8%" y1="0%" x2="95%" y2="100%">
+          <stop offset="0%" stopColor="#7E5A0E"/>
+          <stop offset="50%" stopColor="#C9A84C"/>
+          <stop offset="100%" stopColor="#F0D78C"/>
         </linearGradient>
-        <linearGradient id="lgRiver" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#7CB9E8" stopOpacity="0.9"/>
-          <stop offset="50%" stopColor="#4FC3F7" stopOpacity="1"/>
-          <stop offset="100%" stopColor="#7CB9E8" stopOpacity="0.5"/>
+        <linearGradient id="aurRing" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#E8C96D"/>
+          <stop offset="100%" stopColor="#8B6010"/>
         </linearGradient>
       </defs>
-      <polygon points="28,2 46,10 54,28 46,46 28,54 10,46 2,28 10,10" fill="none" stroke="url(#lgA)" strokeWidth="1.2" opacity="0.7"/>
-      <line x1="11" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
-      <line x1="45" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
-      <path d="M17 32 Q20 29 23 32 Q26 35 29 32 Q32 29 35 32 Q38 35 39 32" stroke="url(#lgRiver)" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.95"/>
-      <polyline points="21,44 28,36 35,44" fill="none" stroke="url(#lgA)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
-      <circle cx="28" cy="10" r="2.2" fill="url(#lgA)" opacity="0.9"/>
-      <circle cx="22" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
-      <circle cx="34" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
+      <circle cx="32" cy="32" r="29.5" stroke="url(#aurRing)" strokeWidth="1" opacity="0.5"/>
+      <circle cx="32" cy="32" r="25.6" stroke="url(#aurRing)" strokeWidth="0.6" opacity="0.32"/>
+      <line x1="11.5" y1="49.5" x2="52.5" y2="49.5" stroke="url(#aurRing)" strokeWidth="1" strokeLinecap="round" opacity="0.4"/>
+      <path d="M32 12.5 L50.5 49 L13.5 49 Z" fill="url(#aurPyr)"/>
+      <circle cx="32" cy="34.5" r="6.2" fill="#FBEFC8" opacity="0.95"/>
+      <rect x="19.5" y="33.1" width="25" height="2.7" fill="#FBEFC8"/>
+      <circle cx="32" cy="12.5" r="1.5" fill="#F7E2A0"/>
     </svg>
   );
 }
@@ -288,6 +348,32 @@ function BrandMark({size=44, dark}){
         <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(11px,1.3vw,14px)",fontWeight:600,letterSpacing:"0.22em",color:dark?"rgba(250,246,237,.75)":"#8B6010",marginTop:1}}>TOURS</div>
         <div style={{fontSize:"clamp(6px,.8vw,7px)",color:dark?"rgba(250,246,237,.5)":"#9C7A3C",letterSpacing:"0.28em",marginTop:3,fontFamily:"'Josefin Sans',sans-serif",fontWeight:600}}>LUXURY EGYPT JOURNEYS</div>
       </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  HERITAGE FRIEZE — a quiet recurring motif (ankh · sun disk · lotus)
+// ════════════════════════════════════════════════════════════════
+function Glyph({type, size=17, color="#A07828"}){
+  const common = {width:size, height:size, viewBox:"0 0 24 24", fill:"none", className:"av-glyph"};
+  if(type==="ankh") return(
+    <svg {...common}><circle cx="12" cy="6.4" r="4.1" stroke={color} strokeWidth="1.5"/><line x1="12" y1="10.3" x2="12" y2="21.5" stroke={color} strokeWidth="1.5" strokeLinecap="round"/><line x1="5.8" y1="14.4" x2="18.2" y2="14.4" stroke={color} strokeWidth="1.5" strokeLinecap="round"/></svg>
+  );
+  if(type==="sun") return(
+    <svg {...common}><circle cx="12" cy="12" r="4.3" stroke={color} strokeWidth="1.5"/>{[0,45,90,135,180,225,270,315].map(a=>(<line key={a} x1={12+Math.cos(a*Math.PI/180)*7} y1={12+Math.sin(a*Math.PI/180)*7} x2={12+Math.cos(a*Math.PI/180)*9.6} y2={12+Math.sin(a*Math.PI/180)*9.6} stroke={color} strokeWidth="1.3" strokeLinecap="round"/>))}</svg>
+  );
+  if(type==="lotus") return(
+    <svg {...common}><path d="M12 20.5C12 20.5 5 16.2 5 10.3C5 7 7.6 5 9.9 6.7C11.1 7.6 12 9.5 12 11.5C12 9.5 12.9 7.6 14.1 6.7C16.4 5 19 7 19 10.3C19 16.2 12 20.5 12 20.5Z" stroke={color} strokeWidth="1.4" strokeLinejoin="round"/></svg>
+  );
+  return null;
+}
+function HieroglyphFrieze({tone="light"}){
+  const color = tone==="dark" ? "#E8C96D" : "#A07828";
+  const seq = ["ankh","sun","lotus","sun","ankh"];
+  return(
+    <div className={`av-frieze ${tone}`}>
+      {seq.map((g,i)=><Glyph key={i} type={g} color={color} size={tone==="dark"?15:17}/>)}
     </div>
   );
 }
@@ -324,24 +410,26 @@ function SectionHead({eyebrow, title, onViewAll, viewAllLabel="View All", scroll
 }
 
 // ════════════════════════════════════════════════════════════════
-//  CITY CARD
+//  DESTINATION TILE (fills its bento grid cell)
 // ════════════════════════════════════════════════════════════════
-function CityCard({c, navigate, fmtP}){
+function DestinationTile({c, size, navigate, fmtP}){
+  const big = size==="big";
   return(
-    <div className="av-city-card" onClick={()=>navigate(`/city/${c.id}`)}
-      style={{position:"relative",width:"clamp(208px,22vw,256px)",height:264,borderRadius:18,overflow:"hidden",cursor:"pointer",
-        border:"1px solid rgba(35,26,14,.08)",boxShadow:"0 8px 26px rgba(35,26,14,.1)",background:"#000"}}>
-      <img className="av-city-img av-img" src={c.img} alt={c.name}
+    <div className={`av-dest-tile ${size||""}`} onClick={()=>navigate(`/city/${c.id}`)}
+      style={{width:"100%",height:"100%"}}>
+      <img className="av-img" src={c.img} alt={c.name}
         style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
         onError={e=>e.target.src=`https://placehold.co/420x520/EDE3C8/8B6010?text=${encodeURIComponent(c.name)}`}/>
-      <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.92) 0%,rgba(20,15,8,.25) 48%,rgba(20,15,8,.05) 70%)"}}/>
-      <div style={{position:"absolute",top:12,left:12,width:34,height:34,borderRadius:"50%",background:"rgba(250,246,237,.92)",border:`1.5px solid ${c.color}88`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>{c.icon}</div>
-      <div style={{position:"absolute",top:14,right:12,background:"rgba(250,246,237,.88)",borderRadius:7,padding:"3px 10px",fontSize:9,fontWeight:700,color:"#6B4E1A",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours}+ Tours</div>
-      <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"14px 16px"}}>
-        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:"#FAF6ED",marginBottom:5,textShadow:"0 2px 10px rgba(0,0,0,.5)"}}>{c.name}</div>
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.92) 0%,rgba(20,15,8,.22) 50%,rgba(20,15,8,.04) 72%)"}}/>
+      <div style={{position:"absolute",top:big?16:10,left:big?16:10,width:big?40:30,height:big?40:30,borderRadius:"50%",background:"rgba(250,246,237,.92)",border:`1.5px solid ${c.color}88`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:big?20:14}}>{c.icon}</div>
+      <div style={{position:"absolute",top:big?18:11,right:big?16:10,background:"rgba(250,246,237,.88)",borderRadius:7,padding:big?"4px 12px":"3px 8px",fontSize:big?10:8,fontWeight:700,color:"#6B4E1A",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours}+ Tours</div>
+      <div style={{position:"absolute",bottom:0,left:0,right:0,padding:big?"20px 22px":"10px 12px"}}>
+        {big&&<div style={{fontSize:9,color:"#E8C96D",letterSpacing:"0.22em",textTransform:"uppercase",marginBottom:6,fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{c.tag}</div>}
+        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:big?24:13.5,color:"#FAF6ED",marginBottom:big?7:3,textShadow:"0 2px 10px rgba(0,0,0,.5)",lineHeight:1.15}}>{c.name}</div>
+        {big&&<div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"rgba(250,246,237,.78)",marginBottom:10}}>{c.desc}</div>}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <span style={{fontSize:11,color:"rgba(250,246,237,.8)",fontFamily:"'Josefin Sans',sans-serif"}}>★ {c.rating} <span style={{color:"rgba(250,246,237,.55)"}}>({c.reviews.toLocaleString()})</span></span>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#E8C96D"}}>From {fmtP(c.price)}</span>
+          <span style={{fontSize:big?11:8.5,color:"rgba(250,246,237,.8)",fontFamily:"'Josefin Sans',sans-serif"}}>★ {c.rating}{big&&<span style={{color:"rgba(250,246,237,.55)"}}> ({c.reviews.toLocaleString()})</span>}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:big?14:10,fontWeight:700,color:"#E8C96D"}}>{fmtP(c.price)}</span>
         </div>
       </div>
     </div>
@@ -380,8 +468,35 @@ function TourCard({p, navigate, fmtP, onBook}){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  REVIEW CARD
+//  BEST SELLER CARD — whole card opens the tour directly
 // ════════════════════════════════════════════════════════════════
+function BestSellerCard({t, rank, navigate, fmtP}){
+  return(
+    <div className="av-best-card" onClick={()=>navigate(t.link)}>
+      <div style={{position:"relative",height:168,overflow:"hidden",background:"#EDE3C8"}}>
+        <img className="av-img" src={t.img} alt={t.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+          onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${encodeURIComponent(t.title.slice(0,12))}`}/>
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.5) 0%,transparent 55%)"}}/>
+        <div style={{position:"absolute",top:11,left:11,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",fontSize:9,fontWeight:700,padding:"4px 11px",borderRadius:18,letterSpacing:"0.06em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:4}}>★ #{rank} Bestseller</div>
+        <div style={{position:"absolute",top:11,right:11,background:"rgba(250,246,237,.92)",color:"#6B4E1A",fontSize:9,fontWeight:700,padding:"4px 10px",borderRadius:7,fontFamily:"'Josefin Sans',sans-serif"}}>{t.duration}</div>
+        <div style={{position:"absolute",bottom:10,left:12,color:"#FAF6ED",fontSize:10.5,fontFamily:"'Josefin Sans',sans-serif",textShadow:"0 2px 8px rgba(0,0,0,.6)"}}>📍 {t.location}</div>
+      </div>
+      <div style={{padding:"15px 17px 18px"}}>
+        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:"#231A0E",marginBottom:7,lineHeight:1.35,minHeight:38}}>{t.title}</div>
+        <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginBottom:11}}>★ {t.rating} <span style={{color:"#B8A06A"}}>({t.reviews.toLocaleString()})</span></div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline"}}>
+          <div>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>From </span>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:17,fontWeight:700,color:"#8B6010"}}>{fmtP(t.price)}</span>
+          </div>
+          <span style={{fontSize:10,color:"#A07828",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>View →</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 function ReviewCard({r}){
   return(
     <div className="av-review-card" style={{width:"clamp(270px,28vw,330px)",background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:18,padding:"22px 22px 20px",boxShadow:"0 8px 26px rgba(35,26,14,.08)"}}>
@@ -862,11 +977,21 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       </section>
 
       {/* ══════════════ DESTINATIONS ══════════════ */}
-      <section className="av-section">
-        <SectionHead eyebrow="Popular Destinations" title="Explore Egypt's Most Iconic Destinations" onViewAll={()=>navigate("/tours")} viewAllLabel="View All Destinations" scrollRef={destRef}/>
-        <ScrollRow ref={destRef}>
-          {CITIES.map(c=><CityCard key={c.id} c={c} navigate={navigate} fmtP={fmtP}/>)}
-        </ScrollRow>
+      <section className="av-section av-papyrus">
+        <div style={{textAlign:"center",marginBottom:"clamp(20px,3vw,30px)"}}>
+          <span className="av-eyebrow">All 10 Destinations · One Journey</span>
+          <h2 className="av-title">Explore Egypt's Most Iconic Destinations</h2>
+        </div>
+        <div className="av-dest-frame" style={{maxWidth:1180,margin:"0 auto"}}>
+          <div className="av-dest-grid">
+            <DestinationTile c={CITIES[0]} size="big"  navigate={navigate} fmtP={fmtP}/>
+            <DestinationTile c={CITIES[8]} size="wide" navigate={navigate} fmtP={fmtP}/>
+            {[CITIES[1],CITIES[2],CITIES[3],CITIES[4],CITIES[5],CITIES[6],CITIES[7],CITIES[9]].map(c=>(
+              <DestinationTile key={c.id} c={c} navigate={navigate} fmtP={fmtP}/>
+            ))}
+          </div>
+        </div>
+        <HieroglyphFrieze/>
       </section>
 
       {/* ══════════════ WHY US ══════════════ */}
@@ -921,56 +1046,74 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       </div>
 
       {/* ══════════════ AI TRIP BUILDER ══════════════ */}
-      <section id="ai-sec" className="av-section">
-        <div data-v="ai" style={{textAlign:"center",marginBottom:"clamp(28px,4vw,44px)",...reveal("ai")}}>
+      <section id="ai-sec" className="av-section" style={{background:"var(--cream2)"}}>
+        <HieroglyphFrieze/>
+        <div data-v="ai" style={{textAlign:"center",margin:"clamp(18px,3vw,32px) 0 clamp(28px,4vw,44px)",...reveal("ai")}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:9,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:30,padding:"7px 20px",marginBottom:16}}>
             <span style={{fontSize:16}}>🤖</span>
             <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>AI-Powered Planning</span>
             <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:18,padding:"2px 9px",fontSize:8,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>NEW</span>
           </div>
           <h2 className="av-title">Build Your Perfect Egypt Trip with AI</h2>
-          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.7vw,16px)",maxWidth:600,margin:"10px auto 0"}}>Describe your dream journey — get a complete, priced itinerary in seconds.</p>
+          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.7vw,16px)",maxWidth:560,margin:"10px auto 0"}}>Describe your dream journey — get a complete, priced itinerary in seconds.</p>
         </div>
 
-        <div className="av-dest-top" style={{gridTemplateColumns:"1fr 1.5fr",gap:28,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
+        <div className="av-ai-grid">
+          {/* ── Left panel: features ── */}
           <div>
-            <div style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:16,padding:18,display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-              {[["📅","Day-by-Day"],["💰","Real Prices"],["🏨","Hotels"],["🗺️","Transport"],["🍽️","Dining"],["📋","Tips"]].map(([ic,t])=>(
-                <div key={t} className="av-chip" style={{display:"flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.05)",border:"1px solid rgba(193,156,60,.18)",borderRadius:10,padding:"10px 11px",transition:"all .2s"}}>
-                  <span style={{fontSize:16}}>{ic}</span><span style={{fontSize:11,fontWeight:600,color:"#231A0E",fontFamily:"'Josefin Sans',sans-serif"}}>{t}</span>
-                </div>
-              ))}
+            <div style={{background:"rgba(255,253,246,.8)",border:"1px solid rgba(193,156,60,.28)",borderRadius:18,padding:"clamp(16px,2.5vw,24px)",marginBottom:14,position:"relative",overflow:"hidden"}}>
+              <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:"linear-gradient(90deg,#8B6010,#E8C96D,#8B6010)"}}/>
+              <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.24em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",marginBottom:14}}>✦ What you get</div>
+              <div className="av-ai-feat-grid">
+                {[["📅","Day-by-Day Plan"],["💰","Real Prices"],["🏨","Hotel Names"],["🗺️","Transport"],["🍽️","Dining Tips"],["📋","Practical Tips"]].map(([ic,t])=>(
+                  <div key={t} className="av-chip" style={{display:"flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.07)",border:"1px solid rgba(193,156,60,.2)",borderRadius:10,padding:"10px 11px",transition:"all .2s",cursor:"default"}}>
+                    <span style={{fontSize:15,flexShrink:0}}>{ic}</span>
+                    <span style={{fontSize:10.5,fontWeight:600,color:"#231A0E",fontFamily:"'Josefin Sans',sans-serif",lineHeight:1.3}}>{t}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:10}}>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8}}>
               {[["🔒","Secure"],["⚡","Instant"],["🌍","13 Langs"],["💯","Free"]].map(([ic,t])=>(
-                <div key={t} style={{background:"rgba(201,168,76,.05)",border:"1px solid rgba(193,156,60,.16)",borderRadius:10,padding:"10px",textAlign:"center"}}>
-                  <div style={{fontSize:15}}>{ic}</div>
-                  <div style={{fontSize:10,fontWeight:700,color:"#8B6010",fontFamily:"'Josefin Sans',sans-serif",marginTop:2}}>{t}</div>
+                <div key={t} style={{background:"rgba(255,253,246,.7)",border:"1px solid rgba(193,156,60,.2)",borderRadius:12,padding:"12px 6px",textAlign:"center"}}>
+                  <div style={{fontSize:16}}>{ic}</div>
+                  <div style={{fontSize:9,fontWeight:700,color:"#8B6010",fontFamily:"'Josefin Sans',sans-serif",marginTop:4,letterSpacing:"0.06em"}}>{t}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:18,padding:"clamp(20px,3vw,30px)",boxShadow:"0 10px 36px rgba(35,26,14,.1)"}}>
-            <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
-            <textarea value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
+          {/* ── Right panel: scroll card ── */}
+          <div className="av-ai-scroll">
+            <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
+            <textarea
+              value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
+              className="av-ai-textarea"
               placeholder="e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500"
-              style={{width:"100%",background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:12,padding:"14px 16px",color:"#231A0E",fontSize:14,outline:"none",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.7,resize:"vertical",marginBottom:13}}/>
-            <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}}>
-              {["10 days Egypt $3,500 for 2 — Cairo, Nile cruise, Hurghada","7-day Nile cruise + pyramids, mid-range","Luxury honeymoon Egypt 10 nights","Family Egypt 2 weeks $5,000 kids-friendly"].map((ch,i)=>(
-                <button key={i} className="av-chip" onClick={()=>setAiQ(ch)} style={{background:"rgba(201,168,76,.07)",border:"1.5px solid rgba(193,156,60,.22)",color:"rgba(35,26,14,.65)",borderRadius:20,padding:"6px 14px",fontSize:11,cursor:"pointer",fontFamily:"'Josefin Sans',sans-serif",transition:"all .2s"}}>{ch.length>40?ch.slice(0,38)+"…":ch}</button>
+            />
+            <div style={{display:"flex",flexWrap:"wrap",gap:7,marginBottom:16}}>
+              {["10 days, Cairo + Nile cruise + Hurghada, $3,500 for 2","7-day Nile cruise + pyramids, mid-range","Luxury honeymoon Egypt 10 nights","Family Egypt 2 weeks $5,000, kids-friendly"].map((ch,i)=>(
+                <button key={i} className="av-chip" onClick={()=>setAiQ(ch)}
+                  style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.25)",color:"rgba(35,26,14,.7)",borderRadius:20,padding:"6px 13px",fontSize:10.5,cursor:"pointer",fontFamily:"'Josefin Sans',sans-serif",transition:"all .2s"}}>
+                  {ch.length>42?ch.slice(0,40)+"…":ch}
+                </button>
               ))}
             </div>
-            <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"16px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:11,boxShadow:"0 8px 30px rgba(160,120,40,.28)"}}>
-              {aiLoad?<><div style={{width:17,height:17,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your perfect itinerary…</>:"🤖 Generate My Egypt Itinerary"}
+            <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()}
+              style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:13,padding:"15px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.18em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:11,boxShadow:"0 8px 30px rgba(160,120,40,.3)"}}>
+              {aiLoad
+                ? <><div style={{width:17,height:17,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your itinerary…</>
+                : "✦ Generate My Egypt Itinerary"}
             </button>
             {aiRes&&(
-              <div style={{marginTop:18,background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.2)",borderRadius:13,padding:"clamp(15px,3vw,22px)",color:"#231A0E",fontSize:14,lineHeight:1.85,whiteSpace:"pre-wrap",maxHeight:480,overflowY:"auto",fontFamily:"'Cormorant Garamond',serif",animation:"fadeIn .4s ease"}}>{aiRes}</div>
+              <div style={{marginTop:18,background:"rgba(255,253,246,.9)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:13,padding:"clamp(14px,3vw,22px)",color:"#231A0E",fontSize:14,lineHeight:1.9,whiteSpace:"pre-wrap",maxHeight:460,overflowY:"auto",fontFamily:"'Cormorant Garamond',serif",animation:"fadeIn .4s ease"}}>
+                {aiRes}
+              </div>
             )}
             {aiDone&&(
               <div style={{marginTop:14,display:"flex",gap:11,flexWrap:"wrap"}}>
-                <button onClick={()=>window.open(waLink(),"_blank")} style={{flex:1,background:"#25D366",color:"#fff",border:"none",borderRadius:10,padding:"13px 18px",cursor:"pointer",fontWeight:700,fontSize:13,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>💬 Send & Book on WhatsApp</button>
-                <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:10,padding:"13px 18px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>New Itinerary</button>
+                <button onClick={()=>window.open(waLink(),"_blank")} style={{flex:1,minWidth:160,background:"#25D366",color:"#fff",border:"none",borderRadius:11,padding:"13px 16px",cursor:"pointer",fontWeight:700,fontSize:12,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>💬 Book on WhatsApp</button>
+                <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:11,padding:"13px 18px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif",whiteSpace:"nowrap"}}>New Itinerary</button>
               </div>
             )}
           </div>
@@ -990,23 +1133,11 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         </ScrollRow>
       </section>
 
-      {/* ══════════════ GALLERY ══════════════ */}
+      {/* ══════════════ BEST SELLER TOURS ══════════════ */}
       <section className="av-section">
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:26,flexWrap:"wrap",gap:10}}>
-          <div>
-            <span className="av-eyebrow">Discover Egypt</span>
-            <h2 className="av-title">Through Our Lens</h2>
-          </div>
-          <a href="#" style={{color:"#9C7A3C",fontSize:12,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>Follow our journey 📷</a>
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10}}>
-          {CITIES.map(c=>(
-            <div key={c.id} className="av-gallery-item" onClick={()=>navigate(`/city/${c.id}`)} style={{position:"relative",borderRadius:12,aspectRatio:"1",cursor:"pointer"}}>
-              <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",borderRadius:12}} onError={e=>e.target.src=`https://placehold.co/300x300/EDE3C8/8B6010?text=${encodeURIComponent(c.name)}`}/>
-              <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(17,12,6,.55),transparent 55%)",borderRadius:12}}/>
-              <span style={{position:"absolute",bottom:8,left:10,color:"#FAF6ED",fontSize:11,fontFamily:"'Cinzel',serif",fontWeight:600,textShadow:"0 2px 8px rgba(0,0,0,.5)"}}>{c.name}</span>
-            </div>
-          ))}
+        <SectionHead eyebrow="Best Seller Tours" title="Egypt's Most Booked Experiences" onViewAll={()=>navigate("/tours")} viewAllLabel="View All Tours"/>
+        <div className="av-best-grid">
+          {BESTSELLER_TOURS.map((t,i)=><BestSellerCard key={t.id} t={t} rank={i+1} navigate={navigate} fmtP={fmtP}/>)}
         </div>
       </section>
 

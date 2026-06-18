@@ -1,30 +1,18 @@
-import express from "express";
+import express               from "express";
 import * as bookingController from "../controllers/booking.controller.js";
 
 const router = express.Router();
 
-// إنشاء حجز جديد
-router.post("/create", bookingController.createBooking);
+// ── Public routes (guests) ──────────────────────────────────
+router.post  ("/create",          bookingController.createBooking);
+router.get   ("/user/:email",     bookingController.getUserBookings);
+router.get   ("/:id",             bookingController.getBookingById);
 
-// الحصول على جميع الحجوزات (للإدمن)
-router.get("/all", bookingController.getAllBookings);
-
-// الحصول على حجز معين
-router.get("/:id", bookingController.getBookingById);
-
-// تحديث الحجز
-router.put("/:id", bookingController.updateBooking);
-
-// حذف الحجز
-router.delete("/:id", bookingController.deleteBooking);
-
-// الحصول على حجوزات المستخدم
-router.get("/user/:email", bookingController.getUserBookings);
-
-// تأكيد الحجز
-router.put("/:id/confirm", bookingController.confirmBooking);
-
-// إلغاء الحجز
-router.put("/:id/cancel", bookingController.cancelBooking);
+// ── Admin routes (protect with auth middleware in production) ─
+router.get   ("/all",             bookingController.getAllBookings);
+router.put   ("/:id",             bookingController.updateBooking);
+router.put   ("/:id/confirm",     bookingController.confirmBooking);
+router.put   ("/:id/cancel",      bookingController.cancelBooking);
+router.delete("/:id",             bookingController.deleteBooking);
 
 export default router;
