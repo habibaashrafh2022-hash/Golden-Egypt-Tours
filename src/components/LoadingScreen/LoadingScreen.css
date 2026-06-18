@@ -1,115 +1,83 @@
 .lux-loader {
   position: fixed;
   inset: 0;
-  overflow: hidden;
+  background: #050507;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #050309;
+  overflow: hidden;
 }
 
-/* background glow */
-.lux-bg {
+/* soft moving light line */
+.lux-loader::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(201,168,76,0.08), transparent 60%);
-  animation: pulse 6s ease-in-out infinite;
+  width: 200%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  top: 50%;
+  left: -50%;
+  animation: sweep 2s linear infinite;
+  opacity: 0.4;
 }
 
-.lux-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.7), #050309);
+@keyframes sweep {
+  from { transform: translateX(-30%); }
+  to { transform: translateX(30%); }
 }
 
-/* particles */
-.lux-particles span {
-  position: absolute;
-  top: 100%;
-  width: 4px;
-  height: 4px;
-  background: rgba(201,168,76,0.6);
-  border-radius: 50%;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  from {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-120vh);
-    opacity: 0;
-  }
-}
-
-/* center content */
+/* content */
 .lux-content {
-  position: relative;
   text-align: center;
-  color: white;
   z-index: 2;
+  animation: fadeIn 0.4s ease;
 }
 
-.lux-emblem {
-  margin-bottom: 20px;
-  animation: spinGlow 6s linear infinite;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes spinGlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
+/* logo */
 .lux-title {
   font-family: "Cinzel", serif;
-  font-size: 34px;
+  font-size: 32px;
   letter-spacing: 6px;
   color: #c9a84c;
   margin-bottom: 6px;
 }
 
+/* sub */
 .lux-sub {
-  font-size: 12px;
-  opacity: 0.6;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  opacity: 0.5;
 }
 
-.lux-phase {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 18px;
-  font-style: italic;
-}
-
-/* progress */
+/* bar */
 .lux-bar {
-  width: 260px;
-  height: 3px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
+  width: 220px;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  margin: 18px auto 0;
+  border-radius: 50px;
   overflow: hidden;
-  margin: auto;
 }
 
 .lux-fill {
   height: 100%;
-  background: linear-gradient(90deg, #c9a84c, #f5d36b);
-  transition: width 0.2s ease;
+  background: #c9a84c;
+  transition: width 0.15s linear;
 }
 
-.lux-percent {
-  margin-top: 10px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
+/* exit clean */
+.exit {
+  animation: out 0.3s ease forwards;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+@keyframes out {
+  to {
+    opacity: 0;
+    transform: scale(1.02);
+  }
 }

@@ -1,13 +1,23 @@
 // ============================================================
-//  Home.jsx — Aurevian Tours ★ LEGENDARY EDITION ★
-//  REDESIGNED: Overlapping hero · New A logo · Auto translate
-//              AI Builder redesigned · Full mobile responsive
+//  Home.jsx — Aurevian Tours ★ REDESIGNED EDITION ★
+//  Matches the new reference layout:
+//    dark utility bar · clean two-tier nav · cinematic hero
+//    with floating search card · horizontal destination / tour
+//    / review carousels · redesigned AI itinerary builder ·
+//    dark stats + newsletter band · full footer
+//  Fully responsive — identical structure on mobile & desktop.
 // ============================================================
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, forwardRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AITripBuilder from "../components/AITripBuilder";
 import PaymentModal from "../components/PaymentModal";
 import { useGlobal } from "../context/GlobalContext";
+
+// ─── CONTACT ───────────────────────────────────────────────────
+const PHONE_DISPLAY = "+20 106 825 4454";
+const PHONE_WA      = "201068254454";
+const EMAIL         = "aureviantours@gmail.com";
+const waLink = (msg) => `https://wa.me/${PHONE_WA}${msg ? `?text=${msg}` : ""}`;
 
 // ─── CURRENCIES ───────────────────────────────────────────────
 const CURR = {
@@ -29,7 +39,7 @@ const CURR = {
   CAD:{s:"C$",   r:1.36,   l:"CAD — Canadian Dollar"},
 };
 
-// ─── LANGUAGES (i18next-style labels for display) ─────────────
+// ─── LANGUAGES ─────────────────────────────────────────────────
 const LANGS = [
   {code:"en", label:"English",    flag:"🇬🇧", dir:"ltr"},
   {code:"es", label:"Español",    flag:"🇪🇸", dir:"ltr"},
@@ -43,51 +53,68 @@ const LANGS = [
   {code:"ru", label:"Русский",    flag:"🇷🇺", dir:"ltr"},
   {code:"tr", label:"Türkçe",     flag:"🇹🇷", dir:"ltr"},
   {code:"ko", label:"한국어",      flag:"🇰🇷", dir:"ltr"},
+  {code:"ar", label:"العربية",    flag:"🇪🇬", dir:"rtl"},
 ];
 
-// ─── DATA ─────────────────────────────────────────────────────
+// ─── DESTINATIONS (kept exactly as in the original project) ───
 const CITIES = [
-  {id:"cairo",      name:"Cairo",           img:"/images/home/cairo.jpeg",    desc:"The Heart of Egypt",               tag:"Top Pick",   tours:120, color:"#C9A84C"},
-  {id:"luxor",      name:"Luxor",           img:"/images/home/luxor.jpeg",    desc:"World's Greatest Open Air Museum", tag:"Bestseller", tours:85,  color:"#D4905C"},
-  {id:"aswan",      name:"Aswan",           img:"/images/home/aswan.jpeg",    desc:"Jewel of the Nile",                tag:"Scenic",     tours:64,  color:"#7CB9E8"},
-  {id:"hurghada",   name:"Hurghada",        img:"/images/home/hurghada.jpeg", desc:"Red Sea Paradise",                 tag:"Adventure",  tours:72,  color:"#52B788"},
-  {id:"sharm",      name:"Sharm El Sheikh", img:"/images/home/sharm.jpeg",    desc:"Crystal Clear Waters",             tag:"Luxury",     tours:58,  color:"#9B72CF"},
-  {id:"alexandria", name:"Alexandria",      img:"/images/home/alex.jpeg",     desc:"Pearl of the Mediterranean",       tag:"Culture",    tours:43,  color:"#4FC3F7"},
-  {id:"fayoum",     name:"Fayoum",          img:"/images/home/fayoum.jpeg",   desc:"Egypt's Hidden Oasis",             tag:"Hidden Gem", tours:28,  color:"#81C784"},
-  {id:"marsa-alam", name:"Marsa Alam",      img:"/images/home/marsa.jpeg",    desc:"Untouched Red Sea Shores",         tag:"Diving",     tours:35,  color:"#26C6DA"},
-  {id:"giza",       name:"Giza",            img:"/images/home/giza.jpeg",     desc:"Gateway to the Ancient World",     tag:"Iconic",     tours:95,  color:"#FFD54F"},
-  {id:"ain-sokhna", name:"Ain Sokhna",      img:"/images/home/sokhna.jpeg",   desc:"Red Sea Riviera",                  tag:"Relaxation", tours:31,  color:"#FF8A65"},
+  {id:"cairo",      name:"Cairo",           img:"/images/home/cairo.jpeg",    desc:"The Heart of Egypt",               tag:"Top Pick",   tours:120, color:"#C9A84C", icon:"🏛", rating:4.9, reviews:2456, price:25},
+  {id:"luxor",      name:"Luxor",           img:"/images/home/luxor.jpeg",    desc:"World's Greatest Open Air Museum", tag:"Bestseller", tours:85,  color:"#D4905C", icon:"🏺", rating:4.9, reviews:1892, price:35},
+  {id:"aswan",      name:"Aswan",           img:"/images/home/aswan.jpeg",    desc:"Jewel of the Nile",                tag:"Scenic",     tours:64,  color:"#7CB9E8", icon:"🌅", rating:4.8, reviews:1245, price:30},
+  {id:"hurghada",   name:"Hurghada",        img:"/images/home/hurghada.jpeg", desc:"Red Sea Paradise",                 tag:"Adventure",  tours:72,  color:"#52B788", icon:"🌊", rating:4.7, reviews:982,  price:28},
+  {id:"sharm",      name:"Sharm El Sheikh", img:"/images/home/sharm.jpeg",    desc:"Crystal Clear Waters",             tag:"Luxury",     tours:58,  color:"#9B72CF", icon:"🤿", rating:4.7, reviews:876,  price:32},
+  {id:"alexandria", name:"Alexandria",      img:"/images/home/alex.jpeg",     desc:"Pearl of the Mediterranean",       tag:"Culture",    tours:43,  color:"#4FC3F7", icon:"📚", rating:4.6, reviews:654,  price:27},
+  {id:"fayoum",     name:"Fayoum",          img:"/images/home/fayoum.jpeg",   desc:"Egypt's Hidden Oasis",             tag:"Hidden Gem", tours:28,  color:"#81C784", icon:"🏜", rating:4.6, reviews:412,  price:22},
+  {id:"marsa-alam", name:"Marsa Alam",      img:"/images/home/marsa.jpeg",    desc:"Untouched Red Sea Shores",         tag:"Diving",     tours:35,  color:"#26C6DA", icon:"🐠", rating:4.8, reviews:389,  price:40},
+  {id:"giza",       name:"Giza",            img:"/images/home/giza.jpeg",     desc:"Gateway to the Ancient World",     tag:"Iconic",     tours:95,  color:"#FFD54F", icon:"🔺", rating:4.9, reviews:3120, price:20},
+  {id:"ain-sokhna", name:"Ain Sokhna",      img:"/images/home/sokhna.jpeg",   desc:"Red Sea Riviera",                  tag:"Relaxation", tours:31,  color:"#FF8A65", icon:"🌴", rating:4.5, reviews:298,  price:18},
 ];
 
 const HERO_IMG = "/images/home/sphinx-pyramids.jpeg";
+const CTA_IMG  = CITIES.find(c=>c.id==="aswan")?.img || HERO_IMG;
 
+// ─── FEATURED TOURS ─────────────────────────────────────────────
 const PACKAGES = [
-  {title:"Nile Cruise: Luxor → Aswan",       subtitle:"5 Days · Floating Palace on the Nile",    img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",   badge:"Bestseller",   badgeColor:"#C9A84C", price:650,  days:"5D/4N",  tags:["Nile Cruise","Temples","Full Board"],       link:"/packages"},
-  {title:"Cairo · Luxor · Aswan · Hurghada", subtitle:"10 Days · The Complete Egypt",             img:"https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=80", badge:"Most Popular", badgeColor:"#52B788", price:1290, days:"10D/9N", tags:["Pyramids","Nile Cruise","Red Sea"],         link:"/packages"},
-  {title:"Sinai & Dahab Adventure",          subtitle:"6 Days · Desert, Sea & Spirituality",      img:"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80", badge:"Adventure",    badgeColor:"#E63946", price:720,  days:"6D/5N",  tags:["Mount Sinai","Diving","Bedouin Camp"],      link:"/packages"},
-  {title:"Honeymoon Egypt Luxury",           subtitle:"10 Nights · Romance on the Nile",          img:"https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80",   badge:"Romantic",     badgeColor:"#E91E8C", price:1490, days:"10N",    tags:["Private","Luxury","Couples"],              link:"/packages"},
-  {title:"Family Egypt Adventure",           subtitle:"2 Weeks · Kids-Friendly Journey",          img:"https://images.unsplash.com/photo-1553697388-94e804e2f0f6?w=800&q=80",   badge:"Family",       badgeColor:"#4CAF50", price:2200, days:"14D",    tags:["Family","Kids","Educational"],             link:"/packages"},
-  {title:"Desert & Oasis Explorer",          subtitle:"8 Days · Western Desert Wonders",          img:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80", badge:"Off-Beat",     badgeColor:"#FF9800", price:890,  days:"8D/7N",  tags:["Desert","Oasis","4x4 Safari"],             link:"/packages"},
+  {title:"Nile Cruise: Luxor → Aswan",       subtitle:"5 Days · Floating Palace on the Nile",    img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",   badge:"Bestseller",   badgeColor:"#D98A3D", price:650,  days:"5D/4N",  rating:4.9, reviews:890,  link:"/packages"},
+  {title:"Cairo · Luxor · Aswan · Hurghada", subtitle:"10 Days · The Complete Egypt",             img:"https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=80", badge:"Most Popular", badgeColor:"#52B788", price:1290, days:"10D/9N", rating:4.9, reviews:1240, link:"/packages"},
+  {title:"Sinai & Dahab Adventure",          subtitle:"6 Days · Desert, Sea & Spirituality",      img:"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80", badge:"Adventure",    badgeColor:"#E63946", price:720,  days:"6D/5N",  rating:4.8, reviews:520,  link:"/packages"},
+  {title:"Honeymoon Egypt Luxury",           subtitle:"10 Nights · Romance on the Nile",          img:"https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80",   badge:"Romantic",     badgeColor:"#E91E8C", price:1490, days:"10N",    rating:5.0, reviews:310,  link:"/packages"},
+  {title:"Family Egypt Adventure",           subtitle:"2 Weeks · Kids-Friendly Journey",          img:"https://images.unsplash.com/photo-1553697388-94e804e2f0f6?w=800&q=80",   badge:"Family",       badgeColor:"#3E7CB8", price:2200, days:"14D",    rating:4.8, reviews:275,  link:"/packages"},
+  {title:"Desert & Oasis Explorer",          subtitle:"8 Days · Western Desert Wonders",          img:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80", badge:"Off-Beat",     badgeColor:"#FF9800", price:890,  days:"8D/7N",  rating:4.7, reviews:180,  link:"/packages"},
 ];
 
+// ─── REVIEWS ────────────────────────────────────────────────────
 const REVIEWS = [
-  {name:"Sarah Mitchell",          flag:"🇺🇸", city:"New York, USA",      stars:5, img:"https://i.pravatar.cc/80?img=1",  date:"March 2025",    tourName:"Cairo & Luxor 8-Day Package",       text:"Absolutely extraordinary experience. The guides were PhD-level Egyptologists who brought history to life. The AI itinerary builder was spot-on — every price matched perfectly. Booking again next year!", verified:true, platform:"TripAdvisor"},
-  {name:"James & Emma Thornton",   flag:"🇬🇧", city:"London, UK",         stars:5, img:"https://i.pravatar.cc/80?img=15", date:"January 2025",  tourName:"Honeymoon Egypt Luxury 10 Nights",  text:"We chose Aurevian for our honeymoon and it exceeded every expectation. Private sunrise at the Pyramids, a candlelit dinner on the Nile, and flawless logistics from start to finish. Worth every penny.", verified:true, platform:"Google Reviews"},
-  {name:"Amélie Fontaine",         flag:"🇫🇷", city:"Lyon, France",       stars:5, img:"https://i.pravatar.cc/80?img=5",  date:"November 2024", tourName:"Nile Cruise Luxor → Aswan",         text:"Le service était irréprochable. Notre guide Mahmoud connaissait chaque hiéroglyphe par cœur. La croisière sur le Nil au coucher du soleil depuis le ballon était magique. Merci infiniment!", verified:true, platform:"Trustpilot"},
-  {name:"Klaus Weber",             flag:"🇩🇪", city:"Munich, Germany",    stars:5, img:"https://i.pravatar.cc/80?img=12", date:"February 2025", tourName:"Complete Egypt 10-Day Package",      text:"Perfekt organisiert von Anfang bis Ende! Unser Ägyptologe-Guide Hassan war ein wandelndes Lexikon. Die KI-Planung hat unsere Kosten auf den Cent genau vorhergesagt. Absolute Empfehlung!", verified:true, platform:"Google Reviews"},
-  {name:"Yuki Tanaka",             flag:"🇯🇵", city:"Osaka, Japan",       stars:5, img:"https://i.pravatar.cc/80?img=9",  date:"April 2025",    tourName:"Valley of the Kings Private Tour",  text:"Sunrise at Valley of the Kings with a private Egyptologist — a truly spiritual experience. Everything ran like clockwork. The team spoke Japanese fluently, which made us feel completely at ease.", verified:true, platform:"TripAdvisor"},
-  {name:"The Al-Rashidi Family",   flag:"🇸🇦", city:"Riyadh, Saudi Arabia",stars:5, img:"https://i.pravatar.cc/80?img=22", date:"December 2024", tourName:"Family Egypt Adventure 14 Days",   text:"An unforgettable family trip! The children were amazed by the pyramids and mummies. The team handled every detail from accommodation to meals. We will definitely return with a longer package next time.", verified:true, platform:"Google Reviews"},
+  {name:"Sarah Mitchell",        flag:"🇺🇸", city:"New York, USA",       stars:5, img:"https://i.pravatar.cc/80?img=1",  date:"March 2025",    tourName:"Cairo & Luxor 8-Day Package",      text:"Absolutely extraordinary experience. The guides were PhD-level Egyptologists who brought history to life. The AI itinerary builder was spot-on — every price matched perfectly. Booking again next year!", verified:true, platform:"TripAdvisor", photos:[CITIES[0].img,CITIES[1].img,CITIES[8].img]},
+  {name:"James & Emma Thornton", flag:"🇬🇧", city:"London, UK",          stars:5, img:"https://i.pravatar.cc/80?img=15", date:"January 2025",  tourName:"Honeymoon Egypt Luxury 10 Nights", text:"We chose Aurevian for our honeymoon and it exceeded every expectation. Private sunrise at the Pyramids, a candlelit dinner on the Nile, and flawless logistics from start to finish. Worth every penny.", verified:true, platform:"Google Reviews", photos:[CITIES[1].img,CITIES[2].img,CITIES[4].img]},
+  {name:"Amélie Fontaine",       flag:"🇫🇷", city:"Lyon, France",        stars:5, img:"https://i.pravatar.cc/80?img=5",  date:"November 2024", tourName:"Nile Cruise Luxor → Aswan",        text:"Le service était irréprochable. Notre guide connaissait chaque hiéroglyphe par cœur. La croisière sur le Nil au coucher du soleil était magique. Merci infiniment !", verified:true, platform:"Trustpilot", photos:[CITIES[1].img,CITIES[2].img]},
+  {name:"Klaus Weber",           flag:"🇩🇪", city:"Munich, Germany",     stars:5, img:"https://i.pravatar.cc/80?img=12", date:"February 2025", tourName:"Complete Egypt 10-Day Package",     text:"Perfekt organisiert von Anfang bis Ende! Unser Guide war ein wandelndes Lexikon. Die KI-Planung hat unsere Kosten auf den Cent genau vorhergesagt. Absolute Empfehlung!", verified:true, platform:"Google Reviews", photos:[CITIES[0].img,CITIES[1].img,CITIES[3].img]},
+  {name:"Yuki Tanaka",           flag:"🇯🇵", city:"Osaka, Japan",        stars:5, img:"https://i.pravatar.cc/80?img=9",  date:"April 2025",    tourName:"Valley of the Kings Private Tour", text:"Sunrise at the Valley of the Kings with a private Egyptologist — a truly spiritual experience. Everything ran like clockwork and the team made us feel completely at ease.", verified:true, platform:"TripAdvisor", photos:[CITIES[1].img]},
+  {name:"The Al-Rashidi Family", flag:"🇸🇦", city:"Riyadh, Saudi Arabia",stars:5, img:"https://i.pravatar.cc/80?img=22", date:"December 2024", tourName:"Family Egypt Adventure 14 Days",   text:"An unforgettable family trip! The children were amazed by the pyramids and mummies. The team handled every detail — we will definitely return for a longer package next time.", verified:true, platform:"Google Reviews", photos:[CITIES[0].img,CITIES[8].img,CITIES[3].img]},
 ];
 
-const WHY = [
-  {icon:"🏆", num:"#1",   t:"Award-Winning",   d:"Voted Egypt's Best Tour Operator — Travellers Choice 5 consecutive years"},
-  {icon:"🤖", num:"AI",   t:"AI-Powered",      d:"Proprietary AI builds complete priced itineraries tailored to your exact budget"},
-  {icon:"🔒", num:"100%", t:"Secure Booking",  d:"Bank-grade encryption · Free cancellation · Full money-back guarantee"},
-  {icon:"🌍", num:"90+",  t:"Global Reach",    d:"Serving 90+ countries in 14 languages with 24/7 expert on-ground support"},
-  {icon:"⭐", num:"4.9",  t:"50,000+ Reviews", d:"Average 4.9/5 across TripAdvisor, Google & Trustpilot worldwide"},
-  {icon:"🎓", num:"PhD",  t:"Expert Guides",   d:"Every tour led by licensed PhD Egyptologist guides — no exceptions"},
+// ─── TRUST STRIP (under hero search) ───────────────────────────
+const TRUST_STRIP = [
+  {icon:"🛡️", t:"Licensed Tour Guides",    d:"Expert & Certified"},
+  {icon:"⭐", t:"Best Price Guarantee",    d:"No Hidden Fees"},
+  {icon:"↩️", t:"Free Cancellation",       d:"Up to 24 Hours"},
+  {icon:"🕐", t:"24/7 Customer Support",   d:"We're Here to Help"},
 ];
 
+// ─── WHY AUREVIAN (5 inline items) ──────────────────────────────
+const WHY_US = [
+  {icon:"💎", t:"Handpicked Experiences", d:"Carefully selected for the best moments"},
+  {icon:"🪪", t:"Expert Local Guides",     d:"Professional, friendly and passionate"},
+  {icon:"👑", t:"Premium Service",         d:"Comfort, safety and luxury in every detail"},
+  {icon:"✂️", t:"Tailor Made Trips",       d:"Custom itineraries just for you"},
+  {icon:"🤝", t:"Trusted by Thousands",    d:"12,000+ happy travelers and growing"},
+];
+
+// ─── STATS ───────────────────────────────────────────────────────
+const STAT_TOP  = [["👥","12,000+ Happy Travelers"],["🎫","500+ Tours"],["⭐","4.9 Rating"],["🕐","24/7 Support"]];
+const STAT_MAIN = [["👥","12,000+","Happy Travelers"],["🎫","500+","Tours & Experiences"],["📍","50+","Destinations"],["⭐","4.9/5","Average Rating"],["🏆","8+","Years of Excellence"]];
+
+// ─── SEARCH DATA ─────────────────────────────────────────────────
 const SEARCH_ALL = [
   ...CITIES.map(c=>({type:"dest",title:c.name,sub:c.desc,img:c.img,url:`/city/${c.id}`,tag:c.tag,color:c.color})),
   {type:"tour",title:"Pyramids of Giza & Sphinx",       sub:"Full day · From $75",   img:"https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=80&q=70", url:"/city/giza",     tag:"Bestseller"},
@@ -108,395 +135,281 @@ const GUIDE_LANGS = [
   {v:"ja",l:"Japanese 🇯🇵"},{v:"ru",l:"Русский 🇷🇺"},{v:"he",l:"Hebrew 🇮🇱"},
 ];
 
+const TOUR_TYPES = ["All Categories","Day Tour","Nile Cruise","Multi-Day","Adventure","Cultural","Private","Honeymoon","Family"];
+
+// ─── NAV / FOOTER STRUCTURE ──────────────────────────────────────
+const NAV_LINKS = [
+  ["Home","/"],
+  ["Tours","/tours"],
+  ["Nile Cruises","/packages"],
+  ["Custom Trips","/ai"],
+  ["About Us","/about"],
+  ["Contact","/contact"],
+];
+const FOOTER_DEST    = [...CITIES.slice(0,5).map(c=>[c.name,`/city/${c.id}`]), ["All Destinations","/tours"]];
+const FOOTER_TOURS   = [["Day Tours","/tours"],["Multi-Day Tours","/packages"],["Nile Cruises","/packages"],["Private Tours","/tours"],["Adventure Tours","/tours"],["All Tours","/tours"]];
+const FOOTER_COMPANY = [["About Us","/about"],["Our Guides","/about"],["Travel Tips","/about"],["Blog","/about"],["Careers","/contact"],["Contact Us","/contact"]];
+const FOOTER_SUPPORT = [["FAQ","/contact"],["Cancellation Policy","/contact"],["Privacy Policy","/contact"],["Terms & Conditions","/contact"]];
+
 const PACKAGES_COUNT = 8;
 const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).toLocaleString()}`;
-const Stars = ({n}) => <span style={{color:"#C9A84C",letterSpacing:1}}>{"★".repeat(n)}{"☆".repeat(5-n)}</span>;
+const Stars = ({n}) => <span style={{color:"#C9A84C",letterSpacing:1}}>{"★".repeat(Math.round(n))}{"☆".repeat(5-Math.round(n))}</span>;
 
-// ─── SHARED STYLES ────────────────────────────────────────────
-const S = {
-  section:{ padding:"clamp(52px,8vw,100px) clamp(16px,4vw,48px)" },
-  sectionHeader:{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:"clamp(26px,4vw,48px)"},
-  sectionTitleWrap:{ flex:1 },
-  sectionEyebrow:{display:"block",fontSize:10,color:"#A07828",letterSpacing:5,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"},
-  sectionTitle:{fontFamily:"'Cinzel',serif",fontSize:"clamp(24px,4vw,48px)",fontWeight:700,color:"#2C1A06",lineHeight:1.15},
-};
-
-// ─── CSS ──────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+//  CSS
+// ════════════════════════════════════════════════════════════════
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
 
 :root{
-  --g:#C9A84C; --gl:#E8C96D; --gd:rgba(201,168,76,.1); --gb:rgba(201,168,76,.2);
-  --bg:#FAF6ED; --bg2:#F3ECD8; --bg3:#EDE3C8; --bg4:#E6D9B4;
-  --dark:#2C1A06; --mid:#6B4E1A; --muted:#9C7A3C;
-  --text:#2C1A06; --dim:rgba(44,26,6,.65);
-  --card:#FBF7EE; --cardb:#F5EED8;
-  --nav-bg:rgba(250,246,237,.97);
-  --hero-h: 100vh;
+  --g:#C9A84C; --gl:#E8C96D; --gd:#8B6010;
+  --bg:#FAF6ED; --cream2:#F3ECD8;
+  --ink:#231A0E; --dim:rgba(35,26,14,.62); --dim2:rgba(35,26,14,.45);
+  --card:#FFFFFF; --cardb:rgba(35,26,14,.08);
+  --dark:#171009; --dark2:#241A0E;
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Josefin Sans',sans-serif;
-  overflow-x:hidden;
+body{background:var(--bg);color:var(--ink);font-family:'Josefin Sans',sans-serif;overflow-x:hidden;}
+::selection{background:rgba(201,168,76,.3);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--cream2);}
+::-webkit-scrollbar-thumb{background:rgba(193,156,60,.45);border-radius:3px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideD{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+@keyframes heroZoom{0%{transform:scale(1)}100%{transform:scale(1.06)}}
+@keyframes pulseRing{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.15;transform:scale(1.06)}}
+
+.av-link:hover{color:var(--gd)!important;}
+.av-ghost:hover{background:rgba(201,168,76,.12);border-color:rgba(160,120,40,.55)!important;}
+.av-gold:hover{box-shadow:0 10px 30px rgba(160,120,40,.45);transform:translateY(-2px);}
+.av-arrow:hover{background:rgba(201,168,76,.18)!important;border-color:rgba(160,120,40,.5)!important;}
+.av-iconbtn:hover{background:rgba(201,168,76,.14)!important;}
+.av-navdd:hover{background:rgba(201,168,76,.1)!important;color:var(--gd)!important;}
+.av-chip:hover{background:rgba(201,168,76,.16)!important;border-color:rgba(160,120,40,.5)!important;}
+.av-footlink:hover{color:var(--gd)!important;}
+.av-social:hover{background:rgba(201,168,76,.18)!important;border-color:rgba(193,156,60,.5)!important;}
+
+.av-city-card{transition:transform .4s cubic-bezier(.25,.8,.25,1),box-shadow .4s;}
+.av-city-card:hover{transform:translateY(-7px);box-shadow:0 28px 60px rgba(35,26,14,.22);}
+.av-city-card:hover .av-city-img{transform:scale(1.08);}
+.av-tour-card{transition:transform .4s cubic-bezier(.25,.8,.25,1),box-shadow .4s;}
+.av-tour-card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(35,26,14,.18);}
+.av-tour-card:hover .av-tour-img{transform:scale(1.07);}
+.av-review-card{transition:transform .35s,box-shadow .35s;}
+.av-review-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(35,26,14,.14);}
+.av-gallery-item{transition:transform .4s;overflow:hidden;}
+.av-gallery-item:hover img{transform:scale(1.12);}
+.av-gallery-item img{transition:transform .5s;}
+
+.av-img{transition:transform .6s ease;}
+
+.av-section{padding:clamp(48px,7vw,92px) clamp(16px,4vw,48px);}
+.av-eyebrow{display:block;font-size:10px;color:var(--gd);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;font-weight:700;font-family:'Josefin Sans',sans-serif;}
+.av-title{font-family:'Cinzel',serif;font-size:clamp(22px,3.4vw,38px);font-weight:700;color:var(--ink);line-height:1.2;}
+
+.av-scrollrow{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none;}
+.av-scrollrow::-webkit-scrollbar{display:none;}
+.av-scrollrow > *{scroll-snap-align:start;flex-shrink:0;}
+
+.av-search-card{display:flex;align-items:center;}
+.av-search-field{flex:1;min-width:140px;padding:6px 18px;border-right:1px solid rgba(35,26,14,.1);display:flex;align-items:center;gap:10px;}
+.av-search-field:last-of-type{border-right:none;}
+.av-search-field input,.av-search-field select{background:transparent;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--ink);width:100%;cursor:pointer;}
+.av-search-field input::placeholder{color:rgba(35,26,14,.4);font-style:italic;}
+
+.av-why-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.av-trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.av-stats-row{display:grid;grid-template-columns:repeat(5,1fr);}
+.av-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.3fr;gap:clamp(24px,4vw,44px);}
+.av-dest-top{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+
+@media(max-width:980px){
+  .av-footer-grid{grid-template-columns:1fr 1fr;}
 }
-::selection{background:rgba(201,168,76,.3);color:#2C1A06;}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg2);}
-::-webkit-scrollbar-thumb{background:rgba(193,156,60,.4);border-radius:2px;}
-
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 120% 60% at 10% 5%,rgba(220,185,100,.07) 0%,transparent 55%),
-    radial-gradient(ellipse 90% 90% at 90% 90%,rgba(180,140,60,.05) 0%,transparent 55%),
-    linear-gradient(170deg,#FAF6ED 0%,#F3ECD8 35%,#EDE3C8 65%,#F0E9D0 100%);
-}
-
-.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px 200px;}
-
-.hiero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.035;}
-
-/* ── ANIMATIONS ── */
-@keyframes heroZoom   {0%{transform:scale(1)}100%{transform:scale(1.07)}}
-@keyframes fadeUp     {from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
-@keyframes fadeIn     {from{opacity:0}to{opacity:1}}
-@keyframes slideD     {from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
-@keyframes spin       {to{transform:rotate(360deg)}}
-@keyframes marquee    {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes gradShift  {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes scrollB    {0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(9px);opacity:1}}
-@keyframes glowGold   {0%,100%{filter:drop-shadow(0 0 12px rgba(201,168,76,.6))}50%{filter:drop-shadow(0 0 32px rgba(232,201,109,.9)) brightness(1.2)}}
-@keyframes borderS    {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes popIn      {from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-@keyframes float      {0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-@keyframes pulseRing  {0%{opacity:.6;transform:scale(1)}50%{opacity:.15;transform:scale(1.05)}100%{opacity:.6;transform:scale(1)}}
-@keyframes shimmer    {0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes riverFlow  {0%{stroke-dashoffset:200}100%{stroke-dashoffset:0}}
-@keyframes logoGlow   {0%,100%{filter:drop-shadow(0 0 6px rgba(201,168,76,.4))}50%{filter:drop-shadow(0 0 18px rgba(232,201,109,.7))}}
-@keyframes waveHero   {0%{transform:scaleX(1)}50%{transform:scaleX(1.04)}100%{transform:scaleX(1)}}
-@keyframes particleDrift{0%{opacity:0;transform:translateY(10px)}20%{opacity:1}80%{opacity:.6}100%{opacity:0;transform:translateY(-80px) translateX(20px)}}
-
-/* ── GOLD GRADIENT TEXT ── */
-.gta{
-  background:linear-gradient(90deg,#8B6010,#C9A84C,#E8C96D,#C9A84C,#8B6010);
-  background-size:300% 100%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:gradShift 6s ease-in-out infinite;
-}
-.gt{
-  background:linear-gradient(135deg,#8B6010 0%,#C9A84C 40%,#E8C96D 65%,#A07828 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.gline{height:1px;background:linear-gradient(to right,transparent,rgba(193,156,60,.3),transparent);}
-.mq{display:flex;animation:marquee 35s linear infinite;white-space:nowrap;}
-.mq:hover{animation-play-state:paused;}
-.ab::before{
-  content:'';position:absolute;inset:-1px;border-radius:inherit;z-index:-1;
-  background:linear-gradient(135deg,rgba(201,168,76,.5),rgba(201,168,76,.08),rgba(232,201,109,.45),rgba(201,168,76,.05),rgba(201,168,76,.5));
-  background-size:400% 400%;animation:borderS 5s ease infinite;
-}
-
-/* ── CARD HOVER ── */
-.cc{transition:all .45s cubic-bezier(.25,.8,.25,1)!important;}
-.cc:hover{transform:translateY(-8px) scale(1.01)!important;box-shadow:0 28px 72px rgba(180,140,60,.2)!important;}
-.cc:hover .ci{transform:scale(1.1)!important;}
-.cc:hover .co{opacity:.2!important;}
-.cc:hover .ca{opacity:1!important;transform:none!important;}
-.cc:hover .ctag{opacity:1!important;}
-.wc:hover{transform:translateY(-6px)!important;border-color:rgba(201,168,76,.45)!important;box-shadow:0 24px 60px rgba(180,140,60,.15)!important;}
-.wc:hover .wi{transform:scale(1.25) rotate(10deg)!important;}
-.rc:hover{transform:translateY(-5px)!important;border-color:rgba(201,168,76,.4)!important;box-shadow:0 18px 48px rgba(180,140,60,.12)!important;}
-.pkgc{transition:all .4s cubic-bezier(.25,.8,.25,1)!important;}
-.pkgc:hover{transform:translateY(-10px) scale(1.01)!important;border-color:rgba(201,168,76,.45)!important;box-shadow:0 36px 90px rgba(180,140,60,.22)!important;}
-.pkgc:hover .pkgi{transform:scale(1.08)!important;}
-
-/* ── BUTTONS ── */
-.btn-gold{
-  background:linear-gradient(135deg,#A07828,#C9A84C,#E8C96D);
-  color:#FAF6ED;border:none;border-radius:10px;padding:13px 28px;
-  cursor:pointer;font-weight:700;font-size:11px;letter-spacing:2.5px;
-  text-transform:uppercase;font-family:'Josefin Sans',sans-serif;
-  box-shadow:0 6px 28px rgba(160,120,40,.35);transition:all .25s;
-}
-.btn-gold:hover{box-shadow:0 10px 40px rgba(160,120,40,.55);transform:translateY(-2px);}
-.btn-ghost{
-  background:transparent;border:1.5px solid rgba(160,120,40,.35);
-  color:#A07828;border-radius:9px;padding:9px 22px;cursor:pointer;
-  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  font-family:'Josefin Sans',sans-serif;transition:all .2s;white-space:nowrap;
-}
-.btn-ghost:hover{background:rgba(201,168,76,.1);border-color:rgba(160,120,40,.6);}
-.nla:hover{color:#A07828!important;}
-.si:hover{background:rgba(201,168,76,.07)!important;}
-.chip:hover{background:rgba(201,168,76,.18)!important;color:#8B6010!important;border-color:rgba(160,120,40,.5)!important;}
-.dd:hover{background:rgba(201,168,76,.08)!important;color:#A07828!important;}
-.ai-feat:hover{background:rgba(201,168,76,.06)!important;padding-left:18px!important;}
-.lang-btn:hover{background:rgba(201,168,76,.12)!important;border-color:rgba(160,120,40,.5)!important;}
-
-/* ═══════════════════════════════════════════
-   HERO — CINEMATIC OVERLAPPING LAYOUT
-═══════════════════════════════════════════ */
-.hero-wrap{
-  position:relative;
-  width:100%;
-  min-height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-}
-
-/* Full-bleed image behind everything */
-.hero-bg-img{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  object-fit:cover;
-  object-position:center 38%;
-  animation:heroZoom 22s ease-in-out infinite alternate;
-  z-index:0;
-}
-
-/* Multi-layer cinematic overlay */
-.hero-overlay{
-  position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(90deg,rgba(250,246,237,.97) 0%,rgba(250,246,237,.85) 38%,rgba(250,246,237,.3) 62%,rgba(250,246,237,.05) 100%),
-    linear-gradient(to bottom,rgba(44,26,6,.5) 0%,transparent 25%,rgba(44,26,6,.4) 100%);
-}
-
-/* Gold shimmer right edge */
-.hero-edge{
-  position:absolute;top:0;bottom:0;right:0;width:3px;z-index:3;
-  background:linear-gradient(to bottom,transparent,rgba(232,201,109,.9),rgba(201,168,76,1),rgba(232,201,109,.9),transparent);
-}
-
-/* Left content panel — floats over image */
-.hero-content{
-  position:relative;z-index:4;
-  width:min(600px,58%);
-  padding:clamp(80px,10vh,120px) clamp(24px,5vw,72px) clamp(50px,7vh,90px);
-}
-
-/* Right — image badges zone */
-.hero-badges{
-  position:absolute;
-  right:clamp(16px,4vw,48px);
-  top:50%;
-  transform:translateY(-50%);
-  z-index:5;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  align-items:flex-end;
-}
-
-/* Floating stat cards on image */
-.hero-stat{
-  background:rgba(250,246,237,.93);
-  backdrop-filter:blur(16px);
-  border:1.5px solid rgba(193,156,60,.45);
-  border-radius:16px;
-  padding:14px 20px;
-  text-align:center;
-  box-shadow:0 8px 32px rgba(180,140,60,.18);
-  animation:fadeUp .8s ease both;
-  min-width:120px;
-}
-
-/* Gold wave separator between hero and content below */
-.hero-wave{
-  position:absolute;bottom:-2px;left:0;right:0;z-index:6;
-  line-height:0;
-}
-
-/* Floating particles in hero */
-.hero-particle{
-  position:absolute;
-  width:4px;height:4px;
-  border-radius:50%;
-  background:rgba(201,168,76,.6);
-  animation:particleDrift 6s ease-in-out infinite;
-  z-index:3;
-  pointer-events:none;
-}
-
-/* Search bar overlay — sits at bottom of hero */
-.hero-search{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  z-index:7;
-  background:rgba(243,236,216,.97);
-  backdrop-filter:blur(20px);
-  border-top:1.5px solid rgba(193,156,60,.3);
-  padding:clamp(14px,2.5vw,22px) clamp(16px,4vw,48px);
-}
-
-/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero-content{width:100%;padding:clamp(80px,12vh,110px) 20px 220px;}
-  .hero-badges{right:16px;top:auto;bottom:clamp(100px,14vh,160px);transform:none;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:10px;}
-  .hero-stat{min-width:100px;padding:10px 14px;}
-  .dn{display:none!important;}.dm{display:flex!important;}
-  .g2{grid-template-columns:1fr!important;}.g3{grid-template-columns:1fr 1fr!important;}
-  .g4{grid-template-columns:1fr 1fr!important;}.dtop{grid-template-columns:1fr 1fr!important;}
-  .dbot{grid-template-columns:repeat(3,1fr)!important;}.sg{grid-template-columns:1fr!important;}
-  .ftg{grid-template-columns:1fr 1fr!important;}.whyg{grid-template-columns:1fr 1fr!important;}
-  .revg{grid-template-columns:1fr!important;}.pkgg{grid-template-columns:1fr!important;}
-  .aig{grid-template-columns:1fr!important;}.statg{grid-template-columns:repeat(2,1fr)!important;}
-  .ai-features-grid{grid-template-columns:1fr 1fr!important;}
+  .dn{display:none!important;}
+  .dm{display:flex!important;}
+  .av-why-grid{grid-template-columns:repeat(2,1fr);}
+  .av-trust-grid{grid-template-columns:repeat(2,1fr);}
+  .av-stats-row{grid-template-columns:repeat(3,1fr);}
+  .av-search-card{flex-direction:column;align-items:stretch;}
+  .av-search-field{border-right:none;border-bottom:1px solid rgba(35,26,14,.1);padding:13px 4px;width:100%;}
+  .av-search-field:last-of-type{border-bottom:none;}
 }
 @media(max-width:640px){
-  .hero-content{padding:76px 16px 200px;}
-  .hero-badges{right:12px;bottom:clamp(90px,13vh,130px);gap:8px;}
-  .hero-stat{min-width:88px;padding:8px 12px;}
-  .g3{grid-template-columns:1fr!important;}.g4{grid-template-columns:1fr!important;}
-  .dtop{grid-template-columns:1fr!important;}.dbot{grid-template-columns:1fr 1fr!important;}
-  .ftg{grid-template-columns:1fr!important;}.whyg{grid-template-columns:1fr!important;}
-  .statg{grid-template-columns:1fr 1fr!important;}
-  .ai-features-grid{grid-template-columns:1fr!important;}
-  .hero-search{padding:12px 14px;}
+  .av-why-grid{grid-template-columns:1fr 1fr;}
+  .av-trust-grid{grid-template-columns:1fr 1fr;}
+  .av-stats-row{grid-template-columns:1fr 1fr;}
+  .av-footer-grid{grid-template-columns:1fr 1fr;}
 }
-
-/* ── LOGO ANIMATION ── */
-.logo-river{
-  stroke-dasharray:120;
-  stroke-dashoffset:120;
-  animation:riverFlow 2.4s ease forwards;
-  animation-delay:.3s;
-}
-.logo-wrap:hover svg{animation:logoGlow .8s ease forwards;}
-.logo-A path, .logo-A line, .logo-A rect, .logo-A circle, .logo-A ellipse, .logo-A polyline{
-  transition:all .4s ease;
-}
-.logo-wrap:hover .logo-A{filter:drop-shadow(0 0 10px rgba(232,201,109,.6));}
-
-/* ── AI BUILDER ── */
-.ai-features-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:20px;
-}
-.ai-feat-card{
-  background:rgba(201,168,76,.06);
-  border:1.5px solid rgba(193,156,60,.18);
-  border-radius:12px;
-  padding:12px;
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  transition:all .25s;
-}
-.ai-feat-card:hover{background:rgba(201,168,76,.12)!important;border-color:rgba(193,156,60,.4)!important;transform:translateY(-2px);}
 `;
 
-// ─── AUREVIAN LOGO — "A" with River Path ──────────────────────
-function AurevianLogo({size=46, animate=false}){
+// ════════════════════════════════════════════════════════════════
+//  LOGO
+// ════════════════════════════════════════════════════════════════
+function AurevianLogo({size=44}){
   return(
-    <svg
-      width={size} height={size}
-      viewBox="0 0 56 56"
-      className="logo-A"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={size} height={size} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="lgA" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#8B6010"/>
-          <stop offset="45%"  stopColor="#C9A84C"/>
+          <stop offset="0%" stopColor="#8B6010"/>
+          <stop offset="45%" stopColor="#C9A84C"/>
           <stop offset="100%" stopColor="#E8C96D"/>
         </linearGradient>
         <linearGradient id="lgRiver" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stopColor="#7CB9E8" stopOpacity="0.9"/>
-          <stop offset="50%"  stopColor="#4FC3F7" stopOpacity="1"/>
+          <stop offset="0%" stopColor="#7CB9E8" stopOpacity="0.9"/>
+          <stop offset="50%" stopColor="#4FC3F7" stopOpacity="1"/>
           <stop offset="100%" stopColor="#7CB9E8" stopOpacity="0.5"/>
         </linearGradient>
       </defs>
-
-      {/* ── Outer octagonal frame ── */}
-      <polygon
-        points="28,2 46,10 54,28 46,46 28,54 10,46 2,28 10,10"
-        fill="none"
-        stroke="url(#lgA)"
-        strokeWidth="1.2"
-        opacity="0.7"
-      />
-
-      {/* ── Large "A" letterform ── */}
-      {/* Left stroke */}
+      <polygon points="28,2 46,10 54,28 46,46 28,54 10,46 2,28 10,10" fill="none" stroke="url(#lgA)" strokeWidth="1.2" opacity="0.7"/>
       <line x1="11" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
-      {/* Right stroke */}
       <line x1="45" y1="44" x2="28" y2="10" stroke="url(#lgA)" strokeWidth="3.2" strokeLinecap="round"/>
-
-      {/* ── Crossbar replaced by flowing river path ── */}
-      <path
-        className={animate ? "logo-river" : ""}
-        d="M17 32 Q20 29 23 32 Q26 35 29 32 Q32 29 35 32 Q38 35 39 32"
-        stroke="url(#lgRiver)"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.95"
-      />
-
-      {/* ── Small pyramid echo at base ── */}
-      <polyline
-        points="21,44 28,36 35,44"
-        fill="none"
-        stroke="url(#lgA)"
-        strokeWidth="1.1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.5"
-      />
-
-      {/* ── Apex star dot ── */}
+      <path d="M17 32 Q20 29 23 32 Q26 35 29 32 Q32 29 35 32 Q38 35 39 32" stroke="url(#lgRiver)" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.95"/>
+      <polyline points="21,44 28,36 35,44" fill="none" stroke="url(#lgA)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
       <circle cx="28" cy="10" r="2.2" fill="url(#lgA)" opacity="0.9"/>
-
-      {/* ── Two small flanking dots (like eye pupils) ── */}
       <circle cx="22" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
       <circle cx="34" cy="19" r="1.1" fill="url(#lgA)" opacity="0.4"/>
     </svg>
   );
 }
-
-// ─── CITY CARD ────────────────────────────────────────────────
-function CityCard({c, navigate, large}){
-  const [hov,setHov]=useState(false);
-  const color=c.color||"#C9A84C";
+function BrandMark({size=44, dark}){
+  const navigate = useNavigate();
   return(
-    <div className="cc" onClick={()=>navigate(`/city/${c.id}`)}
-      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
-      style={{position:"relative",borderRadius:20,overflow:"hidden",cursor:"pointer",
-        height:large?"clamp(220px,22vw,300px)":"clamp(140px,13vw,185px)",
-        border:`1px solid ${hov?color+"80":"rgba(193,156,60,.2)"}`,
-        transition:"all .45s cubic-bezier(.25,.8,.25,1)",
-        boxShadow:hov?`0 24px 64px rgba(180,140,60,.25),0 0 0 1px ${color}44`:"0 6px 24px rgba(180,140,60,.1)"}}>
-      <img className="ci" src={c.img} alt={c.name}
-        style={{width:"100%",height:"100%",objectFit:"cover",transition:"transform .65s ease",display:"block"}}
-        onError={e=>e.target.src=`https://placehold.co/800x300/EDE3C8/${color.replace("#","")}?text=${c.name}`}/>
-      <div className="co" style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(44,26,6,.9) 0%,rgba(44,26,6,.2) 50%,transparent 100%)",transition:"opacity .4s",opacity:.75}}/>
-      {hov&&<div style={{position:"absolute",inset:0,background:`radial-gradient(ellipse at 50% 115%,${color}22,transparent 65%)`}}/>}
-      {hov&&<div style={{position:"absolute",top:0,left:0,right:0,height:1,background:`linear-gradient(to right,transparent,${color}99,transparent)`}}/>}
-      <div className="ctag" style={{position:"absolute",top:12,left:12,background:`${color}28`,border:`1px solid ${color}66`,borderRadius:24,padding:"3px 12px",fontSize:9,fontWeight:700,color:color,letterSpacing:1.5,textTransform:"uppercase",backdropFilter:"blur(10px)",fontFamily:"'Josefin Sans',sans-serif",opacity:hov?1:.85,transition:"opacity .3s"}}>{c.tag}</div>
-      <div style={{position:"absolute",top:12,right:12,background:"rgba(250,246,237,.8)",border:"1px solid rgba(193,156,60,.25)",borderRadius:7,padding:"2px 9px",fontSize:8,color:"rgba(107,78,26,.8)",backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours} tours</div>
+    <div style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer",flexShrink:0}} onClick={()=>navigate("/")}>
+      <AurevianLogo size={size}/>
+      <div style={{lineHeight:1}}>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(13px,1.6vw,17px)",fontWeight:700,letterSpacing:"0.1em",color:dark?"#FAF6ED":"#231A0E"}}>AUREVIAN</div>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(11px,1.3vw,14px)",fontWeight:600,letterSpacing:"0.22em",color:dark?"rgba(250,246,237,.75)":"#8B6010",marginTop:1}}>TOURS</div>
+        <div style={{fontSize:"clamp(6px,.8vw,7px)",color:dark?"rgba(250,246,237,.5)":"#9C7A3C",letterSpacing:"0.28em",marginTop:3,fontFamily:"'Josefin Sans',sans-serif",fontWeight:600}}>LUXURY EGYPT JOURNEYS</div>
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SCROLL ROW (shared horizontal carousel)
+// ════════════════════════════════════════════════════════════════
+const ScrollRow = forwardRef(function ScrollRow({children, className=""}, ref){
+  return <div className={`av-scrollrow ${className}`} ref={ref}>{children}</div>;
+});
+
+function SectionHead({eyebrow, title, onViewAll, viewAllLabel="View All", scrollRef}){
+  const scroll = (dir) => {
+    if(!scrollRef?.current) return;
+    const card = scrollRef.current.firstElementChild;
+    const w = card ? card.getBoundingClientRect().width + 18 : 300;
+    scrollRef.current.scrollBy({left: dir*w*2, behavior:"smooth"});
+  };
+  return(
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:14,marginBottom:"clamp(22px,3vw,38px)"}}>
+      <div>
+        <span className="av-eyebrow">{eyebrow}</span>
+        <h2 className="av-title">{title}</h2>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:10}}>
+        {onViewAll && <button onClick={onViewAll} className="av-ghost" style={{background:"transparent",border:"1.5px solid rgba(160,120,40,.35)",color:"#8B6010",borderRadius:9,padding:"9px 20px",cursor:"pointer",fontSize:10,letterSpacing:"0.15em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700,whiteSpace:"nowrap",transition:"all .2s"}}>{viewAllLabel} →</button>}
+        {scrollRef && <div style={{display:"flex",gap:7}}>
+          <button onClick={()=>scroll(-1)} className="av-arrow" style={{width:36,height:36,borderRadius:"50%",border:"1.5px solid rgba(193,156,60,.3)",background:"rgba(201,168,76,.06)",color:"#8B6010",cursor:"pointer",fontSize:15,transition:"all .2s"}}>‹</button>
+          <button onClick={()=>scroll(1)} className="av-arrow" style={{width:36,height:36,borderRadius:"50%",border:"1.5px solid rgba(193,156,60,.3)",background:"rgba(201,168,76,.06)",color:"#8B6010",cursor:"pointer",fontSize:15,transition:"all .2s"}}>›</button>
+        </div>}
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  CITY CARD
+// ════════════════════════════════════════════════════════════════
+function CityCard({c, navigate, fmtP}){
+  return(
+    <div className="av-city-card" onClick={()=>navigate(`/city/${c.id}`)}
+      style={{position:"relative",width:"clamp(208px,22vw,256px)",height:264,borderRadius:18,overflow:"hidden",cursor:"pointer",
+        border:"1px solid rgba(35,26,14,.08)",boxShadow:"0 8px 26px rgba(35,26,14,.1)",background:"#000"}}>
+      <img className="av-city-img av-img" src={c.img} alt={c.name}
+        style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+        onError={e=>e.target.src=`https://placehold.co/420x520/EDE3C8/8B6010?text=${encodeURIComponent(c.name)}`}/>
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.92) 0%,rgba(20,15,8,.25) 48%,rgba(20,15,8,.05) 70%)"}}/>
+      <div style={{position:"absolute",top:12,left:12,width:34,height:34,borderRadius:"50%",background:"rgba(250,246,237,.92)",border:`1.5px solid ${c.color}88`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>{c.icon}</div>
+      <div style={{position:"absolute",top:14,right:12,background:"rgba(250,246,237,.88)",borderRadius:7,padding:"3px 10px",fontSize:9,fontWeight:700,color:"#6B4E1A",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours}+ Tours</div>
       <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"14px 16px"}}>
-        <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(250,246,237,.55)",marginBottom:5,opacity:hov?1:0,transition:"opacity .3s"}}>{c.desc}</div>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-          <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:large?"clamp(17px,2vw,24px)":"clamp(12px,1.3vw,16px)",color:"#FAF6ED",textShadow:"0 2px 16px rgba(0,0,0,.6)"}}>{c.name}</div>
-          <span className="ca" style={{color:color,fontSize:15,opacity:0,transform:"translateX(-10px)",transition:"all .35s"}}>→</span>
+        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:"#FAF6ED",marginBottom:5,textShadow:"0 2px 10px rgba(0,0,0,.5)"}}>{c.name}</div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <span style={{fontSize:11,color:"rgba(250,246,237,.8)",fontFamily:"'Josefin Sans',sans-serif"}}>★ {c.rating} <span style={{color:"rgba(250,246,237,.55)"}}>({c.reviews.toLocaleString()})</span></span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#E8C96D"}}>From {fmtP(c.price)}</span>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── BOOKING MODAL ────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+//  TOUR / PACKAGE CARD
+// ════════════════════════════════════════════════════════════════
+function TourCard({p, navigate, fmtP, onBook}){
+  return(
+    <div className="av-tour-card" style={{width:"clamp(252px,26vw,300px)",borderRadius:18,overflow:"hidden",background:"#fff",border:"1px solid rgba(35,26,14,.08)",boxShadow:"0 8px 26px rgba(35,26,14,.08)"}}>
+      <div onClick={()=>navigate(p.link)} style={{position:"relative",height:178,overflow:"hidden",cursor:"pointer",background:"#EDE3C8"}}>
+        <img className="av-tour-img av-img" src={p.img} alt={p.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+          onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${encodeURIComponent(p.title.slice(0,12))}`}/>
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.45) 0%,transparent 55%)"}}/>
+        <div style={{position:"absolute",top:11,left:11,background:p.badgeColor,color:"#fff",fontSize:9,fontWeight:700,padding:"4px 11px",borderRadius:18,textTransform:"uppercase",letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>{p.badge}</div>
+        <div style={{position:"absolute",top:11,right:11,background:"rgba(250,246,237,.92)",color:"#6B4E1A",fontSize:9,fontWeight:700,padding:"4px 10px",borderRadius:7,fontFamily:"'Josefin Sans',sans-serif"}}>{p.days}</div>
+      </div>
+      <div style={{padding:"16px 18px 20px"}}>
+        <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C",marginBottom:4}}>{p.subtitle}</div>
+        <div onClick={()=>navigate(p.link)} style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:"#231A0E",marginBottom:7,cursor:"pointer",lineHeight:1.35}}>{p.title}</div>
+        <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginBottom:12}}>★ {p.rating} <span style={{color:"#B8A06A"}}>({p.reviews})</span></div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:6}}>
+          <div>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>From </span>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:19,fontWeight:700,color:"#8B6010"}}>{fmtP(p.price)}</span>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}> /person</span>
+          </div>
+        </div>
+        <div style={{fontSize:10,color:"#1A9E50",fontFamily:"'Josefin Sans',sans-serif",marginBottom:13,fontWeight:600}}>✓ Free Cancellation</div>
+        <button onClick={()=>onBook(p)} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 5px 18px rgba(160,120,40,.3)"}}>Book Now</button>
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  REVIEW CARD
+// ════════════════════════════════════════════════════════════════
+function ReviewCard({r}){
+  return(
+    <div className="av-review-card" style={{width:"clamp(270px,28vw,330px)",background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:18,padding:"22px 22px 20px",boxShadow:"0 8px 26px rgba(35,26,14,.08)"}}>
+      <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:11,flexWrap:"wrap"}}>
+        <span style={{background:"rgba(201,168,76,.12)",border:"1px solid rgba(193,156,60,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#8B6010",fontWeight:700,letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>{r.platform}</span>
+        {r.verified && <span style={{background:"rgba(37,211,102,.12)",border:"1px solid rgba(37,211,102,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#1A9E50",fontWeight:700,letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>✓ Verified</span>}
+        <span style={{marginLeft:"auto",fontSize:9,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.date}</span>
+      </div>
+      <Stars n={r.stars}/>
+      <div style={{fontSize:9,color:"#8B6010",letterSpacing:"0.08em",textTransform:"uppercase",marginTop:9,marginBottom:7,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{r.tourName}</div>
+      <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13.5,color:"rgba(35,26,14,.72)",lineHeight:1.75,marginBottom:14}}>{r.text}</p>
+      <div style={{display:"flex",gap:6,marginBottom:14}}>
+        {r.photos.map((ph,i)=><img key={i} src={ph} alt="" style={{width:44,height:44,borderRadius:9,objectFit:"cover"}} onError={e=>e.target.style.display="none"}/>)}
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:10,paddingTop:13,borderTop:"1px solid rgba(193,156,60,.15)"}}>
+        <img src={r.img} alt={r.name} style={{width:38,height:38,borderRadius:"50%",border:"2px solid rgba(193,156,60,.35)",objectFit:"cover"}}/>
+        <div>
+          <div style={{fontSize:12.5,fontWeight:700,fontFamily:"'Cinzel',serif",color:"#231A0E"}}>{r.name}</div>
+          <div style={{fontSize:10.5,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.flag} {r.city}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  BOOKING MODAL
+// ════════════════════════════════════════════════════════════════
 function BookingModal({item,onClose,cur}){
   const [step,setStep]=useState(1);
   const [busy,setBusy]=useState(false);
@@ -505,62 +418,62 @@ function BookingModal({item,onClose,cur}){
   const ok1=f.name&&f.email&&f.whatsapp;
   const ok2=f.date&&f.pickup;
   const waMsg=encodeURIComponent(`🏛️ *New Booking — Aurevian Tours*\n\n📋 *${item?.name||item?.title||"Tour"}*\n\n👤 *Name:* ${f.name}\n🎂 *Age:* ${f.age}\n🌍 *Nationality:* ${f.nationality}\n🗣️ *Guide Language:* ${GUIDE_LANGS.find(l=>l.v===f.guideLang)?.l||f.guideLang}\n💱 *Currency:* ${f.currency}\n📱 *WhatsApp:* ${f.whatsapp}\n✉️ *Email:* ${f.email}\n📅 *Date:* ${f.date}\n👥 *Guests:* ${f.guests}\n📍 *Pick-up:* ${f.pickup}\n📍 *Drop-off:* ${f.dropoff||"Same as pick-up"}\n📝 *Notes:* ${f.notes||"None"}\n\nRef: AUR-${Date.now().toString().slice(-6)}`);
-  const submit=()=>{setBusy(true);setTimeout(()=>{setBusy(false);setStep(3);},1800);};
-  const inp={background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:10,padding:"11px 14px",color:"#2C1A06",fontSize:13,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif",transition:"border-color .2s,box-shadow .2s"};
+  const submit=()=>{setBusy(true);setTimeout(()=>{setBusy(false);setStep(3);},1500);};
+  const inp={background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:10,padding:"11px 14px",color:"#231A0E",fontSize:13,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif"};
   const fi=e=>{e.target.style.borderColor="rgba(160,120,40,.65)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";};
   const fo=e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";};
   return(
-    <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(44,26,6,.7)",backdropFilter:"blur(18px)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .25s ease"}}>
-      <div style={{background:"linear-gradient(145deg,#FAF6ED,#F3ECD8)",border:"1.5px solid rgba(193,156,60,.35)",borderRadius:24,width:"min(560px,96vw)",maxHeight:"92vh",overflowY:"auto",boxShadow:"0 60px 140px rgba(44,26,6,.35)",animation:"popIn .3s ease"}}>
-        <div style={{padding:"24px 28px 18px",borderBottom:"1px solid rgba(193,156,60,.2)",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+    <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(20,15,8,.7)",backdropFilter:"blur(16px)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .25s ease"}}>
+      <div style={{background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.35)",borderRadius:22,width:"min(560px,96vw)",maxHeight:"92vh",overflowY:"auto",boxShadow:"0 50px 120px rgba(20,15,8,.4)",animation:"popIn .3s ease"}}>
+        <div style={{padding:"22px 26px 16px",borderBottom:"1px solid rgba(193,156,60,.2)",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
           <div>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:7,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian Tours · Booking</div>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:600,color:"#2C1A06",lineHeight:1.4,maxWidth:380}}>{item?.name||item?.title||"Book Your Egypt Experience"}</div>
+            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:6,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian Tours · Booking</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:600,color:"#231A0E",lineHeight:1.4,maxWidth:380}}>{item?.name||item?.title||"Book Your Egypt Experience"}</div>
           </div>
-          <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:8,width:34,height:34,cursor:"pointer",fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
+          <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:15}}>✕</button>
         </div>
-        <div style={{padding:"24px 28px"}}>
+        <div style={{padding:"22px 26px"}}>
           {step===3?(
-            <div style={{textAlign:"center",padding:"24px 0",animation:"fadeUp .4s ease"}}>
-              <div style={{fontSize:64,marginBottom:16,animation:"popIn .5s ease"}}>✅</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:22,color:"#A07828",marginBottom:10}}>Booking Confirmed!</div>
-              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,color:"#9C7A3C",lineHeight:1.8,marginBottom:28}}>Our team will contact you within 2 hours.<br/>Reference: <strong style={{color:"#A07828"}}>AUR-{Date.now().toString().slice(-6)}</strong></div>
+            <div style={{textAlign:"center",padding:"20px 0",animation:"fadeUp .4s ease"}}>
+              <div style={{fontSize:58,marginBottom:14}}>✅</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",marginBottom:9}}>Booking Confirmed!</div>
+              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:"#9C7A3C",lineHeight:1.8,marginBottom:24}}>Our team will contact you within 2 hours.<br/>Reference: <strong style={{color:"#A07828"}}>AUR-{Date.now().toString().slice(-6)}</strong></div>
               <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-                <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:12,padding:"13px 24px",textDecoration:"none",fontWeight:700,fontSize:13,letterSpacing:1.5,display:"flex",alignItems:"center",gap:8,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
-                <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:12,padding:"13px 24px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
+                <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:12,padding:"12px 22px",textDecoration:"none",fontWeight:700,fontSize:13,display:"flex",alignItems:"center",gap:8,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
+                <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:12,padding:"12px 22px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
               </div>
             </div>
           ):(
             <>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:22}}>
-                {[1,2].map(s=>(<div key={s} style={{display:"flex",alignItems:"center",gap:8}}><div style={{width:28,height:28,borderRadius:"50%",background:step>=s?"linear-gradient(135deg,#A07828,#C9A84C)":"rgba(201,168,76,.12)",border:step>=s?"none":"1.5px solid rgba(193,156,60,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,color:step>=s?"#FAF6ED":"#A07828",transition:"all .3s"}}>{s}</div>{s<2&&<div style={{width:40,height:1,background:`linear-gradient(to right,${step>=2?"rgba(160,120,40,.5)":"rgba(193,156,60,.2)"},transparent)`}}/>}</div>))}
+              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:20}}>
+                {[1,2].map(s=>(<div key={s} style={{display:"flex",alignItems:"center",gap:8}}><div style={{width:26,height:26,borderRadius:"50%",background:step>=s?"linear-gradient(135deg,#A07828,#C9A84C)":"rgba(201,168,76,.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,color:step>=s?"#FAF6ED":"#A07828"}}>{s}</div>{s<2&&<div style={{width:36,height:1,background:"rgba(193,156,60,.3)"}}/>}</div>))}
                 <div style={{fontSize:11,color:"#9C7A3C",marginLeft:8,fontFamily:"'Josefin Sans',sans-serif"}}>{step===1?"Personal Details":"Trip Details"}</div>
               </div>
               {step===1&&(
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13,animation:"fadeIn .3s ease"}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13}}>
                   <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Full Name *</label><input value={f.name} onChange={upd("name")} placeholder="Your full name" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Age</label><input value={f.age} onChange={upd("age")} placeholder="Your age" type="number" min="1" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Nationality</label><input value={f.nationality} onChange={upd("nationality")} placeholder="e.g. American" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Guide Language</label><select value={f.guideLang} onChange={upd("guideLang")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{GUIDE_LANGS.map(o=><option key={o.v} value={o.v} style={{background:"#FAF6ED"}}>{o.l}</option>)}</select></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Payment Currency</label><select value={f.currency} onChange={upd("currency")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{Object.entries(CURR).map(([code,{l}])=><option key={code} value={code} style={{background:"#FAF6ED"}}>{l}</option>)}</select></div>
+                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Guide Language</label><select value={f.guideLang} onChange={upd("guideLang")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{GUIDE_LANGS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
+                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Payment Currency</label><select value={f.currency} onChange={upd("currency")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{Object.entries(CURR).map(([code,{l}])=><option key={code} value={code}>{l}</option>)}</select></div>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>WhatsApp * 📱</label><input value={f.whatsapp} onChange={upd("whatsapp")} placeholder="+1 234 567 8900" type="tel" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Email *</label><input value={f.email} onChange={upd("email")} placeholder="your@email.com" type="email" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1",marginTop:6}}><button onClick={()=>setStep(2)} disabled={!ok1} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:2.5,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 28px rgba(160,120,40,.3)",opacity:!ok1?.45:1,transition:"all .25s"}}>Next — Trip Details →</button></div>
+                  <div style={{gridColumn:"1/-1",marginTop:5}}><button onClick={()=>setStep(2)} disabled={!ok1} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:2.5,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:!ok1?.45:1}}>Next — Trip Details →</button></div>
                 </div>
               )}
               {step===2&&(
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13,animation:"fadeIn .3s ease"}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13}}>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Tour Date *</label><input value={f.date} onChange={upd("date")} type="date" style={{...inp,colorScheme:"light"}} onFocus={fi} onBlur={fo}/></div>
                   <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Number of Guests</label><input value={f.guests} onChange={upd("guests")} type="number" min="1" placeholder="2" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Pick-up Location * 📍</label><input value={f.pickup} onChange={upd("pickup")} placeholder="Hotel name / address / city" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Drop-off Location 📍</label><input value={f.dropoff} onChange={upd("dropoff")} placeholder="Hotel name / address (if different)" style={inp} onFocus={fi} onBlur={fo}/></div>
                   <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Special Requests / Notes</label><textarea value={f.notes} onChange={upd("notes")} rows={2} placeholder="Dietary needs, accessibility, special occasions…" style={{...inp,resize:"none"}} onFocus={fi} onBlur={fo}/></div>
                   <div style={{gridColumn:"1/-1",display:"flex",gap:10}}>
-                    <button onClick={()=>setStep(1)} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:12,padding:"13px 20px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>← Back</button>
-                    <button onClick={submit} disabled={busy||!ok2} style={{flex:1,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"13px",cursor:busy?"wait":"pointer",fontWeight:700,fontSize:12,letterSpacing:2,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 28px rgba(160,120,40,.3)",opacity:(!ok2||busy)?.45:1,transition:"all .25s",display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
+                    <button onClick={()=>setStep(1)} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:12,padding:"13px 20px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>← Back</button>
+                    <button onClick={submit} disabled={busy||!ok2} style={{flex:1,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"13px",cursor:busy?"wait":"pointer",fontWeight:700,fontSize:12,letterSpacing:2,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(!ok2||busy)?.45:1,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
                       {busy?<><div style={{width:16,height:16,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Sending…</>:"✈ Confirm Booking"}
                     </button>
-                    <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",border:"none",borderRadius:12,padding:"13px 18px",cursor:"pointer",fontSize:20,textDecoration:"none",display:"flex",alignItems:"center",justifyContent:"center"}}>💬</a>
+                    <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:12,padding:"13px 18px",cursor:"pointer",fontSize:20,textDecoration:"none",display:"flex",alignItems:"center",justifyContent:"center"}}>💬</a>
                   </div>
                   <div style={{gridColumn:"1/-1",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C"}}>Free cancellation up to 24 hours before · No charge until confirmed</div>
                 </div>
@@ -573,143 +486,97 @@ function BookingModal({item,onClose,cur}){
   );
 }
 
-// ─── VIDEO PREVIEW ────────────────────────────────────────────
-function VideoPreview(){
-  const [open,setOpen]=useState(false);
+// ════════════════════════════════════════════════════════════════
+//  VIDEO MODAL
+// ════════════════════════════════════════════════════════════════
+function VideoModal({onClose}){
   return(
-    <>
-      <button onClick={()=>setOpen(true)}
-        style={{position:"absolute",bottom:"clamp(170px,22vh,230px)",right:"clamp(20px,4vw,52px)",zIndex:6,
-          background:"rgba(250,246,237,.92)",backdropFilter:"blur(14px)",
-          border:"1.5px solid rgba(193,156,60,.5)",borderRadius:16,padding:"10px 16px",
-          cursor:"pointer",display:"flex",alignItems:"center",gap:10,transition:"all .3s ease",
-          boxShadow:"0 8px 32px rgba(180,140,60,.2)"}}
-        onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(160,120,40,.85)";e.currentTarget.style.transform="translateY(-2px)";}}
-        onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(193,156,60,.5)";e.currentTarget.style.transform="none";}}>
-        <div style={{width:52,height:36,borderRadius:8,overflow:"hidden",position:"relative",flexShrink:0}}>
-          <video src="/videos/egypt-hero.mp4" style={{width:"100%",height:"100%",objectFit:"cover"}} muted playsInline preload="metadata"
-            onMouseEnter={e=>e.target.play().catch(()=>{})} onMouseLeave={e=>e.target.pause()}/>
-          <div style={{position:"absolute",inset:0,background:"rgba(44,26,6,.35)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{width:0,height:0,borderTop:"6px solid transparent",borderBottom:"6px solid transparent",borderLeft:"10px solid #C9A84C",marginLeft:2}}/>
-          </div>
-        </div>
-        <div>
-          <div style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:"#A07828",letterSpacing:"0.15em",textTransform:"uppercase"}}>Watch Film</div>
-          <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(107,78,26,.6)",marginTop:2}}>Egypt Experience</div>
-        </div>
-        <div style={{position:"absolute",inset:-1,borderRadius:16,border:"1.5px solid rgba(193,156,60,.4)",animation:"pulseRing 2s ease-in-out infinite",pointerEvents:"none"}}/>
-      </button>
-      {open&&(
-        <div onClick={()=>setOpen(false)} style={{position:"fixed",inset:0,background:"rgba(44,26,6,.88)",backdropFilter:"blur(20px)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .3s ease"}}>
-          <div onClick={e=>e.stopPropagation()} style={{position:"relative",width:"min(900px,95vw)",borderRadius:20,overflow:"hidden",border:"1.5px solid rgba(193,156,60,.4)",boxShadow:"0 40px 100px rgba(44,26,6,.6)",animation:"popIn .3s ease"}}>
-            <div style={{height:2,background:"linear-gradient(90deg,transparent,#C9A84C,#E8C96D,#C9A84C,transparent)"}}/>
-            <video src="/videos/egypt-hero.mp4" autoPlay controls style={{width:"100%",display:"block",background:"#2C1A06"}}/>
-            <button onClick={()=>setOpen(false)} style={{position:"absolute",top:12,right:12,width:36,height:36,borderRadius:"50%",background:"rgba(250,246,237,.9)",border:"1.5px solid rgba(193,156,60,.5)",color:"#A07828",fontSize:16,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
-
-// ─── LANGUAGE SELECTOR (replaces Google Translate widget) ─────
-// Uses a simple page-reload approach with Google Translate via URL
-// Or can be wired to i18next if available
-function LanguageSelector({visible, onClose, currentLang, onSelect}){
-  if(!visible) return null;
-  return(
-    <div style={{
-      position:"absolute",top:"calc(100% + 8px)",right:0,
-      background:"linear-gradient(145deg,#FAF6ED,#F3ECD8)",
-      border:"1.5px solid rgba(193,156,60,.35)",borderRadius:16,
-      padding:"12px",zIndex:2000,
-      boxShadow:"0 24px 60px rgba(44,26,6,.15)",
-      animation:"slideD .2s ease",
-      minWidth:220,maxHeight:360,overflowY:"auto",
-    }}>
-      <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",padding:"0 4px"}}>🌍 Select Language</div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6}}>
-        {LANGS.map(lang=>(
-          <button
-            key={lang.code}
-            className="lang-btn"
-            onClick={()=>{ onSelect(lang.code, lang.dir); onClose(); }}
-            style={{
-              background:currentLang===lang.code?"rgba(201,168,76,.18)":"rgba(201,168,76,.05)",
-              border:`1.5px solid ${currentLang===lang.code?"rgba(160,120,40,.5)":"rgba(193,156,60,.18)"}`,
-              borderRadius:10,padding:"8px 10px",cursor:"pointer",
-              display:"flex",alignItems:"center",gap:8,
-              fontSize:11,color:currentLang===lang.code?"#8B6010":"rgba(44,26,6,.65)",
-              fontFamily:"'Josefin Sans',sans-serif",
-              fontWeight:currentLang===lang.code?700:400,
-              transition:"all .15s",textAlign:"left",
-            }}
-          >
-            <span style={{fontSize:16}}>{lang.flag}</span>
-            <span>{lang.label}</span>
-          </button>
-        ))}
+    <div onClick={onClose} style={{position:"fixed",inset:0,background:"rgba(15,11,6,.9)",backdropFilter:"blur(18px)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .25s ease"}}>
+      <div onClick={e=>e.stopPropagation()} style={{position:"relative",width:"min(900px,95vw)",borderRadius:18,overflow:"hidden",border:"1.5px solid rgba(193,156,60,.4)",boxShadow:"0 40px 100px rgba(0,0,0,.6)",animation:"popIn .3s ease"}}>
+        <div style={{height:2,background:"linear-gradient(90deg,transparent,#C9A84C,#E8C96D,#C9A84C,transparent)"}}/>
+        <video src="/videos/egypt-hero.mp4" autoPlay controls style={{width:"100%",display:"block",background:"#171009"}}/>
+        <button onClick={onClose} style={{position:"absolute",top:12,right:12,width:34,height:34,borderRadius:"50%",background:"rgba(250,246,237,.92)",border:"1.5px solid rgba(193,156,60,.5)",color:"#A07828",fontSize:15,cursor:"pointer"}}>✕</button>
       </div>
     </div>
   );
 }
 
-// ═══════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
+//  LANGUAGE DROPDOWN (top utility bar / nav)
+// ════════════════════════════════════════════════════════════════
+function LangDropdown({current,onSelect,open,setOpen,small}){
+  return(
+    <div style={{position:"relative"}} className="av-langdd">
+      <button onClick={()=>setOpen(!open)} className="av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.28)",color:small?"rgba(250,246,237,.85)":"#A07828",padding:small?"3px 10px":"7px 13px",borderRadius:7,cursor:"pointer",fontSize:small?10:11,fontWeight:600,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:5,whiteSpace:"nowrap"}}>
+        <span>{current.flag}</span><span>{current.label}</span><span style={{fontSize:8,opacity:.7}}>▾</span>
+      </button>
+      {open&&(
+        <div style={{position:"absolute",top:"calc(100% + 8px)",right:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:14,padding:10,zIndex:2500,minWidth:200,maxHeight:300,overflowY:"auto",boxShadow:"0 24px 56px rgba(20,15,8,.2)",animation:"slideD .18s ease",display:"grid",gridTemplateColumns:"1fr 1fr",gap:5}}>
+          {LANGS.map(l=>(
+            <button key={l.code} className="av-navdd" onClick={()=>{onSelect(l);setOpen(false);}}
+              style={{background:current.code===l.code?"rgba(201,168,76,.16)":"transparent",border:"none",borderRadius:8,padding:"7px 8px",cursor:"pointer",fontSize:11,color:current.code===l.code?"#8B6010":"#3a2c16",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:6,textAlign:"left",fontWeight:current.code===l.code?700:400}}>
+              <span>{l.flag}</span><span>{l.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
 //  MAIN COMPONENT
-// ═══════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
 export default function Home(){
   const navigate = useNavigate();
   const { language:globalLang, currency:globalCur, setLanguage:setGlobalLang, setCurrency:setGlobalCur, formatPrice } = useGlobal();
 
-  const [cur,  setCurLocal]  = useState(globalCur  || "USD");
-  const [uiLang, setUiLang]  = useState("en");
-  const [scrolled,setSc]     = useState(false);
-  const [mMenu,setMMenu]     = useState(false);
-  const [cO,setCO]           = useState(false);
-  const [langOpen,setLangOpen] = useState(false);
-  const [adults,setAdults]   = useState(2);
-  const [kids,setKids]       = useState(0);
-  const [gO,setGO]           = useState(false);
-  const [adv,setAdv]         = useState(false);
-  const [q,setQ]             = useState("");
-  const [res,setRes]         = useState([]);
-  const [step,setStep]       = useState(0);
-  const [email,setEmail]     = useState("");
-  const [subOk,setSubOk]     = useState(false);
-  const [vis,setVis]         = useState({});
-  const [bookItem,setBookItem] = useState(null);
-  const [payItem,setPayItem]  = useState(null);
-  const [payGuests,setPayGuests] = useState(1);
-  const [aiQ,setAiQ]         = useState("");
-  const [aiRes,setAiRes]     = useState("");
-  const [aiLoad,setAiLoad]   = useState(false);
-  const [aiDone,setAiDone]   = useState(false);
-  const videoRef             = useRef(null);
+  const [cur,setCurLocal]       = useState(globalCur || "USD");
+  const [uiLang,setUiLang]      = useState(LANGS[0]);
+  const [scrolled,setSc]        = useState(false);
+  const [mMenu,setMMenu]        = useState(false);
+  const [cO,setCO]              = useState(false);
+  const [langOpen,setLangOpen]  = useState(false);
+  const [destOpen,setDestOpen]  = useState(false);
+  const [adults,setAdults]      = useState(2);
+  const [kids,setKids]          = useState(0);
+  const [gO,setGO]              = useState(false);
+  const [q,setQ]                = useState("");
+  const [res,setRes]            = useState([]);
+  const [email,setEmail]        = useState("");
+  const [subOk,setSubOk]        = useState(false);
+  const [vis,setVis]            = useState({});
+  const [bookItem,setBookItem]  = useState(null);
+  const [payItem,setPayItem]    = useState(null);
+  const [payGuests,setPayGuests]= useState(1);
+  const [videoOpen,setVideoOpen]= useState(false);
+  const [aiQ,setAiQ]            = useState("");
+  const [aiRes,setAiRes]        = useState("");
+  const [aiLoad,setAiLoad]      = useState(false);
+  const [aiDone,setAiDone]      = useState(false);
 
-  const setCur=(code)=>{setCurLocal(code);setGlobalCur(code);};
-  const fmtP=(p)=>formatPrice?formatPrice(p):fmt(p,cur);
+  const destRef  = useRef(null);
+  const tourRef  = useRef(null);
+  const revRef   = useRef(null);
 
-  // Language selection handler — uses i18next if available, else sets dir attribute
-  const handleLangSelect = useCallback((code, dir) => {
-    setUiLang(code);
-    if(setGlobalLang) setGlobalLang(code);
-    // Set document direction for RTL languages
-    document.documentElement.setAttribute("lang", code);
-    document.documentElement.setAttribute("dir", dir || "ltr");
-    // If i18next is available via window
-    if(window.i18n && window.i18n.changeLanguage){
-      window.i18n.changeLanguage(code);
-    }
-    // Fallback: use Google Translate programmatically
+  const setCur = (code) => { setCurLocal(code); setGlobalCur(code); };
+  const fmtP = (p) => formatPrice ? formatPrice(p) : fmt(p,cur);
+
+  const handleLangSelect = useCallback((lang) => {
+    setUiLang(lang);
+    if(setGlobalLang) setGlobalLang(lang.code);
+    document.documentElement.setAttribute("lang", lang.code);
+    document.documentElement.setAttribute("dir", lang.dir || "ltr");
+    if(window.i18n && window.i18n.changeLanguage){ window.i18n.changeLanguage(lang.code); }
     if(window.google && window.google.translate){
       try{
         const selectEl = document.querySelector(".goog-te-combo");
-        if(selectEl){ selectEl.value = code; selectEl.dispatchEvent(new Event("change")); }
+        if(selectEl){ selectEl.value = lang.code; selectEl.dispatchEvent(new Event("change")); }
       }catch(e){}
     }
   }, [setGlobalLang]);
 
-  // Load Google Translate silently (hidden widget) as translation engine
+  // Google Translate engine (silent / hidden widget drives all translation)
   useEffect(()=>{
     if(!document.getElementById("gt-script")){
       window.googleTranslateElementInit=()=>{
@@ -728,8 +595,7 @@ export default function Home(){
   },[]);
 
   useEffect(()=>{if(globalCur)setCurLocal(globalCur);},[globalCur]);
-  useEffect(()=>{const fn=()=>setSc(window.scrollY>52);window.addEventListener("scroll",fn,{passive:true});return()=>window.removeEventListener("scroll",fn);},[]);
-  useEffect(()=>{const id=setInterval(()=>setStep(s=>(s+1)%4),2400);return()=>clearInterval(id);},[]);
+  useEffect(()=>{const fn=()=>setSc(window.scrollY>10);window.addEventListener("scroll",fn,{passive:true});return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{
     const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)setVis(v=>({...v,[e.target.dataset.v]:true}));});},{threshold:.08});
     document.querySelectorAll("[data-v]").forEach(el=>io.observe(el));
@@ -738,23 +604,14 @@ export default function Home(){
   useEffect(()=>{
     if(!q.trim()){setRes([]);return;}
     const lq=q.toLowerCase();
-    setRes(SEARCH_ALL.filter(d=>d.title.toLowerCase().includes(lq)||d.sub?.toLowerCase().includes(lq)||d.tag?.toLowerCase().includes(lq)).slice(0,8));
-    if(SEARCH_ALL.some(d=>d.title.toLowerCase().includes(lq)))setAdv(true);
+    setRes(SEARCH_ALL.filter(d=>d.title.toLowerCase().includes(lq)||d.sub?.toLowerCase().includes(lq)||d.tag?.toLowerCase().includes(lq)).slice(0,7));
   },[q]);
   useEffect(()=>{
-    const v=videoRef.current;if(!v)return;
-    v.muted=true;v.volume=0;
-    v.play().catch(()=>{
-      const retry=()=>{v.play().catch(()=>{});};
-      document.addEventListener("click",retry,{once:true});
-    });
-  },[]);
-
-  // Close dropdowns on outside click
-  useEffect(()=>{
     const fn=(e)=>{
-      if(!e.target.closest(".lang-dd")) setLangOpen(false);
-      if(!e.target.closest(".cur-dd"))  setCO(false);
+      if(!e.target.closest(".av-langdd")) setLangOpen(false);
+      if(!e.target.closest(".av-curdd"))  setCO(false);
+      if(!e.target.closest(".av-destdd")) setDestOpen(false);
+      if(!e.target.closest(".av-travelersdd")) setGO(false);
     };
     document.addEventListener("mousedown",fn);
     return()=>document.removeEventListener("mousedown",fn);
@@ -810,783 +667,442 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
     setAiLoad(false);
   },[aiQ]);
 
-  const rv=(key,delay=0)=>({
-    "data-v":key,
-    style:{opacity:vis[key]?1:0,transform:vis[key]?"none":"translateY(30px)",transition:`opacity .7s ease ${delay}s,transform .7s ease ${delay}s`},
-  });
-
-  const iS={background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:11,padding:"12px 14px",color:"#2C1A06",fontSize:14,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif",transition:"all .25s"};
-  const fi=e=>{e.target.style.borderColor="rgba(160,120,40,.65)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";};
-  const fo=e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";};
-
-  const currentLangObj = LANGS.find(l=>l.code===uiLang) || LANGS[0];
+  const reveal=(key,delay=0)=>({opacity:vis[key]?1:0,transform:vis[key]?"none":"translateY(26px)",transition:`opacity .7s ease ${delay}s,transform .7s ease ${delay}s`});
 
   return(
-    <div style={{background:"#FAF6ED",color:"#2C1A06",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans',sans-serif",position:"relative"}}>
+    <div style={{background:"#FAF6ED",color:"#231A0E",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans',sans-serif"}}>
       <style>{CSS}</style>
-      <div className="grain"/>
-
-      {/* Hidden Google Translate engine */}
       <div id="gt-hidden" style={{display:"none"}}/>
 
-      {/* Hieroglyphic background */}
-      <div className="hiero-bg">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",inset:0}}>
-          <defs>
-            <g id="c1"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><ellipse cx="35" cy="32" rx="14" ry="10" fill="none" stroke="#A07828" strokeWidth="1.1"/><ellipse cx="35" cy="32" rx="7" ry="5" fill="none" stroke="#A07828" strokeWidth="1"/><circle cx="35" cy="32" r="2.5" fill="#A07828"/><rect x="18" y="50" width="34" height="3.5" rx="1.5" fill="#A07828"/><rect x="20" y="58" width="26" height="3" rx="1.5" fill="#A07828"/><rect x="18" y="66" width="34" height="3" rx="1.5" fill="#A07828"/></g>
-            <g id="c2"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><ellipse cx="35" cy="28" rx="12" ry="14" fill="none" stroke="#A07828" strokeWidth="1.1"/><rect x="20" y="42" width="30" height="18" rx="3" fill="none" stroke="#A07828" strokeWidth="1"/><rect x="18" y="68" width="34" height="3" rx="1.5" fill="#A07828"/><rect x="22" y="76" width="26" height="3" rx="1.5" fill="#A07828"/></g>
-            <g id="c3"><rect x="0" y="0" width="70" height="110" rx="35" ry="18" fill="none" stroke="#A07828" strokeWidth="1.4"/><polygon points="35,18 55,48 15,48" fill="none" stroke="#A07828" strokeWidth="1.2"/><circle cx="35" cy="62" r="7" fill="none" stroke="#A07828" strokeWidth="1.1"/><rect x="18" y="80" width="34" height="3" rx="1.5" fill="#A07828"/></g>
-          </defs>
-          {[0,1,2,3,4,5,6,7,8,9].map(i=>(
-            <g key={i}>
-              <use href={`#c${(i%3)+1}`} transform={`translate(${i*155+30}, 40) rotate(${i%2===0?-3:3})`} opacity="0.9"/>
-              <use href={`#c${((i+1)%3)+1}`} transform={`translate(${i*155+30}, 200) rotate(${i%2===0?2:-2})`} opacity="0.8"/>
-              <use href={`#c${((i+2)%3)+1}`} transform={`translate(${i*155+30}, 360) rotate(${i%2===0?-4:4})`} opacity="0.7"/>
-              <use href={`#c${(i%3)+1}`} transform={`translate(${i*155+30}, 520) rotate(${i%2===0?3:-3})`} opacity="0.65"/>
-            </g>
-          ))}
-        </svg>
-      </div>
-
-      {/* ══════════════ NAV ══════════════ */}
-      <nav style={{
-        position:"fixed",top:0,left:0,right:0,zIndex:1000,height:66,
-        background:scrolled?"rgba(250,246,237,.98)":"rgba(250,246,237,.75)",
-        backdropFilter:scrolled?"blur(28px)":"blur(10px)",
-        borderBottom:scrolled?"1px solid rgba(193,156,60,.25)":"1px solid rgba(193,156,60,.1)",
-        display:"flex",alignItems:"center",justifyContent:"space-between",
-        padding:"0 clamp(14px,4vw,44px)",transition:"all .45s ease",
-        boxShadow:scrolled?"0 4px 32px rgba(180,140,60,.12)":"none"
-      }}>
-        {scrolled&&<div style={{position:"absolute",bottom:0,left:0,right:0,height:1,background:"linear-gradient(90deg,transparent,rgba(193,156,60,.5),rgba(232,201,109,.7),rgba(193,156,60,.5),transparent)",opacity:.7}}/>}
-
-        {/* ── NEW LOGO ── */}
-        <div className="logo-wrap" style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer",flexShrink:0}} onClick={()=>navigate("/")}>
-          <AurevianLogo size={46} animate/>
-          <div>
-            <div style={{
-              fontFamily:"'Cinzel',serif",fontSize:"clamp(13px,1.6vw,17px)",fontWeight:700,
-              background:"linear-gradient(135deg,#8B6010,#C9A84C,#8B6010)",
-              WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
-              backgroundClip:"text",letterSpacing:"0.18em",lineHeight:1
-            }}>AUREVIAN</div>
-            <div style={{fontSize:"clamp(6px,.85vw,7px)",color:"#A07828",letterSpacing:"0.35em",marginTop:2,fontFamily:"'Josefin Sans',sans-serif",fontWeight:600}}>EGYPT TOURS & EXPERIENCES</div>
-          </div>
+      {/* ══════════════ TOP UTILITY BAR ══════════════ */}
+      <div className="dn" style={{background:"#171009",height:38,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(16px,4vw,40px)",fontSize:11,color:"rgba(250,246,237,.78)",fontFamily:"'Josefin Sans',sans-serif"}}>
+        <div style={{display:"flex",gap:22,alignItems:"center"}}>
+          {STAT_TOP.map(([ic,t],i)=><span key={i} style={{display:"flex",alignItems:"center",gap:6,whiteSpace:"nowrap"}}><span>{ic}</span>{t}</span>)}
         </div>
-
-        {/* Desktop nav links */}
-        <ul className="dn" style={{display:"flex",gap:"clamp(12px,2vw,28px)",listStyle:"none"}}>
-          {[["Home","/"],["Tours","/tours"],["Destinations","/destinations"],["AI Planner","/ai"],["About","/about"],["Contact","/contact"]].map(([label,path])=>(
-            <li key={path}>
-              <Link to={path} className="nla" style={{color:path==="/"?"#A07828":"rgba(44,26,6,.6)",fontSize:11,letterSpacing:"0.18em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,transition:"color .2s",fontFamily:"'Josefin Sans',sans-serif"}}>{label}</Link>
-            </li>
-          ))}
-        </ul>
-
-        <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
-          {/* Language selector */}
-          <div className="lang-dd" style={{position:"relative"}} >
-            <button
-              className="dn"
-              onClick={()=>{setLangOpen(!langOpen);setCO(false);}}
-              style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",padding:"6px 13px",borderRadius:8,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:6,letterSpacing:"0.1em"}}
-            >
-              <span style={{fontSize:14}}>{currentLangObj.flag}</span>
-              <span>{currentLangObj.label}</span>
-              <span style={{fontSize:9,opacity:.7}}>▾</span>
-            </button>
-            <LanguageSelector
-              visible={langOpen}
-              onClose={()=>setLangOpen(false)}
-              currentLang={uiLang}
-              onSelect={handleLangSelect}
-            />
-          </div>
-
-          {/* Currency */}
-          <div className="cur-dd" style={{position:"relative"}}>
-            <button onClick={()=>{setCO(!cO);setLangOpen(false);}}
-              className="dn"
-              style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",padding:"6px 13px",borderRadius:8,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>
-              {CURR[cur]?.s} {cur} ▾
-            </button>
-            {cO&&<div style={{position:"absolute",top:"calc(100%+8px)",right:0,background:"linear-gradient(145deg,#FAF6ED,#F3ECD8)",border:"1.5px solid rgba(193,156,60,.28)",borderRadius:12,overflow:"hidden",minWidth:215,zIndex:2000,boxShadow:"0 24px 60px rgba(44,26,6,.15)",animation:"slideD .2s ease",maxHeight:320,overflowY:"auto"}}>
+        <div style={{display:"flex",gap:16,alignItems:"center"}}>
+          <LangDropdown current={uiLang} onSelect={handleLangSelect} open={langOpen} setOpen={setLangOpen} small/>
+          <div className="av-curdd" style={{position:"relative"}}>
+            <button onClick={()=>setCO(!cO)} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.28)",color:"rgba(250,246,237,.85)",padding:"3px 10px",borderRadius:7,cursor:"pointer",fontSize:10,fontWeight:600,fontFamily:"'Josefin Sans',sans-serif"}}>{CURR[cur]?.s} {cur} ▾</button>
+            {cO&&<div style={{position:"absolute",top:"calc(100% + 8px)",right:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:12,overflow:"hidden",minWidth:210,zIndex:2500,boxShadow:"0 24px 56px rgba(20,15,8,.2)",animation:"slideD .18s ease",maxHeight:300,overflowY:"auto"}}>
               {Object.entries(CURR).map(([code,{l}])=>(
-                <div key={code} className="dd" onClick={()=>{setCur(code);setCO(false);}} style={{padding:"10px 16px",cursor:"pointer",fontSize:11,color:cur===code?"#A07828":"rgba(44,26,6,.6)",transition:"all .15s",fontWeight:cur===code?700:400,fontFamily:"'Josefin Sans',sans-serif"}}>{l}</div>
+                <div key={code} className="av-navdd" onClick={()=>{setCur(code);setCO(false);}} style={{padding:"9px 16px",cursor:"pointer",fontSize:11,color:cur===code?"#8B6010":"#3a2c16",fontWeight:cur===code?700:400,fontFamily:"'Josefin Sans',sans-serif"}}>{l}</div>
               ))}
             </div>}
           </div>
+          <a href={`tel:+${PHONE_WA}`} style={{color:"rgba(250,246,237,.85)",textDecoration:"none",display:"flex",alignItems:"center",gap:6,whiteSpace:"nowrap"}}>📞 {PHONE_DISPLAY}</a>
+          <a href={waLink()} target="_blank" rel="noreferrer" style={{color:"#5fe08a",textDecoration:"none",display:"flex",alignItems:"center",gap:6,fontWeight:600,whiteSpace:"nowrap"}}>💬 WhatsApp</a>
+        </div>
+      </div>
 
-          <button onClick={()=>setBookItem({title:"Plan My Egypt Trip"})} className="dn btn-gold" style={{whiteSpace:"nowrap",padding:"10px 22px",fontSize:11,letterSpacing:"0.18em"}}>
-            Plan My Trip ✦
-          </button>
+      {/* ══════════════ NAV ══════════════ */}
+      <nav style={{position:"sticky",top:0,zIndex:1000,height:80,background:scrolled?"rgba(250,246,237,.98)":"rgba(250,246,237,.96)",backdropFilter:"blur(18px)",borderBottom:"1px solid rgba(193,156,60,.18)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(14px,4vw,40px)",boxShadow:scrolled?"0 4px 26px rgba(35,26,14,.1)":"none",transition:"all .3s ease"}}>
+        <BrandMark size={46}/>
 
-          <button className="dm" style={{display:"none",background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",width:40,height:40,borderRadius:8,cursor:"pointer",fontSize:16,alignItems:"center",justifyContent:"center"}} onClick={()=>setMMenu(!mMenu)}>
-            {mMenu?"✕":"☰"}
-          </button>
+        <ul className="dn" style={{display:"flex",gap:"clamp(14px,2vw,26px)",listStyle:"none",alignItems:"center"}}>
+          <li><Link to="/" className="av-link" style={{color:"#A07828",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>Home</Link></li>
+          <li className="av-destdd" style={{position:"relative"}}>
+            <button onClick={()=>setDestOpen(!destOpen)} className="av-link" style={{background:"none",border:"none",color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>Destinations <span style={{fontSize:8}}>▾</span></button>
+            {destOpen&&(
+              <div style={{position:"absolute",top:"calc(100% + 14px)",left:"50%",transform:"translateX(-50%)",background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:14,padding:12,zIndex:2000,minWidth:320,boxShadow:"0 24px 56px rgba(20,15,8,.16)",animation:"slideD .18s ease",display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
+                {CITIES.map(c=>(
+                  <Link key={c.id} to={`/city/${c.id}`} onClick={()=>setDestOpen(false)} className="av-navdd" style={{display:"flex",alignItems:"center",gap:8,padding:"8px 10px",borderRadius:8,textDecoration:"none",color:"#3a2c16",fontSize:12.5,fontFamily:"'Cormorant Garamond',serif"}}>
+                    <span>{c.icon}</span>{c.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </li>
+          {NAV_LINKS.slice(1).map(([label,path])=>(
+            <li key={path}><Link to={path} className="av-link" style={{color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{label}</Link></li>
+          ))}
+        </ul>
+
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <button title="Wishlist" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>♡</button>
+          <button title="My Account" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>⚇</button>
+          <button onClick={()=>setBookItem({title:"Plan My Egypt Trip"})} className="dn av-gold" style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px 24px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 22px rgba(160,120,40,.32)",whiteSpace:"nowrap",transition:"all .2s"}}>Plan My Trip</button>
+          <button className="dm" style={{display:"none",background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",width:40,height:40,borderRadius:9,cursor:"pointer",fontSize:17,alignItems:"center",justifyContent:"center"}} onClick={()=>setMMenu(!mMenu)}>{mMenu?"✕":"☰"}</button>
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* ══════════════ MOBILE DRAWER ══════════════ */}
       {mMenu&&(
-        <div style={{position:"fixed",top:66,left:0,right:0,background:"rgba(250,246,237,.99)",backdropFilter:"blur(28px)",zIndex:999,padding:"20px 24px 32px",borderBottom:"1px solid rgba(193,156,60,.2)",animation:"slideD .25s ease"}}>
-          {[["Home","/"],["Tours","/tours"],["Destinations","/destinations"],["AI Planner","/ai"],["About","/about"],["Contact","/contact"]].map(([label,path])=>(
-            <Link key={path} to={path} style={{display:"block",padding:"13px 0",borderBottom:"1px solid rgba(193,156,60,.1)",color:"rgba(44,26,6,.65)",fontSize:13,letterSpacing:"0.18em",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Josefin Sans',sans-serif"}} onClick={()=>setMMenu(false)}>{label}</Link>
+        <div style={{position:"sticky",top:80,zIndex:999,background:"#FAF6ED",borderBottom:"1px solid rgba(193,156,60,.2)",padding:"18px 22px 28px",animation:"slideD .22s ease"}}>
+          {NAV_LINKS.map(([label,path])=>(
+            <Link key={path} to={path} style={{display:"block",padding:"12px 0",borderBottom:"1px solid rgba(193,156,60,.1)",color:"rgba(35,26,14,.65)",fontSize:13,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Josefin Sans',sans-serif"}} onClick={()=>setMMenu(false)}>{label}</Link>
           ))}
-          {/* Mobile language grid */}
-          <div style={{marginTop:16,marginBottom:10}}>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 Language</div>
+          <div style={{marginTop:16,marginBottom:8}}>
+            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:9,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 Language</div>
             <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
-              {LANGS.map(lang=>(
-                <button key={lang.code} onClick={()=>{handleLangSelect(lang.code,lang.dir);setMMenu(false);}}
-                  style={{background:uiLang===lang.code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:uiLang===lang.code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:5}}>
-                  {lang.flag} {lang.label}
-                </button>
+              {LANGS.map(l=>(
+                <button key={l.code} onClick={()=>{handleLangSelect(l);}} style={{background:uiLang.code===l.code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:uiLang.code===l.code?"#A07828":"rgba(35,26,14,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif"}}>{l.flag} {l.label}</button>
               ))}
             </div>
           </div>
-          <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:10}}>
+          <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:10,marginBottom:16}}>
             {Object.entries(CURR).slice(0,8).map(([code,{s}])=>(
-              <button key={code} onClick={()=>{setCur(code);setMMenu(false);}} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:cur===code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:10,fontFamily:"'Josefin Sans',sans-serif"}}>{s} {code}</button>
+              <button key={code} onClick={()=>setCur(code)} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:cur===code?"#A07828":"rgba(35,26,14,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:10,fontFamily:"'Josefin Sans',sans-serif"}}>{s} {code}</button>
             ))}
           </div>
-          <button onClick={()=>{setBookItem({title:"Plan My Egypt Trip"});setMMenu(false);}} className="btn-gold" style={{marginTop:18,width:"100%",padding:"14px",fontSize:13,letterSpacing:"0.18em"}}>Plan My Trip ✦</button>
+          <div style={{display:"flex",gap:10,marginBottom:16}}>
+            <a href={`tel:+${PHONE_WA}`} style={{flex:1,textAlign:"center",background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",color:"#A07828",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>📞 Call Us</a>
+            <a href={waLink()} target="_blank" rel="noreferrer" style={{flex:1,textAlign:"center",background:"#25D366",color:"#fff",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp</a>
+          </div>
+          <button onClick={()=>{setVideoOpen(true);setMMenu(false);}} style={{width:"100%",background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.12)",color:"#3a2c16",borderRadius:11,padding:"12px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif",marginBottom:10}}>▶ Watch Video</button>
+          <button onClick={()=>{setBookItem({title:"Plan My Egypt Trip"});setMMenu(false);}} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Trip ✦</button>
         </div>
       )}
 
-      {/* ══════════════ HERO — CINEMATIC OVERLAY ══════════════ */}
-      <section style={{position:"relative",paddingTop:66}}>
-        <div className="hero-wrap">
-          {/* Full-bleed background image */}
-          <img className="hero-bg-img" src={HERO_IMG} alt="Sphinx and Pyramids of Giza"
-            onError={e=>e.target.src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1600&q=80"}/>
+      {/* ══════════════ HERO ══════════════ */}
+      <section style={{position:"relative",minHeight:"min(86vh,760px)",display:"flex",alignItems:"center",overflow:"hidden"}}>
+        <img src={HERO_IMG} alt="Sphinx and Pyramids of Giza at sunset"
+          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",animation:"heroZoom 24s ease-in-out infinite alternate"}}
+          onError={e=>e.target.src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1600&q=80"}/>
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(100deg,rgba(17,12,6,.86) 0%,rgba(17,12,6,.6) 38%,rgba(17,12,6,.18) 68%,rgba(17,12,6,.05) 100%),linear-gradient(to top,rgba(17,12,6,.55) 0%,transparent 35%)"}}/>
 
-          {/* Cinematic overlay */}
-          <div className="hero-overlay"/>
-
-          {/* Gold edge stripe */}
-          <div className="hero-edge"/>
-
-          {/* Floating particles */}
-          {[15,32,55,72,88].map((left,i)=>(
-            <div key={i} className="hero-particle"
-              style={{left:`${left}%`,bottom:"20%",animationDelay:`${i*1.2}s`,animationDuration:`${5+i}s`}}/>
-          ))}
-
-          {/* ── LEFT: Text Content ── */}
-          <div className="hero-content">
-            <div style={{animation:"fadeUp .8s ease both"}}>
-              {/* Eyebrow */}
-              <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.4)",borderRadius:32,padding:"6px 18px",marginBottom:28,backdropFilter:"blur(8px)"}}>
-                <span style={{color:"#A07828",fontSize:9,letterSpacing:"0.35em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Award-Winning Egypt Specialists Since 2009</span>
-              </div>
-
-              {/* Main heading */}
-              <h1 style={{fontFamily:"'Cinzel',serif",fontWeight:700,lineHeight:1.0,marginBottom:16,letterSpacing:"0.08em",color:"#2C1A06"}}>
-                <span style={{display:"block",fontSize:"clamp(32px,5.5vw,72px)",color:"#2C1A06",lineHeight:1}}>EXPERIENCE</span>
-                <span style={{display:"block",fontSize:"clamp(32px,5.5vw,72px)",lineHeight:1,marginBottom:6}}>
-                  <span className="gta">EGYPT</span>
-                </span>
-                <span style={{display:"block",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontWeight:400,fontSize:"clamp(16px,2.5vw,32px)",color:"rgba(107,78,26,.7)",letterSpacing:"0.2em",marginTop:6}}>Beyond Extraordinary</span>
-              </h1>
-
-              {/* Divider */}
-              <div style={{display:"flex",alignItems:"center",gap:16,margin:"22px 0",opacity:.8}}>
-                <div style={{flex:1,height:1,background:"linear-gradient(to right,rgba(193,156,60,.5),transparent)"}}/>
-                <span style={{fontSize:22,animation:"glowGold 4s ease-in-out infinite",color:"#C9A84C"}}>𓂀</span>
-                <span style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.5)",letterSpacing:"0.45em",textTransform:"uppercase"}}>EST. 2009</span>
-                <span style={{fontSize:22,animation:"glowGold 4s ease-in-out 2s infinite",color:"#C9A84C"}}>𓂀</span>
-                <div style={{flex:1,height:1,background:"linear-gradient(to left,rgba(193,156,60,.5),transparent)"}}/>
-              </div>
-
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(14px,1.6vw,20px)",color:"rgba(44,26,6,.65)",lineHeight:1.85,marginBottom:32,maxWidth:460,opacity:0,animation:"fadeUp .8s ease .2s forwards"}}>
-                Where ancient pharaohs whispered their secrets to the stones, and the Nile carried civilisations across five millennia of wonder.
-              </p>
-
-              {/* Stats */}
-              <div style={{display:"flex",gap:24,marginBottom:36,opacity:0,animation:"fadeUp .8s ease .3s forwards"}}>
-                {[["4.9★","TripAdvisor"],["50K+","Travellers"],["15+","Years"]].map(([n,l])=>(
-                  <div key={l}>
-                    <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(16px,1.8vw,22px)",fontWeight:700,color:"#A07828"}}>{n}</div>
-                    <div style={{fontSize:9,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",marginTop:3}}>{l}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div style={{display:"flex",gap:14,flexWrap:"wrap",opacity:0,animation:"fadeUp .8s ease .4s forwards"}}>
-                <button onClick={()=>setBookItem({title:"Plan Your Egypt Journey"})} className="btn-gold" style={{padding:"15px 32px",fontSize:12,letterSpacing:"0.18em"}}>
-                  Start Planning →
-                </button>
-                <button onClick={()=>document.getElementById("ai-sec")?.scrollIntoView({behavior:"smooth"})}
-                  style={{background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.4)",color:"#8B6010",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.18em",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(8px)",transition:"all .25s"}}>
-                  🤖 AI Itinerary
-                </button>
-                <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer"
-                  style={{background:"rgba(37,211,102,.08)",border:"1.5px solid rgba(37,211,102,.35)",color:"#1A9E50",borderRadius:10,padding:"15px 22px",textDecoration:"none",fontWeight:700,fontSize:11,letterSpacing:"0.18em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:8,transition:"all .25s"}}>
-                  💬 WhatsApp
-                </a>
-              </div>
-
-              {/* Trust badges */}
-              <div style={{display:"flex",gap:10,marginTop:28,flexWrap:"wrap",opacity:0,animation:"fadeUp .8s ease .5s forwards"}}>
-                {[["✓","Best Price"],["✓","Local Expert"],["✓","24/7 Support"],["✓","98% Satisfaction"]].map(([ic,l])=>(
-                  <div key={l} style={{display:"flex",alignItems:"center",gap:5,fontSize:10,color:"rgba(107,78,26,.6)",fontFamily:"'Josefin Sans',sans-serif"}}>
-                    <span style={{color:"#A07828",fontWeight:700}}>{ic}</span>{l}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ── RIGHT: Floating badge cards on photo ── */}
-          <div className="hero-badges">
-            {/* Location badge */}
-            <div style={{display:"flex",alignItems:"center",gap:8,background:"rgba(250,246,237,.88)",backdropFilter:"blur(14px)",border:"1.5px solid rgba(193,156,60,.45)",borderRadius:10,padding:"8px 14px",animation:"fadeIn .8s ease .3s both"}}>
-              <span style={{fontSize:12,color:"#A07828"}}>📍</span>
-              <div>
-                <span style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"rgba(107,78,26,.7)",letterSpacing:"0.25em",textTransform:"uppercase",display:"block"}}>Giza, Egypt</span>
-                <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:11,color:"rgba(107,78,26,.55)"}}>Sphinx & Pyramids</span>
-              </div>
-            </div>
-
-            {/* Rating card */}
-            <div className="hero-stat" style={{animationDelay:".4s"}}>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:28,fontWeight:700,color:"#A07828",lineHeight:1}}>4.9</div>
-              <div style={{color:"#C9A84C",fontSize:14,letterSpacing:2,margin:"4px 0"}}>★★★★★</div>
-              <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase"}}>5,000+ Reviews</div>
-            </div>
-
-            {/* Tours count */}
-            <div className="hero-stat" style={{animationDelay:".55s"}}>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:24,fontWeight:700,color:"#A07828",lineHeight:1}}>200+</div>
-              <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:8,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase",marginTop:4}}>Curated Tours</div>
-            </div>
-
-            {/* Video preview */}
-            <VideoPreview/>
-          </div>
-
-          {/* Floating hieroglyphs on image */}
-          {["𓂀","𓅓","𓇋","𓆣"].map((h,i)=>(
-            <div key={i} style={{position:"absolute",zIndex:3,fontSize:`${24+i*4}px`,color:"rgba(201,168,76,.12)",fontFamily:"serif",
-              left:`${[62,78,70,85][i]}%`,top:`${[25,18,62,50][i]}%`,
-              animation:`float ${4+i*.9}s ease-in-out infinite`,animationDelay:`${i*.8}s`,pointerEvents:"none"}}>{h}</div>
-          ))}
-
-          {/* Scroll indicator */}
-          <div style={{position:"absolute",bottom:clamp(80,120),left:"50%",display:"flex",flexDirection:"column",alignItems:"center",gap:6,zIndex:4,animation:"scrollB 3s ease-in-out infinite"}}>
-            <span style={{fontSize:7,letterSpacing:"0.5em",color:"rgba(107,78,26,.4)",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>SCROLL</span>
-            <div style={{width:1,height:38,background:"linear-gradient(to bottom,rgba(193,156,60,.5),transparent)"}}/>
-          </div>
-
-          {/* ── Search bar — bottom of hero ── */}
-          <div className="hero-search">
-            <div style={{maxWidth:1100,margin:"0 auto"}}>
-              <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
-                <span style={{color:"#8B6010",fontSize:11,letterSpacing:"0.25em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✈ Find Your Perfect Egypt Experience</span>
-                <button onClick={()=>setAdv(!adv)} style={{background:adv?"rgba(201,168,76,.15)":"transparent",border:"1.5px solid rgba(193,156,60,.3)",color:adv?"#A07828":"rgba(107,78,26,.5)",borderRadius:7,padding:"4px 14px",cursor:"pointer",fontSize:10,letterSpacing:"0.1em",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif"}}>Advanced {adv?"▲":"▾"}</button>
-              </div>
-              <div style={{position:"relative"}}>
-                <span style={{position:"absolute",left:15,top:"50%",transform:"translateY(-50%)",color:"rgba(107,78,26,.45)",fontSize:17}}>🔍</span>
-                <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search destinations, tours, experiences…" style={{...iS,paddingLeft:46,paddingRight:44,background:"rgba(250,246,237,.9)"}} onFocus={fi} onBlur={fo}/>
-                {q&&<button onClick={()=>{setQ("");setRes([]);}} style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"transparent",border:"none",color:"rgba(107,78,26,.3)",cursor:"pointer",fontSize:17}}>✕</button>}
-              </div>
-              {res.length>0&&(
-                <div style={{background:"rgba(250,246,237,.99)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:14,marginTop:8,overflow:"hidden",maxHeight:360,overflowY:"auto",animation:"slideD .2s ease",boxShadow:"0 18px 48px rgba(180,140,60,.12)"}}>
-                  {res.map((r,i)=>(
-                    <div key={i} className="si" onClick={()=>{navigate(r.url);setQ("");setRes([]);setAdv(false);}} style={{display:"flex",alignItems:"center",gap:13,padding:"12px 16px",cursor:"pointer",borderBottom:"1px solid rgba(193,156,60,.08)",transition:"background .15s"}}>
-                      <img src={r.img} alt="" style={{width:58,height:46,borderRadius:10,objectFit:"cover",flexShrink:0}} onError={e=>e.target.style.display="none"}/>
-                      <div style={{flex:1,minWidth:0}}>
-                        <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:600,color:"#2C1A06"}}>{r.title}</div>
-                        <div style={{fontSize:11,color:"#9C7A3C",marginTop:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{r.sub}</div>
-                      </div>
-                      <div style={{background:r.color?`${r.color}18`:"rgba(201,168,76,.1)",border:`1px solid ${r.color||"rgba(193,156,60,.3)"}`,borderRadius:6,padding:"2px 10px",fontSize:9,color:r.color||"#A07828",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0}}>{r.tag}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {q&&!res.length&&<div style={{padding:"14px 16px",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:14,color:"#9C7A3C"}}>No results for "{q}" — try "Luxor", "Pyramids", "cruise"…</div>}
-              {adv&&(
-                <div className="sg" style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1.2fr auto",gap:11,marginTop:12,animation:"fadeUp .3s ease"}}>
-                  {[{label:"Check-in",type:"date"},{label:"Check-out",type:"date"}].map((f,i)=>(
-                    <div key={i} style={{display:"flex",flexDirection:"column",gap:5}}>
-                      <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</span>
-                      <input type={f.type} style={{...iS,colorScheme:"light"}} onFocus={fi} onBlur={fo}/>
-                    </div>
-                  ))}
-                  <div style={{display:"flex",flexDirection:"column",gap:5,position:"relative"}}>
-                    <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Guests</span>
-                    <div onClick={()=>setGO(!gO)} style={{...iS,cursor:"pointer",userSelect:"none"}}>{adults} Adults · {kids} Children ▾</div>
-                    {gO&&(
-                      <div style={{position:"absolute",top:"calc(100%+8px)",left:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:13,padding:"16px",minWidth:220,zIndex:100,boxShadow:"0 24px 64px rgba(44,26,6,.12)",animation:"slideD .2s ease"}} onClick={e=>e.stopPropagation()}>
-                        {[["Adults",adults,setAdults,1],["Children",kids,setKids,0]].map(([lbl,val,set,min])=>(
-                          <div key={lbl} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-                            <span style={{fontSize:14,color:"#2C1A06",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</span>
-                            <div style={{display:"flex",alignItems:"center",gap:13}}>
-                              <button onClick={()=>set(Math.max(min,val-1))} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>−</button>
-                              <span style={{color:"#A07828",fontWeight:700,minWidth:18,textAlign:"center"}}>{val}</span>
-                              <button onClick={()=>set(val+1)} style={{width:29,height:29,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:17}}>+</button>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div style={{display:"flex",flexDirection:"column",gap:5}}>
-                    <span style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Tour Type</span>
-                    <select style={{...iS,cursor:"pointer"}} onFocus={fi} onBlur={fo}>
-                      {["All Types","Day Tour","Nile Cruise","Multi-Day","Adventure","Cultural","Private","Honeymoon","Family"].map(o=><option key={o} style={{background:"#FAF6ED"}}>{o}</option>)}
-                    </select>
-                  </div>
-                  <button onClick={()=>{if(res.length)navigate(res[0].url);else navigate("/tours");}} className="btn-gold" style={{alignSelf:"flex-end",padding:"11px 18px",fontSize:11}}>Search</button>
-                </div>
-              )}
-            </div>
+        <div style={{position:"relative",zIndex:2,width:"min(620px,92%)",padding:"clamp(60px,10vh,90px) clamp(20px,5vw,56px) clamp(74px,9vh,96px)"}}>
+          <div data-v="hEy" style={{display:"inline-block",fontSize:10,color:"#E8C96D",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,marginBottom:18,fontFamily:"'Josefin Sans',sans-serif",...reveal("hEy")}}>Luxury Journeys Through Timeless Egypt</div>
+          <h1 data-v="hT" style={{fontFamily:"'Cinzel',serif",fontWeight:700,lineHeight:1.08,marginBottom:18,...reveal("hT",.08)}}>
+            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#FAF6ED"}}>Egypt,</span>
+            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#E8C96D"}}>Curated Beautifully.</span>
+          </h1>
+          <p data-v="hP" style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(14px,1.6vw,18px)",color:"rgba(250,246,237,.78)",lineHeight:1.75,marginBottom:30,maxWidth:440,...reveal("hP",.16)}}>
+            Private tours. Expert guides. Unforgettable memories. Designed just for you.
+          </p>
+          <div data-v="hB" style={{display:"flex",gap:13,flexWrap:"wrap",...reveal("hB",.24)}}>
+            <button onClick={()=>navigate("/tours")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"15px 28px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 28px rgba(160,120,40,.4)"}}>Explore Tours</button>
+            <button onClick={()=>setBookItem({title:"Plan My Egypt Trip"})} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(250,246,237,.55)",color:"#FAF6ED",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(6px)"}}>Plan My Trip</button>
+            <button onClick={()=>setVideoOpen(true)} style={{background:"rgba(250,246,237,.1)",border:"1.5px solid rgba(250,246,237,.35)",color:"#FAF6ED",borderRadius:10,padding:"15px 22px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.12em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:9,backdropFilter:"blur(6px)",position:"relative"}}>
+              <span style={{width:22,height:22,borderRadius:"50%",background:"#E8C96D",display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#1B130A"}}>▶</span>
+              Watch Video
+              <span style={{position:"absolute",inset:-1,borderRadius:10,border:"1.5px solid rgba(232,201,109,.5)",animation:"pulseRing 2.2s ease-in-out infinite",pointerEvents:"none"}}/>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* ══════════════ STATS BAR ══════════════ */}
-      <div style={{background:"linear-gradient(135deg,#EDE3C8,#E6D9B4)",borderTop:"1.5px solid rgba(193,156,60,.25)",borderBottom:"1.5px solid rgba(193,156,60,.25)"}}>
-        <div className="statg" style={{maxWidth:1060,margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)",padding:"clamp(18px,3vw,26px) clamp(16px,4vw,40px)"}}>
-          {[["50K+","Happy Travelers","🧳"],["200+","Curated Tours","🗺️"],["4.9★","Avg Rating","⭐"],["15+","Years of Excellence","🏆"]].map(([n,l,ic],i)=>(
-            <div key={i} data-v={`st${i}`} style={{textAlign:"center",borderRight:i<3?"1px solid rgba(193,156,60,.2)":"none",padding:"0 16px",opacity:vis[`st${i}`]?1:0,transform:vis[`st${i}`]?"none":"translateY(18px)",transition:`opacity .65s ease ${i*.1}s,transform .65s ease ${i*.1}s`}}>
-              <div style={{fontSize:20,marginBottom:4}}>{ic}</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(20px,2.5vw,30px)",fontWeight:700,color:"#8B6010"}}>{n}</div>
-              <div style={{fontSize:9,color:"rgba(107,78,26,.55)",letterSpacing:"0.2em",textTransform:"uppercase",marginTop:4,fontFamily:"'Josefin Sans',sans-serif"}}>{l}</div>
+      {/* ══════════════ FLOATING SEARCH CARD ══════════════ */}
+      <div style={{padding:"0 clamp(16px,4vw,48px)",position:"relative",zIndex:20,marginTop:"clamp(-48px,-5vw,-30px)"}}>
+        <div style={{maxWidth:1180,margin:"0 auto",position:"relative"}}>
+          <div className="av-search-card" style={{background:"#fff",borderRadius:18,boxShadow:"0 26px 60px rgba(20,15,8,.18)",padding:"10px 22px"}}>
+            <div className="av-search-field">
+              <span style={{fontSize:15,color:"#A07828"}}>📍</span>
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Where to?</div>
+                <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search destination"/>
+              </div>
             </div>
-          ))}
+            <div className="av-search-field">
+              <span style={{fontSize:15,color:"#A07828"}}>▦</span>
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Tour Type</div>
+                <select defaultValue={TOUR_TYPES[0]}>{TOUR_TYPES.map(t=><option key={t}>{t}</option>)}</select>
+              </div>
+            </div>
+            <div className="av-search-field">
+              <span style={{fontSize:15,color:"#A07828"}}>📅</span>
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Travel Date</div>
+                <input type="date" style={{colorScheme:"light"}}/>
+              </div>
+            </div>
+            <div className="av-search-field av-travelersdd" style={{position:"relative",cursor:"pointer"}} onClick={()=>setGO(!gO)}>
+              <span style={{fontSize:15,color:"#A07828"}}>👥</span>
+              <div style={{width:"100%"}}>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Travelers</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14}}>{adults} Adults · {kids} Children</div>
+              </div>
+              {gO&&(
+                <div onClick={e=>e.stopPropagation()} style={{position:"absolute",top:"calc(100% + 12px)",left:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:13,padding:16,minWidth:220,zIndex:100,boxShadow:"0 24px 60px rgba(20,15,8,.16)",animation:"slideD .18s ease"}}>
+                  {[["Adults",adults,setAdults,1],["Children",kids,setKids,0]].map(([lbl,val,set,min])=>(
+                    <div key={lbl} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:13}}>
+                      <span style={{fontSize:14,color:"#231A0E",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</span>
+                      <div style={{display:"flex",alignItems:"center",gap:12}}>
+                        <button onClick={()=>set(Math.max(min,val-1))} style={{width:27,height:27,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:16}}>−</button>
+                        <span style={{color:"#A07828",fontWeight:700,minWidth:16,textAlign:"center"}}>{val}</span>
+                        <button onClick={()=>set(val+1)} style={{width:27,height:27,borderRadius:"50%",background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.35)",color:"#A07828",cursor:"pointer",fontSize:16}}>+</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button onClick={()=>{ if(res.length) navigate(res[0].url); else navigate("/tours"); }} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"13px 26px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",margin:"6px 0 6px 8px",whiteSpace:"nowrap",boxShadow:"0 6px 20px rgba(160,120,40,.3)"}}>Search Tours</button>
+          </div>
+          {res.length>0&&(
+            <div style={{background:"#fff",border:"1px solid rgba(193,156,60,.2)",borderRadius:14,marginTop:8,overflow:"hidden",maxHeight:330,overflowY:"auto",boxShadow:"0 18px 48px rgba(20,15,8,.12)",animation:"slideD .18s ease"}}>
+              {res.map((r,i)=>(
+                <div key={i} onClick={()=>{navigate(r.url);setQ("");setRes([]);}} style={{display:"flex",alignItems:"center",gap:13,padding:"11px 16px",cursor:"pointer",borderBottom:"1px solid rgba(193,156,60,.08)"}}>
+                  <img src={r.img} alt="" style={{width:54,height:42,borderRadius:9,objectFit:"cover",flexShrink:0}} onError={e=>e.target.style.display="none"}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:600,color:"#231A0E"}}>{r.title}</div>
+                    <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{r.sub}</div>
+                  </div>
+                  <div style={{background:r.color?`${r.color}18`:"rgba(201,168,76,.1)",border:`1px solid ${r.color||"rgba(193,156,60,.3)"}`,borderRadius:6,padding:"2px 10px",fontSize:9,color:r.color||"#A07828",textTransform:"uppercase",flexShrink:0}}>{r.tag}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* ══════════════ MARQUEE ══════════════ */}
-      <div style={{borderBottom:"1px solid rgba(193,156,60,.12)",padding:"11px 0",overflow:"hidden",background:"rgba(237,227,200,.4)"}}>
-        <div className="mq">
-          {[...Array(3)].map((_,idx)=>(
-            <span key={idx} style={{display:"inline-flex",alignItems:"center",gap:22,paddingRight:44,fontSize:10,color:"rgba(107,78,26,.4)",letterSpacing:"0.35em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>
-              {CITIES.map((c,j)=><span key={j} style={{display:"inline-flex",alignItems:"center",gap:12}}><span style={{color:"rgba(193,156,60,.4)"}}>◆</span>{c.name}</span>)}
-            </span>
+      {/* ══════════════ TRUST STRIP ══════════════ */}
+      <section style={{padding:"clamp(34px,5vw,52px) clamp(16px,4vw,48px) clamp(16px,3vw,24px)"}}>
+        <div className="av-trust-grid" style={{maxWidth:1180,margin:"0 auto"}}>
+          {TRUST_STRIP.map((t,i)=>(
+            <div key={i} data-v={`tr${i}`} style={{display:"flex",alignItems:"center",gap:12,padding:"6px 4px",...reveal(`tr${i}`,i*.06)}}>
+              <span style={{fontSize:24,flexShrink:0}}>{t.icon}</span>
+              <div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12.5,fontWeight:700,color:"#231A0E"}}>{t.t}</div>
+                <div style={{fontSize:11.5,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{t.d}</div>
+              </div>
+            </div>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* ══════════════ DESTINATIONS ══════════════ */}
-      <section style={S.section}>
-        <div {...rv("dh")} style={{...S.sectionHeader,...rv("dh").style}}>
-          <div style={S.sectionTitleWrap}>
-            <span style={S.sectionEyebrow}>✦ Explore Egypt · Ten legendary destinations · Infinite stories</span>
-            <h2 style={S.sectionTitle}>Popular Destinations</h2>
-          </div>
-          <button onClick={()=>navigate("/tours")} className="btn-ghost">View All →</button>
-        </div>
-        <div className="dtop" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:16,marginBottom:16}}>
-          {CITIES.slice(0,3).map(c=><CityCard key={c.id} c={c} navigate={navigate} large/>)}
-        </div>
-        <div className="dbot" style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:11}}>
-          {CITIES.slice(3).map(c=><CityCard key={c.id} c={c} navigate={navigate}/>)}
-        </div>
+      <section className="av-section">
+        <SectionHead eyebrow="Popular Destinations" title="Explore Egypt's Most Iconic Destinations" onViewAll={()=>navigate("/tours")} viewAllLabel="View All Destinations" scrollRef={destRef}/>
+        <ScrollRow ref={destRef}>
+          {CITIES.map(c=><CityCard key={c.id} c={c} navigate={navigate} fmtP={fmtP}/>)}
+        </ScrollRow>
       </section>
-
-      <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
-
-      {/* ══════════════ PACKAGES ══════════════ */}
-      <section style={S.section}>
-        <div {...rv("ph")} style={{...S.sectionHeader,...rv("ph").style}}>
-          <div style={S.sectionTitleWrap}>
-            <span style={S.sectionEyebrow}>✦ Handpicked Experiences</span>
-            <h2 style={S.sectionTitle}>Featured Egypt Tours</h2>
-          </div>
-          <button onClick={()=>navigate("/packages")} className="btn-ghost">View All →</button>
-        </div>
-        <div className="pkgg" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:22}}>
-          {PACKAGES.map((p,i)=>(
-            <div key={i} className="pkgc" data-v={`pk${i}`}
-              onClick={()=>navigate(p.link)}
-              style={{
-                borderRadius:20,overflow:"hidden",cursor:"pointer",
-                background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",
-                border:"1.5px solid rgba(193,156,60,.2)",
-                boxShadow:"0 8px 32px rgba(180,140,60,.1)",
-                opacity:vis[`pk${i}`]?1:0,
-                transform:vis[`pk${i}`]?"none":"translateY(28px)",
-                transition:`opacity .7s ease ${i*.09}s,transform .7s ease ${i*.09}s,all .4s cubic-bezier(.25,.8,.25,1)`
-              }}>
-              <div style={{position:"relative",height:220,overflow:"hidden",background:"#EDE3C8"}}>
-                <img className="pkgi" src={p.img} alt={p.title}
-                  style={{width:"100%",height:"100%",objectFit:"cover",transition:"transform .6s ease",display:"block"}}
-                  onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${p.title.slice(0,10)}`}/>
-                <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(44,26,6,.88) 0%,rgba(44,26,6,.1) 50%,transparent 100%)"}}/>
-                <div style={{position:"absolute",top:12,left:12,background:`${p.badgeColor}22`,border:`1.5px solid ${p.badgeColor}55`,color:p.badgeColor,fontSize:9,fontWeight:700,padding:"4px 12px",borderRadius:20,textTransform:"uppercase",letterSpacing:"0.12em",backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>{p.badge}</div>
-                <div style={{position:"absolute",top:12,right:12,background:"rgba(250,246,237,.88)",border:"1px solid rgba(193,156,60,.3)",color:"rgba(107,78,26,.85)",fontSize:9,padding:"4px 10px",borderRadius:8,backdropFilter:"blur(8px)",fontFamily:"'Josefin Sans',sans-serif"}}>{p.days}</div>
-                <div style={{position:"absolute",bottom:14,left:14,right:14}}>
-                  <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(14px,1.5vw,18px)",fontWeight:700,color:"#FAF6ED",marginBottom:4}}>{p.title}</div>
-                  <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"rgba(250,246,237,.6)"}}>{p.subtitle}</div>
-                </div>
-              </div>
-              <div style={{padding:"18px 20px 22px"}}>
-                <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:14}}>
-                  {p.tags.map((tag,j)=>(
-                    <span key={j} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",color:"rgba(107,78,26,.7)",fontSize:9,padding:"3px 9px",borderRadius:10,letterSpacing:.5,fontFamily:"'Josefin Sans',sans-serif"}}>✦ {tag}</span>
-                  ))}
-                </div>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                  <div>
-                    <span style={{color:"#9C7A3C",fontSize:10,fontFamily:"'Josefin Sans',sans-serif"}}>From </span>
-                    <span style={{fontFamily:"'Cinzel',serif",color:"#8B6010",fontSize:"clamp(18px,2vw,24px)",fontWeight:700}}>{fmtP(p.price)}</span>
-                    <span style={{color:"#9C7A3C",fontSize:10,fontFamily:"'Josefin Sans',sans-serif"}}>/person</span>
-                  </div>
-                  <button onClick={e=>{e.stopPropagation();navigate(p.link);}} style={{background:"rgba(201,168,76,.12)",border:"1.5px solid rgba(193,156,60,.3)",color:"#8B6010",borderRadius:10,padding:"8px 18px",cursor:"pointer",fontSize:10,letterSpacing:"0.15em",textTransform:"uppercase",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>
-                    View →
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style={{textAlign:"center",marginTop:36}}>
-          <button onClick={()=>navigate("/packages")} className="btn-gold" style={{padding:"14px 40px",fontSize:12,letterSpacing:"0.18em"}}>
-            ✦ Explore All {PACKAGES_COUNT}+ Packages
-          </button>
-        </div>
-      </section>
-
-      <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
 
       {/* ══════════════ WHY US ══════════════ */}
-      <section style={S.section}>
-        <div {...rv("wh")} style={{textAlign:"center",marginBottom:"clamp(28px,4vw,52px)",...rv("wh").style}}>
-          <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Why Travel with Aurevian</div>
-          <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(24px,4vw,44px)",fontWeight:700,marginBottom:8,color:"#2C1A06"}}>Your Journey, Our Expertise</h2>
-          <p style={{color:"#9C7A3C",fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>The world's most trusted Egypt travel specialist</p>
+      <section style={{padding:"0 clamp(16px,4vw,48px) clamp(48px,7vw,80px)"}}>
+        <div data-v="why" style={{textAlign:"center",marginBottom:30,...reveal("why")}}>
+          <span className="av-eyebrow">Why Travelers Choose Aurevian</span>
         </div>
-        <div className="whyg" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:16,maxWidth:1100,margin:"0 auto"}}>
-          {WHY.map((w,i)=>(
-            <div key={i} data-v={`wy${i}`} className="wc" style={{
-              background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",
-              border:"1.5px solid rgba(193,156,60,.2)",borderRadius:20,
-              padding:"clamp(18px,2.5vw,28px)",cursor:"default",position:"relative",overflow:"hidden",
-              boxShadow:"0 6px 24px rgba(180,140,60,.08)",
-              opacity:vis[`wy${i}`]?1:0,transform:vis[`wy${i}`]?"none":"translateY(24px)",
-              transition:`opacity .7s ease ${i*.07}s,transform .7s ease ${i*.07}s,all .35s`}}>
-              <div style={{position:"absolute",top:-8,right:-8,fontFamily:"'Cinzel',serif",fontSize:42,color:"rgba(193,156,60,.08)",fontWeight:700}}>{w.num}</div>
-              <div className="wi" style={{fontSize:30,marginBottom:14,display:"block",transition:"transform .3s ease"}}>{w.icon}</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:600,marginBottom:8,color:"#2C1A06"}}>{w.t}</div>
-              <div style={{fontSize:13,color:"#9C7A3C",lineHeight:1.65,fontFamily:"'Cormorant Garamond',serif"}}>{w.d}</div>
+        <div className="av-why-grid" style={{maxWidth:1180,margin:"0 auto"}}>
+          {WHY_US.map((w,i)=>(
+            <div key={i} data-v={`wy${i}`} style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:16,padding:"20px 16px",textAlign:"center",boxShadow:"0 6px 20px rgba(35,26,14,.06)",...reveal(`wy${i}`,i*.06)}}>
+              <div style={{fontSize:26,marginBottom:10}}>{w.icon}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#231A0E",marginBottom:5}}>{w.t}</div>
+              <div style={{fontSize:11.5,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",lineHeight:1.5}}>{w.d}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
-
-      {/* ══════════════ AI BUILDER — REDESIGNED ══════════════ */}
-      <section id="ai-sec" style={S.section}>
-        <div {...rv("ai")} style={{...rv("ai").style}}>
-
-          {/* Header */}
-          <div style={{textAlign:"center",marginBottom:"clamp(28px,4vw,52px)"}}>
-            <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:32,padding:"8px 22px",marginBottom:18}}>
-              <span style={{fontSize:18}}>🤖</span>
-              <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.35em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>AI-Powered Planning</span>
-              <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:20,padding:"2px 10px",fontSize:8,fontWeight:700,letterSpacing:"0.15em",fontFamily:"'Josefin Sans',sans-serif"}}>NEW</span>
-            </div>
-            <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(24px,4vw,48px)",fontWeight:700,marginBottom:10,color:"#2C1A06"}}>Build Your Perfect Egypt Trip with AI</h2>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.8vw,18px)",maxWidth:680,margin:"0 auto"}}>
-              Describe your dream journey — get a complete, priced itinerary in seconds
-            </p>
-          </div>
-
-          <div className="aig" style={{display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:32,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
-
-            {/* ── Left: Feature cards ── */}
-            <div>
-              {/* Main feature intro card */}
-              <div style={{background:"linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03))",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:20,padding:"24px",marginBottom:16,textAlign:"center"}}>
-                <div style={{fontSize:44,marginBottom:10,animation:"float 4s ease-in-out infinite"}}>𓂀</div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:"#8B6010",marginBottom:6}}>Smart Egypt AI</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"#9C7A3C",lineHeight:1.6}}>Powered by Claude — the world's most capable travel planning intelligence</div>
-              </div>
-
-              {/* Feature grid — 3 columns */}
-              <div className="ai-features-grid">
-                {[
-                  {icon:"📅",label:"Day-by-Day",desc:"Detailed schedule"},
-                  {icon:"💰",label:"Real Prices",desc:"Accurate costs"},
-                  {icon:"🏨",label:"Hotels",desc:"Curated picks"},
-                  {icon:"🗺️",label:"Transport",desc:"Between cities"},
-                  {icon:"🍽️",label:"Dining",desc:"Best restaurants"},
-                  {icon:"📋",label:"Tips",desc:"Visa & culture"},
-                ].map((f,i)=>(
-                  <div key={i} className="ai-feat-card">
-                    <span style={{fontSize:20,flexShrink:0}}>{f.icon}</span>
-                    <div>
-                      <div style={{fontSize:10,fontWeight:700,color:"#2C1A06",letterSpacing:.5,fontFamily:"'Josefin Sans',sans-serif"}}>{f.label}</div>
-                      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,color:"#9C7A3C",marginTop:1}}>{f.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Mini trust pills */}
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:12}}>
-                {[["🔒","Secure","Bank-grade"],["⚡","Instant","In seconds"],["🌍","14 Langs","Multilingual"],["💯","Free","No cost"]].map(([ic,t2,d])=>(
-                  <div key={t2} style={{background:"rgba(201,168,76,.07)",border:"1.5px solid rgba(193,156,60,.18)",borderRadius:12,padding:"12px",textAlign:"center"}}>
-                    <div style={{fontSize:18,marginBottom:3}}>{ic}</div>
-                    <div style={{fontSize:10,fontWeight:700,color:"#8B6010",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif"}}>{t2}</div>
-                    <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,color:"#9C7A3C",marginTop:1}}>{d}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Right: Chat panel ── */}
-            <div className="ab" style={{borderRadius:22,position:"relative"}}>
-              <div style={{background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:22,padding:"clamp(24px,4vw,40px)",position:"relative",overflow:"hidden",boxShadow:"0 12px 48px rgba(180,140,60,.12)"}}>
-                <div style={{position:"absolute",top:16,right:20,fontSize:36,color:"rgba(193,156,60,.06)",pointerEvents:"none",fontFamily:"serif",letterSpacing:8}}>𓂀 𓅓 𓇋</div>
-
-                <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
-
-                <textarea value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
-                  placeholder="e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500"
-                  style={{width:"100%",background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:13,padding:"15px 17px",color:"#2C1A06",fontSize:14,outline:"none",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.75,resize:"vertical",transition:"all .25s",marginBottom:14}}
-                  onFocus={e=>{e.target.style.borderColor="rgba(160,120,40,.6)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";}}
-                  onBlur={e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";}}/>
-
-                {/* Quick chips */}
-                <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
-                  {[
-                    "10 days Egypt $3,500 for 2 — Cairo, Nile cruise, Hurghada",
-                    "7-day Nile cruise + pyramids, mid-range budget",
-                    "Luxury honeymoon Egypt 10 nights",
-                    "Family Egypt 2 weeks $5,000 kids-friendly",
-                  ].map((ch,i)=>(
-                    <button key={i} className="chip" onClick={()=>setAiQ(ch)}
-                      style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.25)",color:"rgba(44,26,6,.65)",borderRadius:22,padding:"6px 15px",fontSize:11,cursor:"pointer",transition:"all .2s",fontFamily:"'Josefin Sans',sans-serif"}}>
-                      {ch.length>42?ch.slice(0,40)+"…":ch}
-                    </button>
-                  ))}
-                </div>
-
-                <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()}
-                  style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:13,padding:"17px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:14,letterSpacing:"0.22em",textTransform:"uppercase",boxShadow:"0 8px 36px rgba(160,120,40,.3)",transition:"all .25s",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:12,fontFamily:"'Josefin Sans',sans-serif"}}>
-                  {aiLoad
-                    ?<><div style={{width:18,height:18,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your perfect itinerary…</>
-                    :"🤖 Generate My Egypt Itinerary"
-                  }
-                </button>
-
-                {aiRes&&(
-                  <div style={{marginTop:22,background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:14,padding:"clamp(16px,3vw,26px)",color:"#2C1A06",fontSize:"clamp(13px,1.5vw,15px)",lineHeight:1.9,whiteSpace:"pre-wrap",maxHeight:520,overflowY:"auto",fontFamily:"'Cormorant Garamond',serif",animation:"fadeIn .5s ease"}}>
-                    {aiRes}
-                  </div>
-                )}
-
-                {aiDone&&(
-                  <div style={{marginTop:16,display:"flex",gap:12,flexWrap:"wrap",animation:"fadeUp .5s ease"}}>
-                    <button onClick={()=>window.open("https://wa.me/201068257754","_blank")}
-                      style={{flex:1,background:"#25D366",color:"#fff",border:"none",borderRadius:11,padding:"13px 20px",cursor:"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.12em",display:"flex",alignItems:"center",justifyContent:"center",gap:8,fontFamily:"'Josefin Sans',sans-serif"}}>
-                      💬 Send & Book on WhatsApp
-                    </button>
-                    <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}}
-                      style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:11,padding:"13px 20px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>
-                      New Itinerary
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
-
-      {/* ══════════════ HOW IT WORKS ══════════════ */}
-      <section style={S.section}>
-        <div {...rv("hw")} style={{maxWidth:860,margin:"0 auto",...rv("hw").style}}>
-          <div style={{textAlign:"center",marginBottom:40}}>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Simple Process</div>
-            <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,3.5vw,40px)",fontWeight:700,color:"#2C1A06"}}>How It Works</h2>
-          </div>
-          <div style={{background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 40px rgba(180,140,60,.1)"}}>
-            {[
-              ["📍","Choose Your Tour","Browse 200+ curated experiences across Egypt"],
-              ["⚙️","Customise","Dates, group size, hotel tier & special requests"],
-              ["💳","Secure Payment","Bank-grade encryption — pay just 20% to confirm"],
-              ["✅","Enjoy Egypt!","Our on-ground team handles every single detail"],
-            ].map((s,i)=>(
-              <div key={i} style={{display:"flex",alignItems:"center",gap:20,padding:"clamp(17px,2.5vw,24px) clamp(20px,3vw,32px)",background:step===i?"rgba(201,168,76,.08)":"transparent",borderBottom:i<3?"1px solid rgba(193,156,60,.1)":"none",transition:"background .45s ease"}}>
-                <div style={{width:52,height:52,borderRadius:13,background:step===i?"linear-gradient(135deg,#A07828,#C9A84C)":"rgba(201,168,76,.1)",border:step===i?"none":"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0,transition:"all .45s",boxShadow:step===i?"0 6px 24px rgba(160,120,40,.3)":"none"}}>{s[0]}</div>
-                <div>
-                  <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:600,color:step===i?"#8B6010":"#2C1A06",transition:"color .45s",marginBottom:3}}>{s[1]}</div>
-                  <div style={{fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{s[2]}</div>
-                </div>
-                <div style={{marginLeft:"auto",width:26,height:26,borderRadius:"50%",background:step===i?"rgba(160,120,40,.15)":"transparent",border:`1.5px solid ${step===i?"rgba(160,120,40,.5)":"transparent"}`,display:"flex",alignItems:"center",justifyContent:"center",color:step===i?"#A07828":"transparent",fontSize:13,transition:"all .45s",flexShrink:0}}>✓</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="gline" style={{margin:"0 clamp(16px,4vw,48px)"}}/>
-
-      {/* ══════════════ REVIEWS ══════════════ */}
-      <section style={S.section}>
-        <div {...rv("rh")} style={{textAlign:"center",marginBottom:"clamp(28px,4vw,48px)",...rv("rh").style}}>
-          <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>⭐ Trusted by Travellers</div>
-          <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,4vw,42px)",fontWeight:700,marginBottom:8,color:"#2C1A06"}}>What Our Guests Say</h2>
-          <div style={{display:"flex",alignItems:"center",gap:12,justifyContent:"center",marginTop:8}}>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:22,color:"#A07828",fontWeight:700}}>4.9</div>
-            <div style={{color:"#C9A84C",fontSize:18,letterSpacing:3}}>★★★★★</div>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"#9C7A3C"}}>Based on 2,000+ reviews</div>
-          </div>
-        </div>
-        <div className="revg" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:18,maxWidth:1100,margin:"0 auto"}}>
-          {REVIEWS.map((r,i)=>(
-            <div key={i} data-v={`rv${i}`} className="rc" style={{
-              background:"linear-gradient(145deg,#FFFDF8,#F8F2E0)",
-              border:"1.5px solid rgba(193,156,60,.2)",borderRadius:20,
-              padding:"clamp(20px,2.5vw,28px)",position:"relative",
-              boxShadow:"0 6px 24px rgba(180,140,60,.1)",
-              opacity:vis[`rv${i}`]?1:0,transform:vis[`rv${i}`]?"none":"translateY(24px)",
-              transition:`opacity .7s ease ${i*.08}s,transform .7s ease ${i*.08}s,all .33s`}}>
-              <div style={{position:"absolute",top:-6,right:18,fontFamily:"'Cormorant Garamond',serif",fontSize:60,color:"rgba(193,156,60,.12)",lineHeight:1}}>"</div>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-                <span style={{background:"rgba(201,168,76,.1)",border:"1px solid rgba(193,156,60,.25)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#8B6010",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{r.platform}</span>
-                {r.verified&&<span style={{background:"rgba(37,211,102,.1)",border:"1px solid rgba(37,211,102,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#1A9E50",letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>✓ Verified</span>}
-                <span style={{marginLeft:"auto",fontSize:9,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.date}</span>
-              </div>
-              <Stars n={r.stars}/>
-              <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"#A07828",letterSpacing:"0.15em",textTransform:"uppercase",marginTop:8,marginBottom:6,fontWeight:700}}>{r.tourName}</div>
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(12px,1.4vw,14px)",color:"rgba(44,26,6,.7)",lineHeight:1.82,margin:"0 0 16px"}}>{r.text}</p>
-              <div style={{display:"flex",alignItems:"center",gap:10,paddingTop:14,borderTop:"1px solid rgba(193,156,60,.15)"}}>
-                <img src={r.img} alt={r.name} style={{width:42,height:42,borderRadius:"50%",border:"2px solid rgba(193,156,60,.35)",objectFit:"cover"}}/>
-                <div>
-                  <div style={{fontSize:13,fontWeight:700,fontFamily:"'Cinzel',serif",color:"#2C1A06"}}>{r.name}</div>
-                  <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.flag} {r.city}</div>
-                </div>
-              </div>
-            </div>
-          ))}
+      {/* ══════════════ FEATURED TOURS ══════════════ */}
+      <section className="av-section" style={{background:"var(--cream2)"}}>
+        <SectionHead eyebrow="Featured Tours" title="Most Loved Experiences" onViewAll={()=>navigate("/packages")} viewAllLabel="View All Tours" scrollRef={tourRef}/>
+        <ScrollRow ref={tourRef}>
+          {PACKAGES.map((p,i)=><TourCard key={i} p={p} navigate={navigate} fmtP={fmtP} onBook={setBookItem}/>)}
+        </ScrollRow>
+        <div style={{textAlign:"center",marginTop:34}}>
+          <button onClick={()=>navigate("/packages")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px 36px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 26px rgba(160,120,40,.32)"}}>✦ Explore All {PACKAGES_COUNT}+ Packages</button>
         </div>
       </section>
 
       {/* ══════════════ CTA BANNER ══════════════ */}
-      <div style={{margin:"0 clamp(16px,4vw,48px) clamp(52px,8vw,100px)",borderRadius:24,overflow:"hidden",position:"relative"}}>
-        <div style={{position:"absolute",inset:0,backgroundImage:"url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=1600&q=70')",backgroundSize:"cover",backgroundPosition:"center",filter:"brightness(.25) sepia(.3)"}}/>
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg,rgba(44,26,6,.88),rgba(107,78,26,.75))"}}/>
-        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 70% 50% at 50% 100%,rgba(201,168,76,.08),transparent 70%)"}}/>
-        {["𓂀","𓅓","𓇋"].map((h,i)=>(
-          <div key={i} style={{position:"absolute",fontSize:60,color:"rgba(201,168,76,.06)",fontFamily:"serif",left:`${[10,50,82][i]}%`,top:`${[20,60,25][i]}%`,pointerEvents:"none",animation:`float ${5+i}s ease-in-out infinite`,animationDelay:`${i*.8}s`}}>{h}</div>
-        ))}
-        <div {...rv("cta")} style={{position:"relative",padding:"clamp(40px,6vw,84px) clamp(24px,6vw,84px)",textAlign:"center",...rv("cta").style}}>
-          <div style={{fontSize:9,color:"rgba(232,201,109,.8)",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:16,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Start Your Journey</div>
-          <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,4.5vw,54px)",fontWeight:700,marginBottom:14,color:"#FAF6ED",lineHeight:1.1}}>Ready to Explore Egypt?</h2>
-          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.55)",fontSize:"clamp(14px,1.8vw,18px)",marginBottom:32,maxWidth:540,margin:"0 auto 32px",lineHeight:1.8}}>Let's build your perfect journey</p>
-          <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-            <button onClick={()=>setBookItem({title:"Book Your Egypt Adventure"})} className="btn-gold" style={{padding:"15px 38px",fontSize:13}}>✈ Start Planning Now</button>
-            <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer" style={{background:"rgba(37,211,102,.12)",border:"1.5px solid rgba(37,211,102,.4)",color:"#4ade80",borderRadius:12,padding:"15px 28px",textDecoration:"none",fontWeight:700,fontSize:13,letterSpacing:"0.15em",display:"flex",alignItems:"center",gap:8,transition:"all .25s",fontFamily:"'Josefin Sans',sans-serif"}}>
-              💬 WhatsApp
-            </a>
+      <div style={{margin:"clamp(48px,7vw,80px) clamp(16px,4vw,48px)",borderRadius:22,overflow:"hidden",position:"relative"}}>
+        <img src={CTA_IMG} alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} onError={e=>e.target.style.display="none"}/>
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(115deg,rgba(17,12,6,.92) 0%,rgba(17,12,6,.74) 45%,rgba(17,12,6,.55) 100%)"}}/>
+        <div data-v="cta" style={{position:"relative",padding:"clamp(36px,5vw,60px) clamp(22px,5vw,56px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:28,...reveal("cta")}}>
+          <div style={{maxWidth:420}}>
+            <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,3.2vw,34px)",fontWeight:700,color:"#FAF6ED",lineHeight:1.25,marginBottom:10}}>Create Your Dream<br/>Egypt Journey</h2>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.65)",fontSize:14,marginBottom:22,lineHeight:1.7}}>Tell us what you love and we'll craft a custom itinerary just for you.</p>
+            <button onClick={()=>setBookItem({title:"Plan My Custom Trip"})} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"14px 30px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Custom Trip</button>
+          </div>
+          <div style={{display:"flex",gap:30,flexWrap:"wrap"}}>
+            {[["⚙️","100% Customizable","Your trip, your way"],["🧭","Expert Travel Planners","Personalized service"],["🛡️","Best Price Guarantee","Unbeatable prices"]].map(([ic,t,d])=>(
+              <div key={t} style={{display:"flex",alignItems:"center",gap:10,maxWidth:170}}>
+                <span style={{fontSize:22}}>{ic}</span>
+                <div>
+                  <div style={{fontSize:12,fontWeight:700,color:"#FAF6ED",fontFamily:"'Josefin Sans',sans-serif"}}>{t}</div>
+                  <div style={{fontSize:11,color:"rgba(250,246,237,.6)",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{d}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* ══════════════ NEWSLETTER ══════════════ */}
-      <section style={{background:"linear-gradient(135deg,#EDE3C8,#E6D9B4)",borderTop:"1.5px solid rgba(193,156,60,.22)",borderBottom:"1.5px solid rgba(193,156,60,.22)",padding:"clamp(36px,5vw,64px) clamp(16px,4vw,48px)",textAlign:"center"}}>
-        <div {...rv("nl")} style={{maxWidth:480,margin:"0 auto",...rv("nl").style}}>
-          <div style={{fontSize:9,color:"#8B6010",letterSpacing:"0.5em",textTransform:"uppercase",marginBottom:10,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✉ Newsletter</div>
-          <h3 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(18px,3vw,30px)",fontWeight:700,marginBottom:8,color:"#2C1A06"}}>Exclusive Egypt Deals</h3>
-          <p style={{color:"#9C7A3C",fontSize:13,marginBottom:22,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>Join 200,000+ travellers. Unsubscribe anytime.</p>
-          {!subOk
-            ?<div style={{display:"flex",gap:10}}>
-              <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Your email address" style={{...iS,background:"rgba(250,246,237,.9)"}} onFocus={fi} onBlur={fo}/>
-              <button onClick={()=>email&&setSubOk(true)} className="btn-gold" style={{whiteSpace:"nowrap",padding:"12px 22px",fontSize:11}}>Subscribe</button>
+      {/* ══════════════ AI TRIP BUILDER ══════════════ */}
+      <section id="ai-sec" className="av-section">
+        <div data-v="ai" style={{textAlign:"center",marginBottom:"clamp(28px,4vw,44px)",...reveal("ai")}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:9,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:30,padding:"7px 20px",marginBottom:16}}>
+            <span style={{fontSize:16}}>🤖</span>
+            <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>AI-Powered Planning</span>
+            <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:18,padding:"2px 9px",fontSize:8,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>NEW</span>
+          </div>
+          <h2 className="av-title">Build Your Perfect Egypt Trip with AI</h2>
+          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.7vw,16px)",maxWidth:600,margin:"10px auto 0"}}>Describe your dream journey — get a complete, priced itinerary in seconds.</p>
+        </div>
+
+        <div className="av-dest-top" style={{gridTemplateColumns:"1fr 1.5fr",gap:28,maxWidth:1100,margin:"0 auto",alignItems:"start"}}>
+          <div>
+            <div style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:16,padding:18,display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+              {[["📅","Day-by-Day"],["💰","Real Prices"],["🏨","Hotels"],["🗺️","Transport"],["🍽️","Dining"],["📋","Tips"]].map(([ic,t])=>(
+                <div key={t} className="av-chip" style={{display:"flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.05)",border:"1px solid rgba(193,156,60,.18)",borderRadius:10,padding:"10px 11px",transition:"all .2s"}}>
+                  <span style={{fontSize:16}}>{ic}</span><span style={{fontSize:11,fontWeight:600,color:"#231A0E",fontFamily:"'Josefin Sans',sans-serif"}}>{t}</span>
+                </div>
+              ))}
             </div>
-            :<div style={{color:"#8B6010",fontSize:16,fontFamily:"'Cormorant Garamond',serif"}}>✅ Thank you! Welcome to the Aurevian family.</div>
-          }
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:10}}>
+              {[["🔒","Secure"],["⚡","Instant"],["🌍","13 Langs"],["💯","Free"]].map(([ic,t])=>(
+                <div key={t} style={{background:"rgba(201,168,76,.05)",border:"1px solid rgba(193,156,60,.16)",borderRadius:10,padding:"10px",textAlign:"center"}}>
+                  <div style={{fontSize:15}}>{ic}</div>
+                  <div style={{fontSize:10,fontWeight:700,color:"#8B6010",fontFamily:"'Josefin Sans',sans-serif",marginTop:2}}>{t}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:18,padding:"clamp(20px,3vw,30px)",boxShadow:"0 10px 36px rgba(35,26,14,.1)"}}>
+            <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:11,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
+            <textarea value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
+              placeholder="e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500"
+              style={{width:"100%",background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:12,padding:"14px 16px",color:"#231A0E",fontSize:14,outline:"none",fontFamily:"'Cormorant Garamond',serif",lineHeight:1.7,resize:"vertical",marginBottom:13}}/>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}}>
+              {["10 days Egypt $3,500 for 2 — Cairo, Nile cruise, Hurghada","7-day Nile cruise + pyramids, mid-range","Luxury honeymoon Egypt 10 nights","Family Egypt 2 weeks $5,000 kids-friendly"].map((ch,i)=>(
+                <button key={i} className="av-chip" onClick={()=>setAiQ(ch)} style={{background:"rgba(201,168,76,.07)",border:"1.5px solid rgba(193,156,60,.22)",color:"rgba(35,26,14,.65)",borderRadius:20,padding:"6px 14px",fontSize:11,cursor:"pointer",fontFamily:"'Josefin Sans',sans-serif",transition:"all .2s"}}>{ch.length>40?ch.slice(0,38)+"…":ch}</button>
+              ))}
+            </div>
+            <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"16px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.2em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:11,boxShadow:"0 8px 30px rgba(160,120,40,.28)"}}>
+              {aiLoad?<><div style={{width:17,height:17,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your perfect itinerary…</>:"🤖 Generate My Egypt Itinerary"}
+            </button>
+            {aiRes&&(
+              <div style={{marginTop:18,background:"rgba(201,168,76,.05)",border:"1.5px solid rgba(193,156,60,.2)",borderRadius:13,padding:"clamp(15px,3vw,22px)",color:"#231A0E",fontSize:14,lineHeight:1.85,whiteSpace:"pre-wrap",maxHeight:480,overflowY:"auto",fontFamily:"'Cormorant Garamond',serif",animation:"fadeIn .4s ease"}}>{aiRes}</div>
+            )}
+            {aiDone&&(
+              <div style={{marginTop:14,display:"flex",gap:11,flexWrap:"wrap"}}>
+                <button onClick={()=>window.open(waLink(),"_blank")} style={{flex:1,background:"#25D366",color:"#fff",border:"none",borderRadius:10,padding:"13px 18px",cursor:"pointer",fontWeight:700,fontSize:13,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>💬 Send & Book on WhatsApp</button>
+                <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:10,padding:"13px 18px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>New Itinerary</button>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════ REVIEWS ══════════════ */}
+      <section className="av-section" style={{background:"var(--cream2)"}}>
+        <SectionHead eyebrow="Traveler Reviews" title="What Our Travelers Say" onViewAll={()=>navigate("/contact")} viewAllLabel="View All Reviews" scrollRef={revRef}/>
+        <div data-v="revstars" style={{display:"flex",alignItems:"center",gap:11,marginBottom:22,...reveal("revstars")}}>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",fontWeight:700}}>4.9</span>
+          <Stars n={5}/>
+          <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"#9C7A3C"}}>Based on 2,000+ reviews</span>
+        </div>
+        <ScrollRow ref={revRef}>
+          {REVIEWS.map((r,i)=><ReviewCard key={i} r={r}/>)}
+        </ScrollRow>
+      </section>
+
+      {/* ══════════════ GALLERY ══════════════ */}
+      <section className="av-section">
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:26,flexWrap:"wrap",gap:10}}>
+          <div>
+            <span className="av-eyebrow">Discover Egypt</span>
+            <h2 className="av-title">Through Our Lens</h2>
+          </div>
+          <a href="#" style={{color:"#9C7A3C",fontSize:12,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>Follow our journey 📷</a>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10}}>
+          {CITIES.map(c=>(
+            <div key={c.id} className="av-gallery-item" onClick={()=>navigate(`/city/${c.id}`)} style={{position:"relative",borderRadius:12,aspectRatio:"1",cursor:"pointer"}}>
+              <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",borderRadius:12}} onError={e=>e.target.src=`https://placehold.co/300x300/EDE3C8/8B6010?text=${encodeURIComponent(c.name)}`}/>
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(17,12,6,.55),transparent 55%)",borderRadius:12}}/>
+              <span style={{position:"absolute",bottom:8,left:10,color:"#FAF6ED",fontSize:11,fontFamily:"'Cinzel',serif",fontWeight:600,textShadow:"0 2px 8px rgba(0,0,0,.5)"}}>{c.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════ DARK STATS + NEWSLETTER ══════════════ */}
+      <section style={{background:"#171009"}}>
+        <div className="av-stats-row" style={{maxWidth:1180,margin:"0 auto",padding:"clamp(26px,4vw,38px) clamp(16px,4vw,40px)",borderBottom:"1px solid rgba(193,156,60,.16)"}}>
+          {STAT_MAIN.map(([ic,n,l],i)=>(
+            <div key={i} data-v={`sm${i}`} style={{textAlign:"center",borderRight:i<STAT_MAIN.length-1?"1px solid rgba(193,156,60,.14)":"none",padding:"0 10px",...reveal(`sm${i}`,i*.06)}}>
+              <div style={{fontSize:20,marginBottom:5}}>{ic}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(18px,2.2vw,26px)",fontWeight:700,color:"#E8C96D"}}>{n}</div>
+              <div style={{fontSize:10,color:"rgba(250,246,237,.55)",letterSpacing:"0.12em",textTransform:"uppercase",marginTop:4,fontFamily:"'Josefin Sans',sans-serif"}}>{l}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{maxWidth:1180,margin:"0 auto",padding:"clamp(26px,4vw,40px) clamp(16px,4vw,40px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:22}}>
+          <div style={{maxWidth:420}}>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:"#FAF6ED",marginBottom:5}}>Get Exclusive Travel Offers</div>
+            <div style={{fontSize:12.5,color:"rgba(250,246,237,.55)",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",marginBottom:14}}>Subscribe and save on your next adventure.</div>
+            {!subOk?(
+              <div style={{display:"flex",gap:9,flexWrap:"wrap"}}>
+                <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Enter your email" style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:9,padding:"11px 15px",color:"#FAF6ED",fontSize:13,outline:"none",minWidth:200,fontFamily:"'Cormorant Garamond',serif"}}/>
+                <button onClick={()=>email&&setSubOk(true)} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:9,padding:"11px 22px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Subscribe</button>
+              </div>
+            ):(<div style={{color:"#E8C96D",fontSize:14,fontFamily:"'Cormorant Garamond',serif"}}>✅ Thank you! Welcome to the Aurevian family.</div>)}
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:14}}>
+            <span style={{fontSize:11,color:"rgba(250,246,237,.55)",fontFamily:"'Josefin Sans',sans-serif",letterSpacing:"0.1em"}}>FOLLOW US</span>
+            <div style={{display:"flex",gap:8}}>
+              {[["f","Facebook"],["📸","Instagram"],["▶","YouTube"],["♪","TikTok"],["💬","WhatsApp"]].map(([ic,nm])=>(
+                <a key={nm} href={nm==="WhatsApp"?waLink():"#"} target={nm==="WhatsApp"?"_blank":undefined} rel="noreferrer" title={nm} className="av-social" style={{width:34,height:34,borderRadius:9,background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(250,246,237,.75)",textDecoration:"none",fontSize:13,transition:"all .2s"}}>{ic}</a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ══════════════ FOOTER ══════════════ */}
-      <footer style={{background:"linear-gradient(135deg,#EDE3C8,#E0D4A8)",borderTop:"1.5px solid rgba(193,156,60,.25)",padding:"clamp(40px,6vw,72px) clamp(16px,4vw,48px) clamp(20px,3vw,28px)"}}>
-        <div className="ftg" style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1.5fr",gap:"clamp(24px,4vw,52px)",marginBottom:"clamp(28px,4vw,48px)"}}>
-          {/* Brand */}
+      <footer style={{background:"#FBF8F0",padding:"clamp(40px,6vw,68px) clamp(16px,4vw,48px) clamp(20px,3vw,26px)"}}>
+        <div className="av-footer-grid" style={{marginBottom:"clamp(28px,4vw,44px)"}}>
           <div>
-            <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,cursor:"pointer"}} onClick={()=>navigate("/")}>
-              <AurevianLogo size={48}/>
-              <div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,background:"linear-gradient(135deg,#8B6010,#C9A84C)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",letterSpacing:"0.18em"}}>AUREVIAN</div>
-                <div style={{fontSize:7,color:"#9C7A3C",letterSpacing:"0.35em",fontFamily:"'Josefin Sans',sans-serif"}}>EGYPT TOURS & EXPERIENCES</div>
-              </div>
-            </div>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:13,lineHeight:1.75,marginBottom:18,maxWidth:260}}>We create authentic, personalised experiences across Egypt with premium service and local expertise.</p>
-            <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:16}}>
-              {["TripAdvisor","Trustpilot","IATA","UNWTO"].map(b=><span key={b} style={{background:"rgba(201,168,76,.1)",border:"1px solid rgba(193,156,60,.25)",borderRadius:6,padding:"3px 10px",color:"#9C7A3C",fontSize:9,letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif"}}>{b}</span>)}
-            </div>
+            <div style={{marginBottom:15}}><BrandMark size={48}/></div>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:13,lineHeight:1.75,marginBottom:16,maxWidth:260}}>We craft luxury journeys across Egypt with passion, expertise and attention to every detail. Your adventure, perfectly curated.</p>
             <div style={{display:"flex",gap:8}}>
-              {[["f","FB"],["📸","IG"],["𝕏","X"],["▶","YT"],["💬","WA"]].map(([ic,nm])=>(
-                <a key={nm} href={nm==="WA"?"https://wa.me/201068257754":"#"} title={nm} style={{width:34,height:34,borderRadius:8,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#9C7A3C",textDecoration:"none",fontSize:12,transition:"all .2s"}}>{ic}</a>
+              {[["f","Facebook"],["📸","Instagram"],["▶","YouTube"],["♪","TikTok"],["💬","WhatsApp"]].map(([ic,nm])=>(
+                <a key={nm} href={nm==="WhatsApp"?waLink():"#"} target={nm==="WhatsApp"?"_blank":undefined} rel="noreferrer" title={nm} className="av-social" style={{width:33,height:33,borderRadius:8,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#9C7A3C",textDecoration:"none",fontSize:12,transition:"all .2s"}}>{ic}</a>
               ))}
             </div>
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Explore</div>
-            {["Egypt Tours","Destinations","Day Trips","Travel Guide","AI Trip Planner"].map(lnk=>(
-              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif"}}
-                onMouseOver={e=>e.target.style.color="#8B6010"} onMouseOut={e=>e.target.style.color="#9C7A3C"}>{lnk}</a>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Destinations</div>
+            {FOOTER_DEST.map(([lbl,path])=>(
+              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
             ))}
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Company</div>
-            {["About Us","Why Aurevian","Reviews","Terms & Conditions","Privacy Policy"].map(lnk=>(
-              <a key={lnk} href="#" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",transition:"color .2s",fontFamily:"'Cormorant Garamond',serif"}}
-                onMouseOver={e=>e.target.style.color="#8B6010"} onMouseOut={e=>e.target.style.color="#9C7A3C"}>{lnk}</a>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Tours</div>
+            {FOOTER_TOURS.map(([lbl,path])=>(
+              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
             ))}
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:16,fontWeight:700,paddingBottom:10,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Contact Us</div>
-            {[
-              ["📞","+20 106 825 7754","tel:+201068257754"],
-              ["✉","Goldenegypttours26@gmail.com","mailto:Goldenegypttours26@gmail.com"],
-              ["📍","Cairo, Egypt","#"],
-            ].map(([ic,v,href])=>(
-              <a key={v} href={href} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:12,fontSize:13,color:"#9C7A3C",lineHeight:1.5,fontFamily:"'Cormorant Garamond',serif",textDecoration:"none",transition:"color .2s"}}
-                onMouseOver={e=>{e.currentTarget.style.color="#8B6010";}} onMouseOut={e=>{e.currentTarget.style.color="#9C7A3C";}}>
-                <span style={{color:"#A07828",flexShrink:0}}>{ic}</span>{v}
-              </a>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Company</div>
+            {FOOTER_COMPANY.map(([lbl,path])=>(
+              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
             ))}
-            <div style={{marginTop:16,padding:"14px 16px",background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:12}}>
-              <div style={{fontSize:9,color:"#8B6010",letterSpacing:"0.2em",textTransform:"uppercase",marginBottom:6,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp Direct</div>
-              <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer" style={{fontFamily:"'Cinzel',serif",fontSize:13,color:"#A07828",textDecoration:"none",fontWeight:700}}>+20 106 825 7754</a>
-            </div>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",margin:"16px 0 15px",fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Support</div>
+            {FOOTER_SUPPORT.map(([lbl,path])=>(
+              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
+            ))}
+          </div>
+          <div>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Contact Us</div>
+            <a href={`tel:+${PHONE_WA}`} style={{display:"flex",gap:9,marginBottom:11,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",textDecoration:"none"}}><span style={{color:"#A07828"}}>📞</span>{PHONE_DISPLAY}</a>
+            <a href={`mailto:${EMAIL}`} style={{display:"flex",gap:9,marginBottom:11,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",textDecoration:"none"}}><span style={{color:"#A07828"}}>✉</span>{EMAIL}</a>
+            <div style={{display:"flex",gap:9,marginBottom:14,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}><span style={{color:"#A07828"}}>📍</span>Cairo, Egypt</div>
+            <a href={waLink()} target="_blank" rel="noreferrer" style={{display:"block",background:"#25D366",color:"#fff",textAlign:"center",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp Us</a>
           </div>
         </div>
-        <div style={{borderTop:"1px solid rgba(193,156,60,.15)",paddingTop:"clamp(16px,3vw,22px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
-          <span style={{color:"rgba(107,78,26,.5)",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>© 2026 Aurevian Egypt Tours & Experiences. All rights reserved.</span>
+        <div style={{borderTop:"1px solid rgba(193,156,60,.15)",paddingTop:"clamp(16px,3vw,20px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
+          <span style={{color:"rgba(35,26,14,.5)",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>© 2026 Aurevian Tours. All rights reserved.</span>
           <div style={{display:"flex",gap:8}}>
-            {["🔒 SSL","✈ IATA","🌍 UNWTO"].map(b=>(
-              <span key={b} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",borderRadius:6,padding:"3px 10px",color:"rgba(107,78,26,.5)",fontSize:9,letterSpacing:"0.1em",fontFamily:"'Josefin Sans',sans-serif"}}>{b}</span>
+            {["VISA","Mastercard","PayPal","Apple Pay"].map(b=>(
+              <span key={b} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",borderRadius:6,padding:"3px 10px",color:"rgba(35,26,14,.5)",fontSize:9,letterSpacing:"0.06em",fontFamily:"'Josefin Sans',sans-serif"}}>{b}</span>
             ))}
           </div>
         </div>
       </footer>
 
       {/* ══════════════ FLOATING BUTTONS ══════════════ */}
-      <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer"
-        style={{position:"fixed",bottom:76,right:20,background:"#25D366",color:"#fff",borderRadius:30,padding:"11px 18px",textDecoration:"none",fontWeight:700,fontSize:12,letterSpacing:"0.1em",display:"flex",alignItems:"center",gap:8,zIndex:500,boxShadow:"0 6px 28px rgba(37,211,102,.48)",transition:"all .25s",fontFamily:"'Josefin Sans',sans-serif"}}>
-        💬 <span>WhatsApp</span>
-      </a>
-      <button onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}
-        style={{position:"fixed",bottom:20,right:20,width:46,height:46,borderRadius:12,background:"rgba(201,168,76,.15)",border:"1.5px solid rgba(193,156,60,.4)",color:"#A07828",fontSize:16,cursor:"pointer",zIndex:500,display:"flex",alignItems:"center",justifyContent:"center",transition:"all .25s",boxShadow:"0 4px 18px rgba(180,140,60,.18)"}}>▲</button>
+      <a href={waLink()} target="_blank" rel="noreferrer" style={{position:"fixed",bottom:76,right:20,background:"#25D366",color:"#fff",borderRadius:30,padding:"11px 18px",textDecoration:"none",fontWeight:700,fontSize:12,display:"flex",alignItems:"center",gap:8,zIndex:500,boxShadow:"0 6px 24px rgba(37,211,102,.45)",fontFamily:"'Josefin Sans',sans-serif"}}>💬 <span>WhatsApp</span></a>
+      <button onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} style={{position:"fixed",bottom:20,right:20,width:44,height:44,borderRadius:11,background:"rgba(201,168,76,.16)",border:"1.5px solid rgba(193,156,60,.4)",color:"#A07828",fontSize:15,cursor:"pointer",zIndex:500,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 16px rgba(35,26,14,.14)"}}>▲</button>
 
       {/* ══════════════ MODALS ══════════════ */}
       {bookItem&&<BookingModal item={bookItem} onClose={()=>setBookItem(null)} cur={cur}/>}
       {payItem&&<PaymentModal item={payItem} guests={payGuests} onClose={()=>setPayItem(null)}/>}
+      {videoOpen&&<VideoModal onClose={()=>setVideoOpen(false)}/>}
     </div>
   );
 }
-
-// Helper to avoid undefined `clamp` reference in JS (it's CSS-only)
-function clamp(min, max){ return `clamp(${min}px,${(min+max)/2/10}vw,${max}px)`; }

@@ -19,6 +19,7 @@ const toursData = [
   {
     title: "Best of Egypt: 8-Day All-Inclusive Tour",
     titleAr: "أفضل ما في مصر: جولة 8 أيام شاملة",
+     images: ["/images/tours/tour.jpeg"],
     tagline: "The ultimate journey through 5,000 years of civilization — from Cairo to Abu Simbel",
     taglineAr: "الرحلة المثالية عبر 5000 عام من الحضارة — من القاهرة إلى أبو سمبل",
     slug: "best-of-egypt-8-day-all-inclusive-cairo",
@@ -36,16 +37,7 @@ const toursData = [
     rating: { score: 8.0, reviews: 2346 },
     travellers: 21642,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553997993-cc5b36eeb5d3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1400&q=85",
-    ],
+    
     highlights: [
       "Stand before the Great Pyramid of Khufu — the oldest of the Seven Wonders of the Ancient World",
       "Explore the Grand Egyptian Museum, home to Tutankhamun's complete golden treasures",
@@ -221,6 +213,7 @@ const toursData = [
   {
     title: "Complete Cairo Tour + Tickets",
     titleAr: "الجولة الشاملة في القاهرة مع التذاكر",
+     images: ["/images/tours/camel-sunset.jpeg"],
     tagline: "One day. Every icon. The complete Cairo experience.",
     taglineAr: "يوم واحد. كل المعالم. تجربة القاهرة الكاملة.",
     slug: "complete-cairo-tour-tickets",
@@ -238,13 +231,7 @@ const toursData = [
     rating: { score: 8.7, reviews: 1893 },
     travellers: 20947,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+    
     highlights: [
       "Visit the Saladin Citadel with breathtaking panoramic views of Cairo",
       "Enter the magnificent Mohamed Ali Mosque with its stunning Ottoman alabaster interior",
@@ -293,6 +280,7 @@ const toursData = [
   {
     title: "Alexandria Day Trip from Cairo",
     titleAr: "رحلة يوم إلى الإسكندرية من القاهرة",
+     images: ["/images/tours/alex.jpeg"],
     tagline: "Journey to Egypt's legendary Mediterranean city — founded by Alexander the Great.",
     taglineAr: "رحلة إلى مدينة مصر المتوسطية الأسطورية التي أسسها الإسكندر الأكبر.",
     slug: "alexandria-day-trip-cairo",
@@ -310,13 +298,7 @@ const toursData = [
     rating: { score: 8.1, reviews: 574 },
     travellers: 6164,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568797629192-789acf8e4df3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1572521165329-b197f9ea3da6?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+    
     highlights: [
       "Visit the Bibliotheca Alexandrina — the modern successor to the greatest library in history",
       "Explore the Roman Catacombs of Kom el-Shoqafa — one of the Seven Wonders of the Middle Ages",
@@ -362,6 +344,7 @@ const toursData = [
   {
     title: "Pyramids of Giza, Memphis and Saqqara",
     titleAr: "أهرامات الجيزة وممفيس وسقارة",
+     images: ["/images/tours/saqqara.jpeg"],
     tagline: "Journey 5,000 years back in time — from the world's first pyramid to the last Wonder of the Ancient World.",
     taglineAr: "رحلة عبر 5000 عام من الزمن — من أول هرم في العالم إلى آخر عجائب الدنيا السبع القديمة.",
     slug: "pyramids-giza-memphis-saqqara-cairo",
@@ -379,13 +362,7 @@ const toursData = [
     rating: { score: 8.5, reviews: 1436 },
     travellers: 17137,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-    ],
+   
     highlights: [
       "Stand before the Great Pyramid of Khufu — the only surviving Wonder of the Ancient World",
       "See the Great Sphinx — the world's largest monolithic statue",
@@ -431,6 +408,7 @@ const toursData = [
   {
     title: "Transfers in Cairo",
     titleAr: "خدمة التوصيل في القاهرة",
+     images: ["/images/tours/transfer.jpeg"],
     tagline: "Private door-to-door transfers anywhere in Cairo — safe, punctual, and comfortable.",
     taglineAr: "توصيل خاص من الباب إلى الباب في أي مكان بالقاهرة.",
     slug: "transfers-cairo",
@@ -448,11 +426,7 @@ const toursData = [
     rating: { score: 8.1, reviews: 767 },
     travellers: 12703,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553997993-cc5b36eeb5d3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-    ],
+    
     highlights: [
       "Professional English-speaking chauffeur",
       "Clean, modern, fully air-conditioned vehicles",
@@ -492,6 +466,7 @@ const toursData = [
     titleAr: "جولة المتحف المصري الكبير وأهرامات الجيزة مع التذاكر",
     tagline: "Ancient wonder meets modern marvel — the ultimate Cairo day.",
     taglineAr: "عجيبة قديمة تلتقي بأعجوبة حديثة — أفضل يوم في القاهرة.",
+    images: ["/images/tours/grand.jpeg"],
     slug: "grand-egyptian-museum-pyramids-giza-cairo",
     description: "Combine two of Egypt's greatest wonders in one unforgettable day — the ancient Pyramids of Giza and the brand-new Grand Egyptian Museum, the largest archaeological museum on Earth, home to the complete treasures of Tutankhamun displayed together for the first time in history.",
     descriptionAr: "اجمع بين اثنتين من أعظم عجائب مصر في يوم واحد لا يُنسى — أهرامات الجيزة والمتحف المصري الكبير.",
@@ -507,13 +482,7 @@ const toursData = [
     rating: { score: 8.8, reviews: 26 },
     travellers: 385,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1400&q=85",
-    ],
+    
     highlights: [
       "Tour the Grand Egyptian Museum — the world's largest archaeological museum (opened 2023)",
       "See Tutankhamun's complete golden treasures displayed together for the first time",
@@ -558,6 +527,7 @@ const toursData = [
     titleAr: "جولة المتحف المصري الكبير مع التذاكر والتوصيل",
     tagline: "The greatest archaeological collection on Earth — 5,000 years of civilization in one building.",
     taglineAr: "أعظم مجموعة أثرية على وجه الأرض — 5000 عام من الحضارة في مبنى واحد.",
+    images: ["/images/tours/grand museum.jpeg"],
     slug: "grand-egyptian-museum-tour-cairo",
     description: "Delve into one of the most extraordinary collections of ancient artifacts ever assembled at the Grand Egyptian Museum in Giza. Opened in 2023, the GEM is the largest archaeological museum on Earth and the permanent home of the complete treasures of Tutankhamun — over 5,000 objects including the iconic golden death mask. With an expert guide leading the way through its vast galleries, you'll gain deep insight into over 5,000 years of ancient Egyptian civilization.",
     descriptionAr: "انغمس في واحدة من أكثر مجموعات القطع الأثرية القديمة استثنائية في المتحف المصري الكبير في الجيزة.",
@@ -573,12 +543,7 @@ const toursData = [
     rating: { score: 8.2, reviews: 388 },
     travellers: 5286,
     freeCancellation: false,
-    images: [
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+    
     highlights: [
       "Guided tour of the world's largest archaeological museum",
       "See Tutankhamun's golden death mask and 5,000+ treasures",
@@ -619,6 +584,7 @@ const toursData = [
     titleAr: "جولة أهرامات الجيزة والقاهرة",
     tagline: "Cairo's greatest hits — pyramids, mummies, and the world's most famous bazaar.",
     taglineAr: "أبرز معالم القاهرة — أهرامات ومومياوات وأشهر أسواق العالم.",
+    images: ["/images/tours/khan.jpeg"],
     slug: "giza-pyramids-cairo-tour",
     description: "Experience the greatest highlights of Cairo in one action-packed day — the Pyramids of Giza and the Great Sphinx, the Egyptian Museum of Antiquities with Tutankhamun's treasures and royal mummies, and the vibrant Khan el-Khalili bazaar. The perfect introduction to Egypt's capital for first-time visitors.",
     descriptionAr: "اختبر أبرز معالم القاهرة في يوم واحد حافل — أهرامات الجيزة والمتحف المصري وسوق خان الخليلي.",
@@ -634,13 +600,7 @@ const toursData = [
     rating: { score: 8.9, reviews: 411 },
     travellers: 4430,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+   
     highlights: [
       "Visit the Pyramids of Giza and the Great Sphinx",
       "Explore the Egyptian Museum of Antiquities",
@@ -686,6 +646,7 @@ const toursData = [
     titleAr: "رحلة يوم إلى قناة السويس من القاهرة",
     tagline: "The waterway that changed world trade — watch the giants of the sea pass through the desert.",
     taglineAr: "الممر المائي الذي غيّر التجارة العالمية — شاهد عمالقة البحار تمر عبر الصحراء.",
+    images: ["/images/tours/suez.jpeg"],
     slug: "suez-canal-day-trip-cairo",
     description: "Discover one of the greatest engineering achievements in human history on this fascinating day trip from Cairo to the Suez Canal. Watch enormous container ships, oil tankers, and naval vessels glide through the 193-kilometre canal connecting the Mediterranean and Red Seas. Visit the Suez Canal Museum in Ismailia and learn about the canal's dramatic 150-year history.",
     descriptionAr: "اكتشف واحداً من أعظم الإنجازات الهندسية في التاريخ البشري في هذه الرحلة من القاهرة إلى قناة السويس.",
@@ -701,12 +662,7 @@ const toursData = [
     rating: { score: 7.2, reviews: 31 },
     travellers: 179,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553997993-cc5b36eeb5d3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-    ],
+    
     highlights: [
       "Watch enormous supertankers passing through the desert",
       "Visit the Suez Canal Museum in Ismailia",
@@ -749,6 +705,7 @@ const toursData = [
     titleAr: "جولة مشي في القاهرة الإسلامية",
     tagline: "Step into the medieval heart of Cairo — where the Fatimid caliphate still breathes in stone.",
     taglineAr: "ادخل إلى قلب القاهرة الوسيطة — حيث لا تزال الخلافة الفاطمية تتنفس في الحجارة.",
+    images: ["/images/tours/islamic.jpeg"],
     slug: "islamic-cairo-walking-tour",
     description: "Lose yourself in the extraordinary medieval Islamic cityscape of Cairo on this intimate walking tour through one of the most historically rich urban areas on Earth — a UNESCO World Heritage Site containing more medieval Islamic monuments than any other city in the world. Walk Al-Muizz Street, visit Al-Azhar Mosque, the Al-Hakim Mosque, and Bab Zuweila gate.",
     descriptionAr: "اضِع نفسك في المشهد الحضري الإسلامي الوسطى الاستثنائي للقاهرة في هذه الجولة المشية الحميمة.",
@@ -764,12 +721,7 @@ const toursData = [
     rating: { score: 8.6, reviews: 60 },
     travellers: 550,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+    
     highlights: [
       "Walk Al-Muizz Street — world's largest open-air museum of Islamic architecture",
       "Visit Al-Azhar Mosque and University (est. 970 AD) — the oldest university in the world",
@@ -812,6 +764,7 @@ const toursData = [
     titleAr: "جولة مجانية لأهرامات الجيزة وأبو الهول",
     tagline: "The greatest monuments on Earth — with a passionate guide, for the price of a tip.",
     taglineAr: "أعظم الآثار على وجه الأرض — مع مرشد متحمس، بسعر بقشيش.",
+    images: ["/images/tours/sphinx.jpeg"],
     slug: "giza-pyramids-sphinx-free-tour-cairo",
     description: "Join this highly acclaimed free tour of the Pyramids of Giza and the Great Sphinx for an unforgettable introduction to one of humanity's greatest achievements. Your passionate and knowledgeable guide will walk you around the Giza Plateau for 3.5 hours, revealing the fascinating history, engineering secrets, and ancient myths surrounding the three great pyramids. Pay only a tip if you're happy with your experience.",
     descriptionAr: "انضم إلى هذه الجولة المجانية المشهورة لأهرامات الجيزة وأبو الهول الكبير — ادفع بقشيشاً فقط إذا أعجبتك التجربة.",
@@ -827,12 +780,7 @@ const toursData = [
     rating: { score: 9.9, reviews: 507 },
     travellers: 10706,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+    
     highlights: [
       "Free guided tour — tip only what you feel the experience is worth",
       "Visit all three great pyramids — Khufu, Khafre, and Menkaure",
@@ -873,11 +821,11 @@ const toursData = [
  
   // ── TOUR 12 ──────────────────────────────────────────────
   {
-    title: "Civitatis eSIM Card Egypt",
-    titleAr: "شريحة eSIM لمصر من Civitatis",
+    title: "Aurivain eSIM Card Egypt",
+    titleAr: "شريحة eSIM لمصر من Aurivain",
     tagline: "Stay connected across Egypt — no SIM swap, no queues, no roaming charges.",
     taglineAr: "ابقَ متصلاً في جميع أنحاء مصر — بدون تبديل شريحة، بدون طوابير، بدون رسوم تجوال.",
-    slug: "civitatis-esim-card-egypt-cairo",
+    slug: "Aurivain-esim-card-egypt-cairo",
     description: "Stay seamlessly connected throughout your Egyptian adventure with this practical travel eSIM. Whether you're navigating Cairo's streets, researching ancient monuments, or sharing photos from the Pyramids, this eSIM gives you reliable 4G/LTE mobile data coverage across all of Egypt without the need to find or swap a local SIM card. Simply activate it digitally before you travel.",
     descriptionAr: "ابقَ متصلاً بسلاسة طوال مغامرتك المصرية مع بطاقة eSIM السياحية العملية هذه.",
     category: "Additional services",
@@ -892,10 +840,7 @@ const toursData = [
     rating: { score: 7.7, reviews: 107 },
     travellers: 2096,
     freeCancellation: false,
-    images: [
-      "https://images.unsplash.com/photo-1553997993-cc5b36eeb5d3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+    
     highlights: [
       "Fast 4G/LTE data coverage across all of Egypt",
       "No physical SIM card needed — purely digital",
@@ -933,6 +878,7 @@ const toursData = [
     titleAr: "جولة مصر الشاملة 11 يوماً",
     tagline: "The complete Egypt — Cairo, Luxor, Aswan, Abu Simbel, and the Red Sea in 11 extraordinary days.",
     taglineAr: "مصر الكاملة — القاهرة والأقصر وأسوان وأبو سمبل والبحر الأحمر في 11 يوماً استثنائياً.",
+    images: ["/images/tours/cruise.jpeg"],
     slug: "egypt-11-day-all-inclusive-tour-cairo",
     description: "Immerse yourself fully in the wonders of Egypt on this extraordinary 11-day all-inclusive tour — a carefully balanced journey covering Cairo, Luxor, Aswan, Abu Simbel, and the Red Sea coast of Hurghada. With all accommodation (4–5 star hotels and 5-star Nile cruise), all meals, all domestic flights, guided excursions, and entrance fees included, this tour offers the most complete Egypt experience possible.",
     descriptionAr: "انغمس كلياً في عجائب مصر في هذه الجولة الشاملة الاستثنائية التي تمتد 11 يوماً.",
@@ -948,16 +894,7 @@ const toursData = [
     rating: { score: 8.0, reviews: 821 },
     travellers: 7713,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553997993-cc5b36eeb5d3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-    ],
+    
     highlights: [
       "Pyramids of Giza and Grand Egyptian Museum in Cairo",
       "Valley of the Kings, Karnak Temple, and Luxor's West Bank",
@@ -1015,6 +952,7 @@ const toursData = [
     titleAr: "رحلة نيلية مع العشاء والعرض في القاهرة",
     tagline: "Cairo from the water — dinner, dancing, and the Nile at night.",
     taglineAr: "القاهرة من الماء — عشاء ورقص والنيل ليلاً.",
+    images: ["/images/tours/night cruise.jpeg"],
     slug: "nile-cruise-dinner-show-cairo",
     description: "Experience Cairo from its most magical angle — aboard a beautiful cruise boat gliding down the legendary Nile River at night. As the city's glittering skyline reflects in the dark waters, enjoy a sumptuous dinner of Egyptian and international cuisine while being entertained by a spectacular live show featuring traditional music, belly dancing, and a whirling dervish performance.",
     descriptionAr: "اختبر القاهرة من أكثر زواياها سحراً — على متن قارب ينزلق أسفل نهر النيل الأسطوري ليلاً.",
@@ -1030,12 +968,7 @@ const toursData = [
     rating: { score: 8.4, reviews: 336 },
     travellers: 4588,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-    ],
+    
     highlights: [
       "Sail the legendary Nile River through central Cairo at night",
       "Enjoy panoramic views of Cairo's illuminated skyline and bridges",
@@ -1081,6 +1014,7 @@ const toursData = [
     titleAr: "عرض الدراويش المتحولين مع العشاء في القاهرة",
     tagline: "One of the world's most mesmerizing performances — Sufi spirituality in the heart of Islamic Cairo.",
     taglineAr: "أحد أكثر العروض إبهاراً في العالم — الروحانية الصوفية في قلب القاهرة الإسلامية.",
+     images: ["/images/tours/show.jpeg"],
     slug: "whirling-dervish-show-dinner-cairo",
     description: "Witness one of the most mesmerizing performances in the world — the Sufi Whirling Dervish (Tanoura) ceremony — in the magnificent 16th-century Wikalat el-Ghouri caravanserai in the heart of Islamic Cairo, followed by a delicious traditional Egyptian dinner.",
     descriptionAr: "شاهد واحداً من أكثر العروض إبهاراً في العالم — عرض الدراويش المتحولين الصوفيين — في وكالة الغوري التاريخية في القاهرة.",
@@ -1096,11 +1030,7 @@ const toursData = [
     rating: { score: 7.8, reviews: 20 },
     travellers: 320,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+  
     highlights: [
       "Tanoura performance in the authentic 16th-century Wikalat el-Ghouri caravanserai",
       "Live Sufi music — ney flute, tabla, and chanted Sufi poetry",
@@ -1141,6 +1071,7 @@ const toursData = [
     titleAr: "رحلة واحة الفيوم",
     tagline: "Egypt's natural wonder — waterfalls, lake, and ancient ruins just 90km from Cairo.",
     taglineAr: "عجيبة مصر الطبيعية — شلالات وبحيرة وآثار قديمة على بُعد 90 كم من القاهرة.",
+     images: ["/images/tours/oasis.jpeg"],
     slug: "fayoum-oasis-excursion-cairo",
     description: "Escape Cairo for a full day and discover the Fayoum Oasis — Egypt's largest oasis, home to the country's only natural waterfalls at Wadi El-Rayan, the ancient Greco-Roman city of Karanis with its remarkable Fayoum Portrait paintings, and the vast salt lake of Qarun with its extraordinary birdlife.",
     descriptionAr: "اهرب من القاهرة ليوم كامل واكتشف واحة الفيوم — أكبر واحات مصر.",
@@ -1156,12 +1087,7 @@ const toursData = [
     rating: { score: 8.4, reviews: 78 },
     travellers: 717,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-    ],
+    
     highlights: [
       "Visit Wadi El-Rayan — Egypt's only natural waterfalls in a desert setting",
       "Explore the shores of Lake Qarun with its extraordinary birdlife",
@@ -1207,6 +1133,7 @@ const toursData = [
     titleAr: "جولة الكواد حول أهرامات الجيزة",
     tagline: "Race through the desert at the base of the world's most ancient monuments.",
     taglineAr: "انطلق عبر الصحراء عند قاعدة أقدم آثار العالم.",
+     images: ["/images/tours/quad.jpeg"],
     slug: "giza-pyramid-quad-tour-cairo",
     description: "Experience the Giza Plateau from the most thrilling perspective possible — racing around the base of the Great Pyramids on a powerful quad bike through the open desert. No experience necessary — your guide will provide a full safety briefing. The photographs you take with the pyramids behind you will be the most dramatic images of your entire trip.",
     descriptionAr: "اختبر هضبة الجيزة من أكثر المنظورات إثارة — وأنت تتسابق حول قاعدة الأهرامات على دراجة رباعية قوية.",
@@ -1222,12 +1149,7 @@ const toursData = [
     rating: { score: 8.4, reviews: 180 },
     travellers: 1799,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+   
     highlights: [
       "Quad bike ride through the open desert around the Pyramids of Giza",
       "Stunning views of all three great pyramids from the desert side",
@@ -1273,6 +1195,7 @@ const toursData = [
     titleAr: "رحلة يوم خاصة إلى الصحراء البيضاء وواحة البحرية",
     tagline: "The most otherworldly landscape in Egypt — chalk sculptures, black desert, and absolute silence.",
     taglineAr: "أكثر المناظر غرابة في مصر — منحوتات الطباشير والصحراء السوداء والصمت المطبق.",
+    images: ["/images/tours/desert.jpeg"],
     slug: "white-desert-bahariya-oasis-day-trip-cairo",
     description: "Venture far beyond Cairo into the magnificent Egyptian Western Desert on this private day trip to the Bahariya Oasis and the White Desert National Park — one of the most extraordinary natural environments on Earth, where wind-eroded chalk formations rise from the desert floor in bizarre and beautiful shapes that glow silver and gold at sunset.",
     descriptionAr: "توجه بعيداً عن القاهرة إلى الصحراء الغربية المصرية في هذه الرحلة الخاصة اليومية.",
@@ -1288,13 +1211,7 @@ const toursData = [
     rating: { score: 9.3, reviews: 9 },
     travellers: 153,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-    ],
+    
     highlights: [
       "Explore the White Desert National Park — one of Earth's most extraordinary landscapes",
       "See spectacular chalk formations glowing gold and silver at sunset",
@@ -1341,6 +1258,7 @@ const toursData = [
     titleAr: "جولة مصحوبة بمرشد في الحي القبطي",
     tagline: "Cairo's ancient Christian heart — where the Holy Family sheltered 2,000 years ago.",
     taglineAr: "قلب القاهرة المسيحي القديم — حيث لجأت العائلة المقدسة منذ 2000 عام.",
+    images: ["/images/tours/Copto.jpeg"],
     slug: "coptic-neighbourhood-tour-cairo",
     description: "Step into the ancient Christian heart of Cairo on this atmospheric guided tour of Coptic Cairo. Visit the famous Hanging Church suspended above a Roman fortress, the crypt where the Holy Family sheltered during their Flight into Egypt, the ancient Ben Ezra Synagogue, and the Coptic Museum with its magnificent collection of early Christian art.",
     descriptionAr: "ادخل إلى قلب القاهرة المسيحي القديم في هذه الجولة للحي القبطي.",
@@ -1356,12 +1274,7 @@ const toursData = [
     rating: { score: 8.4, reviews: 74 },
     travellers: 947,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-    ],
+   
     highlights: [
       "Visit the Hanging Church — one of the oldest churches in the world",
       "Explore the crypt where the Holy Family sheltered during the Flight into Egypt",
@@ -1406,6 +1319,7 @@ const toursData = [
     titleAr: "رحلة يوم إلى البحر الأحمر من القاهرة",
     tagline: "Trade Cairo's ancient monuments for a day of sun, crystal water, and total relaxation.",
     taglineAr: "استبدل آثار القاهرة القديمة بيوم من الشمس والمياه الكريستالية والراحة التامة.",
+    images: ["/images/tours/ain.jpeg"],
     slug: "red-sea-day-trip-cairo",
     description: "Trade Cairo's ancient monuments for a day of pure relaxation on the shores of the Red Sea at Ain Sokhna — just 2 hours southeast of Cairo. Crystal-clear turquoise waters, golden sand, dramatic mountain views, snorkelling on shallow reefs, and a delicious seafood lunch make this the perfect break between sightseeing days.",
     descriptionAr: "استبدل آثار القاهرة بيوم من الراحة الخالصة على شواطئ البحر الأحمر في العين السخنة.",
@@ -1421,12 +1335,8 @@ const toursData = [
     rating: { score: 8.3, reviews: 14 },
     travellers: 164,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+  
+   
     highlights: [
       "Relax on a private beach resort on the beautiful Red Sea",
       "Swim in the crystal-clear warm waters of the Red Sea",
@@ -1469,6 +1379,7 @@ const toursData = [
     titleAr: "جولة تاريخية في القاهرة الفاطمية",
     tagline: "The hidden layers of medieval Cairo — beyond the tourist trail.",
     taglineAr: "الطبقات الخفية لقاهرة القرون الوسطى — خارج المسار السياحي.",
+    images: ["/images/tours/fatima.jpeg"],
     slug: "fatimid-caliphate-history-tour-cairo",
     description: "Dive deep into the remarkable Fatimid legacy of Cairo on this specialized historical tour for visitors with a genuine interest in Islamic history and architecture. Visit the Al-Azhar Mosque and University, the Al-Hakim Mosque, the ancient Fatimid city gates of Bab al-Futuh and Bab al-Nasr, and the Qalawun complex — with specialist academic-level commentary throughout.",
     descriptionAr: "انغمس عميقاً في الإرث الفاطمي الرائع للقاهرة في هذه الجولة التاريخية المتخصصة.",
@@ -1484,12 +1395,7 @@ const toursData = [
     rating: { score: 8.1, reviews: 61 },
     travellers: 492,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+   
     highlights: [
       "Visit Al-Azhar Mosque and University — founded 970 AD, world's oldest university",
       "Explore Al-Hakim Mosque and hear the full story of the 'Mad Caliph'",
@@ -1533,6 +1439,7 @@ const toursData = [
     titleAr: "جولة 5 أيام إلى الإسكندرية وصحراء سيوة من القاهرة",
     tagline: "Egypt's Mediterranean jewel meets its most magical oasis — five days beyond the ordinary.",
     taglineAr: "جوهرة مصر المتوسطية تلتقي بأكثر واحاتها سحراً — خمسة أيام خارج المألوف.",
+    images: ["/images/tours/siwa.jpeg"],
     slug: "5-day-alexandria-siwa-desert-tour-cairo",
     description: "Discover two of Egypt's most extraordinary destinations on this 5-day private tour — cosmopolitan Alexandria with its Greco-Roman ruins and the remote, magical Siwa Oasis where a Berber community has maintained its unique culture for centuries. Visit the Oracle Temple of Amun that Alexander the Great consulted in 331 BC, swim in freshwater desert springs, and watch the sunset over the Great Sand Sea.",
     descriptionAr: "اكتشف اثنتين من أكثر وجهات مصر استثنائية في هذه الجولة الخاصة التي تمتد 5 أيام من القاهرة.",
@@ -1548,12 +1455,7 @@ const toursData = [
     rating: { score: 7.1, reviews: 7 },
     travellers: 177,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568797629192-789acf8e4df3?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+    
     highlights: [
       "Explore Alexandria — founded by Alexander the Great in 331 BC",
       "Visit the Bibliotheca Alexandrina, Catacombs, and Qaitbay Citadel",
@@ -1601,6 +1503,7 @@ const toursData = [
     titleAr: "جولة ليلية في حديقة الأزهر مع العشاء",
     tagline: "Cairo's most beautiful garden at night — minarets, fountains, and a candlelit dinner.",
     taglineAr: "أجمل حدائق القاهرة ليلاً — مآذن ونوافير وعشاء على ضوء الشموع.",
+    images: ["/images/tours/park.jpeg"],
     slug: "night-tour-azhar-park-dinner-cairo",
     description: "Discover Al-Azhar Park — created from a 500-year-old rubbish dump into one of the finest urban parks in the Middle East — on this atmospheric evening tour. Walk the beautifully landscaped gardens and restored Ayyubid city wall of Saladin, enjoying breathtaking 360-degree night views over illuminated historic Cairo, before dinner at the park's hilltop restaurant.",
     descriptionAr: "اكتشف حديقة الأزهر في هذه الجولة المسائية الجوية مع عشاء لا يُنسى بإطلالة بانورامية.",
@@ -1616,12 +1519,7 @@ const toursData = [
     rating: { score: 10.0, reviews: 2 },
     travellers: 51,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+   
     highlights: [
       "Evening tour of Al-Azhar Park — one of the finest urban parks in the Middle East",
       "Breathtaking panoramic night views over illuminated historic Cairo",
@@ -1663,6 +1561,7 @@ const toursData = [
     titleAr: "جولة الكاياك على نهر النيل في القاهرة",
     tagline: "Paddle through the heart of Cairo — the Nile from the inside.",
     taglineAr: "اجدف عبر قلب القاهرة — النيل من الداخل.",
+    images: ["/images/tours/Nile.jpeg"],
     slug: "nile-river-kayaking-tour-cairo",
     description: "Paddle through the heart of Cairo on this unique kayaking adventure along the sacred Nile River. From water level, Cairo looks completely different — minarets, bridges, and feluccas take on a new perspective when seen from the river itself. Paddle around Gezira Island through the western and eastern channels with views of the Cairo Tower, Opera House, and historic bridges. Suitable for complete beginners.",
     descriptionAr: "اجدف عبر قلب القاهرة في هذه المغامرة الفريدة بالكاياك على نهر النيل.",
@@ -1678,11 +1577,7 @@ const toursData = [
     rating: { score: 10.0, reviews: 4 },
     travellers: 34,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-    ],
+    
     highlights: [
       "Kayak on the legendary Nile River through central Cairo",
       "Unique water-level views of Cairo's skyline, minarets, and bridges",
@@ -1724,6 +1619,7 @@ const toursData = [
     titleAr: "رحلة أديرة وادي النطرون والعلمين",
     tagline: "Early Christian monasteries and a WWII battlefield — two extraordinary chapters of history in one day.",
     taglineAr: "أديرة مسيحية مبكرة وساحة معركة الحرب العالمية الثانية — فصلان استثنائيان من التاريخ في يوم واحد.",
+   images: ["/images/tours/natrun.jpeg"],
     slug: "wadi-natrun-alamein-trip-cairo",
     description: "Embark on a fascinating full-day trip northwest of Cairo through two completely contrasting chapters of history — the 4th-century Coptic monasteries of Wadi El Natrun (among the oldest continuously operating monasteries in the world) and the El Alamein WWII battlefield, site of the decisive 1942 Allied victory over Rommel's Afrika Korps.",
     descriptionAr: "انطلق في رحلة رائعة عبر فصلين متناقضين من التاريخ شمال غرب القاهرة.",
@@ -1739,11 +1635,7 @@ const toursData = [
     rating: { score: 7.6, reviews: 10 },
     travellers: 124,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+    
     highlights: [
       "Visit 4th-century Coptic monasteries — among the oldest in the world",
       "Meet Coptic monks following a 1,700-year-old monastic rule",
@@ -1788,6 +1680,7 @@ const toursData = [
     titleAr: "جولة ليلية في القاهرة مع العشاء",
     tagline: "Cairo after dark — the ancient bazaar by night, illuminated minarets, and authentic Egyptian dinner.",
     taglineAr: "القاهرة بعد الغروب — السوق القديم ليلاً والمآذن المضيئة وعشاء مصري أصيل.",
+    images: ["/images/tours/cafe.jpeg"],
     slug: "night-tour-cairo-with-dinner",
     description: "Experience Cairo's magnetic energy after dark — Khan el-Khalili bazaar illuminated by lanterns, the ancient minarets of Islamic Cairo glowing against the night sky, traditional mint tea at the legendary El-Fishawi café, and a full traditional Egyptian dinner. Cairo at night is a completely different and magical city.",
     descriptionAr: "اختبر طاقة القاهرة المغناطيسية بعد الغروب في هذه الجولة المسائية الرائعة.",
@@ -1803,11 +1696,7 @@ const toursData = [
     rating: { score: 7.6, reviews: 174 },
     travellers: 1859,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-    ],
+  
     highlights: [
       "Explore Khan el-Khalili bazaar at night by coloured lantern light",
       "Walk through illuminated Islamic Cairo with glowing ancient minarets",
@@ -1849,6 +1738,7 @@ const toursData = [
     titleAr: "جولة خاصة 2 أو 3 أيام إلى الصحراء البيضاء وواحة البحرية",
     tagline: "Sleep under the stars in Egypt's most extraordinary desert — the experience of a lifetime.",
     taglineAr: "نم تحت النجوم في أكثر صحاري مصر استثنائية — تجربة العمر.",
+    images: ["/images/tours/desert.jpeg"],
     slug: "white-desert-bahariya-multi-day-tour-cairo",
     description: "Immerse yourself in the breathtaking wilderness of Egypt's Western Desert on this private 2 or 3-day camping tour. Camp overnight in the White Desert National Park among the extraordinary chalk formations that glow silver by moonlight. Wake to sunrise turning them from silver to gold to brilliant white. All camping equipment, meals, and transport provided.",
     descriptionAr: "انغمس في البرية الخلابة للصحراء الغربية المصرية في هذه الجولة الخاصة للتخييم.",
@@ -1864,12 +1754,7 @@ const toursData = [
     rating: { score: 8.6, reviews: 75 },
     travellers: 854,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-    ],
+    
     highlights: [
       "Camp overnight in the White Desert among chalk formations",
       "Wake to sunrise illuminating the white chalk in breathtaking golden light",
@@ -1913,6 +1798,7 @@ const toursData = [
     titleAr: "رحلة طائرة خاصة فوق أهرامات الجيزة والقاهرة",
     tagline: "See the pyramids from above — the most exclusive perspective in all of Egypt.",
     taglineAr: "شاهد الأهرامات من الأعلى — أكثر منظور حصري في مصر.",
+    images: ["/images/tours/ride.jpeg"],
     slug: "pyramids-giza-cairo-private-aircraft-ride",
     description: "Soar above the greatest monuments in human history on this exclusive private aircraft ride over the Pyramids of Giza and the city of Cairo. From the air, the perfect geometric forms of the three pyramids, the Sphinx, the Nile, and the vast expanse of Cairo create the most spectacular and unique perspective on Egypt's iconic landmarks available anywhere.",
     descriptionAr: "حلّق فوق أعظم الآثار في التاريخ البشري في هذه الرحلة الجوية الخاصة الحصرية.",
@@ -1928,12 +1814,7 @@ const toursData = [
     rating: { score: 0, reviews: 0 },
     travellers: 7,
     freeCancellation: true,
-    images: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=85",
-      "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1400&q=85",
-      "https://images.unsplash.com/photo-1600267204070-6b6d1e3d4e51?w=1400&q=85",
-      "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1400&q=85",
-    ],
+   
     highlights: [
       "Private aircraft ride over the Pyramids of Giza at low altitude",
       "Aerial views of the Great Sphinx and complete Giza complex",
