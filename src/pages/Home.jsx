@@ -85,8 +85,8 @@ const PACKAGES = [
 
 // ─── BEST SELLER TOURS ───────────────────────────────────────────
 const BESTSELLER_TOURS = [
-  {id:"bs1", title:"Complete Cairo Tour + Tickets",         location:"Cairo",      img:"/images/tours/camel-sunset.jpeg", duration:"8 hours",   price:64.67, rating:4.4, reviews:1893, link:"/tours/complete-cairo-tour-tickets"},
-  {id:"bs2", title:"Pyramids of Giza, Memphis & Saqqara",  location:"Giza",       img:"/images/tours/saqqara.jpeg",      duration:"3–8 hours", price:76.15, rating:4.3, reviews:1436, link:"/tours/pyramids-giza-memphis-saqqara-cairo"},
+  {id:"bs1", title:"Complete Cairo Tour + Tickets",         location:"Cairo",      img:"/images/tours/camel-sunset.jpeg", duration:"8 hours",   price:64.67, rating:4.4, reviews:1893, link:"/tour/6a33d55e1962528a783a40f0"},
+  {id:"bs2", title:"Pyramids of Giza, Memphis & Saqqara",  location:"Giza",       img:"/images/tours/saqqara.jpeg",      duration:"3–8 hours", price:76.15, rating:4.3, reviews:1436, link:"/tour/6a33d55e1962528a783a40f2"},
   {id:"bs3", title:"Complete Guided Tour of Luxor",         location:"Luxor",      img:"/images/tours/completo.jpeg",     duration:"7h 30min",  price:97.47, rating:4.3, reviews:211,  link:"/tours/complete-guided-tour-luxor"},
   {id:"bs4", title:"Luxor Hot Air Balloon Ride",            location:"Luxor",      img:"/images/tours/balloon.jpeg",      duration:"2 hours",   price:105.76,rating:3.9, reviews:142,  link:"/tours/luxor-hot-air-balloon-ride"},
   {id:"bs5", title:"Alexandria Day Trip from Cairo",        location:"Alexandria", img:"/images/tours/alex.jpeg",         duration:"12 hours",  price:84.35, rating:4.1, reviews:574,  link:"/tours/alexandria-day-trip-cairo"},

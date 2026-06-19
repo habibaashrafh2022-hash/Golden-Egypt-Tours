@@ -1,14 +1,12 @@
 // ============================================================
-//  seeds/cairo.js — Golden Egypt Tours
+//  seeds/cairo.js — Aurevian Tours
 //  Structure: const cityData + const toursData + export
 // ============================================================
 
 const cityData = {
   name: "Cairo",
-  nameAr: "القاهرة",
   slug: "cairo",
-  description: "Cairo is one of the most captivating and historically rich cities on Earth — a sprawling, energetic metropolis where ancient wonders stand side by side with a vibrant modern city life. Home to over 20 million people, Egypt's capital sits on the banks of the mighty Nile and is overshadowed by the legendary Pyramids of Giza, the last surviving Wonder of the Ancient World. From the labyrinthine alleys of Islamic Cairo and the treasure-filled Egyptian Museum to the bustling Khan el-Khalili bazaar and the breathtaking Saladin Citadel, Cairo is an endless journey of discovery through thousands of years of human civilization.",
-  descriptionAr: "القاهرة هي واحدة من أكثر مدن الأرض إثارة للاهتمام وثراءً تاريخياً — مدينة ضخمة نابضة بالحياة حيث تقف العجائب القديمة جنباً إلى جنب مع الحياة العصرية الحيوية.",
+  description: "Cairo does not announce itself quietly. It arrives in a wall of car horns, the call to prayer drifting over rooftops, the smell of grilling corn and cardamom coffee rising from street stalls, and somewhere beyond the haze of a twenty-million-strong metropolis, the unmistakable silhouette of the Pyramids of Giza standing exactly where they have stood for four and a half thousand years. This is a city built in layers, each one stacked on top of the last without ever quite burying it: Pharaonic temples beneath Roman fortresses, Fatimid minarets beside Ottoman domes, nineteenth-century facades crumbling gently into twenty-first-century traffic. Walk through the candlelit alleys of Islamic Cairo and you are walking the same stones merchants walked eight hundred years ago. Step into the Grand Egyptian Museum and you stand a few feet from the boy-king Tutankhamun's golden death mask, separated from him by nothing but glass and three thousand three hundred years. Cross the Nile at dusk, when the water turns copper and the minarets light up one by one, and you begin to understand why Egyptians have always called their capital simply Umm al-Dunya — the Mother of the World. Cairo rewards those who wander as much as those who plan: a single afternoon can take you from a five-thousand-year-old necropolis to a coppersmith's workshop that has not changed its methods in a century, to a rooftop cafe where the tea is always too sweet and the conversation always runs long into the night.",
   country: "Egypt",
   image: "cairo.jpg",
 };
@@ -18,13 +16,10 @@ const toursData = [
   // ── TOUR 1 ──────────────────────────────────────────────
   {
     title: "Best of Egypt: 8-Day All-Inclusive Tour",
-    titleAr: "أفضل ما في مصر: جولة 8 أيام شاملة",
      images: ["/images/tours/tour.jpeg"],
     tagline: "The ultimate journey through 5,000 years of civilization — from Cairo to Abu Simbel",
-    taglineAr: "الرحلة المثالية عبر 5000 عام من الحضارة — من القاهرة إلى أبو سمبل",
     slug: "best-of-egypt-8-day-all-inclusive-cairo",
-    description: "Experience the very best of Egypt on this expertly crafted 8-day all-inclusive tour departing from Cairo. This comprehensive journey takes you to all the unmissable highlights of the country — the iconic Pyramids of Giza and the Sphinx, the world-class Grand Egyptian Museum, the ancient temples of Luxor and Karnak, the Valley of the Kings, the temples of Edfu and Kom Ombo, and the legendary wonders of Aswan including the Philae Temple and Abu Simbel. With all accommodation, meals, guided excursions, transport, and entrance fees included, this is the most rewarding and seamless way to explore the land of the pharaohs.",
-    descriptionAr: "اختبر أفضل ما تقدمه مصر في هذه الجولة الشاملة المحكمة التي تمتد 8 أيام وتنطلق من القاهرة.",
+    description: "There is a particular kind of silence that settles over the Sahara just before dawn, and on the seventh morning of this journey you will stand inside it, watching darkness peel back from the colossal stone faces of Abu Simbel as if the desert itself were waking from a four-thousand-year sleep. This eight-day odyssey was built for travellers who want to feel the full sweep of Egyptian history rather than skim its surface — beginning beneath the Great Pyramid of Khufu, the last of the Seven Wonders still standing, and ending on the deck of a Nile cruiser gliding past the temples of Edfu and Kom Ombo, the riverbanks unchanged since pharaohs sailed the same waters in barges of cedar and gold. In between lies the Grand Egyptian Museum, where Tutankhamun's complete burial treasure has been reunited under one roof for the first time in history; the Valley of the Kings, where you will walk down corridors painted by hands that have been dust for three thousand years; and Karnak, a temple so vast that early Egyptologists believed an entire town could be hidden within its walls. Every hotel, every meal, every flight, and every entrance fee is arranged before you arrive, so that the only thing you need to carry through this journey is your own sense of wonder.",
     category: "Tour packages",
     price: { original: 1370.79, discounted: 1028.09, currency: "USD" },
     duration: "8 days / 7 nights",
@@ -212,13 +207,10 @@ const toursData = [
   // ── TOUR 2 ──────────────────────────────────────────────
   {
     title: "Complete Cairo Tour + Tickets",
-    titleAr: "الجولة الشاملة في القاهرة مع التذاكر",
      images: ["/images/tours/camel-sunset.jpeg"],
     tagline: "One day. Every icon. The complete Cairo experience.",
-    taglineAr: "يوم واحد. كل المعالم. تجربة القاهرة الكاملة.",
     slug: "complete-cairo-tour-tickets",
-    description: "Discover the very best of Egypt's magnificent capital on this comprehensive guided day tour of Cairo's most iconic landmarks. Your expert guide will take you to the imposing Saladin Citadel, the magnificent Mohamed Ali Mosque, the world-famous Khan el-Khalili bazaar, and the Egyptian Museum — home to the golden treasures of Tutankhamun.",
-    descriptionAr: "اكتشف أفضل ما تقدمه عاصمة مصر الرائعة في هذه الجولة اليومية الشاملة المصحوبة بمرشد.",
+    description: "Cairo reveals itself in fragments — a glimpse of a minaret through a market archway, the smell of cumin and frankincense drifting from a spice merchant's stall, the echo of hammered copper rising from a workshop that has occupied the same alley for generations. This single, carefully paced day is designed to thread those fragments into one story. You will climb the ramparts of the Saladin Citadel as the muezzin's call rises over a thousand minarets below, step beneath the soaring alabaster dome of the Mohamed Ali Mosque where Ottoman sultans once prayed, and lose yourself for an hour in the labyrinth of Khan el-Khalili, a market founded in 1382 that has outlived empires, plagues, and six centuries of change virtually unchanged itself. By afternoon you will stand face to face with Tutankhamun's golden death mask inside the historic Egyptian Museum, the same building where Howard Carter's astonishing 1922 discoveries were first unpacked from their wooden crates. It is a day built for travellers who have only one chance to see Cairo and refuse to miss a single layer of it.",
     category: "Guided tours and free tours",
     price: { original: 80.84, discounted: 64.67, currency: "USD" },
     duration: "8 hours",
@@ -279,13 +271,10 @@ const toursData = [
   // ── TOUR 3 ──────────────────────────────────────────────
   {
     title: "Alexandria Day Trip from Cairo",
-    titleAr: "رحلة يوم إلى الإسكندرية من القاهرة",
      images: ["/images/tours/alex.jpeg"],
     tagline: "Journey to Egypt's legendary Mediterranean city — founded by Alexander the Great.",
-    taglineAr: "رحلة إلى مدينة مصر المتوسطية الأسطورية التي أسسها الإسكندر الأكبر.",
     slug: "alexandria-day-trip-cairo",
-    description: "Escape Cairo for a day and travel north to Alexandria, Egypt's legendary Mediterranean city founded by Alexander the Great over 2,300 years ago. Visit the magnificent Bibliotheca Alexandrina, the Roman Catacombs of Kom el-Shoqafa, the Qaitbay Citadel, and walk the scenic Corniche.",
-    descriptionAr: "اهرب من القاهرة ليوم وسافر شمالاً إلى الإسكندرية، مدينة مصر المتوسطية الأسطورية التي أسسها الإسكندر الأكبر منذ أكثر من 2300 عام.",
+    description: "Long before Cairo existed, there was Alexandria — a city conjured almost overnight in 331 BC by a twenty-five-year-old Macedonian king who wanted a capital worthy of the world he intended to conquer. Alexander never lived to see it finished, but the city he founded became the intellectual capital of antiquity, home to the greatest library the ancient world ever assembled and a lighthouse so famous that its name, Pharos, became the word for lighthouse in language after language. This is the Alexandria you will spend a full day exploring: the gleaming modern Bibliotheca Alexandrina, built as a deliberate echo of its vanished ancestor; the eerie, beautiful Catacombs of Kom el-Shoqafa, carved thirty-five metres underground by Roman-era Egyptians who blended pharaonic gods with Greek columns without a trace of irony; and the Qaitbay Citadel, a fifteenth-century fortress built from the very stones of the fallen Lighthouse of Alexandria, standing guard over a Mediterranean coastline that still smells of salt, grilled fish, and the particular freedom of a city that has always faced outward, toward the sea, rather than inward, toward the desert.",
     category: "Day trip",
     price: { original: 105.44, discounted: 84.35, currency: "USD" },
     duration: "12 hours",
@@ -343,13 +332,10 @@ const toursData = [
   // ── TOUR 4 ──────────────────────────────────────────────
   {
     title: "Pyramids of Giza, Memphis and Saqqara",
-    titleAr: "أهرامات الجيزة وممفيس وسقارة",
      images: ["/images/tours/saqqara.jpeg"],
     tagline: "Journey 5,000 years back in time — from the world's first pyramid to the last Wonder of the Ancient World.",
-    taglineAr: "رحلة عبر 5000 عام من الزمن — من أول هرم في العالم إلى آخر عجائب الدنيا السبع القديمة.",
     slug: "pyramids-giza-memphis-saqqara-cairo",
-    description: "Journey 5,000 years back in time on this extraordinary tour of three of ancient Egypt's most important sites. Begin at the iconic Pyramids of Giza, the only surviving Wonder of the Seven Wonders of the Ancient World. Continue to Saqqara and the Step Pyramid of Djoser — the world's first large-scale stone structure. End at Memphis, the ancient capital of Egypt.",
-    descriptionAr: "سافر 5000 عام إلى الوراء في الزمن في هذه الجولة الاستثنائية لثلاثة من أهم مواقع مصر القديمة.",
+    description: "To understand how the Egyptians built the Great Pyramid, you first have to see how they learned. This tour moves backward and forward through that learning curve in a single day, between three sites that together tell the entire story of pyramid-building. At Saqqara, you will stand before the Step Pyramid of Djoser — not smooth-sided like its famous descendants at Giza, but stacked in great stone terraces, the world's first attempt at building something permanent enough to outlast a king's memory, designed around 2650 BC by Imhotep, a commoner so brilliant he was later worshipped as a god. At Memphis, once the political capital of a unified Egypt for three thousand years, a colossal fallen statue of Ramesses II lies on its back in a quiet garden, its face still serene despite three millennia spent buried face-down in Nile silt before excavation. And finally, at Giza, the culmination of everything that came before: the Great Pyramid itself, 2.3 million blocks of stone stacked with a precision that modern engineers still find difficult to fully explain, and the Great Sphinx, its eroded face turned eternally toward the rising sun, guarding secrets it has never once given up.",
     category: "Guided tours and free tours",
     price: { original: 76.15, discounted: null, currency: "USD" },
     duration: "3–8 hours",
@@ -407,13 +393,10 @@ const toursData = [
   // ── TOUR 5 ──────────────────────────────────────────────
   {
     title: "Transfers in Cairo",
-    titleAr: "خدمة التوصيل في القاهرة",
      images: ["/images/tours/transfer.jpeg"],
     tagline: "Private door-to-door transfers anywhere in Cairo — safe, punctual, and comfortable.",
-    taglineAr: "توصيل خاص من الباب إلى الباب في أي مكان بالقاهرة.",
     slug: "transfers-cairo",
-    description: "Navigate Cairo's famously busy streets with total ease using our reliable private transfer service. Whether you need an airport pickup, a hotel transfer, or a comfortable ride between attractions, a professional chauffeur will be waiting for you with a clean, air-conditioned vehicle. Available around the clock and covering all areas of Cairo and Giza.",
-    descriptionAr: "تنقل بسهولة تامة في شوارع القاهرة المزدحمة باستخدام خدمة النقل الخاصة الموثوقة لدينا.",
+    description: "Cairo's traffic has a logic all its own — a flowing, honking, surprisingly graceful chaos that locals navigate by instinct and visitors navigate by faith. After a long flight, the last thing you want is to test that faith yourself. Our private transfer service exists for exactly that moment: a professional, English-speaking driver waiting in the arrivals hall with your name held up against the crowd, a clean air-conditioned car already idling at the curb, and a fixed price agreed before you ever sit down, so there is no haggling, no surprise, and no anxious glance at a meter ticking upward through gridlock. Whether you need a single airport pickup at two in the morning or a series of transfers strung across a multi-day itinerary, the same quiet reliability follows you the whole way — through the roundabouts of Tahrir Square, along the Corniche as the sun sets over the Nile, and out toward Giza, where the pyramids first appear, almost without warning, between two apartment blocks.",
     category: "Transfers",
     price: { original: 19.56, discounted: null, currency: "USD" },
     duration: "Varies",
@@ -463,13 +446,10 @@ const toursData = [
   // ── TOUR 6 ──────────────────────────────────────────────
   {
     title: "Grand Egyptian Museum & Pyramids of Giza Tour & Tickets",
-    titleAr: "جولة المتحف المصري الكبير وأهرامات الجيزة مع التذاكر",
     tagline: "Ancient wonder meets modern marvel — the ultimate Cairo day.",
-    taglineAr: "عجيبة قديمة تلتقي بأعجوبة حديثة — أفضل يوم في القاهرة.",
     images: ["/images/tours/grand.jpeg"],
     slug: "grand-egyptian-museum-pyramids-giza-cairo",
-    description: "Combine two of Egypt's greatest wonders in one unforgettable day — the ancient Pyramids of Giza and the brand-new Grand Egyptian Museum, the largest archaeological museum on Earth, home to the complete treasures of Tutankhamun displayed together for the first time in history.",
-    descriptionAr: "اجمع بين اثنتين من أعظم عجائب مصر في يوم واحد لا يُنسى — أهرامات الجيزة والمتحف المصري الكبير.",
+    description: "Some objects carry so much history inside them that an entire museum has to be built around the act of simply looking at them properly. The Grand Egyptian Museum, opened in 2023 after two decades of construction, is exactly that kind of building — a vast glass-and-stone monument standing in the shadow of the very pyramids it was built to honour, designed specifically to finally display the complete burial treasure of Tutankhamun together in one place for the first time since Howard Carter pulled it, piece by gleaming piece, out of a sealed tomb in 1922. This tour gives you both halves of that story in a single day: the museum in the morning, where you will walk past the boy-king's golden throne, his ceremonial chariots, and that unforgettable mask staring back at you across three thousand three hundred years; and the Giza Plateau in the afternoon, where the pyramids that once held kings like him rise directly out of the desert sand, close enough to touch, ancient enough to make every other building you have ever seen feel suddenly, briefly, very young.",
     category: "Guided tours and free tours",
     price: { original: 105.44, discounted: null, currency: "USD" },
     duration: "6 hours",
@@ -524,13 +504,10 @@ const toursData = [
 // ── TOUR 7 ──────────────────────────────────────────────
   {
     title: "Grand Egyptian Museum Tour + Tickets + Hotel Transfer",
-    titleAr: "جولة المتحف المصري الكبير مع التذاكر والتوصيل",
     tagline: "The greatest archaeological collection on Earth — 5,000 years of civilization in one building.",
-    taglineAr: "أعظم مجموعة أثرية على وجه الأرض — 5000 عام من الحضارة في مبنى واحد.",
     images: ["/images/tours/grand museum.jpeg"],
     slug: "grand-egyptian-museum-tour-cairo",
-    description: "Delve into one of the most extraordinary collections of ancient artifacts ever assembled at the Grand Egyptian Museum in Giza. Opened in 2023, the GEM is the largest archaeological museum on Earth and the permanent home of the complete treasures of Tutankhamun — over 5,000 objects including the iconic golden death mask. With an expert guide leading the way through its vast galleries, you'll gain deep insight into over 5,000 years of ancient Egyptian civilization.",
-    descriptionAr: "انغمس في واحدة من أكثر مجموعات القطع الأثرية القديمة استثنائية في المتحف المصري الكبير في الجيزة.",
+    description: "There is a reason archaeologists spent a hundred years waiting for a museum like this to exist. The Grand Egyptian Museum is not simply large — at over five thousand objects belonging to Tutankhamun alone, it is the first place on Earth where his entire burial treasure has ever been displayed as one connected story rather than scattered fragments behind separate glass cases. This tour gives that story the time it deserves: three to four unhurried hours moving through the Grand Staircase, lined with eighty-seven royal statues standing sentinel over visitors the way they once stood sentinel over their tombs, and through gallery after gallery tracing five thousand years of civilization from the first unification of Egypt to the twilight of the pharaohs. Your guide tailors the pace to your curiosity rather than a fixed script, lingering wherever something catches your eye — a faience hippopotamus, a child's wooden toy preserved by desert heat, a queen's jewellery box still holding the faint shape of fingers that closed it for the last time thousands of years ago.",
     category: "Guided tours and free tours",
     price: { original: 64.43, discounted: null, currency: "USD" },
     duration: "3–4 hours",
@@ -581,13 +558,10 @@ const toursData = [
   // ── TOUR 8 ──────────────────────────────────────────────
   {
     title: "Giza Pyramids and Cairo Tour",
-    titleAr: "جولة أهرامات الجيزة والقاهرة",
     tagline: "Cairo's greatest hits — pyramids, mummies, and the world's most famous bazaar.",
-    taglineAr: "أبرز معالم القاهرة — أهرامات ومومياوات وأشهر أسواق العالم.",
     images: ["/images/tours/khan.jpeg"],
     slug: "giza-pyramids-cairo-tour",
-    description: "Experience the greatest highlights of Cairo in one action-packed day — the Pyramids of Giza and the Great Sphinx, the Egyptian Museum of Antiquities with Tutankhamun's treasures and royal mummies, and the vibrant Khan el-Khalili bazaar. The perfect introduction to Egypt's capital for first-time visitors.",
-    descriptionAr: "اختبر أبرز معالم القاهرة في يوم واحد حافل — أهرامات الجيزة والمتحف المصري وسوق خان الخليلي.",
+    description: "Eight hours is not nearly enough time to see everything Cairo holds, but it is exactly enough time to fall in love with it. This day begins where every Egypt story begins — at the foot of the Great Pyramid, where the scale of the thing only truly registers once you are standing directly beneath it, neck craned back, counting the courses of stone disappearing into the sky. From there the day moves inward, into the Egyptian Museum's crowded halls of royal mummies and golden treasures, and finally into the sensory overload of Khan el-Khalili at the golden hour, when the lanterns begin to glow, the spice merchants call out their wares, and the smell of fresh mint tea drifts from a cafe that has been serving the same blend since 1797. It is the single most efficient introduction to Cairo that exists — pyramids, museum, and bazaar woven into one unforgettable day, with nothing left for you to plan beyond simply showing up.",
     category: "Guided tours and free tours",
     price: { original: 89.04, discounted: 71.23, currency: "USD" },
     duration: "8 hours",
@@ -643,13 +617,10 @@ const toursData = [
   // ── TOUR 9 ──────────────────────────────────────────────
   {
     title: "Day Trip to the Suez Canal from Cairo",
-    titleAr: "رحلة يوم إلى قناة السويس من القاهرة",
     tagline: "The waterway that changed world trade — watch the giants of the sea pass through the desert.",
-    taglineAr: "الممر المائي الذي غيّر التجارة العالمية — شاهد عمالقة البحار تمر عبر الصحراء.",
     images: ["/images/tours/suez.jpeg"],
     slug: "suez-canal-day-trip-cairo",
-    description: "Discover one of the greatest engineering achievements in human history on this fascinating day trip from Cairo to the Suez Canal. Watch enormous container ships, oil tankers, and naval vessels glide through the 193-kilometre canal connecting the Mediterranean and Red Seas. Visit the Suez Canal Museum in Ismailia and learn about the canal's dramatic 150-year history.",
-    descriptionAr: "اكتشف واحداً من أعظم الإنجازات الهندسية في التاريخ البشري في هذه الرحلة من القاهرة إلى قناة السويس.",
+    description: "Few places on Earth let you watch world trade pass directly in front of you at eye level, but stand on the bank of the Suez Canal and that is precisely what happens. Container ships four hundred metres long, stacked six storeys high with cargo bound for Rotterdam or Shanghai, glide past so close and so silently through the desert that the experience borders on surreal — a wall of steel moving through sand dunes as if gravity itself had been quietly suspended. This canal, carved by hand and shovel between 1859 and 1869 under the direction of Ferdinand de Lesseps, shortened the journey from Europe to Asia by thousands of kilometres and rewired the economics of the entire planet; its 1956 nationalization by President Nasser nearly triggered a war. The Suez Canal Museum in Ismailia tells that whole turbulent history, but it is the canal bank itself — watching roughly fifty ships pass in a single day, each one a small floating nation of containers — that stays with you long after the desert sun has set.",
     category: "Day trip",
     price: { original: 99.58, discounted: 79.67, currency: "USD" },
     duration: "7 hours",
@@ -702,13 +673,10 @@ const toursData = [
   // ── TOUR 10 ──────────────────────────────────────────────
   {
     title: "Islamic Cairo Walking Tour",
-    titleAr: "جولة مشي في القاهرة الإسلامية",
     tagline: "Step into the medieval heart of Cairo — where the Fatimid caliphate still breathes in stone.",
-    taglineAr: "ادخل إلى قلب القاهرة الوسيطة — حيث لا تزال الخلافة الفاطمية تتنفس في الحجارة.",
     images: ["/images/tours/islamic.jpeg"],
     slug: "islamic-cairo-walking-tour",
-    description: "Lose yourself in the extraordinary medieval Islamic cityscape of Cairo on this intimate walking tour through one of the most historically rich urban areas on Earth — a UNESCO World Heritage Site containing more medieval Islamic monuments than any other city in the world. Walk Al-Muizz Street, visit Al-Azhar Mosque, the Al-Hakim Mosque, and Bab Zuweila gate.",
-    descriptionAr: "اضِع نفسك في المشهد الحضري الإسلامي الوسطى الاستثنائي للقاهرة في هذه الجولة المشية الحميمة.",
+    description: "Al-Muizz Street has been called the world's largest open-air museum of Islamic architecture, and walking it on foot, slowly, with no schedule but the rhythm of your own footsteps, is the only way to understand why. This is medieval Cairo exactly as the Fatimid caliphs, Mamluk sultans, and Ottoman governors who ruled it would still recognize: carved stone facades stacked one after another for nearly a kilometre, minarets from eight different centuries rising against the same patch of sky, and Al-Azhar Mosque, founded in 970 AD, where the call to prayer has now echoed continuously for over a thousand years and the title of world's oldest operating university still belongs to the institution housed within its walls. Your guide will lead you past the strange, dark story of Caliph Al-Hakim — the so-called Mad Caliph who banned daylight commerce, persecuted his own subjects, and vanished one night into the Muqattam Hills, never to be found — before slipping off the main thoroughfare entirely, into hidden courtyards where craftsmen still work by hand and a cup of tea waits at the end of the walk, exactly where it always has.",
     category: "Guided tours and free tours",
     price: { original: 33.00, discounted: 26.40, currency: "USD" },
     duration: "3–4 hours",
@@ -761,13 +729,10 @@ const toursData = [
   // ── TOUR 11 ──────────────────────────────────────────────
   {
     title: "Giza Pyramids & Sphinx Free Tour",
-    titleAr: "جولة مجانية لأهرامات الجيزة وأبو الهول",
     tagline: "The greatest monuments on Earth — with a passionate guide, for the price of a tip.",
-    taglineAr: "أعظم الآثار على وجه الأرض — مع مرشد متحمس، بسعر بقشيش.",
     images: ["/images/tours/sphinx.jpeg"],
     slug: "giza-pyramids-sphinx-free-tour-cairo",
-    description: "Join this highly acclaimed free tour of the Pyramids of Giza and the Great Sphinx for an unforgettable introduction to one of humanity's greatest achievements. Your passionate and knowledgeable guide will walk you around the Giza Plateau for 3.5 hours, revealing the fascinating history, engineering secrets, and ancient myths surrounding the three great pyramids. Pay only a tip if you're happy with your experience.",
-    descriptionAr: "انضم إلى هذه الجولة المجانية المشهورة لأهرامات الجيزة وأبو الهول الكبير — ادفع بقشيشاً فقط إذا أعجبتك التجربة.",
+    description: "The best guides in Egypt are not always the ones working for the largest companies — sometimes they are simply the ones who love the subject so much they would tell you about it for free. That is the spirit behind this tour: three and a half unhurried hours walking the Giza Plateau with a guide whose only payment is whatever you choose to give at the end, based entirely on what the experience was worth to you. There is no script to rush through, no group to herd along on a schedule — just the Great Sphinx, the Valley Temple of Khafre, and all three pyramids explained with the kind of genuine enthusiasm that only comes from someone who has spent years answering the same questions and never once gotten tired of them. You will hear the competing theories of how 2.3 million stone blocks were moved and stacked with millimetre precision four and a half thousand years ago, stand at the famous viewpoint where all three pyramids align in a single photograph, and leave understanding not just the facts of Giza, but something closer to why it has captivated human imagination for as long as it has existed.",
     category: "Guided tours and free tours",
     price: { original: 0, discounted: null, currency: "USD" },
     duration: "3 hours 30 minutes",
@@ -775,7 +740,7 @@ const toursData = [
     difficulty: "Easy",
     minAge: 0,
     groupSize: 20,
-    meetingPoint: "Main Sphinx entrance gate of the Giza Plateau. Look for our guide holding a Golden Egypt Tours sign. Meeting time: 09:00 daily. Purchase your own entrance ticket (~$15) before meeting the guide.",
+    meetingPoint: "Main Sphinx entrance gate of the Giza Plateau. Look for our guide holding an Aurevian Tours sign. Meeting time: 09:00 daily. Purchase your own entrance ticket (~$15) before meeting the guide.",
     cancellation: "Free tour — no payment required in advance. Cancel anytime.",
     rating: { score: 9.9, reviews: 507 },
     travellers: 10706,
@@ -822,12 +787,9 @@ const toursData = [
   // ── TOUR 12 ──────────────────────────────────────────────
   {
     title: "Aurivain eSIM Card Egypt",
-    titleAr: "شريحة eSIM لمصر من Aurivain",
     tagline: "Stay connected across Egypt — no SIM swap, no queues, no roaming charges.",
-    taglineAr: "ابقَ متصلاً في جميع أنحاء مصر — بدون تبديل شريحة، بدون طوابير، بدون رسوم تجوال.",
     slug: "Aurivain-esim-card-egypt-cairo",
-    description: "Stay seamlessly connected throughout your Egyptian adventure with this practical travel eSIM. Whether you're navigating Cairo's streets, researching ancient monuments, or sharing photos from the Pyramids, this eSIM gives you reliable 4G/LTE mobile data coverage across all of Egypt without the need to find or swap a local SIM card. Simply activate it digitally before you travel.",
-    descriptionAr: "ابقَ متصلاً بسلاسة طوال مغامرتك المصرية مع بطاقة eSIM السياحية العملية هذه.",
+    description: "Few things disrupt the magic of standing before the Pyramids of Giza faster than discovering you have no signal to share the moment, or worse, no map to find your way back to the hotel afterward. This digital eSIM removes that entire anxiety before it ever begins. Delivered by email as a simple QR code, activated in minutes on any compatible smartphone, it provides dependable 4G and LTE coverage everywhere your Egyptian journey might take you — through Cairo's tangled downtown streets, along the Nile in Luxor, beside the Red Sea in Hurghada, and deep into the desert silence of Siwa, where a local SIM card would be nearly impossible to find. There is no shop to visit, no queue to stand in, no fragile physical card to lose, and no eye-watering international roaming bill waiting for you when you land back home. Choose a plan to match the length of your trip — seven, fifteen, or thirty days — scan the code before you board your flight, and by the time you touch down in Cairo, you are already connected.",
     category: "Additional services",
     price: { original: 5.50, discounted: null, currency: "USD" },
     duration: "7–30 days",
@@ -875,13 +837,10 @@ const toursData = [
   // ── TOUR 13 ──────────────────────────────────────────────
   {
     title: "Egypt 11-Day All-Inclusive Tour",
-    titleAr: "جولة مصر الشاملة 11 يوماً",
     tagline: "The complete Egypt — Cairo, Luxor, Aswan, Abu Simbel, and the Red Sea in 11 extraordinary days.",
-    taglineAr: "مصر الكاملة — القاهرة والأقصر وأسوان وأبو سمبل والبحر الأحمر في 11 يوماً استثنائياً.",
     images: ["/images/tours/cruise.jpeg"],
     slug: "egypt-11-day-all-inclusive-tour-cairo",
-    description: "Immerse yourself fully in the wonders of Egypt on this extraordinary 11-day all-inclusive tour — a carefully balanced journey covering Cairo, Luxor, Aswan, Abu Simbel, and the Red Sea coast of Hurghada. With all accommodation (4–5 star hotels and 5-star Nile cruise), all meals, all domestic flights, guided excursions, and entrance fees included, this tour offers the most complete Egypt experience possible.",
-    descriptionAr: "انغمس كلياً في عجائب مصر في هذه الجولة الشاملة الاستثنائية التي تمتد 11 يوماً.",
+    description: "Eleven days is long enough to stop counting monuments and start feeling the rhythm of a country that has been continuously inhabited and continuously remarkable for over five thousand years. This is the journey for travellers who want all of it — not a highlights reel, but the full arc, beginning beneath the Great Pyramid and the gleaming new halls of the Grand Egyptian Museum, sweeping south through the Valley of the Kings where pharaohs were buried with everything they believed they would need in the next world, drifting for three nights along the Nile aboard a five-star cruise ship past temples that have watched that same river rise and fall for millennia, and climaxing at Abu Simbel, where four twenty-metre colossi of Ramesses II were carved directly into a mountainside and later moved, stone by numbered stone, to save them from the rising waters of Lake Nasser. And then, just when the weight of so much history has settled fully into your bones, the itinerary turns toward the Red Sea — two unhurried days of turquoise water and reef fish at Hurghada, a deliberate exhale built into the journey's final chapter, so that you leave Egypt not exhausted by its history but genuinely at peace with it.",
     category: "Tour packages",
     price: { original: 1558.25, discounted: 1168.69, currency: "USD" },
     duration: "11 days / 10 nights",
@@ -949,13 +908,10 @@ const toursData = [
   // ── TOUR 14 ──────────────────────────────────────────────
   {
     title: "Nile Cruise with Dinner and Show in Cairo",
-    titleAr: "رحلة نيلية مع العشاء والعرض في القاهرة",
     tagline: "Cairo from the water — dinner, dancing, and the Nile at night.",
-    taglineAr: "القاهرة من الماء — عشاء ورقص والنيل ليلاً.",
     images: ["/images/tours/night cruise.jpeg"],
     slug: "nile-cruise-dinner-show-cairo",
-    description: "Experience Cairo from its most magical angle — aboard a beautiful cruise boat gliding down the legendary Nile River at night. As the city's glittering skyline reflects in the dark waters, enjoy a sumptuous dinner of Egyptian and international cuisine while being entertained by a spectacular live show featuring traditional music, belly dancing, and a whirling dervish performance.",
-    descriptionAr: "اختبر القاهرة من أكثر زواياها سحراً — على متن قارب ينزلق أسفل نهر النيل الأسطوري ليلاً.",
+    description: "Cairo by day is a city of noise, but Cairo by night, seen from the deck of a boat drifting down the Nile, is something else entirely — a skyline of minarets and bridges reflected in dark water, the city's chaos softened into a kind of glittering hush. This three-hour evening cruise was designed around that transformation. As the boat eases away from the dock and Cairo's lights begin to slide past on either side, a full Egyptian and international dinner is served at your table, the kind of meal best eaten slowly while a live band plays in the background. Then the evening builds toward its centrepiece: first a belly dancer in flowing traditional costume, and then a Sufi Tanoura performer who will spin continuously for over twenty minutes, layered skirts blooming outward into a hypnotic kaleidoscope of colour and motion, a tradition rooted in centuries of Sufi mysticism and devotion. By the time the boat returns to the dock, Cairo will have shown you a side of itself that most visitors, rushing between monuments by day, never get to see at all.",
     category: "Boat tour",
     price: { original: 63.26, discounted: 50.61, currency: "USD" },
     duration: "3 hours",
@@ -1011,13 +967,10 @@ const toursData = [
   // ── TOUR 15 ──────────────────────────────────────────────
   {
     title: "Whirling Dervish Show + Dinner in Cairo",
-    titleAr: "عرض الدراويش المتحولين مع العشاء في القاهرة",
     tagline: "One of the world's most mesmerizing performances — Sufi spirituality in the heart of Islamic Cairo.",
-    taglineAr: "أحد أكثر العروض إبهاراً في العالم — الروحانية الصوفية في قلب القاهرة الإسلامية.",
      images: ["/images/tours/show.jpeg"],
     slug: "whirling-dervish-show-dinner-cairo",
-    description: "Witness one of the most mesmerizing performances in the world — the Sufi Whirling Dervish (Tanoura) ceremony — in the magnificent 16th-century Wikalat el-Ghouri caravanserai in the heart of Islamic Cairo, followed by a delicious traditional Egyptian dinner.",
-    descriptionAr: "شاهد واحداً من أكثر العروض إبهاراً في العالم — عرض الدراويش المتحولين الصوفيين — في وكالة الغوري التاريخية في القاهرة.",
+    description: "There is a particular kind of stillness that follows twenty-five minutes of uninterrupted spinning, and it is unlike any silence you have experienced before. The Tanoura — Egypt's distinctive interpretation of Sufi whirling — is performed here inside the Wikalat el-Ghouri, a five-hundred-year-old caravanserai built in 1504 by the last great Mamluk sultan, its stone courtyard restored specifically to host performances like this one. As the ney flute rises and the tabla begins its hypnotic pulse, the performer starts to turn, slowly at first, layered skirts beginning to lift and spread until they form a perfect, shifting circle of colour, a physical meditation said to represent the soul's ascent toward the divine. There is no trick to it, no illusion — just sustained, deliberate motion held for far longer than seems humanly possible, performed in a building old enough to have hosted merchants trading silk and spice along the same stone floor centuries before electricity ever reached this street. A traditional Egyptian dinner follows, eaten in the quiet afterglow of having watched something genuinely, unexpectedly moving.",
     category: "Performances",
     price: { original: 44.52, discounted: 35.61, currency: "USD" },
     duration: "2 hours",
@@ -1068,13 +1021,10 @@ const toursData = [
   // ── TOUR 16 ──────────────────────────────────────────────
   {
     title: "Excursion to the Fayoum Oasis",
-    titleAr: "رحلة واحة الفيوم",
     tagline: "Egypt's natural wonder — waterfalls, lake, and ancient ruins just 90km from Cairo.",
-    taglineAr: "عجيبة مصر الطبيعية — شلالات وبحيرة وآثار قديمة على بُعد 90 كم من القاهرة.",
      images: ["/images/tours/oasis.jpeg"],
     slug: "fayoum-oasis-excursion-cairo",
-    description: "Escape Cairo for a full day and discover the Fayoum Oasis — Egypt's largest oasis, home to the country's only natural waterfalls at Wadi El-Rayan, the ancient Greco-Roman city of Karanis with its remarkable Fayoum Portrait paintings, and the vast salt lake of Qarun with its extraordinary birdlife.",
-    descriptionAr: "اهرب من القاهرة ليوم كامل واكتشف واحة الفيوم — أكبر واحات مصر.",
+    description: "Ninety kilometres from Cairo, the desert does something nobody expects of it: it produces a waterfall. Wadi El-Rayan's cascades are not ancient — they formed slowly from agricultural drainage water collecting in a desert depression since the 1970s — but the result is now a fully naturalized, protected landscape where water tumbles over sand-coloured rock into pools ringed by reeds, an improbable oasis within an oasis. The Fayoum itself, Egypt's largest depression, has supported continuous human settlement since the Middle Kingdom, and the ruins of Karanis, a Greco-Roman town abandoned to the sand centuries ago, still hold standing temple walls and the haunting, lifelike Fayoum portrait paintings — among the only surviving naturalistic portraits from the ancient world, painted directly onto wooden mummy panels by artists whose names have been lost but whose faces, astonishingly, have not. Lake Qarun, an ancient salt lake far older than the pyramids themselves, draws thousands of migratory pelicans, flamingos, and herons each winter, turning a quiet lakeside lunch into an unplanned afternoon of birdwatching against a backdrop the colour of pale gold.",
     category: "Day trip",
     price: { original: 105.44, discounted: 84.35, currency: "USD" },
     duration: "10 hours",
@@ -1130,13 +1080,10 @@ const toursData = [
   // ── TOUR 17 ──────────────────────────────────────────────
   {
     title: "Giza Pyramid Quad Tour",
-    titleAr: "جولة الكواد حول أهرامات الجيزة",
     tagline: "Race through the desert at the base of the world's most ancient monuments.",
-    taglineAr: "انطلق عبر الصحراء عند قاعدة أقدم آثار العالم.",
      images: ["/images/tours/quad.jpeg"],
     slug: "giza-pyramid-quad-tour-cairo",
-    description: "Experience the Giza Plateau from the most thrilling perspective possible — racing around the base of the Great Pyramids on a powerful quad bike through the open desert. No experience necessary — your guide will provide a full safety briefing. The photographs you take with the pyramids behind you will be the most dramatic images of your entire trip.",
-    descriptionAr: "اختبر هضبة الجيزة من أكثر المنظورات إثارة — وأنت تتسابق حول قاعدة الأهرامات على دراجة رباعية قوية.",
+    description: "There are quieter ways to see the Pyramids of Giza, but none of them feel quite like this. Mounted on an automatic, easy-to-handle quad bike, you will leave the paved tourist paths behind entirely and head out into the open desert that surrounds the plateau, the same open desert that has surrounded these monuments since before recorded history began. From the southern edge, all three pyramids align in one sweeping panorama; from the western dunes, as the sun begins its slow descent, their silhouettes turn first amber, then rose, then a deep, dramatic gold against an empty sky; and from the north, the Great Pyramid looms directly overhead while the Sphinx watches silently from the valley below. No experience is required — every ride begins with a full safety briefing and a practice loop for first-timers — but what stays with you afterward is not the mechanics of the ride itself, it's the strange, thrilling sensation of racing across sand that thousands of generations of pilgrims, traders, and conquerors have crossed before you, with four-thousand-five-hundred-year-old monuments rising on the horizon the entire way.",
     category: "Adventure and nature",
     price: { original: 46.86, discounted: null, currency: "USD" },
     duration: "2–3 hours",
@@ -1192,13 +1139,10 @@ const toursData = [
   // ── TOUR 18 ──────────────────────────────────────────────
   {
     title: "White Desert & Bahariya Oasis Private Day Trip",
-    titleAr: "رحلة يوم خاصة إلى الصحراء البيضاء وواحة البحرية",
     tagline: "The most otherworldly landscape in Egypt — chalk sculptures, black desert, and absolute silence.",
-    taglineAr: "أكثر المناظر غرابة في مصر — منحوتات الطباشير والصحراء السوداء والصمت المطبق.",
     images: ["/images/tours/desert.jpeg"],
     slug: "white-desert-bahariya-oasis-day-trip-cairo",
-    description: "Venture far beyond Cairo into the magnificent Egyptian Western Desert on this private day trip to the Bahariya Oasis and the White Desert National Park — one of the most extraordinary natural environments on Earth, where wind-eroded chalk formations rise from the desert floor in bizarre and beautiful shapes that glow silver and gold at sunset.",
-    descriptionAr: "توجه بعيداً عن القاهرة إلى الصحراء الغربية المصرية في هذه الرحلة الخاصة اليومية.",
+    description: "Somewhere past the Black Desert's eerie volcanic hills, the landscape stops looking like anything you have seen before. The White Desert National Park is a place sculpted entirely by wind — soft, chalky limestone carved over thousands of years into shapes that look deliberately designed: mushrooms, sphinxes, ghostly sails, an entire silent gallery of natural sculpture rising from golden sand. At sunset, the chalk catches the light and seems almost to glow from within, shifting from white to gold to a strange, pale silver as the temperature drops and the desert falls completely, totally silent. Along the way, the Golden Mummies Museum in Bahariya tells the story of one of Egypt's most significant modern discoveries — hundreds of Greco-Roman mummies, their cartonnage cases gilded and painted, found accidentally by a donkey that stumbled into a buried tomb in 1996. It is a long day — seventeen hours, four hours of driving in each direction — but the kind of long day that, looking back on it months later, you will remember not for its length but for the half hour spent standing in absolute silence among chalk formations glowing gold under a desert sunset.",
     category: "Day trip",
     price: { original: 339.76, discounted: null, currency: "USD" },
     duration: "17 hours",
@@ -1255,13 +1199,10 @@ const toursData = [
   // ── TOUR 19 ──────────────────────────────────────────────
   {
     title: "Guided Tour of the Coptic Neighbourhood",
-    titleAr: "جولة مصحوبة بمرشد في الحي القبطي",
     tagline: "Cairo's ancient Christian heart — where the Holy Family sheltered 2,000 years ago.",
-    taglineAr: "قلب القاهرة المسيحي القديم — حيث لجأت العائلة المقدسة منذ 2000 عام.",
     images: ["/images/tours/Copto.jpeg"],
     slug: "coptic-neighbourhood-tour-cairo",
-    description: "Step into the ancient Christian heart of Cairo on this atmospheric guided tour of Coptic Cairo. Visit the famous Hanging Church suspended above a Roman fortress, the crypt where the Holy Family sheltered during their Flight into Egypt, the ancient Ben Ezra Synagogue, and the Coptic Museum with its magnificent collection of early Christian art.",
-    descriptionAr: "ادخل إلى قلب القاهرة المسيحي القديم في هذه الجولة للحي القبطي.",
+    description: "Beneath the noise of modern Cairo lies a much older, much quieter city — the Coptic quarter, founded on the site of a Roman fortress and considered by tradition to be the very place where the Holy Family sheltered during their flight into Egypt nearly two thousand years ago. The Hanging Church, suspended directly above the old fortress gatehouse, takes its name from the way its nave seems to float over the open space below, its thirteen columns representing Christ and his apostles, its ivory and ebony screens darkened by centuries of candle smoke and quiet prayer. A short walk away, a narrow staircase descends into the crypt of the Church of Saints Sergius and Bacchus, traditionally identified as the resting place of Mary, Joseph, and the infant Jesus — a pilgrimage site for nearly two millennia. The neighbourhood's Ben Ezra Synagogue holds its own extraordinary story: in 1896, a hidden storeroom called a geniza was found to contain three hundred thousand medieval Jewish documents, an archive so vast and so well preserved that historians are still working through it today. It is a quiet morning spent walking between three faiths, three architectural traditions, and nearly two thousand years of continuous, layered history.",
     category: "Guided tours and free tours",
     price: { original: 48.73, discounted: 38.99, currency: "USD" },
     duration: "3 hours 30 minutes",
@@ -1316,13 +1257,10 @@ const toursData = [
   // ── TOUR 20 ──────────────────────────────────────────────
   {
     title: "Red Sea Day Trip from Cairo",
-    titleAr: "رحلة يوم إلى البحر الأحمر من القاهرة",
     tagline: "Trade Cairo's ancient monuments for a day of sun, crystal water, and total relaxation.",
-    taglineAr: "استبدل آثار القاهرة القديمة بيوم من الشمس والمياه الكريستالية والراحة التامة.",
     images: ["/images/tours/ain.jpeg"],
     slug: "red-sea-day-trip-cairo",
-    description: "Trade Cairo's ancient monuments for a day of pure relaxation on the shores of the Red Sea at Ain Sokhna — just 2 hours southeast of Cairo. Crystal-clear turquoise waters, golden sand, dramatic mountain views, snorkelling on shallow reefs, and a delicious seafood lunch make this the perfect break between sightseeing days.",
-    descriptionAr: "استبدل آثار القاهرة بيوم من الراحة الخالصة على شواطئ البحر الأحمر في العين السخنة.",
+    description: "After several days spent walking among monuments built to outlast time itself, there comes a point where the desert sun and the weight of so much history start to ask something of you in return — and the answer, just two hours southeast of Cairo, is the Red Sea. Ain Sokhna's water is the kind of turquoise that looks artificially enhanced in photographs until you are standing in it yourself, warm even in winter, clear enough to see your own feet on the sandy bottom six metres down. Shallow reefs just offshore hold enough colour and movement — parrotfish, anemones, the occasional curious ray — to fill an unhurried morning of snorkelling, while dramatic desert mountains rise directly behind the beach, a reminder that you are still, technically, in the Sahara. This is less an excursion than a deliberate pause: a private beach resort, a fresh seafood lunch eaten with sand still on your feet, and nothing scheduled beyond the simple, restorative act of doing absolutely nothing for several hours by the sea.",
     category: "Day trip",
     price: { original: 226.56, discounted: null, currency: "USD" },
     duration: "9–10 hours",
@@ -1376,13 +1314,10 @@ const toursData = [
   // ── TOUR 21 ──────────────────────────────────────────────
   {
     title: "Historic Tour of Fatimid Cairo",
-    titleAr: "جولة تاريخية في القاهرة الفاطمية",
     tagline: "The hidden layers of medieval Cairo — beyond the tourist trail.",
-    taglineAr: "الطبقات الخفية لقاهرة القرون الوسطى — خارج المسار السياحي.",
     images: ["/images/tours/fatima.jpeg"],
     slug: "fatimid-caliphate-history-tour-cairo",
-    description: "Dive deep into the remarkable Fatimid legacy of Cairo on this specialized historical tour for visitors with a genuine interest in Islamic history and architecture. Visit the Al-Azhar Mosque and University, the Al-Hakim Mosque, the ancient Fatimid city gates of Bab al-Futuh and Bab al-Nasr, and the Qalawun complex — with specialist academic-level commentary throughout.",
-    descriptionAr: "انغمس عميقاً في الإرث الفاطمي الرائع للقاهرة في هذه الجولة التاريخية المتخصصة.",
+    description: "In 969 AD, a Fatimid general named Jawhar al-Siqilli laid out the foundations of a new royal city north of the existing settlements along the Nile, and named it Al-Qahira — 'the Victorious' — the city the modern world now knows as Cairo. This tour exists for travellers who want more than the highlight reel of that founding moment; it is a deeper, slower, more academic excursion into the politics, theology, and architecture of the Fatimid caliphate at the height of its power. You will climb inside the towers of Bab al-Futuh and Bab al-Nasr, the city's surviving northern gates, exploring concealed soldier chambers built for a siege that, remarkably, never came. You will hear the full, strange story of Caliph Al-Hakim — religious reformer, persecutor, self-proclaimed deity, and finally a man who rode alone into the Muqattam Hills one night and was never seen again. And at Al-Azhar, founded as a centre of Shia Fatimid scholarship before later becoming the supreme authority of Sunni Islam worldwide, you will trace over a thousand years of theological evolution carved directly into stone. This is Cairo for travellers who want to understand not just what they are looking at, but why it was built that way in the first place.",
     category: "Guided tours and free tours",
     price: { original: 84.08, discounted: 67.26, currency: "USD" },
     duration: "5 hours",
@@ -1436,13 +1371,10 @@ const toursData = [
   // ── TOUR 22 ──────────────────────────────────────────────
   {
     title: "5-Day Alexandria & Siwa Desert Tour from Cairo",
-    titleAr: "جولة 5 أيام إلى الإسكندرية وصحراء سيوة من القاهرة",
     tagline: "Egypt's Mediterranean jewel meets its most magical oasis — five days beyond the ordinary.",
-    taglineAr: "جوهرة مصر المتوسطية تلتقي بأكثر واحاتها سحراً — خمسة أيام خارج المألوف.",
     images: ["/images/tours/siwa.jpeg"],
     slug: "5-day-alexandria-siwa-desert-tour-cairo",
-    description: "Discover two of Egypt's most extraordinary destinations on this 5-day private tour — cosmopolitan Alexandria with its Greco-Roman ruins and the remote, magical Siwa Oasis where a Berber community has maintained its unique culture for centuries. Visit the Oracle Temple of Amun that Alexander the Great consulted in 331 BC, swim in freshwater desert springs, and watch the sunset over the Great Sand Sea.",
-    descriptionAr: "اكتشف اثنتين من أكثر وجهات مصر استثنائية في هذه الجولة الخاصة التي تمتد 5 أيام من القاهرة.",
+    description: "Few journeys in Egypt move between two such different worlds as this one. It begins on the Mediterranean, in cosmopolitan Alexandria, the city Alexander the Great founded in 331 BC as a deliberate bridge between Greek and Egyptian civilization — a legacy still visible in the Greco-Roman catacombs carved beneath its streets and the modern Bibliotheca built in homage to its vanished ancient library. From there the journey turns inland and west, deep into the Sahara, toward Siwa — a Berber oasis so remote that for most of its history it remained almost entirely independent of the pharaohs, the Romans, and every empire that followed, preserving its own language, customs, and way of life largely undisturbed for centuries. It was here, in 331 BC, that Alexander himself made a famously secretive desert crossing to consult the Oracle of Amun, emerging from the temple supposedly declared a son of the god — and the ruined oracle still stands today, weathered but unmistakable. You will swim in Cleopatra's natural spring, climb the abandoned mudbrick fortress of Shali, and watch the sun set over the endless dunes of the Great Sand Sea, the silence so complete it becomes its own kind of sound.",
     category: "Tour packages",
     price: { original: 659.85, discounted: null, currency: "USD" },
     duration: "5 days / 4 nights",
@@ -1500,13 +1432,10 @@ const toursData = [
   // ── TOUR 23 ──────────────────────────────────────────────
   {
     title: "Night Tour of Al-Azhar Park & Dinner",
-    titleAr: "جولة ليلية في حديقة الأزهر مع العشاء",
     tagline: "Cairo's most beautiful garden at night — minarets, fountains, and a candlelit dinner.",
-    taglineAr: "أجمل حدائق القاهرة ليلاً — مآذن ونوافير وعشاء على ضوء الشموع.",
     images: ["/images/tours/park.jpeg"],
     slug: "night-tour-azhar-park-dinner-cairo",
-    description: "Discover Al-Azhar Park — created from a 500-year-old rubbish dump into one of the finest urban parks in the Middle East — on this atmospheric evening tour. Walk the beautifully landscaped gardens and restored Ayyubid city wall of Saladin, enjoying breathtaking 360-degree night views over illuminated historic Cairo, before dinner at the park's hilltop restaurant.",
-    descriptionAr: "اكتشف حديقة الأزهر في هذه الجولة المسائية الجوية مع عشاء لا يُنسى بإطلالة بانورامية.",
+    description: "For five hundred years, the hill where Al-Azhar Park now stands was Cairo's rubbish dump — a slowly rising mound of refuse overlooking the old city, considered useless, unsightly, and best ignored. Then, in the late 1990s, a foundation transformed it into one of the finest urban parks in the Middle East, and in doing so created, almost by accident, the single best panoramic viewpoint over historic Cairo that exists anywhere. At night, that view becomes something close to magical: hundreds of illuminated minarets stretching toward the horizon, the soft glow of the Citadel, the restored twelfth-century Ayyubid wall of Saladin running along the park's edge, all of it laid out beneath you as you walk through landscaped gardens scented with jasmine and rosewater. Dinner is served at the hilltop restaurant, where the panorama continues uninterrupted across nearly three hundred degrees, the city's lights flickering on one by one as the evening deepens — widely considered one of the most romantic settings Cairo has to offer, and a quiet, unexpected reward for the rubbish heap it once was.",
     category: "Guided tours and free tours",
     price: { original: 79.41, discounted: null, currency: "USD" },
     duration: "4 hours",
@@ -1558,13 +1487,10 @@ const toursData = [
   // ── TOUR 24 ──────────────────────────────────────────────
   {
     title: "Nile River Kayaking Tour in Cairo",
-    titleAr: "جولة الكاياك على نهر النيل في القاهرة",
     tagline: "Paddle through the heart of Cairo — the Nile from the inside.",
-    taglineAr: "اجدف عبر قلب القاهرة — النيل من الداخل.",
     images: ["/images/tours/Nile.jpeg"],
     slug: "nile-river-kayaking-tour-cairo",
-    description: "Paddle through the heart of Cairo on this unique kayaking adventure along the sacred Nile River. From water level, Cairo looks completely different — minarets, bridges, and feluccas take on a new perspective when seen from the river itself. Paddle around Gezira Island through the western and eastern channels with views of the Cairo Tower, Opera House, and historic bridges. Suitable for complete beginners.",
-    descriptionAr: "اجدف عبر قلب القاهرة في هذه المغامرة الفريدة بالكاياك على نهر النيل.",
+    description: "The Nile looks entirely different from three feet above the water than it does from a bridge or a riverside cafe, and this short kayaking tour exists specifically to give you that perspective. Setting out from the Zamalek Rowing Club on Gezira Island, you will paddle through the calm western channel first, past colonial-era apartment buildings and the lawns of the Gezira Sporting Club, before rounding the island's southern tip into open water with the full Cairo skyline suddenly visible in both directions and the Cairo Tower rising directly overhead. The eastern channel carries you beneath Qasr el-Nil Bridge, guarded at each end by its famous bronze lions, and past the curved white sails of the Cairo Opera House. No experience is required — the river here is flat and gentle, and a certified instructor stays with you throughout — but what makes the experience memorable has less to do with technique than with vantage point: an entirely new, unhurried, water-level view of a city most visitors only ever see from dry land.",
     category: "Adventure and nature",
     price: { original: 67.00, discounted: null, currency: "USD" },
     duration: "3 hours",
@@ -1616,13 +1542,10 @@ const toursData = [
   // ── TOUR 25 ──────────────────────────────────────────────
   {
     title: "Wadi El Natrun Monasteries and El Alamein Trip",
-    titleAr: "رحلة أديرة وادي النطرون والعلمين",
     tagline: "Early Christian monasteries and a WWII battlefield — two extraordinary chapters of history in one day.",
-    taglineAr: "أديرة مسيحية مبكرة وساحة معركة الحرب العالمية الثانية — فصلان استثنائيان من التاريخ في يوم واحد.",
    images: ["/images/tours/natrun.jpeg"],
     slug: "wadi-natrun-alamein-trip-cairo",
-    description: "Embark on a fascinating full-day trip northwest of Cairo through two completely contrasting chapters of history — the 4th-century Coptic monasteries of Wadi El Natrun (among the oldest continuously operating monasteries in the world) and the El Alamein WWII battlefield, site of the decisive 1942 Allied victory over Rommel's Afrika Korps.",
-    descriptionAr: "انطلق في رحلة رائعة عبر فصلين متناقضين من التاريخ شمال غرب القاهرة.",
+    description: "This is a day built around two entirely different kinds of silence. The first belongs to the monasteries of Wadi El Natrun, founded in the fourth century AD and among the oldest continuously inhabited monastic communities on Earth — a tradition of prayer, isolation, and devotion that has been observed here, largely unbroken, for over one thousand seven hundred years. Inside the Monastery of Saint Macarius, medieval frescoes watch over a community of monks still following rules laid down by the Desert Fathers in late antiquity. The second silence belongs to El Alamein, a stretch of Mediterranean coastline that, for two weeks in late 1942, became one of the most decisive battlefields of the Second World War, the place where Allied forces finally turned back Rommel's Afrika Korps and changed the course of the North African campaign. The Commonwealth War Cemetery here holds 7,240 graves, each headstone catalogued and maintained with a precision that feels almost like an act of mourning in itself. Between the chanted prayers of the monasteries and the quiet rows of the cemetery, this trip moves through nearly two thousand years of history without once raising its voice.",
     category: "Day trip",
     price: { original: 100.43, discounted: 80.35, currency: "USD" },
     duration: "10 hours",
@@ -1677,13 +1600,10 @@ const toursData = [
   // ── TOUR 26 ──────────────────────────────────────────────
   {
     title: "Night Tour of Cairo with Dinner",
-    titleAr: "جولة ليلية في القاهرة مع العشاء",
     tagline: "Cairo after dark — the ancient bazaar by night, illuminated minarets, and authentic Egyptian dinner.",
-    taglineAr: "القاهرة بعد الغروب — السوق القديم ليلاً والمآذن المضيئة وعشاء مصري أصيل.",
     images: ["/images/tours/cafe.jpeg"],
     slug: "night-tour-cairo-with-dinner",
-    description: "Experience Cairo's magnetic energy after dark — Khan el-Khalili bazaar illuminated by lanterns, the ancient minarets of Islamic Cairo glowing against the night sky, traditional mint tea at the legendary El-Fishawi café, and a full traditional Egyptian dinner. Cairo at night is a completely different and magical city.",
-    descriptionAr: "اختبر طاقة القاهرة المغناطيسية بعد الغروب في هذه الجولة المسائية الرائعة.",
+    description: "Khan el-Khalili changes completely after dark. The same alleys that feel crowded and transactional by day take on a different rhythm once the sun sets and the coloured lanterns flicker on — spice merchants calling out in lower, more conversational tones, the gold souk glittering under warm bulbs instead of harsh daylight, and El-Fishawi cafe, open continuously since 1797, filling with locals settling in for hours of tea, backgammon, and unhurried conversation exactly as they have for over two centuries. This evening tour moves through that transformed bazaar at its most atmospheric hour, pausing for tastings and a glass of strong, sweet mint tea, before settling into a traditional restaurant for a full Egyptian dinner — mezze, grilled meats, the slow-cooked green stew called molokhia, and Om Ali, a warm bread pudding that has been Egypt's signature dessert for generations. It is Cairo seen at its most relaxed and most itself: not the city of monuments and museums, but the city its own residents actually live in after the day's heat finally breaks.",
     category: "Guided tours and free tours",
     price: { original: 65.40, discounted: 52.32, currency: "USD" },
     duration: "4 hours",
@@ -1735,13 +1655,10 @@ const toursData = [
   // ── TOUR 27 ──────────────────────────────────────────────
   {
     title: "White Desert & Bahariya Oasis 2 or 3-Day Private Tour",
-    titleAr: "جولة خاصة 2 أو 3 أيام إلى الصحراء البيضاء وواحة البحرية",
     tagline: "Sleep under the stars in Egypt's most extraordinary desert — the experience of a lifetime.",
-    taglineAr: "نم تحت النجوم في أكثر صحاري مصر استثنائية — تجربة العمر.",
     images: ["/images/tours/desert.jpeg"],
     slug: "white-desert-bahariya-multi-day-tour-cairo",
-    description: "Immerse yourself in the breathtaking wilderness of Egypt's Western Desert on this private 2 or 3-day camping tour. Camp overnight in the White Desert National Park among the extraordinary chalk formations that glow silver by moonlight. Wake to sunrise turning them from silver to gold to brilliant white. All camping equipment, meals, and transport provided.",
-    descriptionAr: "انغمس في البرية الخلابة للصحراء الغربية المصرية في هذه الجولة الخاصة للتخييم.",
+    description: "Most visitors to the White Desert see it for an hour, photograph the chalk formations, and leave before sunset finishes changing their colour. This tour exists for the smaller number of travellers who want to actually stay — to watch those same formations glow silver under a full desert moon, sleep beneath a sky genuinely free of light pollution, and wake before dawn to see the chalk shift slowly from grey to silver to gold as the sun clears the horizon. Camp is set among the wind-sculpted limestone shapes themselves, a private guide and cook preparing dinner over an open fire while the temperature drops and the stars multiply overhead in numbers that simply do not exist above any city. By morning, on foot rather than by vehicle, you can wander among the formations at the pace they actually deserve, climb the glittering calcite outcrop known as Crystal Mountain, and understand, in a way a single afternoon visit never quite allows, why this stretch of the Sahara is considered one of the strangest and most beautiful landscapes on the planet.",
     category: "Tour packages",
     price: { original: 365.54, discounted: null, currency: "USD" },
     duration: "2–3 days",
@@ -1795,13 +1712,10 @@ const toursData = [
   // ── TOUR 28 ──────────────────────────────────────────────
   {
     title: "Pyramids of Giza & Cairo Private Aircraft Ride",
-    titleAr: "رحلة طائرة خاصة فوق أهرامات الجيزة والقاهرة",
     tagline: "See the pyramids from above — the most exclusive perspective in all of Egypt.",
-    taglineAr: "شاهد الأهرامات من الأعلى — أكثر منظور حصري في مصر.",
     images: ["/images/tours/ride.jpeg"],
     slug: "pyramids-giza-cairo-private-aircraft-ride",
-    description: "Soar above the greatest monuments in human history on this exclusive private aircraft ride over the Pyramids of Giza and the city of Cairo. From the air, the perfect geometric forms of the three pyramids, the Sphinx, the Nile, and the vast expanse of Cairo create the most spectacular and unique perspective on Egypt's iconic landmarks available anywhere.",
-    descriptionAr: "حلّق فوق أعظم الآثار في التاريخ البشري في هذه الرحلة الجوية الخاصة الحصرية.",
+    description: "From the ground, the Pyramids of Giza are overwhelming simply for their scale. From the air, they become something else entirely — a geometry lesson laid out in stone, the precise relationship between the three pyramids, their causeways, valley temples, and the Sphinx suddenly legible in a way that is almost impossible to grasp while standing among them. This private aircraft ride, limited to four passengers, climbs out over Cairo before banking toward the plateau for a series of low-altitude passes directly above the monuments — close enough to make out the surviving casing stones near the summit of Khafre's pyramid, the exact alignment of the causeways, the strange, perfect symmetry that no ground-level photograph ever quite captures. The flight continues on over the Nile, the curved sails of the Opera House, the minarets of Islamic Cairo catching the morning light, before returning to the airport having shown you, in under three hours, a perspective on Egypt's most famous monuments that almost no visitor to this country ever gets to see.",
     category: "Aerial tours",
     price: { original: 724.08, discounted: null, currency: "USD" },
     duration: "2 hours 45 minutes",

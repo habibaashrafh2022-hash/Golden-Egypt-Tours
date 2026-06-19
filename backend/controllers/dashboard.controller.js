@@ -1,4 +1,4 @@
-import Booking from "../models/Booking.js";
+import Booking from "../models/booking.model.js";
 import Tour from "../models/Tour.js";
 
 // GET DASHBOARD STATS (PER TENANT)
