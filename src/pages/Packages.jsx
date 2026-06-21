@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 // ─── CONTACT ────────────────────────────────────────────────────
-const PHONE_DISPLAY = "+20 106 825 4454";
-const PHONE_WA      = "201068254454";
+const PHONE_DISPLAY = "+20 106 825 7754";
+const PHONE_WA      = "201068257754";
 const EMAIL         = "aureviantours@gmail.com";
 const waLink = (msg) => `https://wa.me/${PHONE_WA}${msg ? `?text=${encodeURIComponent(msg)}` : ""}`;
 
@@ -17,6 +17,18 @@ const CURR = {
   AED:{s:"AED",r:3.67,  l:"AED — UAE Dirham"},
 };
 const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).toLocaleString()}`;
+
+// ─── LANGUAGES (Google Translate) ───────────────────────────────
+const LANGS = [
+  {code:"en", gtCode:"en", flag:"🇬🇧", label:"English"},
+  {code:"fr", gtCode:"fr", flag:"🇫🇷", label:"Français"},
+  {code:"es", gtCode:"es", flag:"🇪🇸", label:"Español"},
+  {code:"de", gtCode:"de", flag:"🇩🇪", label:"Deutsch"},
+  {code:"it", gtCode:"it", flag:"🇮🇹", label:"Italiano"},
+  {code:"ru", gtCode:"ru", flag:"🇷🇺", label:"Русский"},
+  {code:"zh", gtCode:"zh-CN", flag:"🇨🇳", label:"中文"},
+  {code:"ar", gtCode:"ar", flag:"🇪🇬", label:"العربية"},
+];
 
 // ─── CATEGORY ───────────────────────────────────────────────────
 const CAT_LABELS = {
@@ -576,72 +588,9 @@ function PackageDetail({pkg, cur, onClose, onBook}){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  BOOKING MODAL (matches Home.jsx BookingModal style)
+//  (Removed: fake BookingModal that never contacted the server.
+//   Booking now navigates straight to the single /booking/:id flow.)
 // ════════════════════════════════════════════════════════════════
-function BookingModal({pkg, cur, onClose}){
-  const [step,setStep] = useState(1);
-  const [busy,setBusy] = useState(false);
-  const [f,setF] = useState({name:"",email:"",phone:"",date:"",guests:"2",notes:""});
-  if(!pkg) return null;
-  const upd = k=>e=>setF(p=>({...p,[k]:e.target.value}));
-  const ok = f.name&&f.email&&f.date;
-  const total = fmt(pkg.price*parseInt(f.guests||1), cur);
-  const waMsg = `🏛️ *New Package Booking — Aurevian Tours*\n\n📋 *${pkg.title}*\n⏱ ${pkg.duration}\n\n👤 *Name:* ${f.name}\n✉️ *Email:* ${f.email}\n📱 *Phone:* ${f.phone}\n📅 *Date:* ${f.date}\n👥 *Guests:* ${f.guests}\n💰 *Total:* ${total}\n📝 *Notes:* ${f.notes||"None"}\n\nRef: AUR-${Date.now().toString().slice(-6)}`;
-  const submit = ()=>{setBusy(true);setTimeout(()=>{setBusy(false);setStep(2);},1600);};
-  return(
-    <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(20,15,8,.72)",backdropFilter:"blur(18px)",zIndex:3000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .22s ease"}}>
-      <div style={{background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.35)",borderRadius:22,width:"min(520px,96vw)",maxHeight:"92vh",overflowY:"auto",boxShadow:"0 50px 120px rgba(20,15,8,.45)",animation:"popIn .28s ease"}}>
-        <div style={{padding:"20px 24px 16px",borderBottom:"1px solid rgba(193,156,60,.18)",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
-          <div>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:5,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian Tours · Package Booking</div>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#231A0E",lineHeight:1.35,maxWidth:360}}>{pkg.title}</div>
-            <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C",marginTop:3}}>{pkg.duration} · {pkg.cities.join(" → ")}</div>
-          </div>
-          <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:15,flexShrink:0}}>✕</button>
-        </div>
-        <div style={{padding:"20px 24px"}}>
-          {step===2?(
-            <div style={{textAlign:"center",padding:"20px 0",animation:"fadeUp .4s ease"}}>
-              <div style={{fontSize:54,marginBottom:14}}>✅</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",marginBottom:8}}>Booking Confirmed!</div>
-              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:"#9C7A3C",lineHeight:1.8,marginBottom:22}}>Our team will contact you within 2 hours.<br/>Reference: <strong style={{color:"#A07828"}}>AUR-{Date.now().toString().slice(-6)}</strong></div>
-              <div style={{display:"flex",gap:11,justifyContent:"center",flexWrap:"wrap"}}>
-                <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:11,padding:"12px 22px",textDecoration:"none",fontWeight:700,fontSize:13,display:"flex",alignItems:"center",gap:8,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
-                <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:11,padding:"12px 20px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
-              </div>
-            </div>
-          ):(
-            <>
-              <div style={{background:"rgba(201,168,76,.07)",border:"1.5px solid rgba(193,156,60,.22)",borderRadius:11,padding:"11px 15px",marginBottom:18,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <span style={{fontFamily:"'Josefin Sans',sans-serif",color:"rgba(35,26,14,.65)",fontSize:12}}>{pkg.duration} · 👥 {f.guests} person(s)</span>
-                <span style={{fontFamily:"'Cinzel',serif",color:"#8B6010",fontWeight:700,fontSize:17}}>{total}</span>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-                {[{k:"name",l:"Full Name *",p:"Your full name",t:"text",col:"1/-1"},{k:"email",l:"Email *",p:"your@email.com",t:"email"},{k:"phone",l:"Phone / WhatsApp",p:"+1 234 567",t:"tel"},{k:"date",l:"Travel Start Date *",p:"",t:"date"},{k:"guests",l:"Number of Guests",p:"2",t:"number"}].map(fl=>(
-                  <div key={fl.k} style={{gridColumn:fl.col||"auto"}}>
-                    <label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:6,fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{fl.l}</label>
-                    <input className="inp" type={fl.t} value={f[fl.k]} onChange={upd(fl.k)} placeholder={fl.p}/>
-                  </div>
-                ))}
-                <div style={{gridColumn:"1/-1"}}>
-                  <label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:6,fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>Special Requests</label>
-                  <textarea className="inp" value={f.notes} onChange={upd("notes")} rows={2} style={{resize:"none"}} placeholder="Dietary needs, room preferences, special occasions…"/>
-                </div>
-              </div>
-              <div style={{display:"flex",gap:10,marginTop:18}}>
-                <button className="pk-btn-gold" onClick={submit} disabled={busy||!ok} style={{flex:1,padding:"14px",fontSize:11,opacity:(!ok||busy)?.45:1,display:"flex",alignItems:"center",justifyContent:"center",gap:9}}>
-                  {busy?<><div style={{width:16,height:16,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Sending…</>:"✈ Confirm Booking"}
-                </button>
-                <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:10,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,textDecoration:"none"}}>💬</a>
-              </div>
-              <div style={{textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C",marginTop:10}}>Free cancellation up to 30 days before departure · No charge until confirmed</div>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ════════════════════════════════════════════════════════════════
 //  MAIN PAGE
@@ -653,8 +602,21 @@ export default function Packages({currency="USD"}){
   const [q,setQ] = useState("");
   const [sort,setSort] = useState("popular");
   const [selectedPkg,setSelectedPkg] = useState(null);
-  const [bookingPkg,setBookingPkg] = useState(null);
   const [scrolled,setSc] = useState(false);
+  const [uiLang,setUiLang] = useState(LANGS[0]);
+  const [langOpen,setLangOpen] = useState(false);
+
+  const triggerGoogleTranslate = (gtCode, attempt=0) => {
+    const sel = document.querySelector(".goog-te-combo");
+    if(sel){ sel.value = gtCode; sel.dispatchEvent(new Event("change")); return; }
+    if(attempt < 15) setTimeout(()=>triggerGoogleTranslate(gtCode, attempt+1), 200);
+  };
+  const handleLangSelect = (l) => {
+    setUiLang(l); setLangOpen(false);
+    document.documentElement.setAttribute("lang", l.code);
+    document.documentElement.setAttribute("dir", l.code==="ar" ? "rtl" : "ltr");
+    triggerGoogleTranslate(l.gtCode);
+  };
 
   useEffect(()=>{
     if(!document.getElementById("gt-script-pkg")){
@@ -669,7 +631,13 @@ export default function Packages({currency="USD"}){
     .filter(p=>!q||p.title.toLowerCase().includes(q.toLowerCase())||p.cities.some(c=>c.toLowerCase().includes(q.toLowerCase())))
     .sort((a,b)=>sort==="price"?a.price-b.price:sort==="price_desc"?b.price-a.price:sort==="rating"?b.rating-a.rating:b.reviews-a.reviews);
 
-  const handleBook = (pkg)=>{setSelectedPkg(null);setBookingPkg(pkg);};
+  const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+  const handleBook = (pkg) => {
+    setSelectedPkg(null);
+    navigate(`/booking/pkg-${slugify(pkg.title)}`, {
+      state: { tourName: pkg.title, price: pkg.price, city: pkg.cities?.[0] || "" }
+    });
+  };
 
   return(
     <div style={{background:"#FAF6ED",color:"#231A0E",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans',sans-serif"}}>
@@ -680,6 +648,20 @@ export default function Packages({currency="USD"}){
       <nav style={{position:"sticky",top:0,zIndex:1000,height:72,background:scrolled?"rgba(250,246,237,.98)":"rgba(250,246,237,.96)",backdropFilter:"blur(18px)",borderBottom:"1px solid rgba(193,156,60,.18)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(14px,4vw,40px)",boxShadow:scrolled?"0 4px 26px rgba(35,26,14,.1)":"none",transition:"all .3s"}}>
         <BrandMark size={42}/>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div style={{position:"relative"}}>
+            <button onClick={()=>setLangOpen(!langOpen)} style={{display:"flex",alignItems:"center",gap:6,background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.28)",color:"#A07828",borderRadius:8,padding:"6px 10px",fontSize:11,cursor:"pointer",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>
+              {uiLang.flag} <span style={{fontSize:9}}>▾</span>
+            </button>
+            {langOpen && (
+              <div style={{position:"absolute",top:"calc(100% + 8px)",right:0,background:"#FFFDF8",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:12,padding:8,zIndex:1200,boxShadow:"0 20px 50px rgba(35,26,14,.18)",minWidth:170,display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
+                {LANGS.map(l=>(
+                  <button key={l.code} onClick={()=>handleLangSelect(l)} style={{display:"flex",alignItems:"center",gap:6,background:uiLang.code===l.code?"rgba(201,168,76,.16)":"transparent",border:"none",borderRadius:7,padding:"7px 8px",cursor:"pointer",fontSize:11,color:uiLang.code===l.code?"#8B6010":"rgba(35,26,14,.65)",fontFamily:"'Josefin Sans',sans-serif",fontWeight:uiLang.code===l.code?700:400,textAlign:"left"}}>
+                    {l.flag} {l.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <select value={cur} onChange={e=>setCur(e.target.value)} style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.28)",color:"#A07828",borderRadius:8,padding:"6px 11px",fontSize:10,fontFamily:"'Josefin Sans',sans-serif",cursor:"pointer",outline:"none",fontWeight:700}}>
             {Object.entries(CURR).map(([code,{s}])=><option key={code} value={code}>{s} {code}</option>)}
           </select>
@@ -776,7 +758,7 @@ export default function Packages({currency="USD"}){
 
       {/* ── MODALS ── */}
       {selectedPkg&&<PackageDetail pkg={selectedPkg} cur={cur} onClose={()=>setSelectedPkg(null)} onBook={handleBook}/>}
-      {bookingPkg&&<BookingModal pkg={bookingPkg} cur={cur} onClose={()=>setBookingPkg(null)}/>}
+
     </div>
   );
 }

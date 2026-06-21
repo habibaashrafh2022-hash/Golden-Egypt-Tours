@@ -25,11 +25,11 @@ const BookingSchema = new mongoose.Schema(
       unique: true,
     },
 
-    // ── Guest information ──────────────────────────────────────
-    guest: {
+    // ── Customer information ───────────────────────────────────
+    user: {
       name:        { type: String, required: [true, "Name is required"], trim: true },
       email:       { type: String, required: [true, "Email is required"], lowercase: true, trim: true },
-      age:         { type: Number, required: [true, "Age is required"], min: 1, max: 120 },
+      age:         { type: Number, required: [true, "Age is required"], min: 1, max: 150 },
       nationality: { type: String, required: [true, "Nationality is required"], trim: true },
       whatsapp:    { type: String, required: [true, "WhatsApp number is required"], trim: true },
     },
@@ -43,8 +43,8 @@ const BookingSchema = new mongoose.Schema(
     },
 
     // ── Booking details ────────────────────────────────────────
-    details: {
-      date:           { type: Date, required: [true, "Tour date is required"] },
+    bookingDetails: {
+      date:           { type: Date, required: [true, "Booking date is required"] },
       numberOfGuests: { type: Number, required: [true, "Number of guests is required"], min: 1 },
       tourLanguage:   { type: String, enum: TOUR_LANGUAGES, required: [true, "Tour language is required"] },
     },
@@ -53,7 +53,7 @@ const BookingSchema = new mongoose.Schema(
     locations: {
       pickupLocation:  { type: String, required: [true, "Pickup location is required"], enum: PICKUP_LOCATIONS },
       pickupSpecific:  { type: String, default: "" },   // filled when pickupLocation === "Other"
-      dropoffLocation: { type: String, required: [true, "Drop-off location is required"], enum: DROPOFF_LOCATIONS },
+      dropoffLocation: { type: String, required: [true, "Dropoff location is required"], enum: DROPOFF_LOCATIONS },
       dropoffSpecific: { type: String, default: "" },   // filled when dropoffLocation === "Other"
       hotelName:       { type: String, default: "" },   // filled when dropoffLocation === "Hotel"
       hotelAddress:    { type: String, default: "" },
@@ -63,8 +63,8 @@ const BookingSchema = new mongoose.Schema(
     specialRequests: { type: String, default: "" },
 
     // ── Pricing ────────────────────────────────────────────────
-    totalPrice:    { type: Number, required: true },
-    currency:      { type: String, default: "USD" },
+    totalPrice: { type: Number, required: true },
+    currency:   { type: String, default: "USD" },
 
     // ── Status ─────────────────────────────────────────────────
     paymentStatus: {
@@ -78,7 +78,7 @@ const BookingSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    // ── Email tracking ─────────────────────────────────────────
+    // ── Email tracking (helps you debug delivery from the DB) ──
     confirmationEmailSent: { type: Boolean, default: false },
     adminEmailSent:        { type: Boolean, default: false },
   },
@@ -87,7 +87,7 @@ const BookingSchema = new mongoose.Schema(
   }
 );
 
-// Auto-generate a readable reference before saving
+// Auto-generate a short, readable reference before saving
 BookingSchema.pre("save", function (next) {
   if (!this.reference) {
     const ts   = Date.now().toString().slice(-6);

@@ -84,14 +84,17 @@ const PACKAGES = [
 ];
 
 // ─── BEST SELLER TOURS ───────────────────────────────────────────
+// NOTE: bs3, bs4, bs5, bs7 don't have a real database tour ID yet —
+// they currently point to /tours (safe) instead of a guaranteed 404.
+// Replace "link" with the real "/tour/:id" once you have the ID.
 const BESTSELLER_TOURS = [
   {id:"bs1", title:"Complete Cairo Tour + Tickets",         location:"Cairo",      img:"/images/tours/camel-sunset.jpeg", duration:"8 hours",   price:64.67, rating:4.4, reviews:1893, link:"/tour/6a33d55e1962528a783a40f0"},
   {id:"bs2", title:"Pyramids of Giza, Memphis & Saqqara",  location:"Giza",       img:"/images/tours/saqqara.jpeg",      duration:"3–8 hours", price:76.15, rating:4.3, reviews:1436, link:"/tour/6a33d55e1962528a783a40f2"},
-  {id:"bs3", title:"Complete Guided Tour of Luxor",         location:"Luxor",      img:"/images/tours/completo.jpeg",     duration:"7h 30min",  price:97.47, rating:4.3, reviews:211,  link:"/tours/complete-guided-tour-luxor"},
-  {id:"bs4", title:"Luxor Hot Air Balloon Ride",            location:"Luxor",      img:"/images/tours/balloon.jpeg",      duration:"2 hours",   price:105.76,rating:3.9, reviews:142,  link:"/tours/luxor-hot-air-balloon-ride"},
-  {id:"bs5", title:"Alexandria Day Trip from Cairo",        location:"Alexandria", img:"/images/tours/alex.jpeg",         duration:"12 hours",  price:84.35, rating:4.1, reviews:574,  link:"/tours/alexandria-day-trip-cairo"},
-  {id:"bs6", title:"Abydos & Dendera Temple Day Trip",      location:"Luxor",      img:"/images/tours/dendera.jpeg",      duration:"10 hours",  price:97.47, rating:3.9, reviews:99,   link:"tour/6a33d5631962528a783a4126"},
-  {id:"bs7", title:"Edfu & Kom Ombo Day Trip from Luxor",   location:"Luxor",      img:"/images/tours/edfu.jpeg",         duration:"10 hours",  price:77.79, rating:3.8, reviews:28,   link:"/tours/edfu-kom-ombo-day-trip-luxor"},
+  {id:"bs3", title:"Complete Guided Tour of Luxor",         location:"Luxor",      img:"/images/tours/completo.jpeg",     duration:"7h 30min",  price:97.47, rating:4.3, reviews:211,  link:"/tours"},
+  {id:"bs4", title:"Luxor Hot Air Balloon Ride",            location:"Luxor",      img:"/images/tours/balloon.jpeg",      duration:"2 hours",   price:105.76,rating:3.9, reviews:142,  link:"/tours"},
+  {id:"bs5", title:"Alexandria Day Trip from Cairo",        location:"Alexandria", img:"/images/tours/alex.jpeg",         duration:"12 hours",  price:84.35, rating:4.1, reviews:574,  link:"/tours"},
+  {id:"bs6", title:"Abydos & Dendera Temple Day Trip",      location:"Luxor",      img:"/images/tours/dendera.jpeg",      duration:"10 hours",  price:97.47, rating:3.9, reviews:99,   link:"/tour/6a33d5631962528a783a4126"},
+  {id:"bs7", title:"Edfu & Kom Ombo Day Trip from Luxor",   location:"Luxor",      img:"/images/tours/edfu.jpeg",         duration:"10 hours",  price:77.79, rating:3.8, reviews:28,   link:"/tours"},
 ];
 
 
@@ -226,6 +229,14 @@ body{background:var(--bg);color:var(--ink);font-family:'Josefin Sans',sans-serif
 .av-scrollrow{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none;}
 .av-scrollrow::-webkit-scrollbar{display:none;}
 .av-scrollrow > *{scroll-snap-align:start;flex-shrink:0;}
+/* ── Mobile: carousels become a clean vertical list — no horizontal "view all" scrolling ── */
+@media(max-width:680px){
+  .av-scrollrow{flex-direction:column;overflow-x:visible;scroll-snap-type:none;gap:16px;}
+  .av-scrollrow > *{flex-shrink:1;}
+  .av-tour-card{width:100% !important;}
+  .av-review-card{width:100% !important;}
+  .av-arrow{display:none;}
+}
 
 .av-search-card{display:flex;align-items:center;}
 .av-search-field{flex:1;min-width:140px;padding:6px 18px;border-right:1px solid rgba(35,26,14,.1);display:flex;align-items:center;gap:10px;}
@@ -525,81 +536,8 @@ function ReviewCard({r}){
 // ════════════════════════════════════════════════════════════════
 //  BOOKING MODAL
 // ════════════════════════════════════════════════════════════════
-function BookingModal({item,onClose,cur}){
-  const [step,setStep]=useState(1);
-  const [busy,setBusy]=useState(false);
-  const [f,setF]=useState({name:"",age:"",nationality:"",guideLang:"en",currency:cur,whatsapp:"",email:"",pickup:"",dropoff:"",date:"",guests:"2",notes:""});
-  const upd=k=>e=>setF(p=>({...p,[k]:e.target.value}));
-  const ok1=f.name&&f.email&&f.whatsapp;
-  const ok2=f.date&&f.pickup;
-  const waMsg=encodeURIComponent(`🏛️ *New Booking — Aurevian Tours*\n\n📋 *${item?.name||item?.title||"Tour"}*\n\n👤 *Name:* ${f.name}\n🎂 *Age:* ${f.age}\n🌍 *Nationality:* ${f.nationality}\n🗣️ *Guide Language:* ${GUIDE_LANGS.find(l=>l.v===f.guideLang)?.l||f.guideLang}\n💱 *Currency:* ${f.currency}\n📱 *WhatsApp:* ${f.whatsapp}\n✉️ *Email:* ${f.email}\n📅 *Date:* ${f.date}\n👥 *Guests:* ${f.guests}\n📍 *Pick-up:* ${f.pickup}\n📍 *Drop-off:* ${f.dropoff||"Same as pick-up"}\n📝 *Notes:* ${f.notes||"None"}\n\nRef: AUR-${Date.now().toString().slice(-6)}`);
-  const submit=()=>{setBusy(true);setTimeout(()=>{setBusy(false);setStep(3);},1500);};
-  const inp={background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:10,padding:"11px 14px",color:"#231A0E",fontSize:13,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif"};
-  const fi=e=>{e.target.style.borderColor="rgba(160,120,40,.65)";e.target.style.boxShadow="0 0 0 3px rgba(201,168,76,.1)";};
-  const fo=e=>{e.target.style.borderColor="rgba(193,156,60,.25)";e.target.style.boxShadow="none";};
-  return(
-    <div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,background:"rgba(20,15,8,.7)",backdropFilter:"blur(16px)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16,animation:"fadeIn .25s ease"}}>
-      <div style={{background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.35)",borderRadius:22,width:"min(560px,96vw)",maxHeight:"92vh",overflowY:"auto",boxShadow:"0 50px 120px rgba(20,15,8,.4)",animation:"popIn .3s ease"}}>
-        <div style={{padding:"22px 26px 16px",borderBottom:"1px solid rgba(193,156,60,.2)",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
-          <div>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:6,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian Tours · Booking</div>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:600,color:"#231A0E",lineHeight:1.4,maxWidth:380}}>{item?.name||item?.title||"Book Your Egypt Experience"}</div>
-          </div>
-          <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:15}}>✕</button>
-        </div>
-        <div style={{padding:"22px 26px"}}>
-          {step===3?(
-            <div style={{textAlign:"center",padding:"20px 0",animation:"fadeUp .4s ease"}}>
-              <div style={{fontSize:58,marginBottom:14}}>✅</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",marginBottom:9}}>Booking Confirmed!</div>
-              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:"#9C7A3C",lineHeight:1.8,marginBottom:24}}>Our team will contact you within 2 hours.<br/>Reference: <strong style={{color:"#A07828"}}>AUR-{Date.now().toString().slice(-6)}</strong></div>
-              <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-                <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:12,padding:"12px 22px",textDecoration:"none",fontWeight:700,fontSize:13,display:"flex",alignItems:"center",gap:8,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
-                <button onClick={onClose} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:12,padding:"12px 22px",cursor:"pointer",fontSize:13,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
-              </div>
-            </div>
-          ):(
-            <>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:20}}>
-                {[1,2].map(s=>(<div key={s} style={{display:"flex",alignItems:"center",gap:8}}><div style={{width:26,height:26,borderRadius:"50%",background:step>=s?"linear-gradient(135deg,#A07828,#C9A84C)":"rgba(201,168,76,.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,color:step>=s?"#FAF6ED":"#A07828"}}>{s}</div>{s<2&&<div style={{width:36,height:1,background:"rgba(193,156,60,.3)"}}/>}</div>))}
-                <div style={{fontSize:11,color:"#9C7A3C",marginLeft:8,fontFamily:"'Josefin Sans',sans-serif"}}>{step===1?"Personal Details":"Trip Details"}</div>
-              </div>
-              {step===1&&(
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13}}>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Full Name *</label><input value={f.name} onChange={upd("name")} placeholder="Your full name" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Age</label><input value={f.age} onChange={upd("age")} placeholder="Your age" type="number" min="1" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Nationality</label><input value={f.nationality} onChange={upd("nationality")} placeholder="e.g. American" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Guide Language</label><select value={f.guideLang} onChange={upd("guideLang")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{GUIDE_LANGS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Payment Currency</label><select value={f.currency} onChange={upd("currency")} style={{...inp,cursor:"pointer"}} onFocus={fi} onBlur={fo}>{Object.entries(CURR).map(([code,{l}])=><option key={code} value={code}>{l}</option>)}</select></div>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>WhatsApp * 📱</label><input value={f.whatsapp} onChange={upd("whatsapp")} placeholder="+1 234 567 8900" type="tel" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Email *</label><input value={f.email} onChange={upd("email")} placeholder="your@email.com" type="email" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1",marginTop:5}}><button onClick={()=>setStep(2)} disabled={!ok1} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:2.5,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:!ok1?.45:1}}>Next — Trip Details →</button></div>
-                </div>
-              )}
-              {step===2&&(
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13}}>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Tour Date *</label><input value={f.date} onChange={upd("date")} type="date" style={{...inp,colorScheme:"light"}} onFocus={fi} onBlur={fo}/></div>
-                  <div><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Number of Guests</label><input value={f.guests} onChange={upd("guests")} type="number" min="1" placeholder="2" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Pick-up Location * 📍</label><input value={f.pickup} onChange={upd("pickup")} placeholder="Hotel name / address / city" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Drop-off Location 📍</label><input value={f.dropoff} onChange={upd("dropoff")} placeholder="Hotel name / address (if different)" style={inp} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1"}}><label style={{fontSize:9,color:"#A07828",letterSpacing:2,textTransform:"uppercase",display:"block",marginBottom:7,fontFamily:"'Josefin Sans',sans-serif"}}>Special Requests / Notes</label><textarea value={f.notes} onChange={upd("notes")} rows={2} placeholder="Dietary needs, accessibility, special occasions…" style={{...inp,resize:"none"}} onFocus={fi} onBlur={fo}/></div>
-                  <div style={{gridColumn:"1/-1",display:"flex",gap:10}}>
-                    <button onClick={()=>setStep(1)} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:12,padding:"13px 20px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>← Back</button>
-                    <button onClick={submit} disabled={busy||!ok2} style={{flex:1,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:12,padding:"13px",cursor:busy?"wait":"pointer",fontWeight:700,fontSize:12,letterSpacing:2,textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(!ok2||busy)?.45:1,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
-                      {busy?<><div style={{width:16,height:16,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Sending…</>:"✈ Confirm Booking"}
-                    </button>
-                    <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:12,padding:"13px 18px",cursor:"pointer",fontSize:20,textDecoration:"none",display:"flex",alignItems:"center",justifyContent:"center"}}>💬</a>
-                  </div>
-                  <div style={{gridColumn:"1/-1",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C"}}>Free cancellation up to 24 hours before · No charge until confirmed</div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+// (Removed: fake BookingModal that never contacted the server.
+//  All booking now goes through the single /booking/:tourId flow.)
 
 // ════════════════════════════════════════════════════════════════
 //  VIDEO MODAL
@@ -661,7 +599,7 @@ export default function Home(){
   const [email,setEmail]        = useState("");
   const [subOk,setSubOk]        = useState(false);
   const [vis,setVis]            = useState({});
-  const [bookItem,setBookItem]  = useState(null);
+  // booking now navigates straight to /booking/:id (single unified flow)
   const [payItem,setPayItem]    = useState(null);
   const [payGuests,setPayGuests]= useState(1);
   const [videoOpen,setVideoOpen]= useState(false);
@@ -677,19 +615,42 @@ export default function Home(){
   const setCur = (code) => { setCurLocal(code); setGlobalCur(code); };
   const fmtP = (p) => formatPrice ? formatPrice(p) : fmt(p,cur);
 
+  // Curated packages don't have a database tour _id, so we build a
+  // readable slug and pass the real title/price via router state —
+  // Booking.jsx reads this to show correct info instead of a placeholder.
+  const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+  const goBook = (p) => {
+    navigate(`/booking/pkg-${slugify(p.title)}`, {
+      state: { tourName: p.title, price: p.price, city: "" }
+    });
+  };
+
+  const triggerGoogleTranslate = useCallback((code, attempt=0) => {
+    const selectEl = document.querySelector(".goog-te-combo");
+    if(selectEl){
+      selectEl.value = code;
+      selectEl.dispatchEvent(new Event("change"));
+      return;
+    }
+    // Widget script may still be loading — retry briefly instead of silently failing
+    if(attempt < 15){
+      setTimeout(() => triggerGoogleTranslate(code, attempt+1), 200);
+    }
+  }, []);
+
   const handleLangSelect = useCallback((lang) => {
     setUiLang(lang);
     if(setGlobalLang) setGlobalLang(lang.code);
     document.documentElement.setAttribute("lang", lang.code);
     document.documentElement.setAttribute("dir", lang.dir || "ltr");
     if(window.i18n && window.i18n.changeLanguage){ window.i18n.changeLanguage(lang.code); }
-    if(window.google && window.google.translate){
-      try{
-        const selectEl = document.querySelector(".goog-te-combo");
-        if(selectEl){ selectEl.value = lang.code; selectEl.dispatchEvent(new Event("change")); }
-      }catch(e){}
+    if(lang.code === "en"){
+      // reset to original English — Google Translate's own combo handles this when set to "en"
+      triggerGoogleTranslate("en");
+    } else {
+      triggerGoogleTranslate(lang.code);
     }
-  }, [setGlobalLang]);
+  }, [setGlobalLang, triggerGoogleTranslate]);
 
   // Google Translate engine (silent / hidden widget drives all translation)
   useEffect(()=>{
@@ -735,13 +696,7 @@ export default function Home(){
   const buildAI=useCallback(async()=>{
     if(!aiQ.trim())return;
     setAiLoad(true);setAiRes("");setAiDone(false);
-    try{
-      const r=await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",
-        headers:{"Content-Type":"application/json","anthropic-dangerous-direct-browser-access":"true"},
-        body:JSON.stringify({
-          model:"claude-sonnet-4-6",max_tokens:1400,
-          system:`You are a senior Egypt travel specialist at Aurevian Tours, a luxury travel company.
+    const SYSTEM=`You are a senior Egypt travel specialist at Aurevian Tours, a luxury travel company.
 Create a COMPLETE, PROFESSIONAL travel itinerary:
 
 🗓️ ITINERARY OVERVIEW
@@ -771,14 +726,18 @@ Day 1 — [City]: Morning: [specific activity + site]. Afternoon: [activity]. Ev
 📋 PRACTICAL TIPS
 • Visa, best time, packing, cultural tips
 
-Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's language.`,
-          messages:[{role:"user",content:aiQ}]
-        })
+Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's language.`;
+    try{
+      const r=await fetch("/api/ai/trip-plan",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({ system: SYSTEM, query: aiQ })
       });
       const d=await r.json();
-      setAiRes(d.content?.map(i=>i.text||"").join("\n")||"⚠️ Error generating itinerary. Please try again.");
+      if(!r.ok || !d.success) throw new Error(d.message||"AI service error");
+      setAiRes(d.text || d.content?.map(i=>i.text||"").join("\n") || "⚠️ Error generating itinerary. Please try again.");
       setAiDone(true);
-    }catch{setAiRes("⚠️ Connection error. Please try again.");}
+    }catch(err){setAiRes(`⚠️ ${err.message||"Connection error. Please try again."}`);}
     setAiLoad(false);
   },[aiQ]);
 
@@ -835,7 +794,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <div style={{display:"flex",alignItems:"center",gap:8}}>
           <button title="Wishlist" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>♡</button>
           <button title="My Account" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>⚇</button>
-          <button onClick={()=>setBookItem({title:"Plan My Egypt Trip"})} className="dn av-gold" style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px 24px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 22px rgba(160,120,40,.32)",whiteSpace:"nowrap",transition:"all .2s"}}>Plan My Trip</button>
+          <button onClick={()=>navigate("/custom-trips")} className="dn av-gold" style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px 24px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 22px rgba(160,120,40,.32)",whiteSpace:"nowrap",transition:"all .2s"}}>Plan My Trip</button>
           <button className="dm" style={{display:"none",background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",width:40,height:40,borderRadius:9,cursor:"pointer",fontSize:17,alignItems:"center",justifyContent:"center"}} onClick={()=>setMMenu(!mMenu)}>{mMenu?"✕":"☰"}</button>
         </div>
       </nav>
@@ -864,7 +823,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <a href={waLink()} target="_blank" rel="noreferrer" style={{flex:1,textAlign:"center",background:"#25D366",color:"#fff",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp</a>
           </div>
           <button onClick={()=>{setVideoOpen(true);setMMenu(false);}} style={{width:"100%",background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.12)",color:"#3a2c16",borderRadius:11,padding:"12px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif",marginBottom:10}}>▶ Watch Video</button>
-          <button onClick={()=>{setBookItem({title:"Plan My Egypt Trip"});setMMenu(false);}} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Trip ✦</button>
+          <button onClick={()=>{navigate("/custom-trips");setMMenu(false);}} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px",cursor:"pointer",fontWeight:700,fontSize:13,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Trip ✦</button>
         </div>
       )}
 
@@ -886,7 +845,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           </p>
           <div data-v="hB" style={{display:"flex",gap:13,flexWrap:"wrap",...reveal("hB",.24)}}>
             <button onClick={()=>navigate("/tours")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"15px 28px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 28px rgba(160,120,40,.4)"}}>Explore Tours</button>
-            <button onClick={()=>setBookItem({title:"Plan My Egypt Trip"})} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(250,246,237,.55)",color:"#FAF6ED",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(6px)"}}>Plan My Trip</button>
+            <button onClick={()=>navigate("/custom-trips")} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(250,246,237,.55)",color:"#FAF6ED",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(6px)"}}>Plan My Trip</button>
             <button onClick={()=>setVideoOpen(true)} style={{background:"rgba(250,246,237,.1)",border:"1.5px solid rgba(250,246,237,.35)",color:"#FAF6ED",borderRadius:10,padding:"15px 22px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.12em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:9,backdropFilter:"blur(6px)",position:"relative"}}>
               <span style={{width:22,height:22,borderRadius:"50%",background:"#E8C96D",display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#1B130A"}}>▶</span>
               Watch Video
@@ -1014,7 +973,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       <section className="av-section" style={{background:"var(--cream2)"}}>
         <SectionHead eyebrow="Featured Tours" title="Most Loved Experiences" onViewAll={()=>navigate("/packages")} viewAllLabel="View All Tours" scrollRef={tourRef}/>
         <ScrollRow ref={tourRef}>
-          {PACKAGES.map((p,i)=><TourCard key={i} p={p} navigate={navigate} fmtP={fmtP} onBook={setBookItem}/>)}
+          {PACKAGES.map((p,i)=><TourCard key={i} p={p} navigate={navigate} fmtP={fmtP} onBook={goBook}/>)}
         </ScrollRow>
         <div style={{textAlign:"center",marginTop:34}}>
           <button onClick={()=>navigate("/packages")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px 36px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 26px rgba(160,120,40,.32)"}}>✦ Explore All {PACKAGES_COUNT}+ Packages</button>
@@ -1029,7 +988,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           <div style={{maxWidth:420}}>
             <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,3.2vw,34px)",fontWeight:700,color:"#FAF6ED",lineHeight:1.25,marginBottom:10}}>Create Your Dream<br/>Egypt Journey</h2>
             <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.65)",fontSize:14,marginBottom:22,lineHeight:1.7}}>Tell us what you love and we'll craft a custom itinerary just for you.</p>
-            <button onClick={()=>setBookItem({title:"Plan My Custom Trip"})} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"14px 30px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Custom Trip</button>
+            <button onClick={()=>navigate("/custom-trips")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"14px 30px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Custom Trip</button>
           </div>
           <div style={{display:"flex",gap:30,flexWrap:"wrap"}}>
             {[["⚙️","100% Customizable","Your trip, your way"],["🧭","Expert Travel Planners","Personalized service"],["🛡️","Best Price Guarantee","Unbeatable prices"]].map(([ic,t,d])=>(
@@ -1231,7 +1190,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       <button onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} style={{position:"fixed",bottom:20,right:20,width:44,height:44,borderRadius:11,background:"rgba(201,168,76,.16)",border:"1.5px solid rgba(193,156,60,.4)",color:"#A07828",fontSize:15,cursor:"pointer",zIndex:500,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 16px rgba(35,26,14,.14)"}}>▲</button>
 
       {/* ══════════════ MODALS ══════════════ */}
-      {bookItem&&<BookingModal item={bookItem} onClose={()=>setBookItem(null)} cur={cur}/>}
+      
       {payItem&&<PaymentModal item={payItem} guests={payGuests} onClose={()=>setPayItem(null)}/>}
       {videoOpen&&<VideoModal onClose={()=>setVideoOpen(false)}/>}
     </div>

@@ -2,12 +2,9 @@
 
 const cityData = {
   name: "Alexandria",
-  nameAr: "الإسكندرية",
   slug: "alexandria",
   description:
-    "Alexandria is Egypt's magnificent Mediterranean jewel — a city of extraordinary layered history, intellectual legacy, and timeless coastal beauty. Founded by Alexander the Great in 331 BC, it swiftly became one of the greatest cities of the ancient world, home to the legendary Library of Alexandria, one of the largest repositories of knowledge ever assembled, and the Pharos Lighthouse, one of the Seven Wonders of the Ancient World. Today, Alexandria enchants visitors with its elegant seafront Corniche, its fascinating blend of Greco-Roman, Egyptian, and Ottoman heritage, its world-class museums, and its wonderfully relaxed Mediterranean atmosphere that sets it apart from every other city in Egypt.",
-  descriptionAr:
-    "الإسكندرية هي جوهرة مصر المتوسطية الرائعة — مدينة ذات تاريخ طبقي استثنائي وإرث فكري وجمال ساحلي خالد. أسسها الإسكندر الأكبر عام 331 قبل الميلاد، وسرعان ما أصبحت واحدة من أعظم مدن العالم القديم، وكانت موطناً لمكتبة الإسكندرية الأسطورية، إحدى أكبر مستودعات المعرفة التي جُمعت على الإطلاق، ومنارة الإسكندرية، إحدى عجائب الدنيا السبع القديمة. اليوم تبهر الإسكندرية الزوار بكورنيشها الأنيق على البحر ومزيجها الرائع من التراث اليوناني الروماني والمصري والعثماني.",
+    "Alexandria is Egypt's magnificent Mediterranean jewel — a city of extraordinary layered history, intellectual legacy, and timeless coastal beauty, utterly unlike anywhere else in the country. Founded by Alexander the Great in 331 BC on a narrow strip of land between the sea and Lake Mareotis, it swiftly became one of the greatest cities of the ancient world, home to the legendary Library of Alexandria, one of the largest repositories of knowledge ever assembled and a magnet for scholars, mathematicians, and philosophers from across the Mediterranean, and the Pharos Lighthouse, one of the Seven Wonders of the Ancient World, whose light is said to have been visible from fifty kilometers out at sea. Cleopatra ruled from here, Julius Caesar walked its harbor, and for a time it was arguably the most important city anywhere on earth, a position that has left it with a melancholic, faded grandeur unlike Cairo's relentless modern energy. Today, Alexandria enchants visitors with its elegant seafront Corniche curving along the Mediterranean, its fascinating blend of Greco-Roman, Egyptian, and Ottoman heritage layered into a single streetscape, its world-class museums housing artifacts pulled from both land and sea, and its wonderfully relaxed Mediterranean atmosphere — sea breezes, seafood restaurants, and a slower, more contemplative pace — that sets it apart from every other city in Egypt.",
   country: "Egypt",
   image: "alexandria.jpg",
 };
@@ -15,12 +12,9 @@ const cityData = {
 const toursData = [
   {
     title: "Guided Tour of Alexandria",
-    titleAr: "جولة مصحوبة بمرشد في الإسكندرية",
     slug: "guided-tour-alexandria",
     description:
-      "Discover the extraordinary layered history of Alexandria — Egypt's Mediterranean queen — on this comprehensive guided tour of the city's most remarkable landmarks. Your expert guide will take you through thousands of years of history, beginning at the eerie and fascinating Catacombs of Kom el-Shoqafa, a sprawling Roman-era underground necropolis where Egyptian and Greco-Roman artistic styles merge in an extraordinary fusion. Nearby, you'll see Pompey's Pillar, one of the last remaining vestiges of the ancient Serapeum temple. The tour continues to the iconic Qaitbay Citadel, a magnificent 15th-century fortress built on the very spot where the legendary Pharos Lighthouse once stood, before finishing at the stunning modern Bibliotheca Alexandrina — a spectacular tribute to the ancient Library of Alexandria.",
-    descriptionAr:
-      "اكتشف التاريخ الطبقي الاستثنائي للإسكندرية — ملكة مصر المتوسطية — في هذه الجولة المصحوبة بمرشد الشاملة لأبرز المعالم الرائعة في المدينة. سيأخذك مرشدك الخبير عبر آلاف السنين من التاريخ، بدءاً من سراديب الموتى الغريبة والرائعة في كوم الشقافة، وهي مقبرة رومانية ضخمة تحت الأرض حيث تتمازج الأساليب الفنية المصرية واليونانية الرومانية في مزيج استثنائي. وبالقرب ستشاهد عمود بومبي، أحد آخر بقايا معبد السيرابيوم القديم.",
+      "Discover the extraordinary layered history of Alexandria — Egypt's Mediterranean queen — on this comprehensive guided tour of the city's most remarkable landmarks, a single day that somehow manages to move convincingly through more than two thousand years of continuous history. Your expert guide will take you through thousands of years of history, beginning at the eerie and fascinating Catacombs of Kom el-Shoqafa, a sprawling Roman-era underground necropolis where Egyptian and Greco-Roman artistic styles merge in an extraordinary fusion, ancient gods rendered in distinctly classical poses on the same walls where Egyptian funerary symbolism still holds court. Nearby, you'll see Pompey's Pillar, one of the last remaining vestiges of the ancient Serapeum temple, a single towering column standing in quiet defiance over ruins that once housed one of the most important religious complexes in the ancient Mediterranean world. The tour continues to the iconic Qaitbay Citadel, a magnificent 15th-century fortress built on the very spot where the legendary Pharos Lighthouse once stood, its stones reportedly recycled from the lighthouse's own collapsed remains, before finishing at the stunning modern Bibliotheca Alexandrina — a spectacular tribute to the ancient Library of Alexandria that manages to feel both monumental and deeply personal, as if the city had simply refused to let its greatest loss stay lost.",
     category: "Guided tours and free tours",
     price: {
       original: 72.84,
@@ -40,15 +34,12 @@ const toursData = [
     availableTimes: ["08:00", "09:00"],
     meetingPoint: {
       en: "Your hotel lobby in Alexandria, or the Alexandria train station if arriving from Cairo. Your guide will meet you with a sign.",
-      ar: "بهو فندقك في الإسكندرية، أو محطة قطار الإسكندرية إذا كنت قادماً من القاهرة. سيلتقي بك مرشدك حاملاً لافتة.",
     },
     accessibility: {
       en: "The Catacombs of Kom el-Shoqafa involve descending a spiral staircase underground — not suitable for guests with claustrophobia or severe mobility issues. The Citadel and Bibliotheca are largely accessible.",
-      ar: "تتطمن سراديب كوم الشقافة النزول عبر درج حلزوني تحت الأرض — غير مناسبة لمن يعانون من رهاب الأماكن الضيقة أو صعوبات حركة شديدة. قلعة قايتباي والبيبليوتيكا في معظمها يمكن الوصول إليهما.",
     },
     whatToBring: {
       en: ["Comfortable walking shoes", "Light jacket (the sea breeze can be cool)", "Sun hat and sunscreen", "Camera", "Water bottle"],
-      ar: ["حذاء مريح للمشي", "جاكيت خفيف (قد تكون النسيم البحري بارداً)", "قبعة للشمس وكريم واقٍ", "كاميرا", "زجاجة ماء"],
     },
     importantInfo: {
       en: [
@@ -57,13 +48,6 @@ const toursData = [
         "Entrance fees to all four sites are included.",
         "The Catacombs are underground — those with claustrophobia or knee problems may find the spiral staircase challenging.",
         "The Bibliotheca Alexandrina may be closed on certain national holidays; your guide will advise if alternatives are needed.",
-      ],
-      ar: [
-        "الاستقبال من الفندق أو الميناء داخل الإسكندرية مشمول.",
-        "الغداء في مطعم مأكولات بحرية تقليدي إسكندراني مشمول.",
-        "رسوم الدخول إلى المواقع الأربعة مشمولة.",
-        "السراديب تحت الأرض — من يعانون من رهاب الأماكن الضيقة أو مشاكل في الركبة قد يجدون الدرج الحلزوني صعباً.",
-        "قد تكون مكتبة الإسكندرية مغلقة في بعض الأعياد الوطنية؛ مرشدك سينصحك إذا كانت بدائل مطلوبة.",
       ],
     },
     highlights: [
@@ -81,7 +65,7 @@ const toursData = [
           day: 1,
           title: "Alexandria — 3,000 Years of History in a Day",
           description:
-            "Alexandria is unlike any other city in Egypt. Where Cairo overwhelms with its scale and Cairo overwhelms with its energy, Alexandria seduces — with its sea air, its faded European elegance, its melancholy sense of a great past just out of reach. Founded by Alexander the Great in 331 BC on the narrow strip of land between the Mediterranean and Lake Mareotis, it became within a century the most important city in the world — home to perhaps half a million people, to Cleopatra and Julius Caesar, to the world's first great library, and to a lighthouse visible 50 kilometers out to sea. Almost nothing of that ancient city physically survives above ground. But below the streets, in the museums, and along the seafront, its presence is everywhere. This full-day tour covers four of the city's defining sites, moving through layers of time from the Roman era to the medieval Islamic period to the 21st century, bound together by the sea that has always been Alexandria's defining element.",
+            "Alexandria is unlike any other city in Egypt. Where Cairo overwhelms with its scale and its energy, Alexandria seduces — with its sea air, its faded European elegance, its melancholy sense of a great past just out of reach, glimpsed in cracked Belle Époque facades and the salt-worn stone of its harbor walls. Founded by Alexander the Great in 331 BC on the narrow strip of land between the Mediterranean and Lake Mareotis, it became within a century the most important city in the world — home to perhaps half a million people, to Cleopatra and Julius Caesar, to the world's first great library, and to a lighthouse visible 50 kilometers out to sea. Almost nothing of that ancient city physically survives above ground; centuries of earthquakes, fires, and rising sea levels swallowed most of it, including entire sections of the old royal quarter, which now lie beneath the harbor itself. But below the streets, in the museums, and along the seafront, its presence is everywhere. This full-day tour covers four of the city's defining sites, moving through layers of time from the Roman era to the medieval Islamic period to the 21st century, bound together by the sea that has always been Alexandria's defining element.",
           steps: [
             { time: "08:00", description: "Hotel or port pickup. Your guide meets you and gives a brief introduction to Alexandria's history during the drive to the first site." },
             { time: "08:30", description: "Arrive at the Catacombs of Kom el-Shoqafa. Descend the spiral staircase three levels below street level into one of the most remarkable underground spaces in the world. Your guide explains the extraordinary fusion of Egyptian, Greek, and Roman art and religious symbolism covering the tomb chambers — a physical document of Alexandria's multicultural identity." },
@@ -97,37 +81,13 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الإسكندرية — 3000 عام من التاريخ في يوم واحد",
-          description:
-            "الإسكندرية مدينة لا تشبه أي مدينة أخرى في مصر. حيث تطغى القاهرة بحجمها وطاقتها، تُغري الإسكندرية — بهوائها البحري وأناقتها الأوروبية المتلاشية وإحساسها الحزين بماضٍ عظيم يكاد يُلمس. أسسها الإسكندر الأكبر عام 331 قبل الميلاد على الشريط الضيق من الأرض بين البحر المتوسط وبحيرة مريوط، وأصبحت في غضون قرن أهم مدينة في العالم — تضم ربما نصف مليون شخص، وكليوباترا ويوليوس قيصر، وأول مكتبة عظيمة في العالم، ومنارة تُرى على بعد 50 كيلومتراً في البحر. لا يكاد يبقى شيء من تلك المدينة القديمة فوق الأرض. لكن تحت الشوارع وفي المتاحف وعلى الشاطئ، وجودها في كل مكان.",
-          steps: [
-            { time: "08:00", description: "الاستقبال من الفندق أو الميناء. يلتقي بك مرشدك ويقدم مقدمة موجزة عن تاريخ الإسكندرية أثناء القيادة إلى الموقع الأول." },
-            { time: "08:30", description: "الوصول إلى سراديب كوم الشقافة. النزول عبر الدرج الحلزوني ثلاثة طوابق تحت مستوى الشارع إلى واحدة من أكثر الفضاءات تحت الأرض رائعةً في العالم. يشرح مرشدك الدمج الاستثنائي للفن المصري واليوناني والروماني والرمزية الدينية التي تغطي غرف المقبرة — وثيقة مادية للهوية المتعددة الثقافات في الإسكندرية." },
-            { time: "09:30", description: "المشية إلى عمود بومبي القريب — عمود جرانيتي أحمر يبلغ ارتفاعه 27 متراً، وهو الأكبر من نوعه خارج روما، كان يقع ضمن مجمع معبد السيرابيوم العظيم. يشرح مرشدك دور المعبد كآخر موطن للمجموعة 'الفرعية' لمكتبة الإسكندرية وتدميره في القرن الرابع الميلادي." },
-            { time: "10:00", description: "الانتقال إلى قلعة قايتباي على الميناء الشرقي." },
-            { time: "10:30", description: "الدخول إلى قلعة قايتباي — الحصن المملوكي العظيم من القرن الخامس عشر الذي بناه السلطان قايتباي على الموقع الدقيق لمنارة الفاروس القديمة. يأخذك مرشدك عبر الأبراج والأسوار شارحاً تاريخ الحصن الوسيطي والمنارة القديمة التي حلّ محلها. قف على الأسوار المطلة على البحر مع البحر المتوسط أمامك وأدرك تماماً لماذا اختار الإسكندر هذا الموقع لبناء مدينته." },
-            { time: "12:00", description: "الانتقال إلى مطعم مأكولات بحرية تقليدي على واجهة الإسكندرية البحرية." },
-            { time: "12:30", description: "الغداء مشمول — مأكولات بحرية إسكندرانية طازجة، التقليد الطهوي العظيم للمدينة، مع إطلالات على الميناء." },
-            { time: "14:00", description: "الانتقال إلى مكتبة الإسكندرية على الكورنيش." },
-            { time: "14:30", description: "جولة مصحوبة بمرشد في مكتبة الإسكندرية — المكتبة الحديثة الرائعة والمركز الثقافي الذي افتُتح عام 2002 وصُمِّم من قبل شركة سنوهيتا النرويجية ليستحضر شمساً شارقة تميل فوق البحر. يأخذك مرشدك عبر قاعة القراءة الرئيسية (من أكبر قاعات القراءة في العالم) ومتحف الآثار في الطابق السفلي والجدار الخارجي المنقوش بخطوط من كل نظام كتابة طُوِّر على الإطلاق." },
-            { time: "16:30", description: "المشية على الكورنيش — شارع الإسكندرية على البحر — مع تلطيف ضوء بعد الظهر فوق البحر المتوسط. يشير مرشدك إلى المعالم التاريخية للميناء الشرقي." },
-            { time: "17:00", description: "الانتقال إلى فندقك أو الميناء. نهاية الجولة." },
-          ],
-        },
-      ],
     },
   },
   {
     title: "Pyramids of Giza & Grand Egyptian Museum from Alexandria",
-    titleAr: "أهرامات الجيزة والمتحف المصري الكبير من الإسكندرية",
     slug: "pyramids-giza-grand-egyptian-museum-alexandria",
     description:
-      "Make the most of your time in Alexandria with this unforgettable day trip to the two greatest wonders of ancient and modern Egypt — the Pyramids of Giza and the Grand Egyptian Museum. Travel by private vehicle from Alexandria to Cairo, where your expert Egyptologist guide will lead you around the legendary Giza Plateau to see the three great pyramids of Khufu, Khafre, and Menkaure and the iconic Great Sphinx. Then head to the Grand Egyptian Museum, the world's largest archaeological museum, to see the complete golden treasures of Tutankhamun displayed for the first time in their entirety.",
-    descriptionAr:
-      "استثمر وقتك في الإسكندرية في هذه الرحلة اليومية الذكرى إلى عجيبتين عظيمتين من مصر القديمة والحديثة — أهرامات الجيزة والمتحف المصري الكبير. سافر بسيارة خاصة من الإسكندرية إلى القاهرة، حيث سيقودك مرشدك الأثري الخبير حول هضبة الجيزة الأسطورية لمشاهدة الأهرامات الثلاثة العظيمة لخوفو وخفرع ومنقرع وأبو الهول الكبير الأيقوني.",
+      "Make the most of your time in Alexandria with this unforgettable day trip to the two greatest wonders of ancient and modern Egypt — the Pyramids of Giza and the Grand Egyptian Museum, a single long day that bridges the Mediterranean coast and the edge of the Sahara. Travel by private vehicle from Alexandria to Cairo, where your expert Egyptologist guide will lead you around the legendary Giza Plateau to see the three great pyramids of Khufu, Khafre, and Menkaure and the iconic Great Sphinx, monuments so often photographed that nothing quite prepares visitors for how they actually feel standing directly beneath one. Then head to the Grand Egyptian Museum, the world's largest archaeological museum, to see the complete golden treasures of Tutankhamun displayed for the first time in their entirety, more than five thousand individual objects assembled together in one place after a century scattered across storerooms, smaller galleries, and the occasional traveling exhibition abroad.",
     category: "Day trip",
     price: {
       original: 140.32,
@@ -147,15 +107,12 @@ const toursData = [
     availableTimes: ["06:00"],
     meetingPoint: {
       en: "Your hotel lobby or the Alexandria cruise port. The guide and private vehicle will collect you very early for the drive to Cairo.",
-      ar: "بهو فندقك أو ميناء الرحلات البحرية في الإسكندرية. المرشد والسيارة الخاصة سيستقبلانك في وقت مبكر جداً للقيادة إلى القاهرة.",
     },
     accessibility: {
       en: "The Giza Plateau involves walking on sand and uneven ground. The Grand Egyptian Museum is largely accessible. Entry inside the Great Pyramid involves crouching through low passages — not included and not recommended for claustrophobics.",
-      ar: "تتضمن هضبة الجيزة المشي على الرمال والأرض غير المستوية. المتحف المصري الكبير في معظمه يمكن الوصول إليه. الدخول داخل الهرم الأكبر يتطلب الانحناء في ممرات منخفضة — غير مشمول وغير موصى به لمن يعانون من رهاب الأماكن الضيقة.",
     },
     whatToBring: {
       en: ["Comfortable walking shoes", "Sun hat and high SPF sunscreen", "Water (the desert is hot)", "Camera", "Light snacks for the long drive", "Warm layer for the early morning departure"],
-      ar: ["حذاء مريح للمشي", "قبعة للشمس وكريم واقٍ بعامل حماية عالٍ", "ماء (الصحراء حارة)", "كاميرا", "وجبات خفيفة للقيادة الطويلة", "طبقة دافئة للمغادرة المبكرة"],
     },
     importantInfo: {
       en: [
@@ -165,14 +122,6 @@ const toursData = [
         "Entry inside the Great Pyramid of Khufu is not included and carries an extra fee at the site.",
         "Camel or horse rides at the plateau are available at extra cost — your guide can assist.",
         "The Grand Egyptian Museum opened in 2023 and is the world's largest archaeological museum.",
-      ],
-      ar: [
-        "القيادة من الإسكندرية إلى الجيزة تستغرق نحو 2.5 ساعة في كل اتجاه.",
-        "الاستقبال من الفندق أو الميناء مشمول داخل الإسكندرية.",
-        "الغداء مشمول في مطعم بالقرب من هضبة الجيزة أو المتحف المصري الكبير.",
-        "الدخول داخل هرم خوفو الأكبر غير مشمول ويستلزم رسماً إضافياً في الموقع.",
-        "ركوب الجمال أو الخيول على الهضبة متاح بتكلفة إضافية — مرشدك يمكنه المساعدة.",
-        "افتتح المتحف المصري الكبير عام 2023 وهو أكبر متحف أثري في العالم.",
       ],
     },
     highlights: [
@@ -207,38 +156,13 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "من الإسكندرية إلى الأهرامات — أعظم رحلة يوم في مصر",
-          description:
-            "هذه واحدة من أكثر رحلات اليوم درامية في أي مكان في العالم: مغادرة واجهة الإسكندرية المتوسطية عند الفجر والوصول إلى آخر عجائب الدنيا السبع القديمة الباقية قبل حشود الصباح. القيادة جنوباً من الإسكندرية عبر السهول الخضراء للدلتا ثم امتداد القاهرة الكبرى تستغرق نحو ساعتين ونصف، وسيستخدم مرشدك الرحلة لإعدادك لما ستراه — السياق والحجم والتاريخ والقصص التي تجعل من الجيزة أكثر من صورة. هضبة الجيزة تقع عند حافة الصحراء الكبرى، وحدّة الانتقال — من المدينة إلى الهرم في خطوة واحدة — من أعظم صدمات السفر.",
-          steps: [
-            { time: "06:00", description: "الاستقبال من الفندق أو الميناء في الإسكندرية. بدء القيادة جنوباً نحو القاهرة." },
-            { time: "08:30", description: "الوصول إلى هضبة الجيزة. أول منظر للأهرامات الثلاثة من طريق الاقتراب الشرقي — يتوقف مرشدك هنا للتوجيه والتصوير." },
-            { time: "09:00", description: "الدخول إلى موقع الجيزة. جولة مصحوبة بمرشد في هرم خوفو الأكبر — المشي حول القاعدة (المحيط قرابة 1 كم) وفحص أحجار الكسوة الأصلية بالقرب من القاعدة وفهم الإنجاز الهندسي. يشرح مرشدك أحدث النظريات حول أساليب البناء." },
-            { time: "10:00", description: "المشية إلى هرم خفرع — أصغر قليلاً من هرم خوفو لكنه يبدو أطول بسبب موقعه المرتفع؛ لا يزال يحتفظ بكسوته الجيرية الأصلية عند القمة." },
-            { time: "10:30", description: "زيارة هرم منقرع والأهرامات الثلاثة الصغيرة للملكات بجانبه." },
-            { time: "11:00", description: "الانتقال إلى أبو الهول الكبير. الوقوف أمام العملاق الحجري الجيري اللغزي — 73 متراً طولاً، منحوت من بروز صخري طبيعي واحد — ومعبد الوادي المجاور لخفرع، أحد أقدم المباني الحجرية في العالم." },
-            { time: "11:45", description: "توقف اختياري عند نقطة المشاهدة البانورامية لتصوير الأهرامات الثلاثة في إطار واحد." },
-            { time: "12:30", description: "الغداء مشمول في مطعم بالقرب من الهضبة." },
-            { time: "14:00", description: "الانتقال إلى المتحف المصري الكبير على حافة هضبة الجيزة." },
-            { time: "14:30", description: "جولة مصحوبة بمرشد في المتحف المصري الكبير — البدء في قاعة الدرج الكبير المصطفة بتماثيل ملكية ضخمة؛ المتابعة إلى معارض توتنخامون الكاملة (أكثر من 5000 قطعة بما فيها القناع الذهبي للموتى والعرش الذهبي وضريح الأواني الكانوبية والتابوت الذهبي الداخلي)؛ المتابعة عبر قاعة المومياوات الملكية وأبرز المقتنيات الدائمة." },
-            { time: "17:00", description: "المغادرة من المتحف للقيادة العائدة إلى الإسكندرية." },
-            { time: "19:30", description: "الوصول إلى الإسكندرية. الإنزال في فندقك أو الميناء. نهاية الجولة." },
-          ],
-        },
-      ],
     },
   },
   {
     title: "5-Day Alexandria & Siwa Desert Tour",
-    titleAr: "جولة 5 أيام في الإسكندرية وصحراء سيوة",
     slug: "5-day-alexandria-siwa-desert-tour",
     description:
-      "Embark on one of Egypt's most unique and rewarding multi-day adventures on this 5-day tour that combines the Mediterranean heritage of Alexandria with the remote, magical isolation of the Siwa Oasis deep in the Western Desert. After exploring Alexandria's catacombs, citadel, and library, you'll drive west across the dramatic North African desert to reach Siwa — one of Egypt's most isolated and atmospheric oases, where a centuries-old Berber culture survives among the ruins of the Oracle Temple of Amun, freshwater springs, and the breathtaking Great Sand Sea. A truly extraordinary journey off the beaten path.",
-    descriptionAr:
-      "انطلق في واحدة من أكثر المغامرات متعددة الأيام تميزاً وإثارةً في مصر في هذه الجولة التي تمتد 5 أيام والتي تجمع بين التراث المتوسطي للإسكندرية والعزلة النائية الساحرة لواحة سيوة في أعماق الصحراء الغربية. بعد استكشاف سراديب الإسكندرية وقلعتها ومكتبتها ستقود غرباً عبر الصحراء الأفريقية الشمالية الرائعة للوصول إلى سيوة.",
+      "Embark on one of Egypt's most unique and rewarding multi-day adventures on this 5-day tour that combines the Mediterranean heritage of Alexandria with the remote, magical isolation of the Siwa Oasis deep in the Western Desert, two halves of Egypt that few travelers ever manage to see on the same trip. After exploring Alexandria's catacombs, citadel, and library, you'll drive west across the dramatic North African desert to reach Siwa — one of Egypt's most isolated and atmospheric oases, where a centuries-old Berber culture survives among the ruins of the Oracle Temple of Amun, freshwater springs that have drawn visitors since antiquity, and the breathtaking Great Sand Sea, an unbroken ocean of dunes larger than entire countries. A truly extraordinary journey off the beaten path, organized by Aurevian Tours for travelers who want to see a side of Egypt that exists well beyond the usual Nile Valley itinerary.",
     category: "Tour packages",
     price: {
       original: 659.85,
@@ -258,15 +182,12 @@ const toursData = [
     availableTimes: ["08:00"],
     meetingPoint: {
       en: "Your hotel lobby in Alexandria on Day 1. The guide will meet you to begin the tour.",
-      ar: "بهو فندقك في الإسكندرية في اليوم الأول. سيلتقي بك المرشد لبدء الجولة.",
     },
     accessibility: {
       en: "This tour involves significant distances by road (Alexandria to Siwa is approximately 560 km). Siwa's desert terrain is not suitable for wheelchairs. The catacombs involve a spiral staircase underground. Not recommended for guests with severe mobility issues.",
-      ar: "تتضمن هذه الجولة مسافات كبيرة براً (الإسكندرية إلى سيوة نحو 560 كم). تضاريس صحراء سيوة غير مناسبة لكراسي الحركة. السراديب تتضمن درجاً حلزونياً تحت الأرض. غير موصى بها لمن يعانون من صعوبات حركة شديدة.",
     },
     whatToBring: {
       en: ["Comfortable walking shoes and sandals", "Light summer clothing", "Warmer layer for desert nights (temperatures drop sharply)", "High SPF sunscreen", "Swimwear for the freshwater springs", "Camera", "Personal medications", "Cash (ATMs are limited in Siwa)"],
-      ar: ["حذاء مريح للمشي وصندل", "ملابس صيفية خفيفة", "طبقة أدفأ لليالي الصحراء (تنخفض درجات الحرارة بحدة)", "واقٍ من الشمس بعامل حماية عالٍ", "ملابس سباحة لعيون المياه العذبة", "كاميرا", "أدوية شخصية", "نقد (الصرافات الآلية محدودة في سيوة)"],
     },
     importantInfo: {
       en: [
@@ -276,14 +197,6 @@ const toursData = [
         "Siwa Oasis is a conservative Berber community — modest dress is appreciated, especially in the town center.",
         "Mobile phone signal is very limited in Siwa; inform family and friends before departing.",
         "The Great Sand Sea excursion in Siwa uses 4WD vehicles due to the terrain.",
-      ],
-      ar: [
-        "إقامة 4 ليالٍ مشمولة (ليلة في الإسكندرية و3 ليالٍ في سيوة).",
-        "بعض الوجبات مشمولة — راجع تأكيد حجزك للخطة الغذائية الكاملة.",
-        "القيادة من الإسكندرية إلى سيوة تستغرق نحو 7-8 ساعات متضمنةً التوقفات.",
-        "واحة سيوة مجتمع بربري محافظ — اللباس المحتشم موضع تقدير خاصةً في وسط المدينة.",
-        "إشارة الهاتف المحمول محدودة جداً في سيوة؛ أخبر الأهل والأصدقاء قبل المغادرة.",
-        "رحلة البحر الرملي الكبير في سيوة تستخدم مركبات دفع رباعي بسبب التضاريس.",
       ],
     },
     highlights: [
@@ -301,7 +214,7 @@ const toursData = [
           day: 1,
           title: "Alexandria — City of Memory",
           description:
-            "Your adventure begins in Alexandria, Egypt's Mediterranean city of layered ghosts. The day covers the city's greatest ancient and modern landmarks — the underground Roman catacombs of Kom el-Shoqafa where Egyptian and Greco-Roman art collide; Pompey's Pillar standing in the ruins of the ancient Serapeum; the Qaitbay Citadel rising above the harbour where the legendary Pharos Lighthouse once stood; and the magnificent modern Bibliotheca Alexandrina. In the evening, settle into your hotel and take a walk along the Corniche as the Mediterranean darkens into night.",
+            "Your adventure begins in Alexandria, Egypt's Mediterranean city of layered ghosts. The day covers the city's greatest ancient and modern landmarks — the underground Roman catacombs of Kom el-Shoqafa where Egyptian and Greco-Roman art collide; Pompey's Pillar standing in the ruins of the ancient Serapeum; the Qaitbay Citadel rising above the harbour where the legendary Pharos Lighthouse once stood; and the magnificent modern Bibliotheca Alexandrina. In the evening, settle into your hotel and take a walk along the Corniche as the Mediterranean darkens into night, the warm desert air finally yielding to a cooler sea breeze.",
           steps: [
             { time: "08:00", description: "Meet your guide at your Alexandria hotel. Orientation briefing for the 5-day journey." },
             { time: "08:30", description: "Drive to the Catacombs of Kom el-Shoqafa. Descend underground and explore the remarkable fusion of Egyptian and Greco-Roman funerary art." },
@@ -317,7 +230,7 @@ const toursData = [
           day: 2,
           title: "Alexandria to Siwa — Crossing the Western Desert",
           description:
-            "Today the journey takes a dramatic turn west, leaving the Mediterranean behind for one of the most extraordinary landscapes on Earth. The drive from Alexandria to Siwa crosses 560 kilometres of the Western Desert — a vast, almost surreally empty plateau broken by occasional oases and the pale shimmer of distant salt flats. The road runs along the Mediterranean coast before turning inland through the ancient caravan routes that once connected Egypt to Libya and sub-Saharan Africa. Siwa Oasis appears like a mirage after hours of desert — a dense green garden of palm trees and olive groves surrounding a glittering salt lake, with the ruins of ancient mud-brick towers rising from the escarpment above. You'll arrive in time to check in to your Siwa ecolodge and watch the desert sunset from its rooftop.",
+            "Today the journey takes a dramatic turn west, leaving the Mediterranean behind for one of the most extraordinary landscapes on Earth. The drive from Alexandria to Siwa crosses 560 kilometres of the Western Desert — a vast, almost surreally empty plateau broken by occasional oases and the pale shimmer of distant salt flats. The road runs along the Mediterranean coast before turning inland through the ancient caravan routes that once connected Egypt to Libya and sub-Saharan Africa, the same dusty corridors that have carried traders, pilgrims, and armies for thousands of years. Siwa Oasis appears like a mirage after hours of desert — a dense green garden of palm trees and olive groves surrounding a glittering salt lake, with the ruins of ancient mud-brick towers rising from the escarpment above, the whole scene almost disorienting in its sudden burst of color after so much pale, empty sand. You'll arrive in time to check in to your Siwa ecolodge and watch the desert sunset from its rooftop, the day's long drive already beginning to feel like a worthwhile trade for the view.",
           steps: [
             { time: "07:00", description: "Breakfast at the Alexandria hotel. Check out." },
             { time: "08:00", description: "Depart Alexandria westward by private vehicle." },
@@ -334,7 +247,7 @@ const toursData = [
           day: 3,
           title: "Siwa — The Oracle Temple, Shali Fortress & Cleopatra's Spring",
           description:
-            "Siwa's history is as improbable as its location. An oasis in the Libyan Desert, 50 metres below sea level, it has been inhabited since at least the 10th millennium BC, and its Oracle Temple of Amun was one of the most famous in the ancient world — consulted by Croesus of Lydia, Pindar the poet, and, most famously, Alexander the Great himself, who made the desert crossing from Egypt in 331 BC to receive confirmation of his divine status. Today Siwa retains its ancient character in ways few Egyptian sites do: its people speak a distinct Berber language (Siwi), its architecture is still made from karshif (salt rock and mud), and its social customs have changed relatively little over centuries.",
+            "Siwa's history is as improbable as its location. An oasis in the Libyan Desert, 50 metres below sea level, it has been inhabited since at least the 10th millennium BC, and its Oracle Temple of Amun was one of the most famous in the ancient world — consulted by Croesus of Lydia, Pindar the poet, and, most famously, Alexander the Great himself, who made the desert crossing from Egypt in 331 BC to receive confirmation of his divine status, a journey of remarkable hardship undertaken specifically to hear what this remote temple's priests would tell him. Today Siwa retains its ancient character in ways few Egyptian sites do: its people speak a distinct Berber language (Siwi), its architecture is still made from karshif (salt rock and mud), and its social customs have changed relatively little over centuries, giving the whole oasis a sense of having quietly slipped outside the usual flow of modern Egyptian life.",
           steps: [
             { time: "08:00", description: "Breakfast at the lodge." },
             { time: "09:00", description: "Walk to the Oracle Temple of Amun (Temple of the Oracle) — explore the ruins of the 26th-dynasty temple where Alexander received his oracle, and the adjacent Temple of Umm Ubayda. Your guide explains Alexander's famous visit and the oracle tradition." },
@@ -351,7 +264,7 @@ const toursData = [
           day: 4,
           title: "Siwa — The Great Sand Sea & Desert Sunset",
           description:
-            "The Great Sand Sea is one of the world's largest sand seas — an unbroken ocean of dunes stretching from Egypt deep into Libya, covering an area larger than the entire country of Ireland. A 4WD excursion into its edge is one of the most exhilarating experiences Egypt offers: the scale, the silence, and the extraordinary sculptural forms of the dunes are genuinely unlike anything else on the planet. The afternoon brings a visit to the Mountain of the Dead — a rocky hillside near Siwa town carved with dozens of ancient Pharaonic rock tombs — before the famous Siwa sunset from the top of a sand dune.",
+            "The Great Sand Sea is one of the world's largest sand seas — an unbroken ocean of dunes stretching from Egypt deep into Libya, covering an area larger than the entire country of Ireland. A 4WD excursion into its edge is one of the most exhilarating experiences Egypt offers: the scale, the silence, and the extraordinary sculptural forms of the dunes are genuinely unlike anything else on the planet, the landscape shifting from soft golden curves to razor-sharp ridges depending entirely on the angle of the light. The afternoon brings a visit to the Mountain of the Dead — a rocky hillside near Siwa town carved with dozens of ancient Pharaonic rock tombs — before the famous Siwa sunset from the top of a sand dune, an experience regularly described by travelers as one of the most beautiful sights anywhere in Egypt.",
           steps: [
             { time: "08:00", description: "Breakfast at the lodge." },
             { time: "09:00", description: "Depart by 4WD vehicles for the Great Sand Sea." },
@@ -369,7 +282,7 @@ const toursData = [
           day: 5,
           title: "Siwa to Alexandria — Return Journey",
           description:
-            "The final day is the long return drive east across the Western Desert to Alexandria. The journey in reverse offers a different perspective — the desert plateau opening back into the Mediterranean coast, and eventually the city skyline of Alexandria rising ahead. Depending on your arrival time, a brief final stroll along the Alexandria Corniche before your transfer to your hotel or onward connection closes the loop on one of Egypt's most remarkable journeys.",
+            "The final day is the long return drive east across the Western Desert to Alexandria. The journey in reverse offers a different perspective — the desert plateau opening back into the Mediterranean coast, and eventually the city skyline of Alexandria rising ahead, a welcome and slightly disorienting return to green fields and sea air after several days surrounded by sand. Depending on your arrival time, a brief final stroll along the Alexandria Corniche before your transfer to your hotel or onward connection closes the loop on one of Egypt's most remarkable journeys.",
           steps: [
             { time: "07:00", description: "Breakfast at the lodge. Check out." },
             { time: "08:00", description: "Depart Siwa eastward. Final views of the oasis as it recedes into the desert." },
@@ -381,101 +294,13 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الإسكندرية — مدينة الذاكرة",
-          description:
-            "تبدأ مغامرتك في الإسكندرية، مدينة مصر المتوسطية ذات الأشباح الطبقية. يغطي اليوم أعظم معالم المدينة القديمة والحديثة — سراديب الموتى الرومانية تحت الأرض في كوم الشقافة حيث يتصادم الفن المصري واليوناني الروماني؛ وعمود بومبي قائماً في أنقاض السيرابيوم القديم؛ وقلعة قايتباي المرتفعة فوق الميناء حيث وقفت منارة الفاروس الأسطورية؛ ومكتبة الإسكندرية الحديثة الرائعة.",
-          steps: [
-            { time: "08:00", description: "التقاء مرشدك في فندقك بالإسكندرية. جلسة توجيه لرحلة الـ 5 أيام." },
-            { time: "08:30", description: "القيادة إلى سراديب كوم الشقافة. النزول تحت الأرض واستكشاف الدمج الرائع للفن الجنائزي المصري واليوناني الروماني." },
-            { time: "09:30", description: "المشية إلى عمود بومبي وأنقاض مجمع معبد السيرابيوم." },
-            { time: "10:15", description: "الانتقال إلى قلعة قايتباي. جولة مصحوبة بمرشد في الحصن الوسيطي على موقع منارة الفاروس القديمة مع إطلالات على الميناء الشرقي." },
-            { time: "12:00", description: "الغداء مشمول في مطعم مأكولات بحرية تقليدي إسكندراني على الشاطئ." },
-            { time: "14:00", description: "زيارة مكتبة الإسكندرية — جولة مصحوبة بمرشد في قاعة القراءة الرئيسية ومتحف الآثار ومتحف المخطوطات." },
-            { time: "16:30", description: "المشية على الكورنيش. تسجيل الوصول في الفندق." },
-            { time: "19:30", description: "العشاء على نفقتك الخاصة. المساء حر لاستكشاف الشاطئ الإسكندراني." },
-          ],
-        },
-        {
-          day: 2,
-          title: "من الإسكندرية إلى سيوة — عبور الصحراء الغربية",
-          description:
-            "اليوم تأخذ الرحلة منعطفاً درامياً غرباً، تاركاً البحر المتوسط وراءك لأحد أكثر المناظر الطبيعية استثنائيةً على وجه الأرض. تقطع القيادة من الإسكندرية إلى سيوة 560 كيلومتراً من الصحراء الغربية — هضبة شاسعة وشبه فارغة بشكل غير حقيقي تتخللها واحات عرضية وتلألؤ شاحب لسبخات ملحية بعيدة. تمتد الطريق على طول الساحل المتوسطي قبل الانعطاف داخلاً عبر طرق القوافل القديمة التي ربطت مصر بليبيا وأفريقيا جنوب الصحراء.",
-          steps: [
-            { time: "07:00", description: "الإفطار في فندق الإسكندرية. تسجيل المغادرة." },
-            { time: "08:00", description: "المغادرة من الإسكندرية غرباً بسيارة خاصة." },
-            { time: "10:00", description: "توقف في العلمين — موقع معركة الحرب العالمية الثانية الحاسمة عام 1942. زيارة موجزة لمقبرة العلمين الحربية ومتحف العلمين (الدخول على نفقتك الخاصة)." },
-            { time: "11:30", description: "الاستمرار غرباً عبر الصحراء الساحلية الأفريقية الشمالية. يشرح مرشدك جغرافية المنطقة وتاريخها." },
-            { time: "13:00", description: "توقف للغداء في مرسى مطروح — مدينة ساحلية صغيرة ذات خليج جميل. الغداء على نفقتك الخاصة." },
-            { time: "14:30", description: "الانعطاف جنوباً من الساحل إلى الداخل. يتحول المشهد من شجيرات ساحلية إلى هضبة صحراء مفتوحة." },
-            { time: "17:00", description: "النزول من الهضبة إلى منخفض سيوة. أول إطلالة على حدائق النخيل والبحيرات الملحية وآثار واحة سيوة القديمة." },
-            { time: "17:30", description: "الوصول إلى سيوة. تسجيل الوصول في الإيكولودج (بناء تقليدي من الطوب الطيني)." },
-            { time: "19:00", description: "العشاء مشمول في الإيكولودج. يعرّفك مرشدك على تاريخ سيوة وثقافتها ويستعرض الأيام القادمة." },
-          ],
-        },
-        {
-          day: 3,
-          title: "سيوة — معبد الأوراكل وقلعة شالي وعين كليوباترا",
-          description:
-            "تاريخ سيوة مستبعَد كموقعها. واحة في الصحراء الليبية، 50 متراً تحت مستوى سطح البحر، مأهولة منذ ما لا يقل عن الألفية العاشرة قبل الميلاد، وكان معبد أوراكل آمون فيها أحد أشهر المعابد في العالم القديم — استشاره كروسوس ملك ليديا وبيندار الشاعر، والأشهر من بينهم جميعاً الإسكندر الأكبر نفسه الذي قطع الصحراء من مصر عام 331 قبل الميلاد لتلقّي تأكيد مكانته الإلهية.",
-          steps: [
-            { time: "08:00", description: "الإفطار في الإيكولودج." },
-            { time: "09:00", description: "المشية إلى معبد أوراكل آمون — استكشاف أنقاض معبد الأسرة الـ 26 حيث تلقّى الإسكندر أوراكله، ومعبد أم عبيدة المجاور. يشرح مرشدك زيارة الإسكندر الشهيرة وتقليد الأوراكل." },
-            { time: "10:30", description: "الصعود إلى قمة قلعة شالي — مدينة وسيطية رائعة مهجورة من الطوب الطيني على نتوء صخري في وسط سيوة، توفر إطلالات بانورامية على الواحة كلها وحدائق النخيل وبحيرة سيوة والمنحدر الصحراوي المحيط." },
-            { time: "11:30", description: "زيارة عين كليوباترا (عين الجيرة) — بركة ماء عذب طبيعي تنبثق من تحت الأرض، مشهورة منذ العصور القديمة ولا يزال يستخدمها السكان والزوار. السباحة مسموح بها." },
-            { time: "12:30", description: "العودة إلى الإيكولودج. الغداء مشمول." },
-            { time: "14:00", description: "استكشاف مدينة سيوة سيراً على الأقدام — الميدان المركزي والسوق التي تبيع مجوهرات الفضة السيوية والسلال المنسوجة والبيوت الطينية التقليدية وبساتين النخيل. مرشدك يعرّفك على حرفيين محليين." },
-            { time: "17:00", description: "زيارة جزيرة فطناس (جزيرة الخيال) على بحيرة سيوة — جزيرة صغيرة مزروعة بالنخيل في البحيرة الملحية يمكن الوصول إليها عبر جسر، مشهورة بمناظر الغروب." },
-            { time: "18:30", description: "العودة إلى الإيكولودج." },
-            { time: "19:30", description: "العشاء مشمول." },
-          ],
-        },
-        {
-          day: 4,
-          title: "سيوة — البحر الرملي الكبير وغروب الصحراء",
-          description:
-            "البحر الرملي الكبير أحد أكبر بحار الرمال في العالم — محيط متواصل من الكثبان يمتد من مصر عميقاً داخل ليبيا، يغطي مساحة أكبر من مساحة أيرلندا كلها. رحلة بمركبة دفع رباعي إلى حافته واحدة من أكثر التجارب إثارةً في مصر: الحجم والصمت والأشكال النحتية الاستثنائية للكثبان لا تشبه شيئاً آخر على وجه الكوكب. بعد الظهر يجلب زيارة جبل الموتى — التلة الصخرية بالقرب من مدينة سيوة المنحوتة بعشرات مقابر الصخر الفرعونية — ثم غروب سيوة الشهير من قمة كثيب رملي.",
-          steps: [
-            { time: "08:00", description: "الإفطار في الإيكولودج." },
-            { time: "09:00", description: "المغادرة بمركبات دفع رباعي نحو البحر الرملي الكبير." },
-            { time: "09:30", description: "الدخول إلى البحر الرملي الكبير. سائقك يتنقل في مشهد الكثبان — يعلو القمم وينزل إلى الوديان ويتوقف عند أعلى نقاط المشاهدة للتصوير. الصمت تام." },
-            { time: "11:00", description: "توقف عند ينبوع ماء ساخن عذب في الصحراء — بركة دافئة طبيعية محاطة بالكثبان. السباحة ممكنة." },
-            { time: "12:00", description: "غداء بيكنيك في الصحراء مقدَّم من الإيكولودج." },
-            { time: "13:30", description: "العودة عبر الكثبان إلى سيوة." },
-            { time: "15:00", description: "زيارة جبل الموتى — تلة مليئة بمقابر صخرية قديمة من الأسرة الـ 26 والحقبة اليونانية الرومانية. زيارة مقبرة سي-آمون المطلية، وهي أجمل مقبرة مطلية في الصحراء الغربية." },
-            { time: "16:30", description: "القيادة إلى كثيب عالٍ على حافة الصحراء لغروب سيوة الشهير — مشاهدة الضوء يتحول فوق واحة النخيل والبحيرة الملحية مع تحول السماء إلى الذهبي والبنفسجي من التجارب السفرية المحددة في مصر." },
-            { time: "18:30", description: "العودة إلى الإيكولودج." },
-            { time: "19:30", description: "العشاء مشمول. المساء الأخير في سيوة — زيارة اختيارية لتجمع موسيقي محلي إن توفّر." },
-          ],
-        },
-        {
-          day: 5,
-          title: "من سيوة إلى الإسكندرية — رحلة العودة",
-          description:
-            "اليوم الأخير هو القيادة الطويلة عائدةً شرقاً عبر الصحراء الغربية إلى الإسكندرية. الرحلة بالاتجاه المعاكس تقدم منظوراً مختلفاً — الهضبة الصحراوية تنفتح مجدداً على الساحل المتوسطي وفي النهاية أفق الإسكندرية يطل أمامك. بحسب وقت وصولك، جولة قصيرة أخيرة على كورنيش الإسكندرية قبل انتقالك إلى فندقك أو رحلتك التالية تُغلق دائرة واحدة من أكثر رحلات مصر تميزاً.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الإيكولودج. تسجيل المغادرة." },
-            { time: "08:00", description: "المغادرة من سيوة شرقاً. آخر إطلالة على الواحة وهي تتلاشى في الصحراء." },
-            { time: "10:30", description: "القيادة عبر هضبة الصحراء الغربية. يشارك مرشدك تأملاته في الرحلة ويجيب على أي أسئلة متبقية." },
-            { time: "13:00", description: "توقف للغداء في مرسى مطروح على الساحل. الغداء على نفقتك الخاصة." },
-            { time: "14:30", description: "الاستمرار شرقاً على طول الساحل نحو الإسكندرية." },
-            { time: "15:30", description: "توقف موجز اختياري في العلمين في طريق العودة." },
-            { time: "17:00", description: "الوصول إلى الإسكندرية. الإنزال في فندقك أو محطة قطار الإسكندرية. نهاية الجولة." },
-          ],
-        },
-      ],
     },
   },
   {
     title: "Civitatis eSIM Card Egypt",
-    titleAr: "شريحة eSIM لمصر من Civitatis",
     slug: "civitatis-esim-card-egypt-alexandria",
     description:
-      "Stay connected throughout your Alexandria and Egypt adventure with this convenient travel eSIM. Whether you're navigating the streets of Alexandria's ancient neighborhoods, researching the city's fascinating history, or sharing photos from the Qaitbay Citadel with the Mediterranean Sea as a backdrop, this eSIM gives you reliable mobile data coverage across all of Egypt. No need to search for a local SIM card — simply activate digitally before you travel and enjoy seamless connectivity from the moment you arrive.",
-    descriptionAr:
-      "ابقَ متصلاً طوال مغامرتك في الإسكندرية ومصر مع بطاقة eSIM السياحية المريحة هذه. سواء كنت تتنقل في شوارع أحياء الإسكندرية القديمة أو تبحث عن تاريخ المدينة الرائع أو تشارك صوراً من قلعة قايتباي مع خلفية البحر المتوسط، تمنحك هذه البطاقة تغطية بيانات جوال موثوقة في جميع أنحاء مصر.",
+      "Stay connected throughout your Alexandria and Egypt adventure with this convenient travel eSIM, a small piece of preparation that pays off the moment you land. Whether you're navigating the streets of Alexandria's ancient neighborhoods, researching the city's fascinating history on the spot, or sharing photos from the Qaitbay Citadel with the Mediterranean Sea as a backdrop, this eSIM gives you reliable mobile data coverage across all of Egypt without the hassle of hunting down a local vendor in an unfamiliar city. No need to search for a local SIM card — simply activate digitally before you travel and enjoy seamless connectivity from the moment you arrive, all the way through any side trips to the desert, the Delta, or the capital that your Egyptian itinerary happens to include.",
     category: "Additional services",
     price: {
       original: 5.50,
@@ -505,14 +330,6 @@ const toursData = [
         "Note: signal may be limited in remote desert areas such as Siwa Oasis.",
         "Voice calls and SMS are not included.",
       ],
-      ar: [
-        "يُفعَّل eSIM رقمياً — لا يلزم تبديل بطاقة SIM فعلية.",
-        "تأكد من أن هاتفك غير مقيد ومتوافق مع eSIM قبل الشراء.",
-        "متوفر بخطط 7 و15 و30 يوماً.",
-        "يعمل على شبكات 4G/LTE في جميع أنحاء مصر.",
-        "ملاحظة: قد تكون الإشارة محدودة في المناطق الصحراوية النائية مثل واحة سيوة.",
-        "المكالمات الصوتية والرسائل النصية غير مشمولة.",
-      ],
     },
     highlights: [
       "Mobile data coverage across Egypt",
@@ -527,12 +344,9 @@ const toursData = [
   },
   {
     title: "Civitatis Travel Insurance",
-    titleAr: "تأمين السفر من Civitatis",
     slug: "civitatis-travel-insurance-alexandria",
     description:
-      "Travel through Alexandria and Egypt with total peace of mind thanks to Civitatis Travel Insurance. Whether you're exploring ancient catacombs, sailing to coastal fortresses, or making day trips to Cairo and the Pyramids, unexpected events can always happen. This comprehensive travel insurance covers medical emergencies, trip cancellations, delayed or lost luggage, and much more — so nothing can spoil your Egyptian adventure. Available for trips lasting between 3 and 31 days.",
-    descriptionAr:
-      "سافر عبر الإسكندرية ومصر براحة بال تامة بفضل تأمين سفر Civitatis. سواء كنت تستكشف السراديب القديمة أو تبحر إلى القلاع الساحلية أو تقوم برحلات يوم إلى القاهرة والأهرامات، يمكن أن تحدث أحداث غير متوقعة دائماً. يغطي هذا التأمين الشامل للسفر الحالات الطارئة الطبية وإلغاء الرحلات والأمتعة المتأخرة أو المفقودة والمزيد.",
+      "Travel through Alexandria and Egypt with total peace of mind thanks to Civitatis Travel Insurance, a quiet layer of protection running underneath every catacomb visit, desert crossing, and coastal excursion on your itinerary. Whether you're exploring ancient catacombs, sailing to coastal fortresses, or making day trips to Cairo and the Pyramids, unexpected events can always happen, and the gap between a minor inconvenience and a genuinely ruined trip often comes down to whether you were covered in advance. This comprehensive travel insurance covers medical emergencies, trip cancellations, delayed or lost luggage, and much more — so nothing can spoil your Egyptian adventure, whether you stay along the Mediterranean coast or venture far out into the Western Desert. Available for trips lasting between 3 and 31 days, flexible enough to match whatever combination of Alexandria's seafront and Egypt's wider attractions your trip ends up covering.",
     category: "Additional services",
     price: {
       original: 11.48,
@@ -560,13 +374,6 @@ const toursData = [
         "This insurance is recommended especially for tours involving remote areas such as the Siwa Desert.",
         "Coverage includes medical emergencies, trip cancellation, and lost or delayed luggage.",
         "Purchase before departure — the policy cannot be activated after travel has begun.",
-      ],
-      ar: [
-        "التغطية متاحة للرحلات من 3 إلى 31 يوماً.",
-        "الحالات الطبية السابقة قد لا تكون مشمولة — راجع الوثيقة الكاملة قبل الشراء.",
-        "يُوصى بهذا التأمين خاصةً للجولات التي تشمل مناطق نائية مثل صحراء سيوة.",
-        "التغطية تشمل الحالات الطارئة الطبية وإلغاء الرحلة والأمتعة المفقودة أو المتأخرة.",
-        "اشترِ قبل السفر — لا يمكن تفعيل الوثيقة بعد بدء الرحلة.",
       ],
     },
     highlights: [

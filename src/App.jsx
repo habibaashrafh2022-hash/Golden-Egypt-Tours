@@ -14,6 +14,12 @@ import Dashboard       from "./pages/Dashboard";
 import Booking         from "./pages/Booking";
 import AITripBuilder   from "./components/AITripBuilder";
 
+// ── Newly connected pages (were uploaded but never routed) ──
+import AITripBuilderPage   from "./pages/ai";
+import NileCruises         from "./pages/nile-cruises";
+import CustomTrips         from "./pages/custom-trips";
+import CancellationPolicy  from "./pages/cancellation-policy";
+
 // ── New Pages ──
 import About           from "./pages/About";
 import Contact         from "./pages/Contact";
@@ -68,6 +74,12 @@ function AppInner() {
           {/* AI Planner */}
           <Route path="/ai-planner"          element={<AITripBuilder />} />
           <Route path="/aitripbuilder"       element={<Navigate to="/ai-planner" replace />} />
+
+          {/* Newly connected pages */}
+          <Route path="/ai"                  element={<AITripBuilderPage />} />
+          <Route path="/nile-cruises"        element={<NileCruises />} />
+          <Route path="/custom-trips"        element={<CustomTrips />} />
+          <Route path="/cancellation-policy" element={<CancellationPolicy />} />
 
           {/* Blog */}
           <Route path="/blog"                element={<Blog />} />

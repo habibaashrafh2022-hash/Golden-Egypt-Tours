@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import BookingForm from "../components/BookingForm";
 import PaymentModal from "../components/PaymentModal";
 import { calculatePrice } from "../utils/pricing";
@@ -9,29 +9,78 @@ import "./Booking.css";
 export default function Booking() {
   const { tourId }  = useParams();
   const navigate    = useNavigate();
+  const location    = useLocation();
   const { formatPrice, exchangeRates, currency } = useGlobal();
 
   const [loading,     setLoading]     = useState(false);
   const [message,     setMessage]     = useState("");
   const [formData,    setFormData]    = useState(null);
+  const [reference,   setReference]   = useState("");
+  const [whatsappLink,setWhatsappLink]= useState("");
   const [showPayment, setShowPayment] = useState(false);
   const [guests,      setGuests]      = useState(1);
 
-  // السعر الأساسي للتور — هتغيره حسب كل تور
-  const BASE_PRICE = 150;
+  // ── Real info passed from a package/cruise card (optional) ─────
+  // Falls back to a generic $150 placeholder when booking a tour
+  // directly without this extra context (e.g. from a real DB tour).
+  const passedInfo = location.state || {};
+  const BASE_PRICE = passedInfo.price ?? 150;
+  const TOUR_NAME  = passedInfo.tourName ?? `Tour ${tourId}`;
+  const TOUR_CITY  = passedInfo.city ?? "";
 
   const pricing = calculatePrice(BASE_PRICE, guests, exchangeRates, currency);
 
+  // ── يتنفّذ لما العميل يخلّص الفورم ────────────────────────────
+  // ده هو المكان الوحيد اللي بيكلم السيرفر: بيحفظ الحجز في
+  // الداتابيز وبيبعت الإيميلات (للعميل وللإدمن) أوتوماتيك.
   const handleBookingSubmit = async (data) => {
-    setFormData(data);
-    setGuests(Number(data.bookingDetails.numberOfGuests) || 1);
-    setShowPayment(true);
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const payload = {
+        ...data,
+        tour: {
+          tourId,
+          tourName: TOUR_NAME,
+          city:     TOUR_CITY,
+          price:    BASE_PRICE,
+        },
+        totalPrice: Number(pricing.totalUSD.toFixed(2)),
+        currency:   currency || "USD",
+      };
+
+      const res  = await fetch("/api/bookings/create", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(payload),
+      });
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.errors?.join(", ") || result.message || "Something went wrong");
+      }
+
+      setFormData(data);
+      setReference(result.reference);
+      setWhatsappLink(result.whatsappLink || "");
+      setMessage(`✅ Booking received! Reference: ${result.reference}. A confirmation email has been sent to ${data.user.email}.`);
+    } catch (err) {
+      setMessage(`❌ ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleWhatsApp = () => {
+    if (whatsappLink) {
+      window.open(whatsappLink, "_blank");
+      return;
+    }
+    // fallback — في حالة نادرة إن الطلب للسيرفر فشل بس العميل لسه عايز يبعت واتساب يدوي
     if (!formData) return;
     const msg = encodeURIComponent(
-      `🏛️ *New Booking — Golden Egypt Tours*\n\n` +
+      `🏛️ *New Booking — Aurevian Tours*\n\n` +
       `📋 *Tour ID:* ${tourId}\n` +
       `👤 *Name:* ${formData.user.name}\n` +
       `✉️ *Email:* ${formData.user.email}\n` +
@@ -45,7 +94,7 @@ export default function Booking() {
       `💬 *Notes:* ${formData.specialRequests || "None"}\n\n` +
       `💰 *Total:* $${pricing.totalUSD.toFixed(2)}\n` +
       `🏷️ *Discount:* ${pricing.discount * 100}% (${pricing.discountLabel})\n\n` +
-      `Ref: GET-${Date.now().toString().slice(-6)}`
+      `Ref: ${reference || "AUR-" + Date.now().toString().slice(-6)}`
     );
     window.open(`https://wa.me/201068257754?text=${msg}`, "_blank");
   };
@@ -59,10 +108,10 @@ export default function Booking() {
         borderBottom: "1px solid rgba(201,168,76,0.1)",
       }}>
         <div style={{ fontSize: 9, color: "#C9A84C", letterSpacing: "0.3em", textTransform: "uppercase", fontFamily: "'Cinzel',serif", marginBottom: 10 }}>
-          ✦ Golden Egypt Tours
+          ✦ Aurevian Tours
         </div>
         <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: "clamp(22px,4vw,42px)", fontWeight: 700, color: "#EDE8D9", marginBottom: 10 }}>
-          Book Your Egypt Journey
+          {passedInfo.tourName ? passedInfo.tourName : "Book Your Egypt Journey"}
         </h1>
         <p style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: "italic", color: "rgba(237,232,217,0.5)", fontSize: 16 }}>
           Fill in your details and choose your payment method
@@ -102,10 +151,10 @@ export default function Booking() {
       <div style={{ maxWidth: 800, margin: "24px auto", padding: "0 clamp(16px,4vw,48px)" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 8 }}>
           {[
-            { n: 1, label: "Solo",    discount: "Standard", color: "#EDE8D9" },
-            { n: 2, label: "Couple",  discount: "10% OFF",  color: "#52B788" },
-            { n: 3, label: "Group 3", discount: "15% OFF",  color: "#C9A84C" },
-            { n: 4, label: "Group 4+",discount: "20% OFF",  color: "#E8A87C" },
+            { n: 1, label: "Solo",     discount: "Standard", color: "#EDE8D9" },
+            { n: 2, label: "Couple",   discount: "10% OFF",  color: "#52B788" },
+            { n: 3, label: "Group 3",  discount: "15% OFF",  color: "#C9A84C" },
+            { n: 4, label: "Group 4+", discount: "20% OFF",  color: "#E8A87C" },
           ].map(tier => (
             <div key={tier.n} style={{
               background: guests >= tier.n && (tier.n < 4 ? guests === tier.n : guests >= 4)
@@ -148,8 +197,14 @@ export default function Booking() {
           onGuestsChange={setGuests}
         />
 
-        {/* Payment Buttons — بيظهروا بعد ما الفورم يتملى */}
-        {formData && (
+        {loading && (
+          <div style={{ textAlign: "center", padding: 20, color: "#C9A84C", fontFamily: "'Cinzel',serif" }}>
+            ⏳ Saving your booking…
+          </div>
+        )}
+
+        {/* Payment Buttons — بيظهروا بعد ما الحجز يتسجّل بنجاح في السيرفر */}
+        {formData && reference && !loading && (
           <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <button
               onClick={() => setShowPayment(true)}
@@ -174,14 +229,8 @@ export default function Booking() {
                 letterSpacing: "0.15em", fontFamily: "'Cinzel',serif",
               }}
             >
-              💬 Book via WhatsApp
+              💬 Confirm via WhatsApp
             </button>
-          </div>
-        )}
-
-        {loading && (
-          <div style={{ textAlign: "center", padding: 20, color: "#C9A84C", fontFamily: "'Cinzel',serif" }}>
-            ⏳ Processing your booking…
           </div>
         )}
       </div>
@@ -189,7 +238,7 @@ export default function Booking() {
       {/* Payment Modal */}
       {showPayment && formData && (
         <PaymentModal
-          item={{ title: `Tour ${tourId}`, price: BASE_PRICE }}
+          item={{ title: TOUR_NAME, price: BASE_PRICE }}
           guests={guests}
           onClose={() => setShowPayment(false)}
         />

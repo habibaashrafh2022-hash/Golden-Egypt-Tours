@@ -15,7 +15,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getToursByCity, getCityBySlug, getAllCities } from "../api/index";
 import { useGlobal } from "../context/GlobalContext";
 
-
 // ─── CURRENCIES ────────────────────────────────────────────────
 const CURR = {
   USD:{s:"$",    r:1,      l:"USD — US Dollar"},
@@ -703,16 +702,6 @@ button{font-family:inherit;}
 .cp-why-check{width:17px;height:17px;border-radius:50%;background:rgba(82,183,136,.18);color:#2F8F63;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .cp-why-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(193,156,60,.2);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12.5px;color:#9C7A3C;line-height:1.6;}
 
-/* ── ATTRACTIONS ── */
-.cp-att-row{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
-.cp-att-card{border-radius:14px;overflow:hidden;cursor:pointer;text-decoration:none;color:inherit;}
-.cp-att-imgwrap{position:relative;height:130px;border-radius:14px;overflow:hidden;background:var(--bg3);margin-bottom:10px;}
-.cp-att-imgwrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
-.cp-att-card:hover .cp-att-imgwrap img{transform:scale(1.08);}
-.cp-att-name{font-family:'Cinzel',serif;font-size:12.5px;font-weight:700;color:#2C1A06;margin-bottom:3px;}
-.cp-att-desc{font-family:'Cormorant Garamond',serif;font-size:11.5px;color:#9C7A3C;line-height:1.4;display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
-.cp-att-arrow{color:#A07828;flex-shrink:0;margin-top:1px;}
-
 /* ── GALLERY — bento mosaic (creative, no "view all" needed) ── */
 .cp-gal-row{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:118px;gap:12px;}
 .cp-gal-it{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;}
@@ -795,7 +784,7 @@ button{font-family:inherit;}
 @media(max-width:1180px){
   .cp-about-grid{grid-template-columns:1fr 1fr;}
   .cp-why{grid-column:1/-1;}
-  .cp-att-row,.cp-gal-row{grid-template-columns:repeat(4,1fr);}
+  .cp-gal-row{grid-template-columns:repeat(4,1fr);}
   .cp-tour-row{grid-template-columns:repeat(3,1fr);}
   .cp-ftop{grid-template-columns:2fr 1fr 1fr 1fr;}
   .cp-ftop > div:nth-child(5){grid-column:1/3;}
@@ -806,11 +795,12 @@ button{font-family:inherit;}
   .cp-burger{display:flex;}
   .cp-stat-div{display:none;}
   .cp-about-grid{grid-template-columns:1fr;}
-  .cp-att-row,.cp-gal-row,.cp-tour-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;}
-  .cp-att-row::-webkit-scrollbar,.cp-gal-row::-webkit-scrollbar,.cp-tour-row::-webkit-scrollbar{display:none;}
-  .cp-att-row > *{min-width:160px;scroll-snap-align:start;}
-  .cp-gal-row > *{min-width:150px;height:140px;scroll-snap-align:start;}
-  .cp-tour-row > *{min-width:230px;scroll-snap-align:start;}
+  /* Mobile: vertical stack — no horizontal "view all" scrolling, same as Home.jsx */
+  .cp-gal-row{display:flex;flex-direction:column;grid-template-columns:none;height:auto;gap:14px;}
+  .cp-gal-it{width:100% !important;height:200px !important;grid-column:auto !important;grid-row:auto !important;}
+  .cp-tour-row{display:flex;flex-direction:column;grid-template-columns:none;gap:14px;}
+  .cp-tour-row > *{width:100%;min-width:0;}
+  .cp-arrowbtn{display:none;}
   .cp-ftop{grid-template-columns:1fr 1fr;gap:28px;}
   .cp-ftop > div:nth-child(1){grid-column:1/-1;}
   .cp-ftop > div:nth-child(5){grid-column:1/2;}
@@ -878,120 +868,6 @@ button{font-family:inherit;}
 `}</style>
   );
 
-// ─── BOOKING MODAL ───────────────────────────────────────────
-function BookingModal({tour, cityName, onClose, formatPrice}){
-  const [step,setStep] = useState(1);
-  const [busy,setBusy] = useState(false);
-  const [f,setF] = useState({name:"",email:"",whatsapp:"",date:"",guests:"2",pickup:"",notes:""});
-  const upd = k => e => setF(p=>({...p,[k]:e.target.value}));
-  const price = tour?.price?.discounted ?? tour?.price?.original ?? 0;
-  const total = price * parseInt(f.guests||1);
-  const ok1 = f.name && f.email && f.whatsapp;
-  const ok2 = f.date && f.pickup;
-  const ref = `AUR-${Date.now().toString().slice(-6)}`;
-  const waMsg = encodeURIComponent(`🏛️ *New Booking — Aurevian Tours*\n\n📋 *${tour?.title||"Tour"}*\n📍 City: ${cityName}\n\n👤 Name: ${f.name}\n📱 WhatsApp: ${f.whatsapp}\n✉️ Email: ${f.email}\n📅 Date: ${f.date}\n👥 Guests: ${f.guests}\n📍 Pick-up: ${f.pickup}\n📝 Notes: ${f.notes||"None"}\n💰 Total: ${formatPrice(total)}\n\nRef: ${ref}`);
-  const submit = () => { setBusy(true); setTimeout(()=>{setBusy(false);setStep(3);},1400); };
-
-  const inpStyle = {background:"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:10,padding:"11px 13px",color:"#2C1A06",fontSize:13,outline:"none",width:"100%",fontFamily:"'Cormorant Garamond',serif"};
-
-  if(!tour) return null;
-  return(
-    <div className="cp-modal-bg" onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div className="cp-modal">
-        <div className="cp-modal-head">
-          <div>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:".2em",textTransform:"uppercase",marginBottom:6,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Aurevian · {cityName}</div>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:"#2C1A06",lineHeight:1.35,maxWidth:370}}>{tour.title}</div>
-          </div>
-          <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:8,width:32,height:32,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
-        </div>
-
-        <div className="cp-modal-body">
-          {step===3 ? (
-            <div style={{textAlign:"center",padding:"22px 0",animation:"fadeIn .35s ease"}}>
-              <div style={{fontSize:54,marginBottom:14}}>✅</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",marginBottom:8}}>Booking Confirmed!</div>
-              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:"#9C7A3C",lineHeight:1.8,marginBottom:24}}>
-                Our team will contact you within 2 hours.<br/>
-                Reference: <strong style={{color:"#A07828"}}>{ref}</strong>
-              </div>
-              <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-                <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:10,padding:"12px 20px",textDecoration:"none",fontWeight:700,fontSize:12,display:"flex",alignItems:"center",gap:7,fontFamily:"'Josefin Sans',sans-serif"}}>💬 Confirm on WhatsApp</a>
-                <button onClick={onClose} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:10,padding:"12px 20px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>Close</button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* step indicator */}
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:20}}>
-                {[1,2].map(s=>(
-                  <div key={s} style={{display:"flex",alignItems:"center",gap:8}}>
-                    <div className={`cp-mstep ${step>=s?"done":"pending"}`}>{s}</div>
-                    {s<2&&<div style={{width:36,height:1,background:step>=2?"rgba(160,120,40,.4)":"rgba(193,156,60,.2)"}}/>}
-                  </div>
-                ))}
-                <span style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginLeft:6}}>{step===1?"Personal Details":"Trip Details"}</span>
-              </div>
-
-              {step===1 && (
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,animation:"fadeIn .25s ease"}}>
-                  <div style={{gridColumn:"1/-1"}}>
-                    <label className="cp-mlabel">Full Name *</label>
-                    <input className="cp-minp" value={f.name} onChange={upd("name")} placeholder="Your full name"/>
-                  </div>
-                  <div style={{gridColumn:"1/-1"}}>
-                    <label className="cp-mlabel">Email *</label>
-                    <input className="cp-minp" type="email" value={f.email} onChange={upd("email")} placeholder="your@email.com"/>
-                  </div>
-                  <div style={{gridColumn:"1/-1"}}>
-                    <label className="cp-mlabel">WhatsApp * 📱</label>
-                    <input className="cp-minp" type="tel" value={f.whatsapp} onChange={upd("whatsapp")} placeholder="+1 234 567 8900"/>
-                  </div>
-                  <div style={{gridColumn:"1/-1",marginTop:4}}>
-                    <button onClick={()=>setStep(2)} disabled={!ok1} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:13,cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:".16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:!ok1?.45:1}}>Next — Trip Details →</button>
-                  </div>
-                </div>
-              )}
-
-              {step===2 && (
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,animation:"fadeIn .25s ease"}}>
-                  <div>
-                    <label className="cp-mlabel">Tour Date *</label>
-                    <input className="cp-minp" type="date" value={f.date} onChange={upd("date")} style={{colorScheme:"light"}}/>
-                  </div>
-                  <div>
-                    <label className="cp-mlabel">Guests</label>
-                    <input className="cp-minp" type="number" min="1" value={f.guests} onChange={upd("guests")}/>
-                  </div>
-                  <div style={{gridColumn:"1/-1"}}>
-                    <label className="cp-mlabel">Pick-up Location * 📍</label>
-                    <input className="cp-minp" value={f.pickup} onChange={upd("pickup")} placeholder="Hotel name / address"/>
-                  </div>
-                  <div style={{gridColumn:"1/-1"}}>
-                    <label className="cp-mlabel">Notes</label>
-                    <textarea className="cp-minp" rows={2} value={f.notes} onChange={upd("notes")} placeholder="Special requests…" style={{resize:"none"}}/>
-                  </div>
-                  <div style={{gridColumn:"1/-1",background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",borderRadius:9,padding:"9px 13px",display:"flex",justifyContent:"space-between",fontFamily:"'Cormorant Garamond',serif",fontSize:13,color:"#6B4E1A"}}>
-                    <span>{f.guests} × {formatPrice(price)}</span>
-                    <strong style={{color:"#A07828"}}>{formatPrice(total)}</strong>
-                  </div>
-                  <div style={{gridColumn:"1/-1",display:"flex",gap:9}}>
-                    <button onClick={()=>setStep(1)} style={{background:"rgba(44,26,6,.06)",border:"1px solid rgba(44,26,6,.1)",color:"#9C7A3C",borderRadius:10,padding:"12px 16px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>← Back</button>
-                    <button onClick={submit} disabled={busy||!ok2} style={{flex:1,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:12,cursor:busy?"wait":"pointer",fontWeight:700,fontSize:11,letterSpacing:".14em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(!ok2||busy)?.45:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-                      {busy?<><div style={{width:14,height:14,border:"2px solid rgba(255,255,255,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Processing…</>:"✈ Confirm Booking"}
-                    </button>
-                    <a href={`https://wa.me/201068257754?text=${waMsg}`} target="_blank" rel="noreferrer" style={{background:"#25D366",color:"#fff",borderRadius:10,padding:"12px 16px",textDecoration:"none",fontSize:18,display:"flex",alignItems:"center"}}>💬</a>
-                  </div>
-                  <div style={{gridColumn:"1/-1",textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#9C7A3C"}}>Free cancellation up to 24 hours before · No charge until confirmed</div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── TOP UTILITY BAR ─────────────────────────────────────────
 function TopBar({uiLang, cur, langOpen, curOpen, setLangOpen, setCurOpen, onLangSelect, onCurSelect, currentLangObj}){
@@ -1115,7 +991,6 @@ function Hero({meta, cityName, heroSrc, onHeroError, scrollToTours}){
 function StatsCard({meta, tourCount}){
   const items = [
     {ic:"briefcase", val:`${tourCount}+`, lbl:`Tours`},
-    {ic:"landmark",   val:`${meta.stats.attractions}`, lbl:"Top Attractions"},
     {ic:"star",       val:`${meta.stats.rating}`, lbl:"Traveler Rating", stars:true},
     {ic:"calendar",   val:meta.stats.bestTime, lbl:"Best Time to Visit"},
     {ic:"clock",      val:meta.stats.avgStay, lbl:"Average Stay"},
@@ -1185,39 +1060,7 @@ function AboutSection({meta, cityName}){
   );
 }
 
-// ─── TOP ATTRACTIONS ────────────────────────────────────────
-function AttractionsSection({meta, cityName, navigate}){
-  const rowRef = useRef(null);
-  const scroll = dir => rowRef.current?.scrollBy({left: dir*260, behavior:"smooth"});
-  return(
-    <section className="cp-sec" style={{paddingTop:8}}>
-      <div className="cp-sec-head">
-        <div>
-          <div className="cp-sec-eyebrow">Top Attractions</div>
-          <div className="cp-sec-title">Must-See Wonders in {cityName}</div>
-        </div>
-        <div className="cp-sec-link">
-          <button className="cp-arrowbtn" onClick={()=>scroll(-1)}><Ic.chevL/></button>
-          <button className="cp-arrowbtn" onClick={()=>scroll(1)}><Ic.chevR/></button>
-        </div>
-      </div>
-      <div className="cp-att-row" ref={rowRef}>
-        {meta.attractions.map((a,i)=>{
-          const src = attPath(meta.slug, i+1);
-          return(
-            <div key={a.name} className="cp-att-card" onClick={()=>navigate(`/tours?city=${meta.slug}&search=${encodeURIComponent(a.name)}`)}>
-              <div className="cp-att-imgwrap">
-                <img src={src} alt={a.name} onError={e=>{e.target.src=placeholder(a.name);}}/>
-              </div>
-              <div className="cp-att-name">{a.name}</div>
-              <div className="cp-att-desc"><span>{a.desc}</span><span className="cp-att-arrow"><Ic.arrow/></span></div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
+// (Removed: Top Attractions section, per request — no longer used anywhere on the page.)
 
 // ─── GALLERY ────────────────────────────────────────────────
 function GallerySection({meta, cityName}){
@@ -1240,7 +1083,7 @@ function GallerySection({meta, cityName}){
 }
 
 // ─── TOUR CARD ──────────────────────────────────────────────
-function TourCard({tour, index, formatPrice, navigate, onBook}){
+function TourCard({tour, index, formatPrice, navigate}){
   const price = tour.price?.discounted ?? tour.price?.original ?? 0;
   const score = tour.rating?.score || 0;
   const reviews = tour.rating?.reviews || 0;
@@ -1260,7 +1103,7 @@ function TourCard({tour, index, formatPrice, navigate, onBook}){
           {tour.freeCancellation && <div className="cp-card-fc"><Ic.check s={11}/>Free Cancellation</div>}
           <div className="cp-card-from">From</div>
           <span className="cp-card-amt">{formatPrice(price)}</span><span className="cp-card-per"> / person</span>
-          <button className="cp-card-btn" onClick={e=>{e.stopPropagation();onBook&&onBook(tour);}}>Book Now</button>
+          <button className="cp-card-btn" onClick={e=>{e.stopPropagation();navigate(`/booking/${tour._id}`);}}>Book Now</button>
         </div>
       </div>
     </div>
@@ -1269,7 +1112,7 @@ function TourCard({tour, index, formatPrice, navigate, onBook}){
 
 // ─── FEATURED TOURS — grouped by category, fully shown ────────
 // ─── (no "View All" link — everything lives on this page) ─────
-function TourCategoryRow({category, list, formatPrice, navigate, onBook}){
+function TourCategoryRow({category, list, formatPrice, navigate}){
   const rowRef = useRef(null);
   const scroll = dir => rowRef.current?.scrollBy({left: dir*280, behavior:"smooth"});
   const cm = catMetaFor(category);
@@ -1285,13 +1128,13 @@ function TourCategoryRow({category, list, formatPrice, navigate, onBook}){
         )}
       </div>
       <div className="cp-tour-row" ref={rowRef}>
-        {list.map((t,i)=><TourCard key={t._id} tour={t} index={i} formatPrice={formatPrice} navigate={navigate} onBook={onBook}/>)}
+        {list.map((t,i)=><TourCard key={t._id} tour={t} index={i} formatPrice={formatPrice} navigate={navigate}/>)}
       </div>
     </div>
   );
 }
 
-function ToursSection({tours, cityName, formatPrice, navigate, onBook}){
+function ToursSection({tours, cityName, formatPrice, navigate}){
   const groups = [];
   const seen = {};
   tours.forEach(t=>{
@@ -1308,7 +1151,7 @@ function ToursSection({tours, cityName, formatPrice, navigate, onBook}){
       {groups.length===0 ? (
         <div style={{textAlign:"center",padding:"50px 0",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C"}}>New experiences in {cityName} are being added soon.</div>
       ) : (
-        groups.map(([cat, list])=><TourCategoryRow key={cat} category={cat} list={list} formatPrice={formatPrice} navigate={navigate} onBook={onBook}/>)
+        groups.map(([cat, list])=><TourCategoryRow key={cat} category={cat} list={list} formatPrice={formatPrice} navigate={navigate}/>)
       )}
     </section>
   );
@@ -1379,7 +1222,7 @@ function Footer({allCities, navigate}){
         <div>
           <div className="cp-fhead">Contact Us</div>
           <a href="tel:+201068257754" className="cp-fcontact-row"><Ic.phone s={13}/>+20 106 825 7754</a>
-          <a href="mailto:Goldenegypttours26@gmail.com" className="cp-fcontact-row"><Ic.mail s={13}/>Goldenegypttours26@gmail.com</a>
+          <a href="mailto:aureviantours@gmail.com" className="cp-fcontact-row"><Ic.mail s={13}/>aureviantours@gmail.com</a>
           <div className="cp-fcontact-row"><Ic.pin s={13}/>Cairo, Egypt</div>
           <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer" className="cp-fwa-btn"><Ic.whatsapp s={13}/>WhatsApp Us</a>
         </div>
@@ -1412,26 +1255,34 @@ export default function CityPage() {
   const [uiLang,setUiLang] = useState(globalLang||"en");
   const [cur,setCur] = useState(globalCur||"USD");
   const [heroSrc,setHeroSrc] = useState("");
-  const [bookTour,setBookTour] = useState(null);
 
   const meta = getMeta(cityId);
   const fmtP = p => formatPrice ? formatPrice(p) : fmt(p,cur);
 
   // ── shared language switcher logic — drives Google Translate, ──
   // ── never substitutes manually-written strings ──────────────────
+  const triggerGoogleTranslate = useCallback((code, attempt=0) => {
+    const selectEl = document.querySelector(".goog-te-combo");
+    if(selectEl){
+      selectEl.value = code;
+      selectEl.dispatchEvent(new Event("change"));
+      return;
+    }
+    // Widget script may still be loading on the very first click —
+    // retry briefly instead of silently failing.
+    if(attempt < 15){
+      setTimeout(() => triggerGoogleTranslate(code, attempt+1), 200);
+    }
+  }, []);
+
   const handleLangSelect = useCallback((code,dir)=>{
     setUiLang(code);
     if(setGlobalLang) setGlobalLang(code);
     document.documentElement.setAttribute("lang",code);
     document.documentElement.setAttribute("dir",dir||"ltr");
     if(window.i18n && window.i18n.changeLanguage) window.i18n.changeLanguage(code);
-    if(window.google && window.google.translate){
-      try{
-        const selectEl = document.querySelector(".goog-te-combo");
-        if(selectEl){selectEl.value=code;selectEl.dispatchEvent(new Event("change"));}
-      }catch(e){}
-    }
-  },[setGlobalLang]);
+    triggerGoogleTranslate(code);
+  },[setGlobalLang, triggerGoogleTranslate]);
 
   const setCurrencyVal = (code)=>{ setCur(code); setCurOpen(false); if(setGlobalCur) setGlobalCur(code); };
 
@@ -1513,17 +1364,14 @@ export default function CityPage() {
       <StatsCard meta={meta} tourCount={tourCount}/>
 
       <AboutSection meta={meta} cityName={cityName}/>
-      <AttractionsSection meta={meta} cityName={cityName} navigate={navigate}/>
       <GallerySection meta={meta} cityName={cityName}/>
-      <ToursSection tours={tours} cityName={cityName} formatPrice={fmtP} navigate={navigate} onBook={setBookTour}/>
+      <ToursSection tours={tours} cityName={cityName} formatPrice={fmtP} navigate={navigate}/>
 
       <CTABanner cityName={cityName}/>
       <Footer allCities={allCities} navigate={navigate}/>
 
       <a href="https://wa.me/201068257754" target="_blank" rel="noreferrer" className="cp-float-wa"><Ic.whatsapp s={16}/> <span>WhatsApp</span></a>
       <button className="cp-float-top" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>▲</button>
-
-      {bookTour && <BookingModal tour={bookTour} cityName={cityName} onClose={()=>setBookTour(null)} formatPrice={fmtP}/>}
     </div>
   );
 }

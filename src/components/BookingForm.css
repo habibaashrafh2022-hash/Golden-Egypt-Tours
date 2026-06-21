@@ -96,3 +96,22 @@ legend {
   background: #f0c959;
   transform: scale(1.02);
 }
+
+/* ── Added: validation error text under a field ── */
+.field-error {
+  color: #e74c3c;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+/* ── Added: confirmation note shown after the form is saved ── */
+.booking-saved-note {
+  text-align: center;
+  background: rgba(82, 183, 136, 0.1);
+  border: 1px solid rgba(82, 183, 136, 0.3);
+  color: #52b788;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-top: -10px;
+}

@@ -2,12 +2,9 @@
 
 const cityData = {
   name: "Sharm el Sheikh",
-  nameAr: "شرم الشيخ",
   slug: "sharm-el-sheikh",
   description:
-    "Sharm el Sheikh is one of Egypt's most iconic and beloved resort destinations, perched dramatically at the southern tip of the Sinai Peninsula where the Gulf of Aqaba meets the Gulf of Suez. Framed by rugged desert mountains on one side and some of the world's most pristine coral reefs on the other, Sharm offers a unique and extraordinary combination of desert adventure, underwater wonder, and luxurious beach relaxation. Whether you're hiking at dawn to catch the sunrise from the sacred summit of Mount Sinai, diving into the legendary blue waters of the Red Sea, or racing across Sinai's golden dunes on a quad bike, Sharm el Sheikh delivers thrilling experiences at every turn.",
-  descriptionAr:
-    "شرم الشيخ هي واحدة من أكثر وجهات المنتجعات أيقونية ومحبوبة في مصر، تقع بشكل درامي عند الطرف الجنوبي لشبه جزيرة سيناء حيث يلتقي خليج العقبة بخليج السويس. محاطة بجبال صحراوية وعرة من جهة وبعض أكثر الشعاب المرجانية نقاءً في العالم من الجهة الأخرى، تقدم شرم مزيجاً فريداً واستثنائياً من مغامرة الصحراء وعجائب الأعماق والاسترخاء الفاخر على الشاطئ.",
+    "Sharm el Sheikh is one of Egypt's most iconic and beloved resort destinations, perched dramatically at the southern tip of the Sinai Peninsula where the Gulf of Aqaba meets the Gulf of Suez. It is a place of striking contrasts: on one side, rugged desert mountains rise in shades of rust and gold, carved by wind and time into a landscape that feels almost lunar; on the other, some of the world's most pristine coral reefs drop away into impossibly clear, impossibly blue water, sheltering an entire universe of marine life just meters from the shore. This is a coastline with a deep and layered history of its own — a former Bedouin fishing settlement transformed over the past half-century into one of the Red Sea's most celebrated diving and resort capitals, while still sitting within reach of Mount Sinai, one of the most sacred sites in the entire region, revered across three major faiths. Framed by rugged desert mountains on one side and some of the world's most pristine coral reefs on the other, Sharm offers a unique and extraordinary combination of desert adventure, underwater wonder, and luxurious beach relaxation. Whether you're hiking at dawn to catch the sunrise from the sacred summit of Mount Sinai, diving into the legendary blue waters of the Red Sea, or racing across Sinai's golden dunes on a quad bike, Sharm el Sheikh delivers thrilling experiences at every turn, all within easy reach of a beach chair and a cold drink for whenever the adventure starts to feel like enough.",
   country: "Egypt",
   image: "sharm-el-sheikh.jpg",
 };
@@ -15,12 +12,9 @@ const cityData = {
 const toursData = [
   {
     title: "Mount Sinai Sunrise & Saint Catherine's Monastery Tour",
-    titleAr: "جولة شروق الشمس من جبل سيناء ودير سانت كاترين",
     slug: "mount-sinai-sunrise-saint-catherines-monastery-sharm",
     description:
-      "Embark on one of the most spiritually profound and physically rewarding journeys in the entire Middle East — a pre-dawn hike to the summit of Mount Sinai to witness a breathtaking sunrise over the Sinai Peninsula. Revered by Jews, Christians, and Muslims alike as the place where Moses received the Ten Commandments from God, Mount Sinai carries an extraordinary weight of history and religious significance. After descending, visit Saint Catherine's Monastery at the mountain's base — the oldest continuously operating Christian monastery in the world, founded in the 6th century AD and home to priceless religious icons and manuscripts.",
-    descriptionAr:
-      "انطلق في واحدة من أكثر الرحلات روحانيةً ومجزيةً بدنياً في كامل الشرق الأوسط — مشي قبل الفجر إلى قمة جبل سيناء لمشاهدة شروق شمس خلاب فوق شبه جزيرة سيناء. جبل سيناء المبجّل من اليهود والمسيحيين والمسلمين على حد سواء باعتباره المكان الذي تلقّى فيه موسى الوصايا العشر من الله يحمل ثقلاً استثنائياً من التاريخ والأهمية الدينية.",
+      "Embark on one of the most spiritually profound and physically rewarding journeys in the entire Middle East — a pre-dawn hike to the summit of Mount Sinai to witness a breathtaking sunrise over the Sinai Peninsula, a landscape so vast and so still in the hours before dawn that it feels almost suspended outside of time. Revered by Jews, Christians, and Muslims alike as the place where Moses received the Ten Commandments from God, Mount Sinai carries an extraordinary weight of history and religious significance that visitors of every background seem to feel the moment they begin the climb, the path winding upward through darkness lit only by torchlight and stars. Pilgrims, monks, and curious travelers have made this same ascent for centuries, and reaching the summit just as the first light breaks over the surrounding mountains remains one of the most moving experiences available anywhere in Egypt. After descending, tired but quietly elated, visit Saint Catherine's Monastery at the mountain's base — the oldest continuously operating Christian monastery in the world, founded in the 6th century AD and home to priceless religious icons and manuscripts, including some of the oldest surviving Christian texts in existence, guarded behind walls that have withstood war, conquest, and the slow passage of fifteen centuries without ever once falling silent.",
     category: "Day trip",
     price: {
       original: 32.00,
@@ -47,12 +41,9 @@ const toursData = [
   },
   {
     title: "Blue Hole Desert Safari",
-    titleAr: "سفاري صحراء البلو هول",
     slug: "blue-hole-desert-safari-sharm",
     description:
-      "Combine the best of the Sinai Desert and the Red Sea in one action-packed day on this unforgettable Blue Hole Desert Safari. Your adventure begins in the dramatic desert landscape of the Sinai, where you'll race across golden dunes and rocky terrain on a quad bike before hopping onto a camel for a more traditional desert experience. The day reaches its thrilling climax at the Blue Hole — one of the most famous diving and snorkeling sites in the world, a stunning natural underwater sinkhole off the Dahab coast with extraordinary marine life and coral formations.",
-    descriptionAr:
-      "اجمع أفضل ما تقدمه صحراء سيناء والبحر الأحمر في يوم واحد حافل بالنشاط في هذه السفاري الذكرى في صحراء البلو هول. تبدأ مغامرتك في المشهد الصحراوي الدرامي لسيناء، حيث ستتسابق عبر الكثبان الذهبية والتضاريس الصخرية على دراجة رباعية قبل أن تركب جملاً لتجربة صحراوية أكثر تقليدية. يبلغ اليوم ذروته المثيرة عند البلو هول.",
+      "Combine the best of the Sinai Desert and the Red Sea in one action-packed day on this unforgettable Blue Hole Desert Safari, a tour built for travelers who want their adrenaline and their underwater wonder served up in the very same afternoon. Your adventure begins in the dramatic desert landscape of the Sinai, where you'll race across golden dunes and rocky terrain on a quad bike, dust kicking up behind you against a backdrop of jagged mountains, before hopping onto a camel for a slower, more traditional desert experience that has carried travelers across this same terrain for centuries. The day reaches its thrilling climax at the Blue Hole — one of the most famous diving and snorkeling sites in the world, a stunning natural underwater sinkhole off the Dahab coast that plunges to extraordinary depths, its name earned by a deep blue so vivid it seems almost artificial, ringed by extraordinary marine life and coral formations that draw divers from every corner of the globe.",
     category: "Day trip",
     price: {
       original: 24.00,
@@ -79,12 +70,9 @@ const toursData = [
   },
   {
     title: "Ras Mohamed National Park Snorkelling",
-    titleAr: "غطس في محمية رأس محمد الوطنية",
     slug: "ras-mohamed-national-park-snorkelling-sharm",
     description:
-      "Discover one of Egypt's most spectacular marine environments on this snorkeling boat trip to Ras Mohamed National Park, located at the very southern tip of the Sinai Peninsula where the Red Sea's two gulfs converge. The park is widely regarded as one of the finest snorkeling and diving destinations in the world, with vertical coral walls plunging into crystal-clear depths, extraordinary biodiversity, and waters teeming with sharks, rays, turtles, and hundreds of species of colorful reef fish. A full-day experience in one of Egypt's most pristine natural treasures.",
-    descriptionAr:
-      "اكتشف واحدة من أكثر البيئات البحرية في مصر روعةً في هذه الرحلة البحرية للغطس إلى محمية رأس محمد الوطنية، الواقعة عند الطرف الجنوبي تماماً لشبه جزيرة سيناء حيث يلتقي خليجا البحر الأحمر. تُعدّ المحمية على نطاق واسع واحدة من أفضل وجهات الغطس في العالم.",
+      "Discover one of Egypt's most spectacular marine environments on this snorkeling boat trip to Ras Mohamed National Park, located at the very southern tip of the Sinai Peninsula where the Red Sea's two gulfs converge in a meeting of currents that has helped create one of the richest reef ecosystems anywhere on the planet. The park is widely regarded as one of the finest snorkeling and diving destinations in the world, with vertical coral walls plunging into crystal-clear depths so transparent that boats here seem to float on air rather than water, extraordinary biodiversity built up over thousands of years of undisturbed growth, and waters teeming with sharks, rays, turtles, and hundreds of species of colorful reef fish darting between coral formations in flashes of yellow, blue, and orange. A full-day experience in one of Egypt's most pristine natural treasures, protected as a national park precisely because of how rare and fragile this kind of underwater abundance has become elsewhere in the world.",
     category: "Adventure and nature",
     price: {
       original: 28.00,
@@ -111,12 +99,9 @@ const toursData = [
   },
   {
     title: "Sinai Desert Quad Tour",
-    titleAr: "جولة الكواد في صحراء سيناء",
     slug: "sinai-desert-quad-tour-sharm",
     description:
-      "Feel the rush of the Sinai wind on your face as you tear across one of the most dramatic desert landscapes in the Middle East on this thrilling quad bike tour. Leave the beach behind and head into the vast, rugged terrain of the Sinai Desert, navigating golden dunes, rocky mountain passes, and sweeping desert plains on a powerful quad bike. As the sun blazes overhead and the jagged Sinai mountains rise in every direction, this is an exhilarating reminder that Sharm el Sheikh is about far more than just beaches.",
-    descriptionAr:
-      "اشعر بهبوب رياح سيناء على وجهك وأنت تندفع عبر واحدة من أكثر المناظر الصحراوية درامية في الشرق الأوسط في جولة الدراجة الرباعية المثيرة هذه. اترك الشاطئ خلفك وتوجه إلى التضاريس الواسعة الوعرة لصحراء سيناء، متنقلاً بين الكثبان الذهبية ومعابر الجبال الصخرية والسهول الصحراوية الشاسعة.",
+      "Feel the rush of the Sinai wind on your face as you tear across one of the most dramatic desert landscapes in the Middle East on this thrilling quad bike tour, the kind of pure, uncomplicated adrenaline rush that resets the pace of an entire beach holiday in just a few hours. Leave the beach behind and head into the vast, rugged terrain of the Sinai Desert, navigating golden dunes, rocky mountain passes, and sweeping desert plains on a powerful quad bike that handles the shifting sand far better than it has any right to. As the sun blazes overhead and the jagged Sinai mountains rise in every direction, their peaks bare and ancient against a cloudless sky, this is an exhilarating reminder that Sharm el Sheikh is about far more than just beaches — a glimpse of the same untamed desert that pilgrims and traders have crossed on foot and camel for thousands of years, now experienced at considerably higher speed.",
     category: "Adventure and nature",
     price: {
       original: 14.00,
@@ -143,12 +128,9 @@ const toursData = [
   },
   {
     title: "Sharm El Sheikh Parasailing",
-    titleAr: "الباراسيلينج في شرم الشيخ",
     slug: "parasailing-sharm-el-sheikh",
     description:
-      "Soar high above the shimmering Red Sea on a parasailing adventure in Sharm el Sheikh and enjoy one of the most spectacular aerial views in all of Egypt. Strapped safely into a parachute harness and towed by a speedboat, you'll glide up into the sky above the crystal-clear waters of the Gulf of Aqaba, with Sharm's famous beaches, luxury resorts, and the dramatic Sinai mountains stretching out beneath you in every direction. A short but absolutely unforgettable adrenaline rush with breathtaking views.",
-    descriptionAr:
-      "حلّق عالياً فوق البحر الأحمر المتلألئ في مغامرة باراسيلينج في شرم الشيخ واستمتع بواحدة من أكثر المناظر الجوية إثارة في مصر كلها. مربوطاً بأمان في حزام المظلة ومقطوراً بزورق سريع ستنطلق إلى السماء فوق المياه الصافية لخليج العقبة.",
+      "Soar high above the shimmering Red Sea on a parasailing adventure in Sharm el Sheikh and enjoy one of the most spectacular aerial views in all of Egypt, a perspective on this coastline that almost nobody gets to experience from a beach towel. Strapped safely into a parachute harness and towed by a speedboat, you'll glide up into the sky above the crystal-clear waters of the Gulf of Aqaba, the boat's engine fading to a distant hum as the wind takes over entirely, with Sharm's famous beaches, luxury resorts, and the dramatic Sinai mountains stretching out beneath you in every direction — turquoise shallows fading into deep blue, white sand giving way to rust-colored desert, the whole geography of this coastline laid out at once in a way no ground-level view could ever capture. A short but absolutely unforgettable adrenaline rush with breathtaking views, over almost as quickly as it began, but the kind of experience that tends to dominate the photo albums from an entire trip.",
     category: "Adventure and nature",
     price: {
       original: 52.72,
@@ -175,12 +157,9 @@ const toursData = [
   },
   {
     title: "Day Trip to Petra from Sharm el Sheikh",
-    titleAr: "رحلة يوم إلى البتراء من شرم الشيخ",
     slug: "petra-day-trip-sharm-el-sheikh",
     description:
-      "Cross the border into Jordan for an extraordinary day trip to Petra, the ancient rose-red city carved into the desert cliffs by the Nabataean people over 2,000 years ago. Walk through the legendary Siq — a narrow winding gorge flanked by towering sandstone walls — before the iconic Treasury (Al-Khazneh) reveals itself in breathtaking fashion at the end of the passage. Explore the vast archaeological city with its carved temples, royal tombs, colonnaded streets, and amphitheatre, accompanied by an expert guide who brings this UNESCO World Heritage Site to life.",
-    descriptionAr:
-      "اعبر الحدود إلى الأردن في رحلة يوم استثنائية إلى البتراء، المدينة الوردية القديمة المنحوتة في جدران الصحراء الصخرية على يد الأنباط منذ أكثر من 2000 عام. سِر عبر السيق الأسطوري — الوادي الضيق الملتوي المحاط بجدران الحجر الرملي الشاهقة — قبل أن يكشف الخزنة الأيقوني عن نفسه بشكل خلاب في نهاية الممر.",
+      "Cross the border into Jordan for an extraordinary day trip to Petra, the ancient rose-red city carved into the desert cliffs by the Nabataean people over 2,000 years ago, once a thriving hub on the ancient incense and spice trade routes connecting Arabia to the Mediterranean world. Walk through the legendary Siq — a narrow winding gorge flanked by towering sandstone walls that seem to lean inward overhead, the light filtering down in narrow shafts of gold — before the iconic Treasury (Al-Khazneh) reveals itself in breathtaking fashion at the end of the passage, a moment of arrival so dramatic it has become one of the most photographed reveals in world travel. Explore the vast archaeological city with its carved temples, royal tombs, colonnaded streets, and amphitheatre, an entire metropolis hewn directly from living rock rather than built up from the ground, accompanied by an expert guide who brings this UNESCO World Heritage Site to life with stories of the Nabataean traders who once controlled this remote desert crossing and grew unimaginably wealthy from it.",
     category: "Day trip",
     price: {
       original: 527.22,
@@ -207,12 +186,9 @@ const toursData = [
   },
   {
     title: "Transfers in Sharm el Sheikh",
-    titleAr: "خدمة التوصيل في شرم الشيخ",
     slug: "transfers-sharm-el-sheikh",
     description:
-      "Arrive and depart Sharm el Sheikh with total comfort and peace of mind using our professional private transfer service. A punctual and courteous chauffeur will meet you at the airport, your hotel, or any address you specify and drive you smoothly to your destination in a clean, air-conditioned vehicle. Whether you need a quick transfer between hotels or a reliable airport pickup after a long flight, this door-to-door service is the most convenient way to get around Sharm el Sheikh.",
-    descriptionAr:
-      "اصل إلى شرم الشيخ وغادرها براحة تامة وطمأنينة باستخدام خدمة النقل الخاصة المهنية لدينا. سائق دقيق ومؤدب سيستقبلك في المطار أو فندقك أو أي عنوان تحدده وسيقودك بسلاسة إلى وجهتك في سيارة نظيفة ومكيفة.",
+      "Arrive and depart Sharm el Sheikh with total comfort and peace of mind using our professional private transfer service, the small detail that can quietly make or break the start and end of an otherwise relaxing holiday. A punctual and courteous chauffeur will meet you at the airport, your hotel, or any address you specify and drive you smoothly to your destination in a clean, air-conditioned vehicle, watching for your name so there's never a moment of standing in a crowded arrivals hall wondering where to go next. Whether you need a quick transfer between hotels, a ride out to a dive center before dawn, or a reliable airport pickup after a long flight, this door-to-door service is the most convenient way to get around Sharm el Sheikh, removing the guesswork and the haggling from the very first and very last moments of your trip.",
     category: "Transfers",
     price: {
       original: 18.74,
@@ -239,12 +215,9 @@ const toursData = [
   },
   {
     title: "Sharm El-Sheikh Horseback Ride",
-    titleAr: "ركوب الخيل في شرم الشيخ",
     slug: "horseback-ride-sharm-el-sheikh",
     description:
-      "Explore the extraordinary contrasting landscapes of Sharm el Sheikh on horseback — from the dramatic rocky desert of southern Sinai to the shimmering shores of the Red Sea. This guided riding experience offers a peaceful and uniquely immersive way to take in the wild natural beauty of the region, whether you choose to trot through desert trails with the jagged Sinai mountains as your backdrop or canter along the beach with the turquoise sea on one side and golden sands on the other. Suitable for both beginners and experienced riders.",
-    descriptionAr:
-      "استكشف المناظر المتباينة الاستثنائية في شرم الشيخ على ظهر حصان — من الصحراء الصخرية الدرامية لجنوب سيناء إلى شواطئ البحر الأحمر المتلألئة. هذه التجربة الموجهة لركوب الخيل تقدم طريقة هادئة وغامرة فريدة للاستمتاع بالجمال الطبيعي الوحشي للمنطقة.",
+      "Explore the extraordinary contrasting landscapes of Sharm el Sheikh on horseback — from the dramatic rocky desert of southern Sinai to the shimmering shores of the Red Sea, two entirely different worlds separated by only a short ride. This guided riding experience offers a peaceful and uniquely immersive way to take in the wild natural beauty of the region, the rhythmic pace of a walking or trotting horse lending the whole outing a quieter, more contemplative feel than the area's many motorized adventures. Choose to trot through desert trails with the jagged Sinai mountains as your backdrop, hooves kicking up small clouds of pale dust against an otherwise silent landscape, or canter along the beach with the turquoise sea on one side and golden sands on the other, spray occasionally catching at the horse's legs as the surf rolls in. Suitable for both beginners and experienced riders, with professional handlers on hand throughout to make sure the experience stays exactly as relaxed or as exhilarating as you'd like it to be.",
     category: "Adventure and nature",
     price: {
       original: 13.00,
@@ -271,12 +244,9 @@ const toursData = [
   },
   {
     title: "Night Tour of Sharm El-Sheikh",
-    titleAr: "جولة ليلية في شرم الشيخ",
     slug: "night-tour-sharm-el-sheikh",
     description:
-      "Discover the vibrant and captivating nighttime personality of Sharm el Sheikh on this atmospheric evening city tour. As the sun dips below the Sinai mountains and the resort city comes alive with lights and energy, your guide will lead you through the most interesting and lively areas of Sharm — from the buzzing Old Market (Sharm el Maya) with its colorful shops, street food, and local atmosphere to the glamorous Naama Bay strip with its waterfront promenade, restaurants, and entertainment. A wonderful way to experience the city beyond the hotel pool.",
-    descriptionAr:
-      "اكتشف الشخصية الليلية النابضة والرائعة لشرم الشيخ في هذه الجولة المسائية الجوية للمدينة. مع غروب الشمس خلف جبال سيناء وإضاءة مدينة المنتجعات بالأنوار والطاقة، سيقودك مرشدك عبر أكثر مناطق شرم إثارة للاهتمام وحيوية.",
+      "Discover the vibrant and captivating nighttime personality of Sharm el Sheikh on this atmospheric evening city tour, a side of the resort that visitors who never leave their hotel grounds rarely get to experience. As the sun dips below the Sinai mountains in a wash of orange and pink and the resort city comes alive with lights and energy, your guide will lead you through the most interesting and lively areas of Sharm — from the buzzing Old Market (Sharm el Maya) with its colorful shops, street food stalls perfuming the air with spice and grilled meat, and unmistakably local atmosphere, to the glamorous Naama Bay strip with its waterfront promenade, restaurants spilling light and music out onto the street, and an entertainment scene that runs late into the warm desert night. A wonderful way to experience the city beyond the hotel pool, and a useful one too, for travelers hoping to find their own favorite restaurant or shop to return to later in the trip.",
     category: "Guided tours and free tours",
     price: {
       original: 38.42,
@@ -303,12 +273,9 @@ const toursData = [
   },
   {
     title: "Sinai Desert Day Trip with Dinner & Show",
-    titleAr: "رحلة يوم في صحراء سيناء مع العشاء والعرض",
     slug: "sinai-desert-day-trip-dinner-show-sharm",
     description:
-      "Experience the full magic of the Sinai Desert on this exciting day trip that combines quad biking or dune buggy riding through dramatic desert landscapes with an unforgettable Bedouin evening of stargazing, traditional entertainment, and a delicious desert dinner. Race across the golden dunes as the sun descends over the mountains, then gather around a Bedouin camp fire as night falls over the Sinai, watching a traditional music and dance show while enjoying authentic food under an impossibly star-filled sky.",
-    descriptionAr:
-      "اختبر السحر الكامل لصحراء سيناء في هذه الرحلة اليومية المثيرة التي تجمع بين ركوب الدراجة الرباعية أو عربة الكثبان عبر مناظر صحراوية درامية وسهرة بدوية لا تُنسى من رصد النجوم والترفيه التقليدي وعشاء صحراوي لذيذ.",
+      "Experience the full magic of the Sinai Desert on this exciting day trip that combines quad biking or dune buggy riding through dramatic desert landscapes with an unforgettable Bedouin evening of stargazing, traditional entertainment, and a delicious desert dinner, a single outing that somehow manages to feel like two completely different adventures stitched seamlessly together. Race across the golden dunes as the sun descends over the mountains, the light deepening from white-gold to amber to a final, dramatic red before disappearing behind the peaks entirely, then gather around a Bedouin camp fire as night falls over the Sinai, watching a traditional music and dance show while enjoying authentic food under an impossibly star-filled sky — the kind of clear, light-pollution-free darkness that reveals more stars than most visitors have ever seen at once, the Milky Way arching visibly overhead while drums and singing carry across the sand.",
     category: "Day trip",
     price: {
       original: 78.49,
@@ -335,12 +302,9 @@ const toursData = [
   },
   {
     title: "Beginner's Scuba Diving in the Red Sea",
-    titleAr: "الغوص للمبتدئين في البحر الأحمر",
     slug: "beginners-scuba-diving-red-sea-sharm",
     description:
-      "Take your first breath underwater in one of the most stunning diving destinations on the planet on this beginner's scuba diving course in the Red Sea at Sharm el Sheikh. No experience is necessary — your PADI-certified instructor will guide you through everything you need to know before you enter the water, from breathing techniques to hand signals and basic safety. Then dive in and experience the extraordinary underwater world of the Red Sea's coral reefs, with their kaleidoscope of colorful fish and breathtaking marine life.",
-    descriptionAr:
-      "خذ أول نفس تحت الماء في واحدة من أكثر وجهات الغوص روعة على الكوكب في دورة الغوص للمبتدئين هذه في البحر الأحمر في شرم الشيخ. لا تحتاج إلى خبرة — مدربك المعتمد من PADI سيرشدك خلال كل ما تحتاج معرفته قبل دخول الماء.",
+      "Take your first breath underwater in one of the most stunning diving destinations on the planet on this beginner's scuba diving course in the Red Sea at Sharm el Sheikh, an experience that has converted countless first-timers into lifelong divers within the space of a single afternoon. No experience is necessary — your PADI-certified instructor will guide you through everything you need to know before you enter the water, from breathing techniques to hand signals and basic safety, taking as much time as needed until you feel genuinely comfortable rather than just technically briefed. Then dive in and experience the extraordinary underwater world of the Red Sea's coral reefs, with their kaleidoscope of colorful fish and breathtaking marine life drifting past in a silence broken only by the sound of your own measured breathing, a sensation many describe as the closest thing to weightlessness most people will ever feel.",
     category: "Adventure and nature",
     price: {
       original: 40.00,
@@ -366,13 +330,10 @@ const toursData = [
     excludes: ["Meals", "Tips", "Personal expenses"],
   },
   {
-    title: "Civitatis eSIM Card Egypt",
-    titleAr: "شريحة eSIM لمصر من Civitatis",
-    slug: "civitatis-esim-card-egypt-sharm",
+    title: "Aurevian eSIM Card Egypt",
+    slug: "Aurevian-esim-card-egypt-sharm",
     description:
-      "Keep your phone connected throughout your Sharm el Sheikh adventure with this easy-to-activate travel eSIM. Whether you're navigating the resort strips of Naama Bay, looking up dive sites at Ras Mohamed, or sharing photos from the summit of Mount Sinai, this eSIM provides reliable mobile data coverage across Egypt without the hassle of buying and installing a local SIM card. Simply activate digitally before you travel and stay connected from the moment you land.",
-    descriptionAr:
-      "ابقِ هاتفك متصلاً طوال مغامرتك في شرم الشيخ مع بطاقة eSIM السياحية سهلة التفعيل هذه. سواء كنت تتنقل في شوارع المنتجعات في نعمة باي أو تبحث عن مواقع الغوص في رأس محمد أو تشارك صوراً من قمة جبل سيناء، توفر هذه البطاقة تغطية بيانات جوال موثوقة في جميع أنحاء مصر.",
+      "Keep your phone connected throughout your Sharm el Sheikh adventure with this easy-to-activate travel eSIM, one less thing to think about before you even board the flight. Whether you're navigating the resort strips of Naama Bay, looking up dive sites at Ras Mohamed, or sharing photos from the summit of Mount Sinai, this eSIM provides reliable mobile data coverage across Egypt without the hassle of buying and installing a local SIM card, queueing at an arrivals-hall kiosk, or trying to explain your data needs to a vendor in a language you don't speak. Simply activate digitally before you travel and stay connected from the moment you land, all the way through to your final dive, hike, or sunset dinner before heading home.",
     category: "Additional services",
     price: {
       original: 5.50,
@@ -399,12 +360,9 @@ const toursData = [
   },
   {
     title: "Private Tour to Luxor by Plane from Sharm",
-    titleAr: "جولة خاصة إلى الأقصر بالطائرة من شرم",
     slug: "private-tour-luxor-plane-sharm-el-sheikh",
     description:
-      "Make the most of your Sharm el Sheikh holiday with this exclusive private day trip by plane to the ancient wonders of Luxor. Fly directly from Sharm to Luxor and spend the day in the company of your own private Egyptologist guide, visiting the colossal Karnak Temple complex, the magnificent Mortuary Temple of Hatshepsut, and the legendary Valley of the Kings where the pharaohs of Egypt's New Kingdom were laid to rest in elaborately decorated rock-cut tombs. All flights and entrance fees are included.",
-    descriptionAr:
-      "استثمر عطلتك في شرم الشيخ مع هذه الرحلة الخاصة الحصرية بالطائرة إلى عجائب الأقصر القديمة. اطِر مباشرة من شرم إلى الأقصر وأمضِ اليوم برفقة مرشدك الأثري الخاص، زائراً مجمع معبد الكرنك الهائل ومعبد حتشبسوت الجنائزي الرائع ووادي الملوك الأسطوري.",
+      "Make the most of your Sharm el Sheikh holiday with this exclusive private day trip by plane to the ancient wonders of Luxor, a way to fold one of the greatest concentrations of pharaonic monuments on earth into a Red Sea beach holiday without sacrificing a single extra night of your trip. Fly directly from Sharm to Luxor and spend the day in the company of your own private Egyptologist guide, visiting the colossal Karnak Temple complex, a city of temples built up over nearly two thousand years of continuous royal patronage, the magnificent Mortuary Temple of Hatshepsut rising from the cliffs of Deir el-Bahari in three soaring colonnaded terraces, and the legendary Valley of the Kings, where the pharaohs of Egypt's New Kingdom were laid to rest in elaborately decorated rock-cut tombs designed to guide their souls safely into the afterlife. This trip is organized by Aurevian Tours, with all flights and entrance fees included for a smooth, fully private day that asks nothing of you beyond simply showing up at the airport.",
     category: "Day trip",
     price: {
       original: 503.79,
@@ -431,12 +389,9 @@ const toursData = [
   },
   {
     title: "Snorkelling on Tiran Island",
-    titleAr: "الغطس في جزيرة تيران",
     slug: "snorkelling-tiran-island-sharm",
     description:
-      "Set sail from Sharm el Sheikh to the wild and beautiful Tiran Island, one of the most celebrated snorkeling and diving destinations in the entire Red Sea. Positioned at the mouth of the Gulf of Aqaba, Tiran Island is surrounded by four major coral reef systems — Jackson, Woodhouse, Thomas, and Gordon — that are home to an extraordinary wealth of marine life. Crystal-clear visibility, dramatic underwater topography, and a dazzling variety of fish, sharks, and sea turtles make Tiran a world-class snorkeling experience.",
-    descriptionAr:
-      "أبحر من شرم الشيخ إلى جزيرة تيران الجميلة الوحشية، واحدة من أكثر وجهات الغطس والغوص شهرةً في كامل البحر الأحمر. تقع عند مدخل خليج العقبة، وجزيرة تيران محاطة بأربعة أنظمة شعاب مرجانية رئيسية — جاكسون وودهاوس توماس وغوردون — تضم ثروة استثنائية من الحياة البحرية.",
+      "Set sail from Sharm el Sheikh to the wild and beautiful Tiran Island, one of the most celebrated snorkeling and diving destinations in the entire Red Sea, a place that feels noticeably more remote and untouched than the busier dive sites closer to shore. Positioned at the mouth of the Gulf of Aqaba, where deep ocean currents sweep past the island and feed its reefs with a constant supply of nutrients, Tiran Island is surrounded by four major coral reef systems — Jackson, Woodhouse, Thomas, and Gordon — that are home to an extraordinary wealth of marine life built up over centuries of largely undisturbed growth. Crystal-clear visibility, dramatic underwater topography that drops in dizzying coral walls toward the deep blue below, and a dazzling variety of fish, sharks, and sea turtles make Tiran a world-class snorkeling experience, the kind of place that experienced divers from around the world specifically plan their Red Sea trips around.",
     category: "Boat tour",
     price: {
       original: 28.00,
@@ -463,12 +418,9 @@ const toursData = [
   },
   {
     title: "Cairo Day Trip by Plane from Sharm",
-    titleAr: "رحلة يوم إلى القاهرة بالطائرة من شرم",
     slug: "cairo-day-trip-plane-sharm-el-sheikh",
     description:
-      "Don't leave Egypt without seeing its greatest ancient treasures — join this exciting day trip by plane from Sharm el Sheikh to Cairo. Fly to the Egyptian capital and spend a full day visiting three of the country's most iconic landmarks: the legendary Pyramids of Giza, the awe-inspiring Great Sphinx, and the incredible Grand Egyptian Museum, the world's largest archaeological museum and permanent home of Tutankhamun's golden treasures. A fast, comfortable, and unforgettable way to add Cairo's highlights to your Red Sea holiday.",
-    descriptionAr:
-      "لا تغادر مصر دون أن ترى أعظم كنوزها القديمة — انضم إلى هذه الرحلة المثيرة بالطائرة من شرم الشيخ إلى القاهرة. اطِر إلى العاصمة المصرية وأمضِ يوماً كاملاً في زيارة ثلاثة من أكثر معالم البلاد أيقونية: أهرامات الجيزة الأسطورية وأبو الهول الكبير المهيب والمتحف المصري الكبير الرائع.",
+      "Don't leave Egypt without seeing its greatest ancient treasures — join this exciting day trip by plane from Sharm el Sheikh to Cairo, a quick hop across the country that turns an otherwise impossible logistical challenge into a single, manageable day. Fly to the Egyptian capital and spend a full day visiting three of the country's most iconic landmarks: the legendary Pyramids of Giza, rising from the desert exactly as they have for over four and a half thousand years, the awe-inspiring Great Sphinx with its weathered, enigmatic gaze fixed eternally eastward, and the incredible Grand Egyptian Museum, the world's largest archaeological museum and permanent home of Tutankhamun's golden treasures, displayed together in their full, dazzling entirety for the first time since they were unearthed. A fast, comfortable, and unforgettable way to add Cairo's highlights to your Red Sea holiday without giving up a single extra night away from the beach.",
     category: "Day trip",
     price: {
       original: 406.20,
@@ -494,13 +446,10 @@ const toursData = [
     excludes: ["Tips", "Personal expenses"],
   },
   {
-    title: "Civitatis Travel Insurance",
-    titleAr: "تأمين السفر من Civitatis",
-    slug: "civitatis-travel-insurance-sharm",
+    title: "ِAurevian Travel Insurance",
+    slug: "Aurevian-travel-insurance-sharm",
     description:
-      "Travel with complete peace of mind in Sharm el Sheikh and throughout Egypt with Civitatis Travel Insurance. Whether you're diving in the Red Sea, hiking Mount Sinai, or exploring ancient temples, unexpected events can happen at any time. This comprehensive travel insurance covers medical emergencies, trip cancellations, lost luggage, and much more, ensuring that nothing spoils your Egyptian adventure. Available for trips lasting between 3 and 31 days.",
-    descriptionAr:
-      "سافر براحة بال كاملة في شرم الشيخ وجميع أنحاء مصر مع تأمين سفر Civitatis. سواء كنت تغوص في البحر الأحمر أو تتسلق جبل سيناء أو تستكشف المعابد القديمة، يمكن أن تحدث أحداث غير متوقعة في أي وقت. يغطي هذا التأمين الشامل للسفر الحالات الطارئة الطبية وإلغاء الرحلات والأمتعة المفقودة والمزيد.",
+      "Travel with complete peace of mind in Sharm el Sheikh and throughout Egypt with Aurevian Travel Insurance, a quiet safety net running underneath every dive, hike, and desert excursion you take on this trip. Whether you're diving in the Red Sea, hiking Mount Sinai, or exploring ancient temples on a side trip to Luxor or Cairo, unexpected events can happen at any time, and the difference between a minor inconvenience and a genuinely ruined trip often comes down to whether you were covered. This comprehensive travel insurance covers medical emergencies, trip cancellations, lost luggage, and much more, ensuring that nothing spoils your Egyptian adventure, no matter how far off the beaten path your itinerary takes you. Available for trips lasting between 3 and 31 days, easily matched to however long your particular stretch of Red Sea sun and Sinai adventure happens to last.",
     category: "Additional services",
     price: {
       original: 11.48,

@@ -9,9 +9,9 @@ const BRAND = {
   color:   "#C9A84C",
   dark:    "#2C1A06",
   phone:   "+20 106 825 7754",
-  email:   "Goldenegypttours26@gmail.com",
+  email:   "aureviantours@gmail.com",
   wa:      "https://wa.me/201068257754",
-  site:    "https://aureviewtours.com",
+  site:    "https://aureviantours.com",
 };
 
 const base = (content) => `
@@ -103,21 +103,19 @@ const btn = (label, href, bg = "#C9A84C") => `
 
 // ── Guest confirmation email ─────────────────────────────────
 export function buildGuestEmail(booking) {
-  const dateStr = new Date(booking.details.date).toLocaleDateString("en-GB", {
+  const dateStr = new Date(booking.bookingDetails.date).toLocaleDateString("en-GB", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
   });
 
   const content = `
-    <!-- Greeting -->
     <p style="font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:#2C1A06;margin-bottom:6px;">
-      Thank you, ${booking.guest.name}!
+      Thank you, ${booking.user.name}!
     </p>
     <p style="font-size:14px;color:#6B4E1A;line-height:1.7;margin-bottom:28px;">
-      Your booking with <strong>${BRAND.name}</strong> has been received and is <strong style="color:#A07828;">pending confirmation</strong>. 
+      Your booking with <strong>${BRAND.name}</strong> has been received and is <strong style="color:#A07828;">pending confirmation</strong>.
       Our team will reach out within <strong>2 hours</strong> to confirm all details and answer any questions.
     </p>
 
-    <!-- Reference badge -->
     <div style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(232,201,109,.08));border:1.5px solid rgba(193,156,60,.35);border-radius:12px;padding:16px 24px;text-align:center;margin-bottom:28px;">
       <div style="font-size:10px;color:#9C7A3C;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;">Booking Reference</div>
       <div style="font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:#A07828;letter-spacing:0.1em;">${booking.reference}</div>
@@ -125,36 +123,31 @@ export function buildGuestEmail(booking) {
     </div>
 
     ${section("Your Tour", [
-      ["Tour",        booking.tour.tourName],
-      ["City",        booking.tour.city],
-      ["Date",        dateStr],
-      ["Guests",      `${booking.details.numberOfGuests} person${booking.details.numberOfGuests > 1 ? "s" : ""}`],
-      ["Language",    booking.details.tourLanguage],
+      ["Tour",     booking.tour.tourName],
+      ["City",     booking.tour.city],
+      ["Date",     dateStr],
+      ["Guests",   `${booking.bookingDetails.numberOfGuests} person${booking.bookingDetails.numberOfGuests > 1 ? "s" : ""}`],
+      ["Language", booking.bookingDetails.tourLanguage],
     ])}
 
     ${section("Pickup & Drop-off", [
-      ["Pickup",      booking.locations.pickupLocation === "Other"
-                        ? booking.locations.pickupSpecific
-                        : booking.locations.pickupLocation],
-      ["Drop-off",    booking.locations.dropoffLocation === "Hotel"
-                        ? `${booking.locations.hotelName} — ${booking.locations.hotelAddress}`
-                        : booking.locations.dropoffLocation === "Other"
-                        ? booking.locations.dropoffSpecific
-                        : booking.locations.dropoffLocation],
+      ["Pickup",   booking.locations.pickupLocation === "Other"
+                     ? booking.locations.pickupSpecific
+                     : booking.locations.pickupLocation],
+      ["Drop-off", booking.locations.dropoffLocation === "Hotel"
+                     ? `${booking.locations.hotelName} — ${booking.locations.hotelAddress}`
+                     : booking.locations.dropoffLocation === "Other"
+                     ? booking.locations.dropoffSpecific
+                     : booking.locations.dropoffLocation],
     ])}
 
     ${section("Pricing", [
-      ["Price per person", `$${booking.tour.price}`],
-      ["Number of guests", booking.details.numberOfGuests],
-      ["Total",            `<strong style="color:#A07828;font-size:16px;">$${booking.totalPrice}</strong>`],
-      ["Payment",          `<span style="background:rgba(255,190,0,.12);color:#A07828;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;">Pending</span>`],
+      ["Total",   `<strong style="color:#A07828;font-size:16px;">$${booking.totalPrice} ${booking.currency}</strong>`],
+      ["Payment", `<span style="background:rgba(255,190,0,.12);color:#A07828;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;">Pending</span>`],
     ])}
 
-    ${booking.specialRequests ? section("Special Requests", [
-      ["Your request", booking.specialRequests]
-    ]) : ""}
+    ${booking.specialRequests ? section("Special Requests", [["Your request", booking.specialRequests]]) : ""}
 
-    <!-- CTA -->
     <div style="text-align:center;padding:24px 0 8px;">
       <p style="font-size:13px;color:#6B4E1A;margin-bottom:16px;">Have questions? Reach out to us anytime — we're available 24/7.</p>
       ${btn("💬 Chat on WhatsApp", BRAND.wa, "#25D366")}
@@ -174,13 +167,13 @@ export function buildGuestEmail(booking) {
 
 // ── Admin notification email ─────────────────────────────────
 export function buildAdminEmail(booking) {
-  const dateStr = new Date(booking.details.date).toLocaleDateString("en-GB", {
+  const dateStr = new Date(booking.bookingDetails.date).toLocaleDateString("en-GB", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
   });
 
-  const waLink = `https://wa.me/${booking.guest.whatsapp.replace(/[^0-9]/g, "")}`;
+  const waLink = `https://wa.me/${booking.user.whatsapp.replace(/[^0-9]/g, "")}`;
   const waText = encodeURIComponent(
-    `✦ Hi ${booking.guest.name},\n\nThis is ${BRAND.name} confirming your booking for *${booking.tour.tourName}* on *${dateStr}*.\n\nRef: ${booking.reference}\n\nWe're looking forward to welcoming you! 🏛️`
+    `✦ Hi ${booking.user.name},\n\nThis is ${BRAND.name} confirming your booking for *${booking.tour.tourName}* on *${dateStr}*.\n\nRef: ${booking.reference}\n\nWe're looking forward to welcoming you! 🏛️`
   );
 
   const content = `
@@ -191,60 +184,54 @@ export function buildAdminEmail(booking) {
       A new booking has been submitted. Please confirm or follow up with the guest within 2 hours.
     </p>
 
-    <!-- Quick actions -->
     <div style="text-align:center;margin-bottom:28px;">
       ${btn("💬 WhatsApp Guest", `${waLink}?text=${waText}`, "#25D366")}
-      ${btn("✉️ Email Guest", `mailto:${booking.guest.email}`)}
-      ${btn("✓ Confirm Booking", `${BRAND.site}/admin/bookings/${booking._id}/confirm`)}
+      ${btn("✉️ Email Guest", `mailto:${booking.user.email}`)}
     </div>
 
     ${section("Reference", [
-      ["Booking Ref",  `<strong style="color:#A07828;">${booking.reference}</strong>`],
-      ["Submitted",    new Date().toLocaleString("en-GB")],
-      ["Status",       "🟡 Pending Confirmation"],
+      ["Booking Ref", `<strong style="color:#A07828;">${booking.reference}</strong>`],
+      ["Submitted",   new Date().toLocaleString("en-GB")],
+      ["Status",      "🟡 Pending Confirmation"],
     ])}
 
     ${section("Guest Details", [
-      ["Full Name",    booking.guest.name],
-      ["Email",        `<a href="mailto:${booking.guest.email}">${booking.guest.email}</a>`],
-      ["WhatsApp",     `<a href="${waLink}">${booking.guest.whatsapp}</a>`],
-      ["Age",          booking.guest.age],
-      ["Nationality",  booking.guest.nationality],
+      ["Full Name",   booking.user.name],
+      ["Email",       `<a href="mailto:${booking.user.email}">${booking.user.email}</a>`],
+      ["WhatsApp",    `<a href="${waLink}">${booking.user.whatsapp}</a>`],
+      ["Age",         booking.user.age],
+      ["Nationality", booking.user.nationality],
     ])}
 
     ${section("Tour Details", [
-      ["Tour",         booking.tour.tourName],
-      ["Tour ID",      booking.tour.tourId],
-      ["City",         booking.tour.city],
-      ["Date",         dateStr],
-      ["Guests",       booking.details.numberOfGuests],
-      ["Language",     booking.details.tourLanguage],
+      ["Tour",     booking.tour.tourName],
+      ["Tour ID",  booking.tour.tourId],
+      ["City",     booking.tour.city],
+      ["Date",     dateStr],
+      ["Guests",   booking.bookingDetails.numberOfGuests],
+      ["Language", booking.bookingDetails.tourLanguage],
     ])}
 
     ${section("Pickup & Drop-off", [
-      ["Pickup",       booking.locations.pickupLocation === "Other"
-                         ? `Other: ${booking.locations.pickupSpecific}`
-                         : booking.locations.pickupLocation],
-      ["Drop-off",     booking.locations.dropoffLocation === "Hotel"
-                         ? `Hotel: ${booking.locations.hotelName} — ${booking.locations.hotelAddress}`
-                         : booking.locations.dropoffLocation === "Other"
-                         ? `Other: ${booking.locations.dropoffSpecific}`
-                         : booking.locations.dropoffLocation],
+      ["Pickup",   booking.locations.pickupLocation === "Other"
+                     ? `Other: ${booking.locations.pickupSpecific}`
+                     : booking.locations.pickupLocation],
+      ["Drop-off", booking.locations.dropoffLocation === "Hotel"
+                     ? `Hotel: ${booking.locations.hotelName} — ${booking.locations.hotelAddress}`
+                     : booking.locations.dropoffLocation === "Other"
+                     ? `Other: ${booking.locations.dropoffSpecific}`
+                     : booking.locations.dropoffLocation],
     ])}
 
     ${section("Payment", [
-      ["Price/Person", `$${booking.tour.price}`],
-      ["Guests",       booking.details.numberOfGuests],
-      ["Total",        `<strong style="color:#A07828;">$${booking.totalPrice} ${booking.currency}</strong>`],
+      ["Total", `<strong style="color:#A07828;">$${booking.totalPrice} ${booking.currency}</strong>`],
     ])}
 
-    ${booking.specialRequests ? section("Special Requests", [
-      ["Guest note", booking.specialRequests]
-    ]) : ""}
+    ${booking.specialRequests ? section("Special Requests", [["Guest note", booking.specialRequests]]) : ""}
   `;
 
   return {
-    subject: `🔔 New Booking — ${booking.tour.tourName} · ${booking.guest.name} · Ref: ${booking.reference}`,
+    subject: `🔔 New Booking — ${booking.tour.tourName} · ${booking.user.name} · Ref: ${booking.reference}`,
     html:    base(content),
   };
 }

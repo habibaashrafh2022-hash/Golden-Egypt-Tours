@@ -6,6 +6,8 @@ import tourRoutes from "./routes/tours.js";
 import authRoutes from "./routes/auth.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
+import contactRoutes from "./routes/contact.routes.js";
 import mongoose from "mongoose";
 import path from "path";
 mongoose.connect(process.env.MONGO_URI, {
@@ -55,6 +57,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/cities", cityRoutes);
 app.use("/api/tours", tourRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/contact", contactRoutes);
 app.get("/test-image", (req, res) => {
   res.sendFile(process.cwd() + "/public/images/tours/westsolo.jpeg");
 });

@@ -7,24 +7,35 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // ─── CONSTANTS (mirrored from Home.jsx) ────────────────────
-const PHONE_DISPLAY = "+20 106 825 4454";
-const PHONE_WA      = "201068254454";
+const PHONE_DISPLAY = "+20 106 825 7754";
+const PHONE_WA      = "201068257754";
 const EMAIL         = "aureviantours@gmail.com";
 const waLink = (msg) => `https://wa.me/${PHONE_WA}${msg ? `?text=${msg}` : ""}`;
 
 const NAV_LINKS = [
   ["Home",        "/"],
   ["Tours",       "/tours"],
-  ["Nile Cruises","/packages"],
-  ["Custom Trips","/ai"],
+  ["Nile Cruises","/nile-cruises"],
+  ["Custom Trips","/custom-trips"],
   ["About Us",    "/about"],
   ["Contact",     "/contact"],
 ];
 
 const FOOTER_DEST    = [["Cairo","/city/cairo"],["Luxor","/city/luxor"],["Aswan","/city/aswan"],["Hurghada","/city/hurghada"],["Sharm El Sheikh","/city/sharm"],["All Destinations","/tours"]];
-const FOOTER_TOURS   = [["Day Tours","/tours"],["Multi-Day Tours","/packages"],["Nile Cruises","/packages"],["Private Tours","/tours"],["Adventure Tours","/tours"],["All Tours","/tours"]];
-const FOOTER_COMPANY = [["About Us","/about"],["Our Guides","/about"],["Travel Tips","/about"],["Blog","/about"],["Careers","/contact"],["Contact Us","/contact"]];
-const FOOTER_SUPPORT = [["FAQ","/contact"],["Cancellation Policy","/contact"],["Privacy Policy","/contact"],["Terms & Conditions","/contact"]];
+const FOOTER_TOURS   = [["Day Tours","/tours"],["Multi-Day Tours","/packages"],["Nile Cruises","/nile-cruises"],["Private Tours","/tours"],["Adventure Tours","/tours"],["All Tours","/tours"]];
+const FOOTER_COMPANY = [["About Us","/about"],["Our Guides","/about"],["Travel Tips","/about"],["Blog","/blog"],["Careers","/careers"],["Contact Us","/contact"]];
+const FOOTER_SUPPORT = [["FAQ","/faq"],["Cancellation Policy","/cancellation-policy"],["Privacy Policy","/privacy"],["Terms & Conditions","/terms"]];
+
+const LANGS = [
+  {code:"en", gtCode:"en", flag:"🇬🇧", label:"English"},
+  {code:"fr", gtCode:"fr", flag:"🇫🇷", label:"Français"},
+  {code:"es", gtCode:"es", flag:"🇪🇸", label:"Español"},
+  {code:"de", gtCode:"de", flag:"🇩🇪", label:"Deutsch"},
+  {code:"it", gtCode:"it", flag:"🇮🇹", label:"Italiano"},
+  {code:"ru", gtCode:"ru", flag:"🇷🇺", label:"Русский"},
+  {code:"zh", gtCode:"zh-CN", flag:"🇨🇳", label:"中文"},
+  {code:"ar", gtCode:"ar", flag:"🇪🇬", label:"العربية"},
+];
 
 const DESTINATIONS = ["Cairo","Giza","Luxor","Aswan","Hurghada","Sharm El Sheikh","Alexandria","Fayoum","Marsa Alam","Ain Sokhna","All Egypt"];
 const TOUR_TYPES   = ["Day Tours","Multi-Day Tours","Nile Cruises","Private Tours","Adventure Tours","Custom Trip"];
@@ -144,7 +155,7 @@ function HieroglyphFrieze({ tone = "light" }) {
   );
 }
 
-function Nav({ scrolled, mMenu, setMMenu }) {
+function Nav({ scrolled, mMenu, setMMenu, uiLang, langOpen, setLangOpen, onLangSelect }) {
   const navigate = useNavigate();
   return (
     <nav style={{ position:"sticky", top:0, zIndex:1000, height:80, background: scrolled ? "rgba(250,246,237,.98)" : "rgba(250,246,237,.96)", backdropFilter:"blur(18px)", borderBottom:"1px solid rgba(193,156,60,.18)", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 clamp(14px,4vw,40px)", boxShadow: scrolled ? "0 4px 26px rgba(35,26,14,.1)" : "none", transition:"all .3s ease" }}>
@@ -157,6 +168,20 @@ function Nav({ scrolled, mMenu, setMMenu }) {
         ))}
       </ul>
       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+        <div style={{ position:"relative" }}>
+          <button onClick={() => setLangOpen(!langOpen)} style={{ display:"flex", alignItems:"center", gap:6, background:"rgba(201,168,76,.08)", border:"1.5px solid rgba(193,156,60,.28)", color:"#A07828", borderRadius:8, padding:"7px 10px", fontSize:11, cursor:"pointer", fontFamily:"'Josefin Sans',sans-serif", fontWeight:700 }}>
+            {uiLang.flag} <span style={{ fontSize:9 }}>▾</span>
+          </button>
+          {langOpen && (
+            <div style={{ position:"absolute", top:"calc(100% + 8px)", right:0, background:"#FFFDF8", border:"1.5px solid rgba(193,156,60,.3)", borderRadius:12, padding:8, zIndex:1200, boxShadow:"0 20px 50px rgba(35,26,14,.18)", minWidth:170, display:"grid", gridTemplateColumns:"1fr 1fr", gap:4 }}>
+              {LANGS.map(l => (
+                <button key={l.code} onClick={() => onLangSelect(l)} style={{ display:"flex", alignItems:"center", gap:6, background: uiLang.code===l.code ? "rgba(201,168,76,.16)" : "transparent", border:"none", borderRadius:7, padding:"7px 8px", cursor:"pointer", fontSize:11, color: uiLang.code===l.code ? "#8B6010" : "rgba(35,26,14,.65)", fontFamily:"'Josefin Sans',sans-serif", fontWeight: uiLang.code===l.code ? 700 : 400, textAlign:"left" }}>
+                  {l.flag} {l.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         <a href={waLink()} target="_blank" rel="noreferrer" className="dn av-gold" style={{ background:"#25D366", color:"#fff", border:"none", borderRadius:10, padding:"12px 22px", cursor:"pointer", fontWeight:700, fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif", textDecoration:"none", display:"flex", alignItems:"center", gap:7, transition:"all .2s" }}>💬 WhatsApp</a>
         <button className="dm" style={{ display:"none", background:"rgba(201,168,76,.1)", border:"1.5px solid rgba(193,156,60,.3)", color:"#A07828", width:40, height:40, borderRadius:9, cursor:"pointer", fontSize:17, alignItems:"center", justifyContent:"center" }} onClick={() => setMMenu(!mMenu)}>{mMenu ? "✕" : "☰"}</button>
       </div>
@@ -217,7 +242,38 @@ export default function ContactUs() {
   const [vis,      setVis]  = useState({});
   const [submitted, setSub] = useState(false);
   const [sending,   setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const [uiLang,    setUiLang] = useState(LANGS[0]);
+  const [langOpen,  setLangOpen] = useState(false);
   const [form, setForm] = useState({ name:"", email:"", phone:"", destination:"", tourType:"", travelers:"2", date:"", message:"" });
+
+  useEffect(() => {
+    if (!document.getElementById("gt-script-contact")) {
+      window.googleTranslateElementInit = () => {
+        new window.google.translate.TranslateElement(
+          { pageLanguage:"en", includedLanguages:"en,fr,es,de,it,ru,zh-CN,ar", autoDisplay:false },
+          "gt-hidden-contact"
+        );
+      };
+      const s = document.createElement("script");
+      s.id = "gt-script-contact";
+      s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      s.async = true;
+      document.head.appendChild(s);
+    }
+  }, []);
+
+  const triggerGoogleTranslate = (gtCode, attempt=0) => {
+    const sel = document.querySelector(".goog-te-combo");
+    if (sel) { sel.value = gtCode; sel.dispatchEvent(new Event("change")); return; }
+    if (attempt < 15) setTimeout(() => triggerGoogleTranslate(gtCode, attempt+1), 200);
+  };
+  const handleLangSelect = (l) => {
+    setUiLang(l); setLangOpen(false);
+    document.documentElement.setAttribute("lang", l.code);
+    document.documentElement.setAttribute("dir", l.code==="ar" ? "rtl" : "ltr");
+    triggerGoogleTranslate(l.gtCode);
+  };
 
   const upd = k => e => setForm(p => ({ ...p, [k]: e.target.value }));
   const ok = form.name && form.email && form.message;
@@ -226,10 +282,24 @@ export default function ContactUs() {
     `🏛️ *New Inquiry — Aurevian Tours*\n\n👤 *Name:* ${form.name}\n✉️ *Email:* ${form.email}\n📱 *Phone:* ${form.phone||"—"}\n📍 *Destination:* ${form.destination||"—"}\n🗺️ *Tour Type:* ${form.tourType||"—"}\n👥 *Travelers:* ${form.travelers}\n📅 *Date:* ${form.date||"—"}\n\n📝 *Message:*\n${form.message}\n\nRef: AUR-${Date.now().toString().slice(-6)}`
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!ok) return;
     setSending(true);
-    setTimeout(() => { setSending(false); setSub(true); }, 1400);
+    setSendError("");
+    try {
+      const res = await fetch("/api/contact/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message || "Something went wrong");
+      setSub(true);
+    } catch (err) {
+      setSendError(err.message || "Connection error. Please try WhatsApp instead.");
+    } finally {
+      setSending(false);
+    }
   };
 
   useEffect(() => {
@@ -258,7 +328,8 @@ export default function ContactUs() {
     <div style={{ background:"#FAF6ED", color:"#231A0E", minHeight:"100vh", overflowX:"hidden", fontFamily:"'Josefin Sans',sans-serif" }}>
       <style>{CSS}</style>
 
-      <Nav scrolled={scrolled} mMenu={mMenu} setMMenu={setMMenu}/>
+      <div id="gt-hidden-contact" style={{ display:"none" }}/>
+      <Nav scrolled={scrolled} mMenu={mMenu} setMMenu={setMMenu} uiLang={uiLang} langOpen={langOpen} setLangOpen={setLangOpen} onLangSelect={handleLangSelect}/>
 
       {mMenu && (
         <div style={{ position:"sticky", top:80, zIndex:999, background:"#FAF6ED", borderBottom:"1px solid rgba(193,156,60,.2)", padding:"18px 22px 28px" }}>
@@ -375,6 +446,12 @@ export default function ContactUs() {
                   <label style={{ fontSize:9, color:"#A07828", letterSpacing:"0.2em", textTransform:"uppercase", display:"block", marginBottom:7, fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>Your Message *</label>
                   <textarea {...inp} rows={5} placeholder="Tell us your travel dates, group size, budget, special requests…" value={form.message} onChange={upd("message")} style={{ resize:"vertical" }}/>
                 </div>
+                {sendError && (
+                  <div style={{ background:"rgba(192,64,90,.07)", border:"1px solid rgba(192,64,90,.25)", borderRadius:10, padding:"11px 15px", fontSize:12, color:"#C0405A", fontFamily:"'Josefin Sans',sans-serif", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, flexWrap:"wrap" }}>
+                    <span>⚠ {sendError}</span>
+                    <a href={waLink(waMsg)} target="_blank" rel="noreferrer" style={{ color:"#25D366", fontWeight:700, textDecoration:"none" }}>Try WhatsApp →</a>
+                  </div>
+                )}
                 <button onClick={handleSubmit} disabled={!ok || sending} style={{ background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)", color:"#FAF6ED", border:"none", borderRadius:12, padding:"16px", cursor: (!ok||sending) ? "not-allowed" : "pointer", fontWeight:700, fontSize:12, letterSpacing:"0.18em", textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif", opacity: (!ok||sending) ? .5 : 1, display:"flex", alignItems:"center", justifyContent:"center", gap:10, boxShadow:"0 8px 28px rgba(160,120,40,.3)" }}>
                   {sending ? <><div style={{ width:16, height:16, border:"2px solid rgba(250,246,237,.3)", borderTop:"2px solid #FAF6ED", borderRadius:"50%", animation:"spin .7s linear infinite" }}/>Sending…</> : "✦ Send Message"}
                 </button>

@@ -1,13 +1,12 @@
-import nodemailer   from "nodemailer";
-import Booking       from "../models/booking.model.js";
+import nodemailer from "nodemailer";
+import Booking    from "../models/booking.model.js";
 import { buildGuestEmail, buildAdminEmail } from "../utils/email.templates.js";
 
 // ─── Nodemailer transporter ─────────────────────────────────
-// Set these in your .env:
-//   EMAIL_USER     → your Gmail address (e.g. Goldenegypttours26@gmail.com)
-//   EMAIL_PASS     → Gmail App Password (NOT your login password)
-//                    Generate at: myaccount.google.com/apppasswords
-//   ADMIN_EMAIL    → address that receives every new-booking alert (can be same)
+// Set these in your backend .env:
+//   EMAIL_USER     → aureviantours@gmail.com
+//   EMAIL_PASS     → Gmail App Password (16 chars, no spaces)
+//   ADMIN_EMAIL    → address that receives every new-booking alert
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -27,7 +26,7 @@ async function sendEmail({ to, subject, html }) {
 
 // ─── HELPERS ───────────────────────────────────────────────
 function buildWhatsAppLink(booking) {
-  const dateStr = new Date(booking.details.date).toLocaleDateString("en-GB", {
+  const dateStr = new Date(booking.bookingDetails.date).toLocaleDateString("en-GB", {
     weekday: "long", year: "numeric", month: "long", day: "numeric",
   });
 
@@ -37,14 +36,14 @@ function buildWhatsAppLink(booking) {
     `📍 City: ${booking.tour.city || "—"}\n` +
     `🔖 Ref: *${booking.reference}*\n\n` +
     `👤 *Guest*\n` +
-    `Name: ${booking.guest.name}\n` +
-    `WhatsApp: ${booking.guest.whatsapp}\n` +
-    `Email: ${booking.guest.email}\n` +
-    `Age: ${booking.guest.age} · Nationality: ${booking.guest.nationality}\n\n` +
+    `Name: ${booking.user.name}\n` +
+    `WhatsApp: ${booking.user.whatsapp}\n` +
+    `Email: ${booking.user.email}\n` +
+    `Age: ${booking.user.age} · Nationality: ${booking.user.nationality}\n\n` +
     `📅 *Trip Details*\n` +
     `Date: ${dateStr}\n` +
-    `Guests: ${booking.details.numberOfGuests}\n` +
-    `Language: ${booking.details.tourLanguage}\n\n` +
+    `Guests: ${booking.bookingDetails.numberOfGuests}\n` +
+    `Language: ${booking.bookingDetails.tourLanguage}\n\n` +
     `📍 *Locations*\n` +
     `Pickup: ${booking.locations.pickupLocation === "Other"
       ? booking.locations.pickupSpecific
@@ -74,11 +73,10 @@ export async function createBooking(req, res) {
     ];
 
     const emailResults = await Promise.allSettled([
-      sendEmail({ to: booking.guest.email, ...guestTemplate }),
+      sendEmail({ to: booking.user.email, ...guestTemplate }),
       sendEmail({ to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER, ...adminTemplate }),
     ]);
 
-    // Track whether emails succeeded
     const guestSent = emailResults[0].status === "fulfilled";
     const adminSent = emailResults[1].status === "fulfilled";
 
@@ -89,12 +87,8 @@ export async function createBooking(req, res) {
       });
     }
 
-    if (!guestSent) {
-      console.warn("Guest email failed:", emailResults[0].reason?.message);
-    }
-    if (!adminSent) {
-      console.warn("Admin email failed:", emailResults[1].reason?.message);
-    }
+    if (!guestSent) console.warn("Guest email failed:", emailResults[0].reason?.message);
+    if (!adminSent) console.warn("Admin email failed:", emailResults[1].reason?.message);
 
     res.status(201).json({
       success:      true,
@@ -102,10 +96,7 @@ export async function createBooking(req, res) {
       reference:    booking.reference,
       bookingId:    booking._id,
       whatsappLink: buildWhatsAppLink(booking),
-      emailsSent: {
-        guest: guestSent,
-        admin: adminSent,
-      },
+      emailsSent: { guest: guestSent, admin: adminSent },
     });
   } catch (err) {
     if (err.name === "ValidationError") {
@@ -126,31 +117,21 @@ export async function getAllBookings(req, res) {
     } = req.query;
 
     const filter = {};
-    if (status)  filter.bookingStatus  = status;
-    if (payment) filter.paymentStatus  = payment;
-    if (city)    filter["tour.city"]   = city;
+    if (status)  filter.bookingStatus = status;
+    if (payment) filter.paymentStatus = payment;
+    if (city)    filter["tour.city"]  = city;
     if (from || to) {
-      filter["details.date"] = {};
-      if (from) filter["details.date"].$gte = new Date(from);
-      if (to)   filter["details.date"].$lte = new Date(to);
+      filter["bookingDetails.date"] = {};
+      if (from) filter["bookingDetails.date"].$gte = new Date(from);
+      if (to)   filter["bookingDetails.date"].$lte = new Date(to);
     }
 
     const [bookings, total] = await Promise.all([
-      Booking.find(filter)
-        .sort(sort)
-        .skip((page - 1) * limit)
-        .limit(Number(limit))
-        .lean(),
+      Booking.find(filter).sort(sort).skip((page - 1) * limit).limit(Number(limit)).lean(),
       Booking.countDocuments(filter),
     ]);
 
-    res.json({
-      success: true,
-      total,
-      page:    Number(page),
-      pages:   Math.ceil(total / limit),
-      bookings,
-    });
+    res.json({ success: true, total, page: Number(page), pages: Math.ceil(total / limit), bookings });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -170,12 +151,9 @@ export async function getBookingById(req, res) {
 // ─── GET BOOKINGS BY GUEST EMAIL ───────────────────────────
 export async function getUserBookings(req, res) {
   try {
-    const bookings = await Booking.find({
-      "guest.email": req.params.email.toLowerCase(),
-    })
+    const bookings = await Booking.find({ "user.email": req.params.email.toLowerCase() })
       .sort("-createdAt")
       .lean();
-
     res.json({ success: true, count: bookings.length, bookings });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -185,11 +163,7 @@ export async function getUserBookings(req, res) {
 // ─── UPDATE BOOKING ────────────────────────────────────────
 export async function updateBooking(req, res) {
   try {
-    const booking = await Booking.findByIdAndUpdate(
-      req.params.id,
-      { ...req.body, updatedAt: new Date() },
-      { new: true, runValidators: true }
-    );
+    const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!booking) return res.status(404).json({ success: false, message: "Booking not found" });
     res.json({ success: true, booking });
   } catch (err) {
@@ -200,17 +174,12 @@ export async function updateBooking(req, res) {
 // ─── CONFIRM BOOKING ───────────────────────────────────────
 export async function confirmBooking(req, res) {
   try {
-    const booking = await Booking.findByIdAndUpdate(
-      req.params.id,
-      { bookingStatus: "confirmed", updatedAt: new Date() },
-      { new: true }
-    );
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { bookingStatus: "confirmed" }, { new: true });
     if (!booking) return res.status(404).json({ success: false, message: "Booking not found" });
 
-    // Re-send confirmation email to guest
     try {
       const template = buildGuestEmail(booking);
-      await sendEmail({ to: booking.guest.email, ...template });
+      await sendEmail({ to: booking.user.email, ...template });
     } catch (emailErr) {
       console.warn("Confirmation email failed:", emailErr.message);
     }
@@ -226,7 +195,7 @@ export async function cancelBooking(req, res) {
   try {
     const booking = await Booking.findByIdAndUpdate(
       req.params.id,
-      { bookingStatus: "cancelled", paymentStatus: "cancelled", updatedAt: new Date() },
+      { bookingStatus: "cancelled", paymentStatus: "cancelled" },
       { new: true }
     );
     if (!booking) return res.status(404).json({ success: false, message: "Booking not found" });
