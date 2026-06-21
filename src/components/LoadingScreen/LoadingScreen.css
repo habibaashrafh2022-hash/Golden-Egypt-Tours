@@ -1,83 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Josefin+Sans:wght@300;400;600&display=swap');
+
+/* ─── OVERLAY ─────────────────────────────────────────── */
 .lux-loader {
   position: fixed;
   inset: 0;
-  background: #050507;
+  z-index: 9999;
+  background: #0d0a04;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-/* soft moving light line */
-.lux-loader::before {
+/* ─── AMBIENT PARTICLES ───────────────────────────────── */
+.lux-loader::before,
+.lux-loader::after {
   content: "";
   position: absolute;
-  width: 200%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.lux-loader::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,.07) 0%, transparent 70%);
   top: 50%;
-  left: -50%;
-  animation: sweep 2s linear infinite;
-  opacity: 0.4;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: breathe 3s ease-in-out infinite;
+}
+.lux-loader::after {
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(201,168,76,.03) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: breathe 3s ease-in-out infinite reverse;
 }
 
-@keyframes sweep {
-  from { transform: translateX(-30%); }
-  to { transform: translateX(30%); }
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.08); }
 }
 
-/* content */
+/* ─── SWEEP LINE ──────────────────────────────────────── */
+.lux-sweep {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.lux-sweep::before {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.55), transparent);
+  top: 50%;
+  left: -40%;
+  animation: sweepLine 1.8s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes sweepLine {
+  0%   { left: -40%; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { left: 140%; opacity: 0; }
+}
+
+/* ─── CONTENT ─────────────────────────────────────────── */
 .lux-content {
   text-align: center;
   z-index: 2;
-  animation: fadeIn 0.4s ease;
+  position: relative;
+  animation: riseIn 0.5s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+/* ─── LOGO SVG WRAPPER ────────────────────────────────── */
+.lux-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+.lux-logo-svg {
+  width: 64px;
+  height: 64px;
+  animation: rotatePulse 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 14px rgba(201,168,76,.35));
+}
+@keyframes rotatePulse {
+  0%,100% { filter: drop-shadow(0 0 10px rgba(201,168,76,.3)); transform: scale(1); }
+  50%      { filter: drop-shadow(0 0 22px rgba(201,168,76,.6)); transform: scale(1.04); }
 }
 
-/* logo */
+/* ─── HIEROGLYPH DIVIDER ──────────────────────────────── */
+.lux-frieze {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.lux-frieze::before,
+.lux-frieze::after {
+  content: "";
+  width: 52px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.5));
+}
+.lux-frieze::after {
+  background: linear-gradient(90deg, rgba(201,168,76,.5), transparent);
+}
+.lux-glyph {
+  font-size: 12px;
+  color: rgba(201,168,76,.5);
+  letter-spacing: 5px;
+}
+
+/* ─── BRAND TEXT ──────────────────────────────────────── */
 .lux-title {
   font-family: "Cinzel", serif;
-  font-size: 32px;
-  letter-spacing: 6px;
-  color: #c9a84c;
-  margin-bottom: 6px;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 700;
+  letter-spacing: 10px;
+  color: #E8C96D;
+  margin: 0 0 6px;
+  text-shadow: 0 0 28px rgba(201,168,76,.3);
 }
-
-/* sub */
+.lux-tours {
+  font-family: "Cinzel", serif;
+  font-size: clamp(12px, 2vw, 15px);
+  font-weight: 600;
+  letter-spacing: 8px;
+  color: rgba(201,168,76,.65);
+  margin: 0 0 6px;
+}
 .lux-sub {
-  font-size: 11px;
-  letter-spacing: 4px;
-  opacity: 0.5;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: rgba(250,246,237,.3);
+  text-transform: uppercase;
+  margin: 0 0 28px;
 }
 
-/* bar */
+/* ─── PROGRESS BAR ────────────────────────────────────── */
+.lux-bar-wrap {
+  position: relative;
+  width: 220px;
+  margin: 0 auto 14px;
+}
 .lux-bar {
   width: 220px;
-  height: 2px;
-  background: rgba(255,255,255,0.08);
-  margin: 18px auto 0;
+  height: 1.5px;
+  background: rgba(201,168,76,.1);
   border-radius: 50px;
   overflow: hidden;
 }
-
 .lux-fill {
   height: 100%;
-  background: #c9a84c;
-  transition: width 0.15s linear;
+  background: linear-gradient(90deg, #8B6010, #E8C96D, #C9A84C);
+  border-radius: 50px;
+  transition: width 0.12s linear;
+  box-shadow: 0 0 8px rgba(201,168,76,.5);
 }
 
-/* exit clean */
-.exit {
-  animation: out 0.3s ease forwards;
+/* ─── PERCENT ─────────────────────────────────────────── */
+.lux-percent {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(201,168,76,.45);
 }
 
-@keyframes out {
-  to {
-    opacity: 0;
-    transform: scale(1.02);
-  }
+/* ─── CORNER ORNAMENTS ────────────────────────────────── */
+.lux-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: rgba(201,168,76,.2);
+  border-style: solid;
+}
+.lux-corner.tl { top: 28px; left: 28px; border-width: 1px 0 0 1px; }
+.lux-corner.tr { top: 28px; right: 28px; border-width: 1px 1px 0 0; }
+.lux-corner.bl { bottom: 28px; left: 28px; border-width: 0 0 1px 1px; }
+.lux-corner.br { bottom: 28px; right: 28px; border-width: 0 1px 1px 0; }
+
+/* ─── EXIT ────────────────────────────────────────────── */
+.lux-loader.exit {
+  animation: luxOut 0.35s cubic-bezier(.4,0,1,1) forwards;
+}
+@keyframes luxOut {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.03); }
 }
