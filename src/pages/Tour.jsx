@@ -64,36 +64,11 @@ const LANGS = [
 
 const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).toLocaleString()}`;
 
-// ─── FALLBACK IMAGES (used whenever a tour record is missing
-//     its own gallery, so every tour still renders fully) ──────
-const CATEGORY_IMAGES = {
-  "Tour packages": [
-    "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1200&q=80",
-    "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1200&q=80",
-    "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1200&q=80",
-    "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1200&q=80",
-    "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200&q=80",
-    "https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1200&q=80",
-  ],
-  "Guided tours and free tours": [
-    "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200&q=80",
-    "https://images.unsplash.com/photo-1590090304945-8f2a6a3f1e7d?w=1200&q=80",
-  ],
-  "Day trip": [
-    "https://images.unsplash.com/photo-1539768942893-daf2293f73e8?w=1200&q=80",
-    "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1200&q=80",
-  ],
-  "default": [
-    "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1200&q=80",
-    "https://images.unsplash.com/photo-1608037521244-f1c6c7635194?w=1200&q=80",
-    "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200&q=80",
-    "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1200&q=80",
-  ],
-};
-const getImages = (tour) => {
-  if (tour?.images?.length) return tour.images;
-  return CATEGORY_IMAGES[tour?.category] || CATEGORY_IMAGES["default"];
-};
+// ─── IMAGES — come ONLY from the tour's own data (tour.images). ──
+// ─── Fully optional: 0, 1, or many images all work cleanly, with ──
+// ─── no fake/generic photos pretending to belong to this tour.  ──
+const PLACEHOLDER_IMG = (title) => `https://placehold.co/1200x700/F3ECD8/A07828?text=${encodeURIComponent(title || "Aurevian Tours")}`;
+const getImages = (tour) => (Array.isArray(tour?.images) ? tour.images.filter(Boolean) : []);
 
 // ─── GENERIC FALLBACKS — keep every tour page complete even if
 //     a given record hasn't filled in every optional field ─────
@@ -559,19 +534,27 @@ export default function TourPage(){
 
   // Only Google Translate ever changes on-page wording — there is
   // no manual translation dictionary anywhere in this component.
+  const triggerGoogleTranslate = useCallback((gtCode, attempt=0) => {
+    const selectEl = document.querySelector(".goog-te-combo");
+    if(selectEl){
+      selectEl.value = gtCode === "en" ? "" : gtCode;
+      selectEl.dispatchEvent(new Event("change"));
+      return;
+    }
+    // Widget script may still be loading on the very first click —
+    // retry briefly instead of silently failing.
+    if(attempt < 15){
+      setTimeout(() => triggerGoogleTranslate(gtCode, attempt+1), 200);
+    }
+  }, []);
+
   const handleLangSelect = useCallback((lang)=>{
     setUiLang(lang.code);
     if(setGlobalLang) setGlobalLang(lang.code);
     document.documentElement.setAttribute("lang",lang.code);
     document.documentElement.setAttribute("dir",lang.dir||"ltr");
-    try{
-      const selectEl = document.querySelector(".goog-te-combo");
-      if(selectEl){
-        selectEl.value = lang.gt === "en" ? "" : lang.gt;
-        selectEl.dispatchEvent(new Event("change"));
-      }
-    }catch(e){}
-  },[setGlobalLang]);
+    triggerGoogleTranslate(lang.gt);
+  },[setGlobalLang, triggerGoogleTranslate]);
 
   const setCurrencyVal = (code)=>{ setCur(code); if(setGlobalCur) setGlobalCur(code); };
 
@@ -675,7 +658,13 @@ export default function TourPage(){
   const routePoints = tour.routePoints?.length ? tour.routePoints : itinerary.map(s=>s.title).slice(0,3);
 
   const handleBook = booking => {
-    alert(`✦ Booking Received!\n\n${tour.title}\nDate: ${booking.date||"TBD"}\nTravellers: ${booking.adults} adult(s)\nTotal: ${fmtP(booking.total)}`);
+    navigate(`/booking/${tour._id}`, {
+      state: {
+        tourName: tour.title,
+        price:    tour.price?.discounted ?? tour.price?.original ?? 0,
+        city:     destination || "",
+      }
+    });
   };
 
   const reviewPages = Math.max(1, reviewList.length - 2);
@@ -792,7 +781,7 @@ export default function TourPage(){
       <div className="tp-hero-wrap">
         <div className="tp-hero-grid">
           <div>
-            <div className="tp-hero-banner" style={{backgroundImage:`url(${images[heroImg]})`}}>
+            <div className="tp-hero-banner" style={{backgroundImage:`url(${images[heroImg] || PLACEHOLDER_IMG(tour.title)})`}}>
               {tour.bestseller!==false && <span className="tp-hero-badge">✦ Bestseller</span>}
               <h1 className="tp-htitle">{tour.title}</h1>
               {tour.subtitle && <p className="tp-htagline">{tour.subtitle}</p>}
@@ -819,17 +808,21 @@ export default function TourPage(){
                 <div className="tp-trust"><div className="tp-trust-ic">🛡️</div><div><div className="tp-trust-l">Best Price Guarantee</div></div></div>
                 <div className="tp-trust"><div className="tp-trust-ic">👤</div><div><div className="tp-trust-l">Private & Flexible</div></div></div>
               </div>
-              <div className="tp-photostrip">
-                {images.slice(0,5).map((src,i)=>(
-                  <div key={i} className={`tp-pthumb${heroImg===i?" on":""}`} onClick={()=>setHeroImg(i)}>
-                    <img src={src} alt={`View ${i+1}`} onError={e=>{e.target.src=`https://placehold.co/200x150/F3ECD8/A07828?text=${i+1}`;}}/>
-                  </div>
-                ))}
-                <div className="tp-pthumb" onClick={()=>setHeroImg(0)}>
-                  <img src={images[5]||images[0]} alt="More"/>
-                  <div className="tp-pthumb-more"><b>+{Math.max(0,18)}</b>Photos</div>
+              {images.length > 1 && (
+                <div className="tp-photostrip">
+                  {images.slice(0,5).map((src,i)=>(
+                    <div key={i} className={`tp-pthumb${heroImg===i?" on":""}`} onClick={()=>setHeroImg(i)}>
+                      <img src={src} alt={`View ${i+1}`} onError={e=>{e.target.src=PLACEHOLDER_IMG(`${i+1}`);}}/>
+                    </div>
+                  ))}
+                  {images.length > 5 && (
+                    <div className="tp-pthumb" onClick={()=>setHeroImg(5)}>
+                      <img src={images[5]} alt="More"/>
+                      <div className="tp-pthumb-more"><b>+{images.length-5}</b>Photos</div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -877,7 +870,7 @@ export default function TourPage(){
                         <div className="tp-step-title">{step.title}</div>
                         <div className="tp-step-desc">{step.description}</div>
                       </div>
-                      <div className="tp-step-img"><img src={step.image||images[i%images.length]} alt={step.title} onError={e=>{e.target.style.display="none";}}/></div>
+                      <div className="tp-step-img"><img src={step.image || (images.length ? images[i%images.length] : PLACEHOLDER_IMG(step.title))} alt={step.title} onError={e=>{e.target.style.display="none";}}/></div>
                     </div>
                   </div>
                 ))}
