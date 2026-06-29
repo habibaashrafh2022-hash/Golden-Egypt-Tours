@@ -1,18 +1,24 @@
 // ============================================================
-//  Tour.jsx — Aurevian Tours ✦ Unified Luxury Edition (v2)
+//  Tour.jsx — Aurevian Tours ✦ Unified Luxury Edition (v3)
 //  Layout matches the approved reference design exactly:
 //  top trust bar + main nav, breadcrumb, image hero with
 //  floating booking widget, segmented tab navigation, overview
 //  cards, itinerary timeline + includes/excludes/good-to-know
 //  stack, traveller reviews, FAQ accordion, dark CTA band,
 //  full footer. Cream/gold palette, Cinzel / Cormorant Garamond /
-//  Josefin Sans, shared currency switcher. All on-page copy stays
-//  in English — every translation is handled live by the Google
-//  Translate engine wired up below. No text is hand-translated.
+//  Josefin Sans, shared currency switcher.
+//
+//  v3 CHANGES: Google Translate has been fully removed. All
+//  static UI chrome (nav, tabs, labels, headings, footer, etc.)
+//  now comes from the static translations dictionary via the
+//  shared t() helper from GlobalContext — same system used
+//  everywhere else on the site. Database-driven tour content
+//  (title, description, itinerary, reviews, FAQ) is NOT
+//  translated here; it is shown as stored.
 //  Route: /tour/:tourId  (this single template powers every tour)
 // ============================================================
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getTourById } from "../api/index";
 import { useGlobal } from "../context/GlobalContext";
@@ -43,25 +49,6 @@ const CURR = {
   CAD:{s:"C$",   r:1.36,   l:"CAD — Canadian Dollar"},
 };
 
-// ─── LANGUAGES — labels only (just the picker UI), every word
-//     of actual page content is translated live by Google
-//     Translate, never by a hand-written dictionary. ───────────
-const LANGS = [
-  {code:"en", label:"English",    flag:"🇬🇧", dir:"ltr", gt:"en"},
-  {code:"es", label:"Español",    flag:"🇪🇸", dir:"ltr", gt:"es"},
-  {code:"it", label:"Italiano",   flag:"🇮🇹", dir:"ltr", gt:"it"},
-  {code:"fr", label:"Français",   flag:"🇫🇷", dir:"ltr", gt:"fr"},
-  {code:"de", label:"Deutsch",    flag:"🇩🇪", dir:"ltr", gt:"de"},
-  {code:"pt", label:"Português",  flag:"🇵🇹", dir:"ltr", gt:"pt"},
-  {code:"zh", label:"中文",        flag:"🇨🇳", dir:"ltr", gt:"zh-CN"},
-  {code:"nl", label:"Nederlands", flag:"🇳🇱", dir:"ltr", gt:"nl"},
-  {code:"ja", label:"日本語",      flag:"🇯🇵", dir:"ltr", gt:"ja"},
-  {code:"ru", label:"Русский",    flag:"🇷🇺", dir:"ltr", gt:"ru"},
-  {code:"tr", label:"Türkçe",     flag:"🇹🇷", dir:"ltr", gt:"tr"},
-  {code:"ko", label:"한국어",      flag:"🇰🇷", dir:"ltr", gt:"ko"},
-  {code:"ar", label:"العربية",    flag:"🇪🇬", dir:"rtl", gt:"ar"},
-];
-
 const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).toLocaleString()}`;
 
 // ─── IMAGES — come ONLY from the tour's own data (tour.images). ──
@@ -72,6 +59,10 @@ const getImages = (tour) => (Array.isArray(tour?.images) ? tour.images.filter(Bo
 
 // ─── GENERIC FALLBACKS — keep every tour page complete even if
 //     a given record hasn't filled in every optional field ─────
+// NOTE: these are English-only fallback CONTENT (not UI chrome).
+// They only ever appear if the database record for a tour is
+// missing that field, so they are intentionally left untranslated
+// per the rule that tour content comes from the database as-is.
 const DEFAULT_INCLUDES = ["Private air-conditioned vehicle","Professional licensed guide","Entrance fees to all attractions","Bottled water during the tour","Hotel pickup and drop-off","All taxes and service charges"];
 const DEFAULT_EXCLUDES = ["Personal expenses","Tipping (optional)","Beverages during lunch"];
 const DEFAULT_GOOD_TO_KNOW = ["Wear comfortable shoes","Bring your passport or ID","Sunscreen, hat and sunglasses recommended","The tour is suitable for all ages","The itinerary can be customized to your needs"];
@@ -92,15 +83,6 @@ const OV_ICON_FALLBACK = [
   {ic:"❄️", l:"Air-Conditioned Vehicle"},
   {ic:"🍽️", l:"Lunch Included"},
   {ic:"🎫", l:"All Entrance Fees Included"},
-];
-
-const TABS = [
-  {id:"overview",  label:"Overview",       ic:"🧭"},
-  {id:"itinerary", label:"Itinerary",      ic:"📅"},
-  {id:"includes",  label:"What's Included",ic:"🎁"},
-  {id:"goodtoknow",label:"Good to Know",   ic:"ℹ️"},
-  {id:"reviews",   label:"Reviews",        ic:"⭐"},
-  {id:"faq",       label:"FAQ",            ic:"❓"},
 ];
 
 // ─── AUREVIAN LOGO — identical to Home.jsx ────────────────────
@@ -142,20 +124,21 @@ function BrandMark({size=44, dark}){
   );
 }
 
-// ─── LANGUAGE SELECTOR — flips Google Translate only ───────────
-function LanguageSelector({visible, onClose, currentLang, onSelect}){
+// ─── LANGUAGE SELECTOR — now flips the global app language ────
+// (no more Google Translate trigger; this just calls setLanguage
+// from GlobalContext, exactly like the rest of the site does)
+function LanguageSelector({visible, onClose, languages, currentLang, onSelect, t}){
   if(!visible) return null;
   return(
     <div className="tp-lang-pop">
-      <div className="tp-lang-pop-h">🌍 Select Language</div>
+      <div className="tp-lang-pop-h">🌍 {t("tour.selectLanguage")}</div>
       <div className="tp-lang-pop-grid">
-        {LANGS.map(lang=>(
-          <button key={lang.code} className={`lang-btn${currentLang===lang.code?" on":""}`} onClick={()=>{onSelect(lang);onClose();}}>
-            <span style={{fontSize:16}}>{lang.flag}</span><span>{lang.label}</span>
+        {languages.map(lang=>(
+          <button key={lang.code} className={`lang-btn${currentLang===lang.code?" on":""}`} onClick={()=>{onSelect(lang.code);onClose();}}>
+            <span style={{fontSize:16}}>{lang.flag}</span><span>{lang.name}</span>
           </button>
         ))}
       </div>
-      <div className="tp-lang-pop-foot">Powered by Google Translate</div>
     </div>
   );
 }
@@ -204,7 +187,6 @@ button{font-family:inherit;}
 .tp-lang-pop,.tp-cur-pop{position:absolute;top:calc(100% + 10px);right:0;background:linear-gradient(145deg,#FAF6ED,#F3ECD8);border:1.5px solid rgba(193,156,60,.35);border-radius:14px;padding:12px;z-index:2000;box-shadow:0 24px 60px rgba(0,0,0,.35);animation:slideD .18s ease;min-width:230px;max-height:360px;overflow-y:auto;}
 .tp-lang-pop-h{font-size:9px;color:#A07828;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-weight:700;font-family:'Josefin Sans',sans-serif;padding:0 4px;}
 .tp-lang-pop-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.tp-lang-pop-foot{margin-top:10px;padding-top:8px;border-top:1px solid rgba(193,156,60,.18);font-size:8px;letter-spacing:1px;color:#9C7A3C;text-align:center;text-transform:uppercase;}
 .tp-cur-pop{min-width:200px;padding:6px;}
 .tp-cur-row{padding:9px 14px;cursor:pointer;font-size:11px;color:rgba(44,26,6,.6);font-family:'Josefin Sans',sans-serif;border-radius:8px;transition:background .15s;}
 .tp-cur-row:hover{background:rgba(201,168,76,.12);}
@@ -455,8 +437,7 @@ button{font-family:inherit;}
 );
 
 // ─── BOOKING WIDGET ────────────────────────────────────────────
-function BookingWidget({tour, onBook, formatPrice}){
-  const navigate = useNavigate();
+function BookingWidget({tour, onBook, formatPrice, t}){
   const [adults,setAdults] = useState(2);
   const [date,setDate] = useState("");
 
@@ -469,30 +450,30 @@ function BookingWidget({tour, onBook, formatPrice}){
 
   return(
     <div className="tp-widget">
-      <div className="tp-wfrom">From</div>
+      <div className="tp-wfrom">{t("tour.widgetFromLabel")}</div>
       <div className="tp-wprice-row">
         <span className="tp-wprice">{formatPrice(price)}</span>
-        <span className="tp-wpp">/person</span>
-        {tour.price?.discounted && <><span className="tp-wold">{formatPrice(originalPrice)}</span><span className="tp-wsave">Save {savePercent}%</span></>}
+        <span className="tp-wpp">{t("tour.widgetPerPerson")}</span>
+        {tour.price?.discounted && <><span className="tp-wold">{formatPrice(originalPrice)}</span><span className="tp-wsave">{t("tour.widgetSaveLabel")} {savePercent}%</span></>}
       </div>
-      <div className="tp-wbest"><span>🛡️</span> Best Price Guarantee</div>
+      <div className="tp-wbest"><span>🛡️</span> {t("tour.bestPriceGuarantee")}</div>
       <div className="tp-wdiv"/>
       <div className="tp-wf">
-        <div className="tp-wfl">Select Date</div>
-        <input type="date" className="tp-wfi" value={date} min={new Date().toISOString().split("T")[0]} onChange={e=>setDate(e.target.value)} placeholder="Select your date"/>
+        <div className="tp-wfl">{t("tour.widgetSelectDate")}</div>
+        <input type="date" className="tp-wfi" value={date} min={new Date().toISOString().split("T")[0]} onChange={e=>setDate(e.target.value)}/>
       </div>
       <div className="tp-wf">
-        <div className="tp-wfl">Travelers</div>
+        <div className="tp-wfl">{t("tour.widgetTravelers")}</div>
         <div className="tp-stepper">
           <button className="tp-stepper-btn" onClick={()=>setAdults(a=>Math.max(1,a-1))} disabled={adults<=1}>−</button>
-          <span className="tp-stepper-val">{adults} Adult{adults>1?"s":""}</span>
+          <span className="tp-stepper-val">{adults} {adults>1?t("tour.widgetAdultPlural"):t("tour.widgetAdultSingular")}</span>
           <button className="tp-stepper-btn" onClick={()=>setAdults(a=>Math.min(20,a+1))}>+</button>
         </div>
       </div>
-      <button id="tp-main-book-btn" className="tp-bookbtn" onClick={()=>onBook({adults,date,total})}>Check Availability</button>
-      <a href={`${WA_BASE}?text=${waMsg}`} target="_blank" rel="noreferrer" className="tp-wabtn">💬 Book on WhatsApp</a>
+      <button id="tp-main-book-btn" className="tp-bookbtn" onClick={()=>onBook({adults,date,total})}>{t("tour.widgetCheckAvailability")}</button>
+      <a href={`${WA_BASE}?text=${waMsg}`} target="_blank" rel="noreferrer" className="tp-wabtn">{t("tour.widgetBookWhatsapp")}</a>
       <div className="tp-wsecure">
-        <span className="tp-wsecure-l">Secure Payment</span>
+        <span className="tp-wsecure-l">{t("tour.widgetSecurePayment")}</span>
         <div className="tp-wcards"><span>VISA</span><span>MC</span><span>PayPal</span></div>
       </div>
     </div>
@@ -505,7 +486,10 @@ function BookingWidget({tour, onBook, formatPrice}){
 export default function TourPage(){
   const {tourId} = useParams();
   const navigate = useNavigate();
-  const {language:globalLang, currency:globalCur, setLanguage:setGlobalLang, setCurrency:setGlobalCur, formatPrice} = useGlobal();
+  const {
+    language, setLanguage, currency:globalCur, setCurrency:setGlobalCur,
+    formatPrice, t, LANGUAGES, CURRENCIES,
+  } = useGlobal();
 
   const [tour,setTour] = useState(null);
   const [loading,setLoading] = useState(true);
@@ -517,10 +501,18 @@ export default function TourPage(){
   const [langOpen,setLangOpen] = useState(false);
   const [curOpen,setCurOpen] = useState(false);
   const [navDrop,setNavDrop] = useState(null);
-  const [uiLang,setUiLang] = useState(globalLang||"en");
   const [cur,setCur] = useState(globalCur||"USD");
   const [openFaq,setOpenFaq] = useState(0);
   const [revStart,setRevStart] = useState(0);
+
+  const TABS = [
+    {id:"overview",  label:t("tour.tabOverview"),     ic:"🧭"},
+    {id:"itinerary", label:t("tour.tabItinerary"),    ic:"📅"},
+    {id:"includes",  label:t("tour.tabIncludes"),     ic:"🎁"},
+    {id:"goodtoknow",label:t("tour.tabGoodToKnow"),   ic:"ℹ️"},
+    {id:"reviews",   label:t("tour.tabReviews"),      ic:"⭐"},
+    {id:"faq",       label:t("tour.tabFaq"),          ic:"❓"},
+  ];
 
   const refOverview = useRef(null);
   const refItinerary = useRef(null);
@@ -532,43 +524,12 @@ export default function TourPage(){
 
   const fmtP = p => formatPrice ? formatPrice(p) : fmt(p,cur);
 
-  // Only Google Translate ever changes on-page wording — there is
-  // no manual translation dictionary anywhere in this component.
-  const triggerGoogleTranslate = useCallback((gtCode, attempt=0) => {
-    const selectEl = document.querySelector(".goog-te-combo");
-    if(selectEl){
-      selectEl.value = gtCode === "en" ? "" : gtCode;
-      selectEl.dispatchEvent(new Event("change"));
-      return;
-    }
-    // Widget script may still be loading on the very first click —
-    // retry briefly instead of silently failing.
-    if(attempt < 15){
-      setTimeout(() => triggerGoogleTranslate(gtCode, attempt+1), 200);
-    }
-  }, []);
-
-  const handleLangSelect = useCallback((lang)=>{
-    setUiLang(lang.code);
-    if(setGlobalLang) setGlobalLang(lang.code);
-    document.documentElement.setAttribute("lang",lang.code);
-    document.documentElement.setAttribute("dir",lang.dir||"ltr");
-    triggerGoogleTranslate(lang.gt);
-  },[setGlobalLang, triggerGoogleTranslate]);
+  const handleLangSelect = (code)=>{
+    if(setLanguage) setLanguage(code);
+  };
 
   const setCurrencyVal = (code)=>{ setCur(code); if(setGlobalCur) setGlobalCur(code); };
 
-  useEffect(()=>{
-    if(!document.getElementById("gt-script")){
-      window.googleTranslateElementInit=()=>{
-        new window.google.translate.TranslateElement({pageLanguage:"en",includedLanguages:"en,fr,es,de,it,pt,ru,zh-CN,ja,nl,tr,ko,ar",autoDisplay:false},"gt-hidden");
-      };
-      const s=document.createElement("script");
-      s.id="gt-script"; s.src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"; s.async=true;
-      document.head.appendChild(s);
-    }
-  },[]);
-  useEffect(()=>{ if(globalLang) setUiLang(globalLang); },[globalLang]);
   useEffect(()=>{ if(globalCur) setCur(globalCur); },[globalCur]);
 
   useEffect(() => {
@@ -618,13 +579,13 @@ export default function TourPage(){
     }
   };
 
-  const currentLangObj = LANGS.find(l=>l.code===uiLang) || LANGS[0];
+  const currentLangObj = (LANGUAGES||[]).find(l=>l.code===language) || {code:"en", name:"English", flag:"🇬🇧"};
 
   if(loading) return (
     <div className="tp-loader">
       <GlobalStyles/>
       <div className="tp-loader-hiero">𓂀</div>
-      <div className="tp-loader-txt">Loading Experience...</div>
+      <div className="tp-loader-txt">{t("tour.loadingExperience")}</div>
     </div>
   );
 
@@ -632,8 +593,8 @@ export default function TourPage(){
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100vh",background:"#FAF6ED",gap:20}}>
       <GlobalStyles/>
       <div style={{fontFamily:"'Cinzel',serif",fontSize:52,color:"#C9A84C"}}>𓂀</div>
-      <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:13,letterSpacing:3,color:"#2C1A06"}}>TOUR NOT FOUND</div>
-      <button onClick={()=>navigate("/")} style={{background:"rgba(201,168,76,.1)",border:"1px solid rgba(193,156,60,.3)",color:"#A07828",borderRadius:8,padding:"10px 24px",fontFamily:"'Josefin Sans',sans-serif",fontSize:10,letterSpacing:2,cursor:"pointer",textTransform:"uppercase",fontWeight:700}}>← Return Home</button>
+      <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:13,letterSpacing:3,color:"#2C1A06"}}>{t("tour.tourNotFound")}</div>
+      <button onClick={()=>navigate("/")} style={{background:"rgba(201,168,76,.1)",border:"1px solid rgba(193,156,60,.3)",color:"#A07828",borderRadius:8,padding:"10px 24px",fontFamily:"'Josefin Sans',sans-serif",fontSize:10,letterSpacing:2,cursor:"pointer",textTransform:"uppercase",fontWeight:700}}>{t("tour.returnHome")}</button>
     </div>
   );
 
@@ -676,18 +637,17 @@ export default function TourPage(){
   return (
     <div style={{background:"var(--bg)",minHeight:"100vh",position:"relative"}}>
       <GlobalStyles/>
-      <div id="gt-hidden" style={{display:"none"}}/>
 
       {/* TOP TRUST BAR */}
       <div className="tp-topbar">
-        <span className="tp-tb-stat dn">👥 <b>12,000+</b>&nbsp;Happy Travelers</span>
-        <span className="tp-tb-stat dn">🗺️ <b>500+</b>&nbsp;Tours</span>
-        <span className="tp-tb-stat">⭐ <b>4.9</b>&nbsp;Rating</span>
-        <span className="tp-tb-stat dn">🎧 24/7 Support</span>
+        <span className="tp-tb-stat dn">👥 <b>12,000+</b>&nbsp;{t("tour.tbHappyTravelers")}</span>
+        <span className="tp-tb-stat dn">🗺️ <b>500+</b>&nbsp;{t("tour.tbToursCount")}</span>
+        <span className="tp-tb-stat">⭐ <b>4.9</b>&nbsp;{t("tour.tbRating")}</span>
+        <span className="tp-tb-stat dn">🎧 {t("tour.tbSupport")}</span>
         <div className="tp-tb-right">
           <div className="tp-tb-item" onClick={()=>{setLangOpen(v=>!v);setCurOpen(false);}}>
-            <span>{currentLangObj.flag}</span><span className="dn">{currentLangObj.label}</span><span style={{fontSize:8}}>▾</span>
-            <LanguageSelector visible={langOpen} onClose={()=>setLangOpen(false)} currentLang={uiLang} onSelect={handleLangSelect}/>
+            <span>{currentLangObj.flag}</span><span className="dn">{currentLangObj.name}</span><span style={{fontSize:8}}>▾</span>
+            <LanguageSelector visible={langOpen} onClose={()=>setLangOpen(false)} languages={LANGUAGES||[]} currentLang={language} onSelect={handleLangSelect} t={t}/>
           </div>
           <div className="tp-tb-sep dn"/>
           <div className="tp-tb-item dn" onClick={()=>{setCurOpen(v=>!v);setLangOpen(false);}}>
@@ -703,7 +663,7 @@ export default function TourPage(){
           <div className="tp-tb-sep dn"/>
           <a className="tp-tb-item dn" href={`tel:+${PHONE_DIGITS}`}>📞 {PHONE_DISPLAY}</a>
           <div className="tp-tb-sep dn"/>
-          <a className="tp-tb-item" href={WA_BASE} target="_blank" rel="noreferrer">💬 <span className="dn">WhatsApp</span></a>
+          <a className="tp-tb-item" href={WA_BASE} target="_blank" rel="noreferrer">💬 <span className="dn">{t("tour.tbWhatsapp")}</span></a>
         </div>
       </div>
 
@@ -712,9 +672,9 @@ export default function TourPage(){
         <BrandMark size={38}/>
 
         <div className="tp-menu dn">
-          <Link to="/" className="tp-menu-link">Home</Link>
+          <Link to="/" className="tp-menu-link">{t("tour.navHome")}</Link>
           <div className="tp-menu-item">
-            <button className="tp-menu-link" onClick={()=>setNavDrop(navDrop==="dest"?null:"dest")}>Destinations <span className="tp-menu-caret">▾</span></button>
+            <button className="tp-menu-link" onClick={()=>setNavDrop(navDrop==="dest"?null:"dest")}>{t("tour.navDestinations")} <span className="tp-menu-caret">▾</span></button>
             {navDrop==="dest" && (
               <div className="tp-menu-drop">
                 {["Cairo","Luxor","Aswan","Hurghada","Sharm El Sheikh"].map(d=>(
@@ -724,55 +684,61 @@ export default function TourPage(){
             )}
           </div>
           <div className="tp-menu-item">
-            <button className="tp-menu-link" onClick={()=>setNavDrop(navDrop==="tours"?null:"tours")}>Tours <span className="tp-menu-caret">▾</span></button>
+            <button className="tp-menu-link" onClick={()=>setNavDrop(navDrop==="tours"?null:"tours")}>{t("tour.navTours")} <span className="tp-menu-caret">▾</span></button>
             {navDrop==="tours" && (
               <div className="tp-menu-drop">
-                {["Day Tours","Multi-Day Tours","Nile Cruises","Private Tours","Adventure Tours"].map(d=>(
-                  <Link key={d} to={`/tours/${d.toLowerCase().replace(/ /g,"-")}`}>{d}</Link>
-                ))}
+                <Link to="/tours/day-tours">{t("tour.navDayTours")}</Link>
+                <Link to="/tours/multi-day-tours">{t("tour.navMultiDayTours")}</Link>
+                <Link to="/nile-cruises">{t("tour.navNileCruises")}</Link>
+                <Link to="/tours/private-tours">{t("tour.navPrivateTours")}</Link>
+                <Link to="/tours/adventure-tours">{t("tour.navAdventureTours")}</Link>
               </div>
             )}
           </div>
-          <Link to="/nile-cruises" className="tp-menu-link">Nile Cruises</Link>
-          <Link to="/custom-trips" className="tp-menu-link">Custom Trips</Link>
-          <Link to="/about" className="tp-menu-link">About Us</Link>
-          <Link to="/contact" className="tp-menu-link">Contact</Link>
+          <Link to="/nile-cruises" className="tp-menu-link">{t("tour.navNileCruises")}</Link>
+          <Link to="/custom-trips" className="tp-menu-link">{t("tour.navCustomTrips")}</Link>
+          <Link to="/about" className="tp-menu-link">{t("tour.navAbout")}</Link>
+          <Link to="/contact" className="tp-menu-link">{t("tour.navContact")}</Link>
         </div>
 
         <div className="tp-nav-acts">
           <button className="tp-icon-btn dn" onClick={()=>setFav(v=>!v)} style={{color:fav?"#B5453F":"#A07828"}}>{fav?"♥":"♡"}</button>
           <button className="tp-icon-btn dn" onClick={()=>navigate("/account")}>👤</button>
-          <button className="btn-gold dn" onClick={()=>navigate("/custom-trips")}>Plan My Trip</button>
+          <button className="btn-gold dn" onClick={()=>navigate("/custom-trips")}>{t("tour.navPlanMyTrip")}</button>
           <button className="tp-mobile-toggle" onClick={()=>setMMenu(v=>!v)}>{mMenu?"✕":"☰"}</button>
         </div>
       </nav>
 
       {mMenu && (
         <div className="tp-mobile-drawer">
-          <Link className="tp-mobile-link" to="/" onClick={()=>setMMenu(false)}>Home</Link>
-          <Link className="tp-mobile-link" to="/destinations" onClick={()=>setMMenu(false)}>Destinations</Link>
-          <Link className="tp-mobile-link" to="/tours" onClick={()=>setMMenu(false)}>Tours</Link>
-          <Link className="tp-mobile-link" to="/nile-cruises" onClick={()=>setMMenu(false)}>Nile Cruises</Link>
-          <Link className="tp-mobile-link" to="/custom-trips" onClick={()=>setMMenu(false)}>Custom Trips</Link>
-          <Link className="tp-mobile-link" to="/about" onClick={()=>setMMenu(false)}>About Us</Link>
-          <Link className="tp-mobile-link" to="/contact" onClick={()=>setMMenu(false)}>Contact</Link>
+          <Link className="tp-mobile-link" to="/" onClick={()=>setMMenu(false)}>{t("tour.navHome")}</Link>
+          <Link className="tp-mobile-link" to="/destinations" onClick={()=>setMMenu(false)}>{t("tour.navDestinations")}</Link>
+          <Link className="tp-mobile-link" to="/tours" onClick={()=>setMMenu(false)}>{t("tour.navTours")}</Link>
+          <Link className="tp-mobile-link" to="/nile-cruises" onClick={()=>setMMenu(false)}>{t("tour.navNileCruises")}</Link>
+          <Link className="tp-mobile-link" to="/custom-trips" onClick={()=>setMMenu(false)}>{t("tour.navCustomTrips")}</Link>
+          <Link className="tp-mobile-link" to="/about" onClick={()=>setMMenu(false)}>{t("tour.navAbout")}</Link>
+          <Link className="tp-mobile-link" to="/contact" onClick={()=>setMMenu(false)}>{t("tour.navContact")}</Link>
           <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"18px 0"}}>
-            {Object.entries(CURR).slice(0,8).map(([code,{s}])=>(
-              <button key={code} onClick={()=>{setCurrencyVal(code);}} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:cur===code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"6px 12px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif"}}>{s} {code}</button>
-            ))}
+            {(CURRENCIES||Object.entries(CURR).map(([code,{s}])=>({code,symbol:s}))).slice(0,8).map((c)=>{
+              const code = c.code;
+              const symbol = c.symbol || CURR[code]?.s || "$";
+              return (
+                <button key={code} onClick={()=>{setCurrencyVal(code);}} style={{background:cur===code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:cur===code?"#A07828":"rgba(44,26,6,.55)",borderRadius:7,padding:"6px 12px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif"}}>{symbol} {code}</button>
+              );
+            })}
           </div>
           <a href={`tel:+${PHONE_DIGITS}`} style={{display:"block",fontFamily:"'Cormorant Garamond',serif",fontSize:15,color:"#2C1A06",marginBottom:14}}>📞 {PHONE_DISPLAY}</a>
-          <a href={WA_BASE} target="_blank" rel="noreferrer" style={{display:"block",textAlign:"center",background:"#25D366",color:"#fff",borderRadius:10,padding:"13px",textDecoration:"none",fontWeight:700,fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp Us</a>
+          <a href={WA_BASE} target="_blank" rel="noreferrer" style={{display:"block",textAlign:"center",background:"#25D366",color:"#fff",borderRadius:10,padding:"13px",textDecoration:"none",fontWeight:700,fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>💬 {t("tour.tbWhatsapp")}</a>
         </div>
       )}
 
       {/* BREADCRUMB */}
       <div className="tp-crumb">
-        <a href="/" onClick={e=>{e.preventDefault();navigate("/")}}>Home</a>
+        <a href="/" onClick={e=>{e.preventDefault();navigate("/")}}>{t("tour.breadcrumbHome")}</a>
         <span style={{opacity:.4}}>›</span>
-        <a href="/tours" onClick={e=>{e.preventDefault();navigate("/tours")}}>Tours</a>
+        <a href="/tours" onClick={e=>{e.preventDefault();navigate("/tours")}}>{t("tour.breadcrumbTours")}</a>
         <span style={{opacity:.4}}>›</span>
-        <a href="#" onClick={e=>{e.preventDefault();navigate(-1)}}>{tour.category||"Egypt Tours"}</a>
+        <a href="#" onClick={e=>{e.preventDefault();navigate(-1)}}>{tour.category||t("tour.breadcrumbDefaultCategory")}</a>
         <span style={{opacity:.4}}>›</span>
         <span className="cur">{tour.title}</span>
       </div>
@@ -782,31 +748,31 @@ export default function TourPage(){
         <div className="tp-hero-grid">
           <div>
             <div className="tp-hero-banner" style={{backgroundImage:`url(${images[heroImg] || PLACEHOLDER_IMG(tour.title)})`}}>
-              {tour.bestseller!==false && <span className="tp-hero-badge">✦ Bestseller</span>}
+              {tour.bestseller!==false && <span className="tp-hero-badge">{t("tour.bestsellerBadge")}</span>}
               <h1 className="tp-htitle">{tour.title}</h1>
               {tour.subtitle && <p className="tp-htagline">{tour.subtitle}</p>}
               <div className="tp-hfacts">
-                <span className="tp-hfact">📋 {tour.tourType||"Full Day Tour"}</span>
+                <span className="tp-hfact">📋 {tour.tourType||t("tour.defaultTourType")}</span>
                 <span className="tp-hfact-sep"/>
-                <span className="tp-hfact">⏱ {tour.duration||"8 Hours"}</span>
+                <span className="tp-hfact">⏱ {tour.duration||t("tour.defaultDuration")}</span>
                 <span className="tp-hfact-sep"/>
-                <span className="tp-hfact">👤 {tour.groupType||"Private Tour"}</span>
+                <span className="tp-hfact">👤 {tour.groupType||t("tour.defaultGroupType")}</span>
               </div>
               <div className="tp-hrating">
                 <span className="tp-hstars">★</span>
                 <span className="tp-hscore">{score}</span>
                 <span className="tp-hstars">{"★".repeat(Math.min(5,Math.round(score)))}</span>
-                <span className="tp-hcount">({reviews?.toLocaleString()} Reviews)</span>
+                <span className="tp-hcount">({reviews?.toLocaleString()} {t("tour.reviewsSuffix")})</span>
               </div>
             </div>
 
             <div className="tp-hero-info">
               <p className="tp-hero-desc">{tour.description?.slice(0,180)}{tour.description?.length>180?"...":""}</p>
               <div className="tp-trustrow">
-                <div className="tp-trust"><div className="tp-trust-ic">⏱</div><div><div className="tp-trust-l">Free Cancellation</div><div className="tp-trust-s">Up to 24 Hours</div></div></div>
-                <div className="tp-trust"><div className="tp-trust-ic">✓</div><div><div className="tp-trust-l">Instant Confirmation</div></div></div>
-                <div className="tp-trust"><div className="tp-trust-ic">🛡️</div><div><div className="tp-trust-l">Best Price Guarantee</div></div></div>
-                <div className="tp-trust"><div className="tp-trust-ic">👤</div><div><div className="tp-trust-l">Private & Flexible</div></div></div>
+                <div className="tp-trust"><div className="tp-trust-ic">⏱</div><div><div className="tp-trust-l">{t("tour.freeCancellation")}</div><div className="tp-trust-s">{t("tour.freeCancellationSub")}</div></div></div>
+                <div className="tp-trust"><div className="tp-trust-ic">✓</div><div><div className="tp-trust-l">{t("tour.instantConfirmation")}</div></div></div>
+                <div className="tp-trust"><div className="tp-trust-ic">🛡️</div><div><div className="tp-trust-l">{t("tour.bestPriceGuarantee")}</div></div></div>
+                <div className="tp-trust"><div className="tp-trust-ic">👤</div><div><div className="tp-trust-l">{t("tour.privateFlexible")}</div></div></div>
               </div>
               {images.length > 1 && (
                 <div className="tp-photostrip">
@@ -818,7 +784,7 @@ export default function TourPage(){
                   {images.length > 5 && (
                     <div className="tp-pthumb" onClick={()=>setHeroImg(5)}>
                       <img src={images[5]} alt="More"/>
-                      <div className="tp-pthumb-more"><b>+{images.length-5}</b>Photos</div>
+                      <div className="tp-pthumb-more"><b>+{images.length-5}</b>{t("tour.morePhotosLabel")}</div>
                     </div>
                   )}
                 </div>
@@ -826,7 +792,7 @@ export default function TourPage(){
             </div>
           </div>
 
-          <aside><BookingWidget tour={tour} onBook={handleBook} formatPrice={fmtP}/></aside>
+          <aside><BookingWidget tour={tour} onBook={handleBook} formatPrice={fmtP} t={t}/></aside>
         </div>
       </div>
 
@@ -846,7 +812,7 @@ export default function TourPage(){
         <div>
           {/* OVERVIEW */}
           <div ref={refOverview}>
-            <h2 className="tp-sec-title">Tour Overview</h2>
+            <h2 className="tp-sec-title">{t("tour.sectionTourOverview")}</h2>
             <p className="tp-ov-text">{tour.description}</p>
             <div className="tp-ovcards">
               {ovCards.map((c,i)=>(<div key={i} className="tp-ovcard"><div className="tp-ovcard-ic">{c.ic}</div><div className="tp-ovcard-l">{c.l}</div></div>))}
@@ -856,7 +822,7 @@ export default function TourPage(){
           {/* ITINERARY + INCLUDES/EXCLUDES/GOOD TO KNOW */}
           <div className="tp-section tp-mid-grid">
             <div ref={refItinerary}>
-              <h2 className="tp-sec-title">Itinerary</h2>
+              <h2 className="tp-sec-title">{t("tour.sectionItinerary")}</h2>
               <div className="tp-itin">
                 {itinerary.map((step,i)=>(
                   <div key={i} className="tp-step">
@@ -875,26 +841,26 @@ export default function TourPage(){
                   </div>
                 ))}
               </div>
-              <div className="tp-notice"><span>ⓘ</span><span>Times are approximate and can be adjusted according to your preference.</span></div>
+              <div className="tp-notice"><span>ⓘ</span><span>{t("tour.itineraryNotice")}</span></div>
             </div>
 
             <div>
               <div ref={refIncludes} className="tp-stackcard">
-                <div className="tp-stack-h">What's Included</div>
+                <div className="tp-stack-h">{t("tour.sectionWhatsIncluded")}</div>
                 <div className="tp-stack-list">
                   {includes.map((inc,i)=>(<div key={i} className="tp-stack-row"><span className="tp-stack-ic ok">✓</span><span>{inc}</span></div>))}
                 </div>
               </div>
               {excludes.length>0 && (
                 <div className="tp-stackcard">
-                  <div className="tp-stack-h">What's Not Included</div>
+                  <div className="tp-stack-h">{t("tour.sectionWhatsNotIncluded")}</div>
                   <div className="tp-stack-list">
                     {excludes.map((exc,i)=>(<div key={i} className="tp-stack-row"><span className="tp-stack-ic no">✕</span><span>{exc}</span></div>))}
                   </div>
                 </div>
               )}
               <div ref={refGoodToKnow} className="tp-stackcard">
-                <div className="tp-stack-h">Good to Know</div>
+                <div className="tp-stack-h">{t("tour.sectionGoodToKnow")}</div>
                 <div className="tp-stack-list">
                   {goodToKnow.map((g,i)=>(<div key={i} className="tp-stack-row"><span className="tp-stack-ic info">ⓘ</span><span>{g}</span></div>))}
                 </div>
@@ -905,18 +871,18 @@ export default function TourPage(){
           {/* REVIEWS */}
           <div className="tp-section" ref={refReviews}>
             <div className="tp-sec-head-row">
-              <h2 className="tp-sec-title" style={{marginBottom:0}}>What Our Travelers Say</h2>
-              <button className="tp-view-all" onClick={()=>goTab("reviews")}>View All Reviews →</button>
+              <h2 className="tp-sec-title" style={{marginBottom:0}}>{t("tour.sectionTravelerReviews")}</h2>
+              <button className="tp-view-all" onClick={()=>goTab("reviews")}>{t("tour.viewAllReviews")}</button>
             </div>
             <div className="tp-revsum">
               <div style={{textAlign:"center",minWidth:80}}>
                 <div className="tp-rbig">{score}</div>
-                <div className="tp-rof">out of 5.0</div>
+                <div className="tp-rof">{t("tour.ratingOutOf")}</div>
                 <div className="tp-rbig-stars">{"★".repeat(Math.min(5,Math.round(score)))}</div>
-                <div className="tp-rtotal">{reviews?.toLocaleString()} reviews</div>
+                <div className="tp-rtotal">{reviews?.toLocaleString()} {t("tour.ratingReviewsSuffix")}</div>
               </div>
               <div className="tp-rbars">
-                {[{l:"Guide Quality",p:98},{l:"Value for Money",p:94},{l:"Organisation",p:96},{l:"Experience",p:99}].map(b=>(
+                {[{l:t("tour.ratingGuideQuality"),p:98},{l:t("tour.ratingValueForMoney"),p:94},{l:t("tour.ratingOrganisation"),p:96},{l:t("tour.ratingExperience"),p:99}].map(b=>(
                   <div key={b.l} className="tp-rbar-row"><span className="tp-rbar-l">{b.l}</span><div className="tp-rbar-track"><div className="tp-rbar-fill" style={{width:`${b.p}%`}}/></div><span className="tp-rbar-pct">{b.p}%</span></div>
                 ))}
               </div>
@@ -949,8 +915,8 @@ export default function TourPage(){
           {/* FAQ */}
           <div className="tp-section" ref={refFaq}>
             <div className="tp-sec-head-row">
-              <h2 className="tp-sec-title" style={{marginBottom:0}}>Frequently Asked Questions</h2>
-              <button className="tp-view-all" onClick={()=>goTab("faq")}>View All FAQ →</button>
+              <h2 className="tp-sec-title" style={{marginBottom:0}}>{t("tour.sectionFaq")}</h2>
+              <button className="tp-view-all" onClick={()=>goTab("faq")}>{t("tour.viewAllFaq")}</button>
             </div>
             <div className="tp-faqgrid">
               {faqs.map((f,i)=>(
@@ -968,25 +934,25 @@ export default function TourPage(){
         {/* SIDEBAR */}
         <aside className="tp-side">
           <div className="tp-side-card">
-            <div className="tp-side-h">Tour Highlights</div>
+            <div className="tp-side-h">{t("tour.sidebarTourHighlights")}</div>
             <div className="tp-hl-list">
               {highlights.map((h,i)=>(<div key={i} className="tp-hl-row"><span className="tp-hl-ic">◆</span><span>{h}</span></div>))}
             </div>
           </div>
 
           <div className="tp-side-card">
-            <div className="tp-side-h">Need a Custom Trip?</div>
-            <p className="tp-custom-txt">We can customize this tour to fit your travel style and preferences.</p>
-            <button className="btn-gold" style={{width:"100%"}} onClick={()=>navigate("/custom-trips")}>Customize My Trip</button>
+            <div className="tp-side-h">{t("tour.sidebarCustomTripHeading")}</div>
+            <p className="tp-custom-txt">{t("tour.sidebarCustomTripText")}</p>
+            <button className="btn-gold" style={{width:"100%"}} onClick={()=>navigate("/custom-trips")}>{t("tour.sidebarCustomizeBtn")}</button>
           </div>
 
           <div className="tp-side-card">
             <div className="tp-rev-mini">
               <div className="tp-rev-mini-big">{score}</div>
               <div className="tp-rev-mini-txt">
-                <span className="tp-rev-mini-l">Excellent</span>
+                <span className="tp-rev-mini-l">{t("tour.ratingExcellent")}</span>
                 <span className="tp-rev-mini-stars">{"★".repeat(Math.min(5,Math.round(score)))}</span>
-                <span className="tp-rev-mini-cnt">{reviews?.toLocaleString()} Reviews</span>
+                <span className="tp-rev-mini-cnt">{reviews?.toLocaleString()} {t("tour.reviewsSuffix")}</span>
               </div>
             </div>
             {reviewList[0] && (
@@ -999,25 +965,25 @@ export default function TourPage(){
                 <div style={{fontFamily:"'Josefin Sans',sans-serif",fontSize:9,color:"#9C7A3C",marginTop:6,textTransform:"uppercase"}}>{reviewList[0].date}</div>
               </div>
             )}
-            <button className="tp-view-all" onClick={()=>goTab("reviews")}>Read all reviews →</button>
+            <button className="tp-view-all" onClick={()=>goTab("reviews")}>{t("tour.readAllReviews")}</button>
           </div>
 
           <div className="tp-side-card">
-            <div className="tp-side-h">Tour Route</div>
+            <div className="tp-side-h">{t("tour.sidebarTourRoute")}</div>
             <div className="tp-route-map">
               {routePoints.map((p,i)=>(
                 <span key={i} className="tp-route-pin" style={{top:`${18+i*36}%`, left: i%2===0 ? "8%" : "42%"}}>📍 {p}</span>
               ))}
             </div>
-            <a href={mapSearchUrl} target="_blank" rel="noreferrer" className="btn-gold" style={{width:"100%",display:"block",textAlign:"center",textDecoration:"none"}}>View Full Map</a>
+            <a href={mapSearchUrl} target="_blank" rel="noreferrer" className="btn-gold" style={{width:"100%",display:"block",textAlign:"center",textDecoration:"none"}}>{t("tour.sidebarViewFullMap")}</a>
           </div>
 
           <div className="tp-side-card">
-            <div className="tp-side-h">Your Journey is 100% Protected</div>
+            <div className="tp-side-h">{t("tour.sidebarProtectedHeading")}</div>
             <div className="tp-protect-list">
-              <div className="tp-protect-row">✓ Free cancellation up to 24 hours</div>
-              <div className="tp-protect-row">✓ No hidden fees</div>
-              <div className="tp-protect-row">✓ Secure &amp; trusted booking</div>
+              <div className="tp-protect-row">{t("tour.sidebarFreeCancel")}</div>
+              <div className="tp-protect-row">{t("tour.sidebarNoHiddenFees")}</div>
+              <div className="tp-protect-row">{t("tour.sidebarSecureBooking")}</div>
             </div>
           </div>
         </aside>
@@ -1026,17 +992,17 @@ export default function TourPage(){
       {/* CTA BAND */}
       <div className="tp-cta">
         <div>
-          <div className="tp-cta-h">Ready to Explore {destination}?</div>
-          <div className="tp-cta-s">Book now and experience the wonders of ancient Egypt.</div>
+          <div className="tp-cta-h">{t("tour.ctaHeadingPrefix")} {destination}{t("tour.ctaHeadingSuffix")}</div>
+          <div className="tp-cta-s">{t("tour.ctaSubtitle")}</div>
         </div>
         <div className="tp-cta-mid">
-          <div className="tp-cta-item"><span className="tp-cta-ic">🛡️</span><div className="tp-cta-it"><b>Best Price Guarantee</b><span>No hidden fees</span></div></div>
-          <div className="tp-cta-item"><span className="tp-cta-ic">📅</span><div className="tp-cta-it"><b>Flexible Booking</b><span>Free cancellation</span></div></div>
-          <div className="tp-cta-item"><span className="tp-cta-ic">🎧</span><div className="tp-cta-it"><b>24/7 Support</b><span>We're here to help</span></div></div>
+          <div className="tp-cta-item"><span className="tp-cta-ic">🛡️</span><div className="tp-cta-it"><b>{t("tour.ctaBestPriceGuarantee")}</b><span>{t("tour.ctaBestPriceGuaranteeSub")}</span></div></div>
+          <div className="tp-cta-item"><span className="tp-cta-ic">📅</span><div className="tp-cta-it"><b>{t("tour.ctaFlexibleBooking")}</b><span>{t("tour.ctaFlexibleBookingSub")}</span></div></div>
+          <div className="tp-cta-item"><span className="tp-cta-ic">🎧</span><div className="tp-cta-it"><b>{t("tour.ctaSupport")}</b><span>{t("tour.ctaSupportSub")}</span></div></div>
         </div>
         <div className="tp-cta-btns">
-          <button className="btn-gold" onClick={()=>{document.getElementById("tp-main-book-btn")?.scrollIntoView({behavior:"smooth",block:"center"});}}>Book Now</button>
-          <a className="btn-ghost-dark" href={WA_BASE} target="_blank" rel="noreferrer" style={{textDecoration:"none",display:"inline-block"}}>Contact on WhatsApp</a>
+          <button className="btn-gold" onClick={()=>{document.getElementById("tp-main-book-btn")?.scrollIntoView({behavior:"smooth",block:"center"});}}>{t("tour.ctaBookNow")}</button>
+          <a className="btn-ghost-dark" href={WA_BASE} target="_blank" rel="noreferrer" style={{textDecoration:"none",display:"inline-block"}}>{t("tour.ctaContactWhatsapp")}</a>
         </div>
       </div>
 
@@ -1045,7 +1011,7 @@ export default function TourPage(){
         <div className="tp-footer-top">
           <div>
             <BrandMark size={36} dark/>
-            <p className="tp-footer-desc">We craft luxury journeys across Egypt with passion, expertise and attention to every detail. Your adventure, perfectly curated.</p>
+            <p className="tp-footer-desc">{t("tour.footerDesc")}</p>
             <div className="tp-footer-soc">
               <a href="https://facebook.com" target="_blank" rel="noreferrer">📘</a>
               <a href="https://instagram.com" target="_blank" rel="noreferrer">📷</a>
@@ -1055,49 +1021,49 @@ export default function TourPage(){
             </div>
           </div>
           <div className="tp-footer-col">
-            <div className="tp-footer-h">Destinations</div>
+            <div className="tp-footer-h">{t("tour.footerDestinations")}</div>
             <Link to="/destinations/cairo">Cairo</Link>
             <Link to="/destinations/luxor">Luxor</Link>
             <Link to="/destinations/aswan">Aswan</Link>
             <Link to="/destinations/hurghada">Hurghada</Link>
             <Link to="/destinations/sharm-el-sheikh">Sharm El Sheikh</Link>
-            <Link to="/destinations">All Destinations</Link>
+            <Link to="/destinations">{t("tour.footerAllDestinations")}</Link>
           </div>
           <div className="tp-footer-col">
-            <div className="tp-footer-h">Tours</div>
-            <Link to="/tours/day-tours">Day Tours</Link>
-            <Link to="/tours/multi-day-tours">Multi-Day Tours</Link>
-            <Link to="/nile-cruises">Nile Cruises</Link>
-            <Link to="/tours/private-tours">Private Tours</Link>
-            <Link to="/tours/adventure-tours">Adventure Tours</Link>
-            <Link to="/tours">All Tours</Link>
+            <div className="tp-footer-h">{t("tour.footerToursHeading")}</div>
+            <Link to="/tours/day-tours">{t("tour.navDayTours")}</Link>
+            <Link to="/tours/multi-day-tours">{t("tour.navMultiDayTours")}</Link>
+            <Link to="/nile-cruises">{t("tour.navNileCruises")}</Link>
+            <Link to="/tours/private-tours">{t("tour.navPrivateTours")}</Link>
+            <Link to="/tours/adventure-tours">{t("tour.navAdventureTours")}</Link>
+            <Link to="/tours">{t("tour.footerAllTours")}</Link>
           </div>
           <div className="tp-footer-col">
-            <div className="tp-footer-h">Company</div>
-            <Link to="/about">About Us</Link>
-            <Link to="/guides">Our Guides</Link>
-            <Link to="/reviews">Reviews</Link>
-            <Link to="/blog">Blog</Link>
-            <Link to="/travel-tips">Travel Tips</Link>
-            <Link to="/contact">Contact Us</Link>
+            <div className="tp-footer-h">{t("tour.footerCompany")}</div>
+            <Link to="/about">{t("tour.footerAboutUs")}</Link>
+            <Link to="/guides">{t("tour.footerOurGuides")}</Link>
+            <Link to="/reviews">{t("tour.footerReviews")}</Link>
+            <Link to="/blog">{t("tour.footerBlog")}</Link>
+            <Link to="/travel-tips">{t("tour.footerTravelTips")}</Link>
+            <Link to="/contact">{t("tour.footerContactUs")}</Link>
           </div>
           <div className="tp-footer-col">
-            <div className="tp-footer-h">Support</div>
-            <Link to="/faq">FAQ</Link>
-            <Link to="/cancellation-policy">Cancellation Policy</Link>
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/terms">Terms &amp; Conditions</Link>
+            <div className="tp-footer-h">{t("tour.footerSupport")}</div>
+            <Link to="/faq">{t("tour.footerFaq")}</Link>
+            <Link to="/cancellation-policy">{t("tour.footerCancellationPolicy")}</Link>
+            <Link to="/privacy-policy">{t("tour.footerPrivacyPolicy")}</Link>
+            <Link to="/terms">{t("tour.footerTerms")}</Link>
           </div>
           <div className="tp-footer-col">
-            <div className="tp-footer-h">Contact Us</div>
+            <div className="tp-footer-h">{t("tour.footerContactHeading")}</div>
             <a className="fc-line" href={`tel:+${PHONE_DIGITS}`} style={{display:"block"}}>📞 {PHONE_DISPLAY}</a>
             <a className="fc-line" href={`mailto:${EMAIL}`} style={{display:"block"}}>✉️ {EMAIL}</a>
-            <span className="fc-line">📍 Cairo, Egypt</span>
-            <a className="tp-footer-wabtn" href={WA_BASE} target="_blank" rel="noreferrer">💬 WhatsApp</a>
+            <span className="fc-line">📍 {t("tour.footerAddress")}</span>
+            <a className="tp-footer-wabtn" href={WA_BASE} target="_blank" rel="noreferrer">{t("tour.footerWhatsappBtn")}</a>
           </div>
         </div>
         <div className="tp-footer-bottom">
-          <span className="tp-footer-copy">© {new Date().getFullYear()} Aurevian Tours. All Rights Reserved.</span>
+          <span className="tp-footer-copy">© {new Date().getFullYear()} {t("tour.footerCopyrightSuffix")}</span>
           <div className="tp-pay-icons"><span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Apple Pay</span></div>
         </div>
       </footer>

@@ -50,7 +50,7 @@ export default function Booking() {
         currency:   currency || "USD",
       };
 
-      const res  = await fetch("/api/bookings/create", {
+      const res  = await fetch("https://golden-egypt-tours-production.up.railway.app/api/bookings/create", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(payload),

@@ -2,26 +2,78 @@
 
 const cityData = {
   name: "Port Said",
+  name_t: {
+    es: "Port Said",
+    pt: "Port Said",
+    it: "Port Said",
+    fr: "Port Said",
+    ru: "Port Said",
+    de: "Port Said",
+  },
   slug: "port-said",
   description:
     "Port Said is one of Egypt's most strategically significant and historically fascinating cities, perched at the northern entrance of the legendary Suez Canal where the Mediterranean Sea meets one of the world's most important waterways. Unlike Egypt's ancient temple cities, Port Said carries no pharaonic past at all — it is, by Egyptian standards, a remarkably young city, founded in 1859 during the construction of the canal as little more than a logistics outpost on a thin strip of land between sea and lake, and yet within a few short decades it had grown into one of the most cosmopolitan port cities anywhere on the Mediterranean. Engineers, merchants, sailors, and laborers from France, Greece, Italy, Malta, and across the Levant all settled here together, drawn by the sheer scale of the engineering project unfolding at the city's edge, and they left behind a distinctive architectural fingerprint that still defines Port Said today — wide tree-lined boulevards, wrought-iron balconies, and elegant colonial-era buildings that would look equally at home in Marseille or Alexandria. Today it offers visitors a unique window into a pivotal chapter of modern history — the canal that transformed global trade and shrank the distance between Europe and Asia by thousands of nautical miles — as well as a relaxed Mediterranean atmosphere, fresh seafood pulled straight from the surrounding waters, and easy access to Cairo and Alexandria for travelers looking to combine the canal city with Egypt's more famous ancient and modern landmarks.",
+  description_t: {
+    es: "Port Said es una de las ciudades más estratégicamente significativas e históricamente fascinantes de Egipto, situada en la entrada norte del legendario canal de Suez donde el mar Mediterráneo se encuentra con uno de los canales más importantes del mundo. A diferencia de las antiguas ciudades-templo de Egipto, Port Said no tiene ningún pasado faraónico: es, según los estándares egipcios, una ciudad notablemente joven, fundada en 1859 durante la construcción del canal como poco más que un puesto logístico en una delgada franja de tierra entre el mar y el lago, y sin embargo en unas pocas décadas se había convertido en una de las ciudades portuarias más cosmopolitas del Mediterráneo. Ingenieros, comerciantes, marineros y trabajadores de Francia, Grecia, Italia, Malta y de todo el Levante se establecieron aquí juntos, atraídos por la magnitud del proyecto de ingeniería que se desarrollaba en los límites de la ciudad, y dejaron tras sí una huella arquitectónica distintiva que todavía define a Port Said hoy en día: amplios bulevares arbolados, balcones de hierro forjado y elegantes edificios de la época colonial que parecerían igual de cómodos en Marsella o Alejandría. Hoy ofrece a los visitantes una ventana única a un capítulo crucial de la historia moderna -el canal que transformó el comercio global y redujo la distancia entre Europa y Asia en miles de millas náuticas- así como una atmósfera mediterránea relajada, mariscos frescos extraídos directamente de las aguas circundantes, y fácil acceso a El Cairo y Alejandría para los viajeros que buscan combinar la ciudad del canal con los monumentos antiguos y modernos más famosos de Egipto.",
+    pt: "Port Said é uma das cidades mais estrategicamente significativas e historicamente fascinantes do Egito, situada na entrada norte do lendário Canal de Suez, onde o Mar Mediterrâneo encontra um dos canais mais importantes do mundo. Ao contrário das antigas cidades-templo do Egito, Port Said não carrega nenhum passado faraônico - é, pelos padrões egípcios, uma cidade notavelmente jovem, fundada em 1859 durante a construção do canal como pouco mais do que um posto de apoio logístico em uma fina faixa de terra entre o mar e o lago, e, no entanto, em poucas décadas, cresceu até se tornar uma das cidades portuárias mais cosmopolitas do Mediterrâneo. Engenheiros, comerciantes, marinheiros e trabalhadores da França, Grécia, Itália, Malta e de todo o Levante se estabeleceram aqui juntos, atraídos pela escala do projeto de engenharia que se desenrolava na borda da cidade, e eles deixaram para trás uma marca arquitetônica distintiva que ainda define Port Said hoje - amplas avenidas arborizadas, varandas de ferro forjado e elegantes edifícios da era colonial que pareceriam igualmente em casa em Marselha ou Alexandria. Hoje, oferece aos visitantes uma janela única para um capítulo crucial da história moderna - o canal que transformou o comércio global e encurtou a distância entre a Europa e a Ásia em milhares de milhas náuticas - bem como uma atmosfera mediterrânea descontraída, frutos do mar frescos retirados diretamente das águas circundantes, e fácil acesso ao Cairo e a Alexandria para viajantes que desejam combinar a cidade dos canais com os marcos antigos e modernos mais famosos do Egito.",
+    it: "Port Said è una delle città egiziane strategicamente più significative e storicamente affascinanti, arroccata all'ingresso settentrionale del leggendario Canale di Suez, dove il Mar Mediterraneo incontra una delle vie d'acqua più importanti del mondo. A differenza delle antiche città-tempio egiziane, Port Said non ha alcun passato faraonico — è, per gli standard egiziani, una città straordinariamente giovane, fondata nel 1859 durante la costruzione del canale come poco più di un avamposto logistico su una sottile striscia di terra tra mare e lago, eppure nel giro di pochi decenni era diventata una delle città portuali più cosmopolite del Mediterraneo. Ingegneri, mercanti, marinai e operai provenienti da Francia, Grecia, Italia, Malta e da tutto il Levante si stabilirono tutti qui insieme, attratti dalla vastità del progetto ingegneristico che si stava svolgendo ai margini della città, e lasciarono dietro di sé un'impronta architettonica distintiva che definisce ancora oggi Port Said — ampi viali alberati, balconi in ferro battuto ed eleganti edifici dell'era coloniale che si troverebbero a loro agio sia a Marsiglia che ad Alessandria. Oggi offre ai visitatori una finestra unica su un capitolo fondamentale della storia moderna — il canale che ha trasformato il commercio globale e ridotto la distanza tra Europa e Asia di migliaia di miglia nautiche —, nonché un'atmosfera mediterranea rilassata, pesce fresco estratto direttamente dalle acque circostanti, e facile accesso al Cairo e ad Alessandria per i viaggiatori che desiderano combinare la città del canale con i monumenti antichi e moderni più famosi dell'Egitto.",
+    fr: "Port-Saïd est l'une des villes égyptiennes les plus importantes sur le plan stratégique et les plus fascinantes sur le plan historique. Elle est perchée à l'entrée nord du légendaire canal de Suez, où la mer Méditerranée rencontre l'une des voies navigables les plus importantes au monde. Contrairement aux anciennes villes-temples d'Égypte, Port-Saïd n'a pas de passé pharaonique. Selon les normes égyptiennes, il s'agit d'une ville remarquablement jeune, fondée en 1859 pendant la construction du canal, qui n'est guère plus qu'un avant-poste logistique sur une mince bande de terre entre la mer et le lac, et pourtant, en quelques décennies seulement, elle est devenue l'une des villes portuaires les plus cosmopolites de la Méditerranée. Des ingénieurs, des marchands, des marins et des ouvriers de la France, de la Grèce, de l'Italie, de Malte et de tout le Levant se sont installés ici ensemble, attirés par l'ampleur du projet d'ingénierie qui se déroulait à la limite de la ville, et ils ont laissé derrière eux une empreinte architecturale distinctive qui définit encore Port-Saïd aujourd'hui : de larges boulevards bordés d'arbres, des balcons en fer forgé et d'élégants bâtiments de l'époque coloniale qui seraient aussi bien à Marseille qu'à Alexandrie. Aujourd'hui, il offre aux visiteurs une fenêtre unique sur un chapitre charnière de l'histoire moderne — le canal qui a transformé le commerce mondial et réduit la distance entre l'Europe et l'Asie de milliers de milles nautiques — ainsi qu'une atmosphère méditerranéenne détendue, des fruits de mer frais tirés directement des eaux environnantes, et un accès facile au Caire et à Alexandrie pour les voyageurs qui cherchent à combiner la ville du canal avec les monuments anciens et modernes plus célèbres de l'Égypte.",
+    ru: "Порт-Саид — один из стратегически значимых и исторически увлекательных городов Египта, расположенный на северном входе легендарного Суэцкого канала, где Средиземное море встречается с одним из самых важных водных путей в мире. В отличие от древних египетских храмовых городов, Порт-Саид вообще не имеет фараонского прошлого — по египетским меркам это удивительно молодой город, основанный в 1859 году во время строительства канала как небольшой логистический аванпост на тонкой полосе земли между морем и озером, и всё же в течение нескольких коротких десятилетий он превратился в один из самых космополитических портовых городов на Средиземном море. Инженеры, торговцы, моряки и рабочие из Франции, Греции, Италии, Мальты и со всего Леванта поселились здесь вместе, привлечённые грандиозным инженерным проектом, разворачивавшимся на окраине города, и они оставили после себя неповторимый архитектурный след, который по сей день определяет облик Порт-Саида: широкие бульвары с деревьями, кованые балконы и элегантные здания колониальной эпохи, которые одинаково органично смотрелись бы в Марселе или Александрии. Сегодня он предлагает посетителям уникальное окно в ключевую главу современной истории — канал, преобразивший мировую торговлю и сократившей расстояние между Европой и Азией на тысячи морских миль — а также расслабленную средиземноморскую атмосферу, свежие морепродукты прямо из окружающих вод и удобный доступ в Каир и Александрию для путешественников, желающих совместить город на канале с более известными древними и современными достопримечательностями Египта.",
+    de: "Port Said ist eine der strategisch bedeutendsten und historisch faszinierendsten Städte Ägyptens. Sie liegt am nördlichen Eingang des legendären Suezkanals, wo das Mittelmeer auf eine der wichtigsten Wasserstraßen der Welt trifft. Im Gegensatz zu den antiken Tempelstädten Ägyptens hat Port Said keinerlei pharaonische Vergangenheit — sie ist nach ägyptischen Maßstäben eine bemerkenswert junge Stadt, 1859 während des Baus des Kanals als kaum mehr als ein Logistik-Außenposten auf einem schmalen Landstreifen zwischen Meer und See gegründet, und dennoch entwickelte sie sich innerhalb weniger Jahrzehnte zu einer der kosmopolitischsten Hafenstädte am Mittelmeer. Ingenieure, Kaufleute, Seeleute und Arbeiter aus Frankreich, Griechenland, Italien, Malta und der gesamten Levante ließen sich hier nieder, angezogen von der schieren Größe des Ingenieurprojekts, das sich am Rande der Stadt entfaltete, und sie hinterließen einen unverwechselbaren architektonischen Fingerabdruck, der Port Said bis heute prägt — breite, von Bäumen gesäumte Boulevards, schmiedeeiserne Balkone und elegante Gebäude aus der Kolonialzeit, die ebenso gut in Marseille oder Alexandria stehen könnten. Heute bietet sie Besuchern ein einzigartiges Fenster in ein entscheidendes Kapitel der modernen Geschichte — den Kanal, der den globalen Handel transformierte und die Entfernung zwischen Europa und Asien um Tausende von Seemeilen verkürzte — sowie eine entspannte mediterrane Atmosphäre, frischen Fisch direkt aus den umliegenden Gewässern und einfachen Zugang nach Kairo und Alexandria für Reisende, die die Kanalstadt mit den berühmteren antiken und modernen Wahrzeichen Ägyptens verbinden möchten.",
+  },
+
   country: "Egypt",
   image: "port-said.jpg",
 };
 
 const toursData = [
+  // ─────────────────────────────────────────────────────────────────────────
+  // 1. Cairo & Giza Pyramids Full Day Trip from Port Said
+  // ─────────────────────────────────────────────────────────────────────────
   {
     title: "Cairo & Giza Pyramids Full Day Trip from Port Said",
+    title_t: {
+      es: "Excursión de un día completo a las pirámides de El Cairo y Giza desde Port Said",
+      pt: "Excursão de dia inteiro às Pirâmides do Cairo e Giza a partir de Port Said",
+      it: "Gita di un giorno intero alle Piramidi del Cairo e di Giza da Porto Said",
+      fr: "Le Caire et les pyramides de Gizeh, excursion d'une journée complète au départ de Port-Saïd",
+      ru: "Однодневная экскурсия к пирамидам Каира и Гизы из Порт-Саида",
+      de: "Ganztägiger Ausflug nach Kairo & Gizeh-Pyramiden von Port Said",
+    },
     slug: "cairo-giza-pyramids-day-trip-port-said",
     description:
       "Make the most of your time in Port Said with this outstanding full-day excursion to Cairo and the legendary Pyramids of Giza, a chance to trade the canal city's modern maritime story for a single, immersive day inside one of the oldest chapters of human civilization. Travel by private vehicle to the Egyptian capital and spend the day in the company of an expert Egyptologist guide, beginning with the awe-inspiring Giza Plateau where the three great pyramids of Khufu, Khafre, and Menkaure have dominated the desert skyline for over 4,500 years, their scale almost impossible to fully grasp until you are standing directly beneath one of them. Visit the enigmatic Great Sphinx, its weathered face still gazing eastward exactly as it has for millennia, before heading to the world-renowned Egyptian Museum of Antiquities in Tahrir Square with its extraordinary collection of royal mummies, ancient statues, and Tutankhamun's legendary golden treasures, room after room of objects that quietly rewrite what you thought you knew about the people who built all of this. The day ends with a visit to the atmospheric Coptic neighborhood and the famous Hanging Church, a quieter, more contemplative final stop after a day spent among pharaohs and gold.",
+    description_t: {
+      es: "Aprovecha al máximo tu tiempo en Port Said con esta excepcional excursión de un día completo a El Cairo y las legendarias pirámides de Giza, una oportunidad para intercambiar la historia marítima moderna de la ciudad del canal por un solo día inmersivo dentro de uno de los capítulos más antiguos de la civilización humana. Viaja en vehículo privado a la capital egipcia y pasa el día en compañía de un guía experto egiptólogo, comenzando por la impresionante meseta de Giza, donde las tres grandes pirámides de Khufu, Khafre y Menkaure han dominado el horizonte del desierto durante más de 4.500 años, su escala es casi imposible de comprender plenamente hasta que uno está directamente debajo de uno de ellos. Visitar la enigmática Gran Esfinge, su cara desgastada todavía mirando hacia el este exactamente como lo ha hecho durante milenios, antes de dirigirse al mundialmente famoso Museo Egipcio de Antigüedades en la Plaza Tahrir con su extraordinaria colección de momias reales, antiguas estatuas, y los legendarios tesoros dorados de Tutankamón, habitación tras habitación de objetos que silenciosamente reescriben lo que creías saber sobre las personas que construyeron todo esto. El día termina con una visita al pintoresco barrio copto y a la famosa iglesia colgante, una parada final más tranquila y contemplativa después de un día entre faraones y oro.",
+      pt: "Aproveite ao máximo seu tempo em Port Said com esta excursão excepcional de dia inteiro ao Cairo e às lendárias Pirâmides de Gizé, uma chance de trocar a história marítima moderna da cidade do canal por um único dia imersivo dentro de um dos capítulos mais antigos da civilização humana. Viaje de veículo particular para a capital egípcia e passe o dia na companhia de um guia experiente de egiptólogo, começando pelo deslumbrante Planalto de Gizé, onde as três grandes pirâmides de Khufu, Khafre e Menkaure dominam o horizonte do deserto há mais de 4.500 anos, a escala deles é quase impossível de compreender completamente até que você esteja bem abaixo de um deles. Visite a enigmática Grande Esfinge, seu rosto desgastado ainda olhando para o leste exatamente como há milênios, antes de ir ao mundialmente famoso Museu Egípcio de Antiguidades na Praça Tahrir, com sua extraordinária coleção de múmias reais, antigas estátuas, e os lendários tesouros dourados de Tutancâmon, sala após sala de objetos que silenciosamente reescrevem o que você achava que sabia sobre as pessoas que construíram tudo isso. O dia termina com uma visita ao atmosférico bairro copta e à famosa Igreja Suspensa, uma parada final mais tranquila e contemplativa após um dia passado entre faraós e ouro.",
+      it: "Sfrutta al massimo il tuo tempo a Port Said con questa straordinaria escursione di un'intera giornata al Cairo e alle leggendarie Piramidi di Giza, un'opportunità per scambiare la moderna storia marittima della città dei canali con un'unica giornata immersiva all'interno di uno dei capitoli più antichi della civiltà umana. Viaggia con un veicolo privato fino alla capitale egiziana e trascorri la giornata in compagnia di una guida egittologa esperta, iniziando dall'imponente altopiano di Giza, dove le tre grandi piramidi di Cheope, Chefren e Micerino dominano lo skyline del deserto da oltre 4.500 anni; le loro dimensioni sono quasi impossibili da comprendere appieno finché non ti trovi direttamente sotto una di esse. Visitate l'enigmatica Grande Sfinge, il cui volto segnato dalle intemperie continua a guardare verso est esattamente come ha fatto per millenni, prima di dirigervi al Museo egizio delle antichità di fama mondiale in piazza Tahrir con la sua straordinaria collezione di mummie reali, statue antiche e i leggendari tesori dorati di Tutankhamon, una stanza dopo l'altra di oggetti che riscrivono silenziosamente ciò che pensavate di sapere sulle persone che hanno costruito tutto questo. La giornata si conclude con una visita al suggestivo quartiere copto e alla famosa Chiesa Sospesa, un'ultima tappa più tranquilla e contemplativa dopo una giornata trascorsa tra faraoni e oro.",
+      fr: "Profitez au maximum de votre séjour à Port-Saïd avec cette excursion exceptionnelle d'une journée complète au Caire et aux légendaires pyramides de Gizeh, l'occasion d'échanger l'histoire maritime moderne de la ville du canal contre une seule journée immersive dans l'un des plus anciens chapitres de la civilisation humaine. Voyagez en véhicule privé jusqu'à la capitale égyptienne et passez la journée en compagnie d'un guide égyptologue expert, en commençant par l'impressionnant plateau de Gizeh où les trois grandes pyramides de Khoufou, Khafre et Menkaourê dominent l'horizon du désert depuis plus de 4.500 ans, leur échelle presque impossible à saisir pleinement jusqu'à ce que vous soyez debout directement en dessous de l'un d'eux. Visitez l'énigmatique Grand Sphinx, son visage patiné regardant toujours vers l'est exactement comme il l'a fait pendant des millénaires, avant de vous rendre au célèbre musée égyptien des antiquités sur la place Tahrir avec son extraordinaire collection de momies royales, des statues anciennes, et les légendaires trésors dorés de Toutânkhamon, pièce après pièce d'objets qui réécrivent discrètement ce que vous pensiez savoir sur les personnes qui ont construit tout cela. La journée se termine par une visite du quartier copte atmosphérique et de la célèbre église suspendue, un arrêt final plus calme et plus contemplatif après une journée passée parmi les pharaons et l'or.",
+      ru: "Получите максимальную отдачу от своего времени в Порт-Саиде с этой выдающейся однодневной экскурсией по Каиру и легендарным пирамидам Гизы — шанс обменять современную морскую историю города канала на один захватывающий день внутри одной из старейших глав человеческой цивилизации. Путешествуйте на частном автомобиле в египетскую столицу и проведите день в компании опытного гида-египтолога, начиная с потрясающего плато Гиза, где три великие пирамиды Хуфу, Хафре и Менкаура доминируют на горизонте пустыни уже более 4500 лет — их масштаб почти невозможно полностью осознать, пока не окажешься прямо под одной из них. Посетите загадочного Большого Сфинкса, чьё выветренное лицо по-прежнему смотрит на восток так же, как это было тысячелетиями, а затем отправьтесь во всемирно известный Египетский музей древностей на площади Тахрир с его необыкновенной коллекцией царских мумий, древних статуй и легендарных золотых сокровищ Тутанхамона — зал за залом предметов, которые тихо переписывают всё, что вы думали, что знали о людях, построивших всё это. День завершается посещением атмосферного коптского квартала и знаменитой Подвесной церкви — более спокойной и созерцательной финальной остановкой после дня, проведённого среди фараонов и золота.",
+      de: "Nutzen Sie Ihre Zeit in Port Said optimal mit diesem herausragenden Ganztagesausflug nach Kairo und zu den legendären Pyramiden von Gizeh — eine Gelegenheit, die moderne maritime Geschichte der Kanalstadt gegen einen einzigen, immersiven Tag in einem der ältesten Kapitel der Menschheitsgeschichte einzutauschen. Reisen Sie mit einem privaten Fahrzeug in die ägyptische Hauptstadt und verbringen Sie den Tag in Begleitung eines erfahrenen Ägyptologen, beginnend mit dem atemberaubenden Gizeh-Plateau, wo die drei großen Pyramiden von Cheops, Chephren und Mykerinos seit über 4.500 Jahren die Wüstenlandschaft dominieren, deren Ausmaß fast unmöglich vollständig zu erfassen ist, bis man direkt unter einer von ihnen steht. Besuchen Sie die rätselhafte Große Sphinx, deren verwittertes Gesicht immer noch nach Osten blickt, genau wie seit Jahrtausenden, bevor Sie zum weltberühmten Ägyptischen Museum für Altertümer am Tahrir-Platz fahren, mit seiner außergewöhnlichen Sammlung königlicher Mumien, antiker Statuen und der legendären goldenen Schätze Tutanchamuns, Raum für Raum mit Objekten, die leise umschreiben, was Sie zu wissen glaubten über die Menschen, die all dies erbauten. Der Tag endet mit einem Besuch des atmosphärischen koptischen Viertels und der berühmten Hängenden Kirche, einem ruhigeren, besinnlicheren Abschluss nach einem Tag unter Pharaonen und Gold.",
+    },
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      pt: "Excursão de um dia",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная поездка",
+      de: "Tagesausflug",
+    },
     price: {
       original: 93.28,
       discounted: 74.62,
       currency: "USD",
     },
     duration: "13 hours",
+    duration_t: {
+      es: "13 horas",
+      pt: "13 horas",
+      it: "13 ore",
+      fr: "13 heures",
+      ru: "13 часов",
+      de: "13 Stunden",
+    },
     language: ["English"],
     rating: {
       score: 8.3,
@@ -36,21 +88,117 @@ const toursData = [
       "Explore the Coptic neighborhood and Hanging Church",
       "Hotel or port pickup and drop-off included",
     ],
+    highlights_t: {
+      es: [
+        "Excursión de un día completo desde Port Said a las pirámides de Giza",
+        "Visita la Gran Esfinge y las tres pirámides",
+        "Recorrer el museo egipcio con los tesoros de Tutankamón",
+        "Explora el barrio copto y la iglesia colgante",
+        "Recogida y devolución en el hotel o puerto incluidos",
+      ],
+      pt: [
+        "Viagem de um dia inteiro de Port Said para as Pirâmides de Gizé",
+        "Visite a Grande Esfinge e todas as três pirâmides",
+        "Visite o Museu Egípcio com os tesouros de Tutankhamon",
+        "Explore o bairro copta e a igreja suspensa",
+        "Recolha e devolução no hotel ou porto incluídos",
+      ],
+      it: [
+        "Gita di un giorno intero da Porto Said alle Piramidi di Giza",
+        "Visita la Grande Sfinge e tutte e tre le piramidi",
+        "Visita il Museo Egizio con i tesori di Tutankhamon",
+        "Esplora il quartiere copto e la chiesa sospesa",
+        "Prelievo e rientro in hotel o al porto inclusi",
+      ],
+      fr: [
+        "Voyage d'une journée complète de Port-Saïd aux pyramides de Gizeh",
+        "Visitez le Grand Sphinx et les trois pyramides",
+        "Visitez le musée égyptien avec les trésors de Toutânkhamon",
+        "Explorez le quartier copte et l'église suspendue",
+        "Prise en charge et retour à l'hôtel ou au port inclus",
+      ],
+      ru: [
+        "Однодневная поездка из Порт-Саида к пирамидам Гизы",
+        "Посетите Большого Сфинкса и все три пирамиды",
+        "Экскурсия по Египетскому музею с сокровищами Тутанхамона",
+        "Исследуйте коптский квартал и Подвесную церковь",
+        "Трансфер из отеля или порта и обратно включён",
+      ],
+      de: [
+        "Ganztägiger Ausflug von Port Said zu den Pyramiden von Gizeh",
+        "Besuch der Großen Sphinx und aller drei Pyramiden",
+        "Besichtigung des Ägyptischen Museums mit den Schätzen Tutanchamuns",
+        "Erkundung des koptischen Viertels und der Hängenden Kirche",
+        "Abholung und Rückgabe vom oder zum Hotel oder Hafen inklusive",
+      ],
+    },
     includes: ["Guide", "Hotel or port pickup and drop-off", "Private transport", "Entrance fees", "Lunch"],
+    includes_t: {
+      es: ["Guía", "Recogida y devolución en el hotel o puerto", "Transporte privado", "Entradas", "Almuerzo"],
+      pt: ["Guia", "Embarque e desembarque no hotel ou porto", "Transporte privado", "Taxas de entrada", "Almoço"],
+      it: ["Guida", "Prelievo e rientro in hotel o al porto", "Trasporto privato", "Tariffe d'ingresso", "Pranzo"],
+      fr: ["Guide", "Prise en charge et dépose à l'hôtel ou au port", "Transport privé", "Frais d'entrée", "Déjeuner"],
+      ru: ["Гид", "Трансфер из отеля или порта и обратно", "Частный транспорт", "Входные билеты", "Обед"],
+      de: ["Reiseführer", "Hotel- oder Hafentransfer", "Privater Transport", "Eintrittsgelder", "Mittagessen"],
+    },
     excludes: ["Entry inside the Great Pyramid (extra fee)", "Tips", "Personal expenses"],
+    excludes_t: {
+      es: ["Entrada dentro de la Gran Pirámide (costo extra)", "Propinas", "Gastos personales"],
+      pt: ["Entrada dentro da Grande Pirâmide (taxa extra)", "Gorjetas", "Despesas pessoais"],
+      it: ["Ingresso all'interno della Grande Piramide (a pagamento)", "Mance", "Spese personali"],
+      fr: ["Entrée à l'intérieur de la grande pyramide (frais supplémentaires)", "Pourboires", "Dépenses personnelles"],
+      ru: ["Вход внутрь Большой пирамиды (за дополнительную плату)", "Чаевые", "Личные расходы"],
+      de: ["Eintritt in die Große Pyramide (Extragebühr)", "Trinkgelder", "Persönliche Ausgaben"],
+    },
   },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 2. Aurevian eSIM Card Egypt
+  // ─────────────────────────────────────────────────────────────────────────
   {
     title: "Aurevian eSIM Card Egypt",
+    title_t: {
+      es: "Tarjeta eSIM Aurevian Egipto",
+      pt: "Cartão eSIM Aurevian Egito",
+      it: "Carta eSIM Aurevian Egitto",
+      fr: "Carte eSIM Aurevian Égypte",
+      ru: "Египетская eSIM-карта Aurevian",
+      de: "Aurevian eSIM-Karte Ägypten",
+    },
     slug: "Aurevian-esim-card-egypt-port-said",
     description:
       "Stay connected throughout your Port Said and Egypt adventure with this easy-to-use travel eSIM, a small piece of digital convenience that removes one more thing to think about once you land. Whether you're watching giant container ships pass through the Suez Canal just meters from the shoreline, exploring Port Said's historic streets with their colonial-era facades, or making day trips to Cairo and Alexandria, this eSIM gives you reliable mobile data coverage across all of Egypt without the friction of finding a local vendor or navigating a kiosk queue in an unfamiliar language. No need to buy or swap a local SIM card — simply activate digitally before your trip and enjoy seamless connectivity from the moment you arrive, all the way through whichever combination of canal views, ancient temples, and Mediterranean seafood your Egyptian itinerary ends up including.",
+    description_t: {
+      es: "Mantente conectado durante tu aventura en Puerto Said y Egipto con esta eSIM de viaje fácil de usar, una pequeña comodidad digital que elimina una preocupación más una vez que aterrices. Ya sea que estés observando cómo los enormes buques portacontenedores cruzan el Canal de Suez a pocos metros de la orilla, explorando las calles históricas de Puerto Said con sus fachadas de la era colonial, o haciendo excursiones de un día a El Cairo y Alejandría, esta eSIM te brinda una cobertura de datos móviles confiable en todo Egipto sin la molestia de buscar un vendedor local o navegar por una cola en un quiosco en un idioma desconocido. No necesitas comprar ni cambiar una tarjeta SIM local: simplemente actívala digitalmente antes de tu viaje y disfruta de una conectividad perfecta desde el momento en que llegas, hasta que termines con la combinación de vistas del canal, templos antiguos y mariscos mediterráneos que tu itinerario egipcio incluya.",
+      pt: "Mantenha-se conectado durante a sua aventura em Port Said e no Egito com este eSIM de viagem fácil de usar, um pequeno pedaço de conveniência digital que remove mais uma coisa para pensar assim que aterrar. Quer esteja a observar navios porta-contentores gigantes a passar pelo Canal de Suez a poucos metros da costa, a explorar as ruas históricas de Port Said com as suas fachadas da era colonial, ou a fazer viagens de um dia ao Cairo e Alexandria, este eSIM oferece-lhe cobertura de dados móveis fiável em todo o Egito, sem o incómodo de encontrar um vendedor local ou de navegar numa fila de quiosque numa língua desconhecida. Não é necessário comprar ou trocar um cartão SIM local — basta ativar digitalmente antes da sua viagem e desfrutar de conectividade sem falhas desde o momento em que chega, até à combinação de vistas do canal, templos antigos e marisco mediterrânico que o seu itinerário egípcio acabar por incluir.",
+      it: "Rimani connesso durante la tua avventura a Port Said e in Egitto con questa eSIM da viaggio facile da usare, un piccolo pezzo di comodità digitale che ti toglie una preoccupazione in meno una volta atterrato. Che tu stia osservando le enormi navi portacontainer passare attraverso il Canale di Suez a pochi metri dalla riva, esplorando le strade storiche di Port Said con le loro facciate d'epoca coloniale, o facendo gite di un giorno al Cairo e ad Alessandria, questa eSIM ti offre una copertura dati mobile affidabile in tutto l'Egitto senza la seccatura di trovare un venditore locale o di fare la fila in un chiosco in una lingua sconosciuta. Non c'è bisogno di acquistare o cambiare una SIM card locale: attivala semplicemente digitalmente prima del tuo viaggio e goditi una connettività senza interruzioni dal momento in cui arrivi, per tutta la durata della combinazione di viste sul canale, templi antichi e frutti di mare mediterranei che il tuo itinerario egiziano finirà per includere.",
+      fr: "Restez connecté tout au long de votre aventure à Port-Saïd et en Égypte avec cette eSIM de voyage facile à utiliser, un petit plus de commodité numérique qui vous enlève une chose de moins à penser une fois que vous atterrissez. Que vous regardiez d'énormes porte-conteneurs passer par le canal de Suez à quelques mètres du rivage, que vous exploriez les rues historiques de Port-Saïd avec leurs façades d'époque coloniale, ou que vous fassiez des excursions d'une journée au Caire et à Alexandrie, cette eSIM vous offre une couverture de données mobiles fiable dans toute l'Égypte sans les tracas de trouver un vendeur local ou de naviguer dans une file d'attente à un kiosque dans une langue inconnue. Pas besoin d'acheter ou d'échanger une carte SIM locale — activez-la simplement numériquement avant votre voyage et profitez d'une connectivité transparente dès votre arrivée, tout au long de la combinaison de vues sur le canal, de temples anciens et de fruits de mer méditerranéens que votre itinéraire égyptien finira par inclure.",
+      ru: "Оставайтесь на связи во время вашего приключения в Порт-Саиде и Египте с этой простой в использовании туристической eSIM — небольшим цифровым удобством, которое избавит вас от лишних забот по прибытии. Смотрите ли вы, как гигантские контейнеровозы проходят через Суэцкий канал всего в нескольких метрах от берега, исследуете исторические улицы Порт-Саида с фасадами колониальной эпохи или совершаете однодневные поездки в Каир и Александрию, эта eSIM обеспечит вам надёжное покрытие мобильных данных по всему Египту без необходимости искать местного продавца или стоять в очереди в киоске на незнакомом языке. Нет необходимости покупать или менять местную SIM-карту — просто активируйте её в цифровом виде перед поездкой и наслаждайтесь бесперебойной связью с момента прибытия на протяжении всего вашего египетского маршрута, будь то виды на канал, древние храмы или средиземноморские морепродукты.",
+      de: "Bleiben Sie während Ihres Abenteuers in Port Said und Ägypten mit dieser einfach zu bedienenden Reise-eSIM verbunden, einem kleinen digitalen Komfort, der Ihnen eine Sorge weniger abnimmt, sobald Sie landen. Egal, ob Sie riesige Containerschiffe beobachten, die nur wenige Meter von der Küste entfernt durch den Suezkanal fahren, die historischen Straßen von Port Said mit ihren Fassaden aus der Kolonialzeit erkunden oder Tagesausflüge nach Kairo und Alexandria unternehmen, diese eSIM bietet Ihnen eine zuverlässige mobile Datenabdeckung in ganz Ägypten, ohne dass Sie sich mit der mühsamen Suche nach einem lokalen Anbieter oder dem Anstehen an einem Kiosk in einer fremden Sprache auseinandersetzen müssen. Sie müssen keine lokale SIM-Karte kaufen oder wechseln — aktivieren Sie sie einfach digital vor Ihrer Reise und genießen Sie nahtlose Konnektivität ab dem Moment Ihrer Ankunft, bis hin zu welcher Kombination aus Kanalblicken, antiken Tempeln und mediterranen Meeresfrüchten auch immer Ihre ägyptische Reiseroute beinhalten mag.",
+    },
     category: "Additional services",
+    category_t: {
+      es: "Servicios adicionales",
+      pt: "Serviços adicionais",
+      it: "Servizi aggiuntivi",
+      fr: "Services supplémentaires",
+      ru: "Дополнительные услуги",
+      de: "Zusatzleistungen",
+    },
     price: {
       original: 5.50,
       discounted: null,
       currency: "USD",
     },
     duration: "7-30 days",
+    duration_t: {
+      es: "7-30 días",
+      pt: "7-30 dias",
+      it: "7-30 giorni",
+      fr: "7-30 jours",
+      ru: "7–30 дней",
+      de: "7-30 Tage",
+    },
     language: ["English"],
     rating: {
       score: 7.7,
@@ -65,21 +213,117 @@ const toursData = [
       "Available in 7, 15, and 30-day plans",
       "Works in Port Said and all Egyptian destinations",
     ],
+    highlights_t: {
+      es: [
+        "Cobertura de datos móviles en todo Egipto",
+        "No se necesita cambio de SIM física",
+        "Activación digital sencilla antes de la llegada",
+        "Disponible en planes de 7, 15 y 30 días",
+        "Funciona en Port Said y todos los destinos de Egipto",
+      ],
+      pt: [
+        "Cobertura de dados móveis em todo o Egito",
+        "Sem necessidade de trocar o SIM físico",
+        "Ativação digital fácil antes da chegada",
+        "Disponível em planos de 7, 15 e 30 dias",
+        "Funciona em Port Said e em todos os destinos do Egito",
+      ],
+      it: [
+        "Copertura dati mobile in tutto l'Egitto",
+        "Nessuna sostituzione fisica della SIM necessaria",
+        "Facile attivazione digitale prima dell'arrivo",
+        "Disponibile in piani da 7, 15 e 30 giorni",
+        "Funziona a Port Said e in tutte le destinazioni egiziane",
+      ],
+      fr: [
+        "Couverture de données mobiles dans toute l'Égypte",
+        "Aucun échange de SIM physique nécessaire",
+        "Activation numérique facile avant l'arrivée",
+        "Disponible en formules de 7, 15 et 30 jours",
+        "Fonctionne à Port-Saïd et dans toutes les destinations égyptiennes",
+      ],
+      ru: [
+        "Покрытие мобильного интернета по всему Египту",
+        "Замена физической SIM-карты не требуется",
+        "Простая цифровая активация до прибытия",
+        "Доступна в планах на 7, 15 и 30 дней",
+        "Работает в Порт-Саиде и во всех египетских направлениях",
+      ],
+      de: [
+        "Mobile Datenabdeckung in ganz Ägypten",
+        "Kein physischer SIM-Kartenwechsel erforderlich",
+        "Einfache digitale Aktivierung vor der Ankunft",
+        "Erhältlich in 7-, 15- und 30-Tage-Plänen",
+        "Funktioniert in Port Said und allen ägyptischen Reisezielen",
+      ],
+    },
     includes: ["eSIM data plan for selected duration"],
+    includes_t: {
+      es: ["Plan de datos eSIM para la duración seleccionada"],
+      pt: ["Plano de dados eSIM para a duração selecionada"],
+      it: ["Piano dati eSIM per la durata selezionata"],
+      fr: ["Forfait données eSIM pour la durée sélectionnée"],
+      ru: ["Тарифный план eSIM на выбранный срок"],
+      de: ["eSIM-Datentarif für die ausgewählte Laufzeit"],
+    },
     excludes: ["Voice calls", "SMS"],
+    excludes_t: {
+      es: ["Llamadas de voz", "SMS"],
+      pt: ["Chamadas de voz", "SMS"],
+      it: ["Chiamate vocali", "SMS"],
+      fr: ["Appels vocaux", "SMS"],
+      ru: ["Голосовые звонки", "SMS"],
+      de: ["Sprachanrufe", "SMS"],
+    },
   },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 3. Aurevian Travel Insurance
+  // ─────────────────────────────────────────────────────────────────────────
   {
     title: "Aurevian Travel Insurance",
+    title_t: {
+      es: "Seguro de viaje Aurevian",
+      pt: "Seguro de viagem Aurevian",
+      it: "Assicurazione di viaggio Aurevian",
+      fr: "Assurance voyage Aurevian",
+      ru: "Туристическая страховка Aurevian",
+      de: "Aurevian Reiseversicherung",
+    },
     slug: "Aurevian-travel-insurance-port-said",
     description:
       "Explore Port Said and travel throughout Egypt with complete peace of mind thanks to Aurevian Travel Insurance, a quiet layer of protection running underneath every canal-side stroll, day trip, and overnight journey on your itinerary. Whether you're making day trips to the Pyramids of Giza, watching ships navigate the Suez Canal, or traveling between Egypt's cities by road, rail, or air, unexpected situations can always arise, and the difference between a minor hiccup and a genuinely disrupted trip often comes down to whether you were covered in the first place. This comprehensive travel insurance covers medical emergencies, trip cancellations, lost or delayed luggage, and much more — ensuring that nothing disrupts your Egyptian journey, however far your travels take you beyond Port Said itself. Available for trips lasting between 3 and 31 days, easily matched to however long your particular mix of canal city and onward Egyptian adventures happens to last.",
+    description_t: {
+      es: "Explora Port Said y viaja por Egipto con total tranquilidad gracias al seguro de viaje Aurevian, una capa silenciosa de protección que cubre cada paseo junto al canal, excursión de un día y viaje nocturno de tu itinerario. Ya sea que hagas excursiones de un día a las pirámides de Giza, veas barcos navegar por el Canal de Suez o viajes entre las ciudades de Egipto por carretera, ferrocarril o avión, siempre pueden surgir situaciones inesperadas, y la diferencia entre un pequeño contratiempo y un viaje genuinamente interrumpido a menudo se reduce a si estabas cubierto en primer lugar. Este seguro de viaje integral cubre emergencias médicas, cancelaciones de viaje, equipaje perdido o retrasado, y mucho más, asegurando que nada interrumpa tu viaje por Egipto, sin importar hasta dónde lleguen tus viajes más allá del propio Port Said. Disponible para viajes de entre 3 y 31 días, fácilmente adaptable a la duración de tu combinación particular de ciudad del canal y aventuras egipcias.",
+      pt: "Explore Port Said e viaje pelo Egito com total tranquilidade graças ao Seguro de Viagem Aurevian, uma camada silenciosa de proteção que cobre cada passeio à beira do canal, excursão de um dia e viagem noturna do seu itinerário. Quer esteja a fazer excursões de um dia às pirâmides de Gizé, a observar navios a navegar pelo Canal de Suez ou a viajar entre as cidades do Egito por estrada, caminho de ferro ou avião, situações inesperadas podem sempre surgir, e a diferença entre um pequeno contratempo e uma viagem genuinamente perturbada resume-se muitas vezes a se estava ou não coberto. Este seguro de viagem abrangente cobre emergências médicas, cancelamentos de viagem, bagagem perdida ou atrasada, e muito mais — garantindo que nada perturbe a sua viagem pelo Egito, por mais longe que as suas viagens o levem para além do próprio Port Said. Disponível para viagens entre 3 e 31 dias, facilmente adaptável à duração da sua combinação particular de cidade do canal e aventuras egípcias.",
+      it: "Esplora Port Said e viaggia in tutto l'Egitto con la massima serenità grazie all'assicurazione di viaggio Aurevian, uno strato silenzioso di protezione che copre ogni passeggiata lungo il canale, gita di un giorno e viaggio notturno del tuo itinerario. Che tu stia facendo gite di un giorno alle piramidi di Giza, guardando le navi navigare attraverso il Canale di Suez, o viaggiando tra le città dell'Egitto su strada, ferrovia o aria, possono sempre sorgere situazioni impreviste, e la differenza tra un piccolo intoppo e un viaggio genuinamente interrotto spesso dipende dal fatto che tu fossi coperto in primo luogo. Questa assicurazione di viaggio completa copre emergenze mediche, cancellazioni di viaggio, bagagli persi o ritardati, e molto altro ancora — assicurando che nulla interrompa il tuo viaggio egiziano, per quanto lontano ti portino i tuoi viaggi oltre Port Said stessa. Disponibile per viaggi da 3 a 31 giorni, facilmente adattabile alla durata della tua particolare combinazione di città del canale e avventure egiziane.",
+      fr: "Explorez Port-Saïd et voyagez dans toute l'Égypte en toute tranquillité grâce à l'assurance voyage Aurevian, une couche de protection discrète qui couvre chaque promenade au bord du canal, excursion d'une journée et voyage de nuit de votre itinéraire. Que vous fassiez des excursions d'une journée aux pyramides de Gizeh, que vous regardiez des navires naviguer dans le canal de Suez ou que vous voyagiez entre les villes d'Égypte par route, rail ou avion, des situations inattendues peuvent toujours survenir, et la différence entre un petit contretemps et un voyage vraiment perturbé se résume souvent à savoir si vous étiez couvert en premier lieu. Cette assurance voyage complète couvre les urgences médicales, les annulations de voyage, les bagages perdus ou retardés, et bien plus encore — garantissant que rien ne perturbe votre voyage en Égypte, aussi loin que vos voyages vous emmènent au-delà de Port-Saïd elle-même. Disponible pour des voyages d'une durée de 3 à 31 jours, facilement adaptée à la durée de votre combinaison particulière de ville canal et d'aventures égyptiennes.",
+      ru: "Исследуйте Порт-Саид и путешествуйте по всему Египту с полным спокойствием благодаря туристической страховке Aurevian — незаметному слою защиты, который охватывает каждую прогулку у канала, однодневную поездку и ночное путешествие в вашем маршруте. Совершаете ли вы однодневные поездки к пирамидам Гизы, наблюдаете за кораблями, проходящими через Суэцкий канал, или путешествуете между городами Египта по суше, железной дороге или воздуху — непредвиденные ситуации могут возникнуть всегда, и разница между небольшой неприятностью и по-настоящему сорванной поездкой нередко сводится к тому, была ли у вас страховка. Эта комплексная туристическая страховка покрывает медицинские чрезвычайные ситуации, отмены поездок, потерю или задержку багажа и многое другое — гарантируя, что ничто не нарушит ваше египетское путешествие, как бы далеко от Порт-Саида вы ни оказались. Доступна для поездок продолжительностью от 3 до 31 дня, легко подбирается под любой срок вашего маршрута.",
+      de: "Erkunden Sie Port Said und reisen Sie durch ganz Ägypten mit völliger Sicherheit dank der Aurevian Reiseversicherung, einer stillen Schutzschicht, die jeden Spaziergang am Kanal, Tagesausflug und Übernachtungsaufenthalt in Ihrem Reiseplan abdeckt. Ob Sie Tagesausflüge zu den Pyramiden von Gizeh unternehmen, Schiffen beim Navigieren durch den Suezkanal zuschauen oder zwischen Ägyptens Städten per Straße, Bahn oder Luft reisen — unerwartete Situationen können immer auftreten, und der Unterschied zwischen einem kleinen Missgeschick und einer ernsthaft gestörten Reise hängt oft davon ab, ob Sie von Anfang an versichert waren. Diese umfassende Reiseversicherung deckt medizinische Notfälle, Reisestornierungen, verlorenes oder verspätetes Gepäck und vieles mehr ab — und stellt sicher, dass nichts Ihre ägyptische Reise beeinträchtigt, egal wie weit Ihre Reisen Sie über Port Said hinausführen. Erhältlich für Reisen von 3 bis 31 Tagen, leicht anpassbar an die Dauer Ihrer individuellen Kombination aus Kanalstadt und weiteren ägyptischen Abenteuern.",
+    },
     category: "Additional services",
+    category_t: {
+      es: "Servicios adicionales",
+      pt: "Serviços adicionais",
+      it: "Servizi aggiuntivi",
+      fr: "Services supplémentaires",
+      ru: "Дополнительные услуги",
+      de: "Zusatzleistungen",
+    },
     price: {
       original: 11.48,
       discounted: null,
       currency: "USD",
     },
     duration: "3-31 days",
+    duration_t: {
+      es: "3-31 días",
+      pt: "3-31 dias",
+      it: "3-31 giorni",
+      fr: "3-31 jours",
+      ru: "3–31 день",
+      de: "3-31 Tage",
+    },
     language: ["English"],
     rating: {
       score: 8.2,
@@ -93,8 +337,62 @@ const toursData = [
       "Available for 3 to 31-day trips",
       "Peace of mind for all activities and day trips",
     ],
+    highlights_t: {
+      es: [
+        "Seguro de viaje integral para Port Said y Egipto",
+        "Cubre emergencias médicas y cancelaciones de viaje",
+        "Disponible para viajes de 3 a 31 días",
+        "Tranquilidad para todas las actividades y excursiones de un día",
+      ],
+      pt: [
+        "Seguro de viagem abrangente para Port Said e Egito",
+        "Cobre emergências médicas e cancelamentos de viagem",
+        "Disponível para viagens de 3 a 31 dias",
+        "Tranquilidade para todas as atividades e excursões de um dia",
+      ],
+      it: [
+        "Assicurazione di viaggio completa per Port Said e l'Egitto",
+        "Copre emergenze mediche e cancellazioni di viaggio",
+        "Disponibile per viaggi da 3 a 31 giorni",
+        "Tranquillità per tutte le attività e le gite di un giorno",
+      ],
+      fr: [
+        "Assurance voyage complète pour Port-Saïd et l'Égypte",
+        "Couvre les urgences médicales et les annulations de voyage",
+        "Disponible pour des voyages de 3 à 31 jours",
+        "Tranquillité d'esprit pour toutes les activités et excursions d'une journée",
+      ],
+      ru: [
+        "Комплексная туристическая страховка для Порт-Саида и Египта",
+        "Покрывает медицинские чрезвычайные ситуации и отмены поездок",
+        "Доступна для поездок продолжительностью от 3 до 31 дня",
+        "Спокойствие для всех видов деятельности и однодневных поездок",
+      ],
+      de: [
+        "Umfassende Reiseversicherung für Port Said und Ägypten",
+        "Deckt medizinische Notfälle und Reisestornierungen ab",
+        "Erhältlich für 3- bis 31-tägige Reisen",
+        "Sorglosigkeit für alle Aktivitäten und Tagesausflüge",
+      ],
+    },
     includes: ["Travel insurance coverage as per selected plan"],
+    includes_t: {
+      es: ["Cobertura de seguro de viaje según el plan seleccionado"],
+      pt: ["Cobertura de seguro de viagem conforme o plano selecionado"],
+      it: ["Copertura assicurativa di viaggio secondo il piano selezionato"],
+      fr: ["Couverture d'assurance voyage selon le plan sélectionné"],
+      ru: ["Страховое покрытие согласно выбранному тарифному плану"],
+      de: ["Reiseversicherungsschutz gemäß dem ausgewählten Tarif"],
+    },
     excludes: ["Pre-existing medical conditions (check policy)"],
+    excludes_t: {
+      es: ["Condiciones médicas preexistentes (consulta la póliza)"],
+      pt: ["Condições médicas pré-existentes (consulte a apólice)"],
+      it: ["Condizioni mediche preesistenti (controllare la polizza)"],
+      fr: ["Conditions médicales préexistantes (vérifier la police d'assurance)"],
+      ru: ["Ранее существовавшие заболевания (уточните условия полиса)"],
+      de: ["Vorerkrankungen (Police überprüfen)"],
+    },
   },
 ];
 

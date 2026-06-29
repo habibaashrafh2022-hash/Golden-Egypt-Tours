@@ -2,12 +2,17 @@
 
 const cityData = {
   name: "Hurghada",
-  nameAr: "الغردقة",
   slug: "hurghada",
   description:
     "Hurghada is Egypt's premier Red Sea resort city, stretching along a dazzling coastline of crystal-clear turquoise waters, vibrant coral reefs, and golden sandy beaches. Once a quiet fishing village, it has grown into one of the most popular holiday destinations in the Middle East and Africa, drawing millions of visitors each year with its world-class diving, water sports, desert adventures, and year-round sunshine. Whether you're gliding over coral gardens on a snorkeling trip, racing across desert dunes on a quad bike, or sailing to a private island paradise, Hurghada offers an endless variety of experiences for every type of traveler.",
-  descriptionAr:
-    "الغردقة هي مدينة المنتجعات الأولى على البحر الأحمر في مصر، تمتد على طول ساحل ساحر من المياه الفيروزية الصافية والشعاب المرجانية النابضة بالحياة والشواطئ الرملية الذهبية. كانت في السابق قرية صيد هادئة، وقد نمت لتصبح واحدة من أكثر الوجهات السياحية شعبية في الشرق الأوسط وأفريقيا، تستقطب ملايين الزوار سنوياً بغوصها العالمي المستوى والرياضات المائية ومغامرات الصحراء وأشعة الشمس على مدار العام.",
+  description_t: {
+    es: "Hurghada es la principal ciudad balnearia de Egipto en el Mar Rojo, que se extiende a lo largo de una deslumbrante costa de aguas turquesas cristalinas, vibrantes arrecifes de coral y doradas playas de arena. Antes un tranquilo pueblo de pescadores, se ha convertido en uno de los destinos vacacionales más populares de Oriente Medio y África, atrayendo a millones de visitantes cada año con su buceo de clase mundial, deportes acuáticos, aventuras en el desierto y sol durante todo el año. Ya sea que te deslices sobre jardines de coral en una excursión de esnórquel, corras por dunas de arena en un quad, o navegues hacia un paraíso en una isla privada, Hurghada ofrece una variedad infinita de experiencias para todo tipo de viajero.",
+    it: "Hurghada è la principale città balneare egiziana sul Mar Rosso, che si estende lungo una splendida costa di acque turchesi cristalline, vibranti barriere coralline e dorate spiagge sabbiose. Un tempo tranquillo villaggio di pescatori, è cresciuta fino a diventare una delle destinazioni vacanziere più popolari del Medio Oriente e dell'Africa, attraendo milioni di visitatori ogni anno con le sue immersioni di livello mondiale, gli sport acquatici, le avventure nel deserto e il sole tutto l'anno.",
+    fr: "Hurghada est la principale ville balnéaire d'Égypte sur la mer Rouge, s'étendant le long d'un littoral éblouissant aux eaux turquoise cristallines, aux récifs coralliens colorés et aux plages de sable doré. Autrefois paisible village de pêcheurs, elle est devenue l'une des destinations de vacances les plus populaires du Moyen-Orient et d'Afrique, attirant des millions de visiteurs chaque année grâce à sa plongée de classe mondiale, ses sports nautiques, ses aventures dans le désert et son soleil toute l'année.",
+    ru: "Хургада — ведущий курортный город Египта на Красном море, протянувшийся вдоль ослепительного побережья с кристально чистыми бирюзовыми водами, яркими коралловыми рифами и золотистыми песчаными пляжами. Некогда тихая рыбацкая деревушка, она превратилась в один из самых популярных курортов Ближнего Востока и Африки, ежегодно привлекая миллионы туристов дайвингом мирового класса, водными видами спорта, приключениями в пустыне и круглогодичным солнцем.",
+    de: "Hurghada ist Ägyptens führende Urlaubsstadt am Roten Meer, die sich entlang einer atemberaubenden Küste mit kristallklarem türkisfarbenem Wasser, lebendigen Korallenriffen und goldenen Sandstränden erstreckt. Einst ein ruhiges Fischerdorf, hat es sich zu einem der beliebtesten Urlaubsziele im Nahen Osten und Afrika entwickelt und zieht jährlich Millionen von Besuchern mit erstklassigem Tauchen, Wassersportarten, Wüstenabenteuern und ganzjährigem Sonnenschein an.",
+    pt: "Hurghada é a principal cidade balneária do Egito no Mar Vermelho, estendendo-se ao longo de uma deslumbrante costa de águas turquesas cristalinas, vibrantes recifes de coral e douradas praias de areia. Antigamente um tranquilo vilarejo de pescadores, cresceu para se tornar um dos destinos de férias mais populares do Oriente Médio e da África, atraindo milhões de visitantes por ano com seu mergulho de classe mundial, esportes aquáticos, aventuras no deserto e sol durante todo o ano.",
+  },
   country: "Egypt",
   image: "hurghada.jpg",
 };
@@ -16,15 +21,44 @@ const toursData = [
   // ─── TOUR 1 ───────────────────────────────────────────────────────────────
   {
     title: "Guided Tour of Hurghada",
-    titleAr: "جولة مصحوبة بمرشد في الغردقة",
+    title_t: {
+      es: "Visita guiada de Hurghada",
+      it: "Tour guidato di Hurghada",
+      fr: "Visite guidée de Hurghada",
+      ru: "Обзорная экскурсия по Хургаде",
+      de: "Geführte Tour durch Hurghada",
+      pt: "Tour Guiado de Hurghada",
+    },
     slug: "guided-tour-hurghada",
     description:
       "Discover the cultural and historical soul of Hurghada beyond its beaches on this engaging guided city tour. Your expert guide will take you through the most significant landmarks of the city, starting with the magnificent Grand Mosque, one of the most striking religious buildings on the Egyptian Red Sea coast. The tour also visits the Coptic Church of Hurghada before exploring the lively local souk and the colorful fishermen's neighborhood.",
-    descriptionAr:
-      "اكتشف الروح الثقافية والتاريخية للغردقة ما وراء شواطئها في هذه الجولة المدينية المصحوبة بمرشد. سيأخذك مرشدك الخبير عبر أبرز معالم المدينة، بدءاً بالمسجد الكبير الرائع، وتزور الجولة أيضاً الكنيسة القبطية وتستكشف السوق المحلي الحيوي وحي الصيادين الملون.",
+    description_t: {
+      es: "Descubre el alma cultural e histórica de Hurghada más allá de sus playas en este interesante recorrido guiado por la ciudad. Tu guía experto te llevará por los hitos más importantes de la ciudad, comenzando por la magnífica Gran Mezquita, uno de los edificios religiosos más impresionantes de la costa egipcia del Mar Rojo. El recorrido también visita la Iglesia Copta de Hurghada antes de explorar el animado zoco local y el colorido barrio de los pescadores.",
+      it: "Scopri l'anima culturale e storica di Hurghada al di là delle sue spiagge in questo coinvolgente tour guidato della città. La tua guida esperta ti porterà attraverso i monumenti più significativi della città, a partire dalla magnifica Grande Moschea, uno degli edifici religiosi più suggestivi della costa egiziana del Mar Rosso. Il tour visita anche la Chiesa Copta di Hurghada prima di esplorare il vivace souk locale e il colorato quartiere dei pescatori.",
+      fr: "Découvrez l'âme culturelle et historique de Hurghada au-delà de ses plages lors de cette visite guidée de la ville. Votre guide expert vous emmènera à travers les sites les plus importants de la ville, en commençant par la magnifique Grande Mosquée, l'un des édifices religieux les plus impressionnants de la côte égyptienne de la mer Rouge. La visite comprend également l'église copte de Hurghada avant d'explorer le souk local animé et le quartier coloré des pêcheurs.",
+      ru: "Откройте для себя культурную и историческую душу Хургады за пределами её пляжей в ходе этой увлекательной обзорной экскурсии. Опытный гид проведёт вас по самым значимым достопримечательностям города, начиная с величественной Большой мечети — одного из самых впечатляющих религиозных зданий на египетском побережье Красного моря. Экскурсия также включает посещение Коптской церкви Хургады, оживлённого местного рынка и красочного рыбацкого квартала.",
+      de: "Entdecken Sie die kulturelle und historische Seele von Hurghada jenseits seiner Strände auf dieser fesselnden geführten Stadttour. Ihr erfahrener Guide führt Sie zu den bedeutendsten Wahrzeichen der Stadt, beginnend mit der prächtigen Großen Moschee, einem der beeindruckendsten Gotteshäuser an der ägyptischen Küste des Roten Meeres. Die Tour besucht auch die Koptische Kirche von Hurghada und erkundet anschließend den lebhaften lokalen Souk und das farbenfrohe Fischerviertel.",
+      pt: "Descubra a alma cultural e histórica de Hurghada além de suas praias neste envolvente tour guiado pela cidade. Seu guia especializado o levará pelos marcos mais significativos da cidade, começando pela magnífica Grande Mesquita, um dos edifícios religiosos mais impressionantes da costa egípcia do Mar Vermelho. O tour também visita a Igreja Copta de Hurghada antes de explorar o movimentado souk local e o colorido bairro dos pescadores.",
+    },
     category: "Guided tours and free tours",
+    category_t: {
+      es: "Tours guiados y tours gratuitos",
+      it: "Tour guidati e tour gratuiti",
+      fr: "Visites guidées et visites gratuites",
+      ru: "Экскурсии с гидом и бесплатные туры",
+      de: "Geführte Touren und kostenlose Touren",
+      pt: "Tours guiados e tours gratuitos",
+    },
     price: { original: 39.00, discounted: 31.20, currency: "USD" },
     duration: "4 hours",
+    duration_t: {
+      es: "4 horas",
+      it: "4 ore",
+      fr: "4 heures",
+      ru: "4 часа",
+      de: "4 Stunden",
+      pt: "4 horas",
+    },
     language: ["English"],
     rating: { score: 8.4, reviews: 65 },
     travellers: 600,
@@ -32,31 +66,46 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 15,
     availableTimes: ["09:00", "10:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. The guide and vehicle will collect you at the agreed time.",
-      ar: "بهو فندقك في الغردقة. سيستقبلك المرشد والسيارة في الوقت المتفق عليه.",
+    meetingPoint: "Your hotel lobby in Hurghada. The guide and vehicle will collect you at the agreed time.",
+    meetingPoint_t: {
+      es: "El vestíbulo de tu hotel en Hurghada. El guía y el vehículo te recogerán a la hora acordada.",
+      it: "La hall del tuo hotel a Hurghada. La guida e il veicolo ti raccoglieranno all'orario concordato.",
+      fr: "Le hall de votre hôtel à Hurghada. Le guide et le véhicule vous récupèreront à l'heure convenue.",
+      ru: "Вестибюль вашего отеля в Хургаде. Гид и автомобиль заберут вас в оговорённое время.",
+      de: "Die Hotellobby Ihres Hotels in Hurghada. Der Guide und das Fahrzeug holen Sie zur vereinbarten Zeit ab.",
+      pt: "O lobby do seu hotel em Hurghada. O guia e o veículo irão buscá-lo no horário combinado.",
     },
-    accessibility: {
-      en: "Moderate walking through the souk and around the mosque and church. The fishermen's harbor area has uneven ground.",
-      ar: "مشي معتدل عبر السوق وحول المسجد والكنيسة. منطقة ميناء الصيادين فيها أرض غير مستوية.",
+    accessibility: "Moderate walking through the souk and around the mosque and church. The fishermen's harbor area has uneven ground.",
+    accessibility_t: {
+      es: "Caminata moderada por el zoco y alrededor de la mezquita y la iglesia. La zona del puerto de los pescadores tiene suelo irregular.",
+      it: "Camminata moderata attraverso il souk e intorno alla moschea e alla chiesa. L'area del porto dei pescatori ha un terreno accidentato.",
+      fr: "Marche modérée à travers le souk et autour de la mosquée et de l'église. La zone du port des pêcheurs a un sol inégal.",
+      ru: "Умеренная ходьба по рынку, вокруг мечети и церкви. Район рыбацкой гавани имеет неровный грунт.",
+      de: "Mäßige Gehstrecke durch den Souk und um die Moschee und Kirche herum. Im Fischerhafen ist der Boden uneben.",
+      pt: "Caminhada moderada pelo souk e ao redor da mesquita e da igreja. A área do porto dos pescadores tem terreno irregular.",
     },
-    whatToBring: {
-      en: ["Comfortable walking shoes", "Modest clothing (shoulders and knees covered for mosque)", "Sun hat and sunscreen", "Camera", "Small local currency for souk shopping"],
-      ar: ["حذاء مريح للمشي", "ملابس محتشمة (تغطية الكتفين والركبتين للمسجد)", "قبعة وكريم واقٍ", "كاميرا", "مبلغ صغير بالعملة المحلية"],
+    whatToBring: ["Comfortable walking shoes", "Modest clothing (shoulders and knees covered for mosque)", "Sun hat and sunscreen", "Camera", "Small local currency for souk shopping"],
+    whatToBring_t: {
+      es: ["Calzado cómodo para caminar", "Ropa modesta (hombros y rodillas cubiertos para la mezquita)", "Sombrero y protector solar", "Cámara", "Pequeña cantidad de moneda local para compras en el zoco"],
+      it: ["Scarpe comode per camminare", "Abbigliamento modesto (spalle e ginocchia coperte per la moschea)", "Cappello e crema solare", "Fotocamera", "Piccola somma in valuta locale per gli acquisti al souk"],
+      fr: ["Chaussures de marche confortables", "Tenue vestimentaire modeste (épaules et genoux couverts pour la mosquée)", "Chapeau et crème solaire", "Appareil photo", "Petite somme en monnaie locale pour faire des achats au souk"],
+      ru: ["Удобная обувь для ходьбы", "Скромная одежда (плечи и колени закрыты для мечети)", "Головной убор и солнцезащитный крем", "Фотоаппарат", "Небольшая сумма в местной валюте для покупок на рынке"],
+      de: ["Bequeme Wanderschuhe", "Dezente Kleidung (Schultern und Knie bedeckt für die Moschee)", "Sonnenhut und Sonnenschutz", "Kamera", "Etwas Bargeld in lokaler Währung für den Souk"],
+      pt: ["Calçado confortável para caminhada", "Roupas modestas (ombros e joelhos cobertos para a mesquita)", "Chapéu e protetor solar", "Câmera", "Pequena quantia em moeda local para compras no souk"],
     },
-    importantInfo: {
-      en: [
+    importantInfo: [
         "Hotel pickup within central Hurghada is included.",
         "Modest dress is required for the mosque — scarves available at the entrance for women.",
         "Entrance fees are not included.",
         "The local souk is best visited in the morning when vendors are most active.",
       ],
-      ar: [
-        "الاستقبال من الفندق في وسط الغردقة مشمول.",
-        "اللباس المحتشم مطلوب للمسجد — الأوشحة متوفرة عند المدخل للنساء.",
-        "رسوم الدخول غير مشمولة.",
-        "السوق المحلي يُفضَّل زيارته صباحاً.",
-      ],
+    importantInfo_t: {
+      es: ["El servicio de recogida en el hotel está incluido en el centro de Hurghada.", "Se requiere ropa modesta para la mezquita — los pañuelos están disponibles en la entrada para las mujeres.", "Las tarifas de entrada no están incluidas.", "Lo mejor es visitar el zoco local por la mañana, cuando los vendedores están más activos."],
+      it: ["Il trasferimento dall'hotel nel centro di Hurghada è incluso.", "L'abbigliamento modesto è obbligatorio per la moschea — foulard disponibili all'ingresso per le donne.", "Le tariffe di ingresso non sono incluse.", "Il souk locale è preferibile visitarlo di mattina, quando i venditori sono più attivi."],
+      fr: ["Le ramassage à l'hôtel dans le centre de Hurghada est inclus.", "Une tenue vestimentaire modeste est requise pour la mosquée — des foulards sont disponibles à l'entrée pour les femmes.", "Les droits d'entrée ne sont pas inclus.", "Il est préférable de visiter le souk local le matin, quand les vendeurs sont les plus actifs."],
+      ru: ["Трансфер из отеля в центре Хургады включён.", "Для посещения мечети необходима скромная одежда — платки для женщин доступны на входе.", "Входные билеты не включены.", "Местный рынок лучше всего посещать утром, когда продавцы наиболее активны."],
+      de: ["Hotelabholung im Zentrum von Hurghada ist inbegriffen.", "In der Moschee ist dezente Kleidung Pflicht — Kopftücher für Frauen sind am Eingang erhältlich.", "Eintrittsgelder sind nicht inbegriffen.", "Den lokalen Souk besucht man am besten morgens, wenn die Händler am aktivsten sind."],
+      pt: ["A recolha no hotel no centro de Hurghada está incluída.", "É necessário usar roupas modestas para a mesquita — lenços disponíveis na entrada para as mulheres.", "As taxas de entrada não estão incluídas.", "O souk local é melhor visitado de manhã, quando os vendedores estão mais ativos."],
     },
     highlights: [
       "Visit the spectacular Grand Mosque of Hurghada",
@@ -65,10 +114,33 @@ const toursData = [
       "Learn about Hurghada's transformation from fishing village to resort city",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Visitar la espectacular Gran Mezquita de Hurghada", "Explorar la histórica Iglesia Copta", "Pasear por el zoco local y la zona de los pescadores", "Aprender sobre la transformación de Hurghada de pueblo pesquero a ciudad turística", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Visitare la spettacolare Grande Moschea di Hurghada", "Esplorare la storica Chiesa Copta", "Passeggiare per il souk locale e la zona dei pescatori", "Imparare la trasformazione di Hurghada da villaggio di pescatori a città turistica", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Visiter la spectaculaire Grande Mosquée de Hurghada", "Explorer l'historique Église copte", "Se promener dans le souk local et la zone des pêcheurs", "Apprendre la transformation de Hurghada de village de pêcheurs en ville de villégiature", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Посетить впечатляющую Большую мечеть Хургады", "Исследовать историческую Коптскую церковь", "Прогуляться по местному рынку и рыбацкому кварталу", "Узнать о превращении Хургады из рыбацкой деревни в курортный город", "Трансфер туда и обратно включён"],
+      de: ["Besuch der spektakulären Großen Moschee von Hurghada", "Erkundung der historischen Koptischen Kirche", "Bummel durch den lokalen Souk und das Fischerviertel", "Mehr über Hurghadas Wandel vom Fischerdorf zur Urlaubsstadt erfahren", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Visitar a espetacular Grande Mesquita de Hurghada", "Explorar a histórica Igreja Copta", "Passear pelo souk local e pela área dos pescadores", "Aprender sobre a transformação de Hurghada de aldeia de pescadores em cidade turística", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Guide", "Hotel pickup and drop-off", "Transport"],
+    includes_t: {
+      es: ["Guía", "Recogida y devolución en el hotel", "Transporte"],
+      it: ["Guida", "Prelievo e rientro in hotel", "Trasporto"],
+      fr: ["Guide", "Prise en charge et retour à l'hôtel", "Transport"],
+      ru: ["Гид", "Трансфер из/в отель", "Транспорт"],
+      de: ["Guide", "Hotel-Transfer (hin und zurück)", "Transport"],
+      pt: ["Guia", "Transporte de ida e volta ao hotel", "Transporte"],
+    },
     excludes: ["Entrance fees", "Meals", "Tips"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Tarifas de entrada", "Comidas", "Propinas"],
+      it: ["Tariffe d'ingresso", "Pasti", "Mance"],
+      fr: ["Frais d'entrée", "Repas", "Pourboires"],
+      ru: ["Входные билеты", "Питание", "Чаевые"],
+      de: ["Eintrittsgelder", "Mahlzeiten", "Trinkgelder"],
+      pt: ["Taxas de entrada", "Refeições", "Gorjetas"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Hurghada Beyond the Beach — Culture, Faith & the Old Town",
@@ -84,37 +156,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الغردقة ما وراء الشاطئ — الثقافة والإيمان والبلدة القديمة",
-          description:
-            "معظم زوار الغردقة لا يتجاوزون حدود منتجعاتهم مما يعني أنهم يفوّتون المدينة الحقيقية تماماً. تحت شرائط الفنادق الدولية، لا تزال الغردقة الأصلية — الدهار، البلدة القديمة — قائمة: مدينة مصرية حقيقية من المساجد والأسواق والكنائس القبطية وموانئ الصيادين ذات هوية متميزة. هذه الجولة الممتدة أربع ساعات مقدمة حقيقية لتلك المدينة.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق. القيادة إلى حي الدهار — البلدة القديمة الأصلية للغردقة، نحو 20 دقيقة من معظم فنادق المنتجعات." },
-            { time: "09:30", description: "الوصول إلى المسجد الكبير. يشرح مرشدك معمار المسجد وأهميته. خلع الأحذية قبل الدخول؛ الأوشحة متوفرة للنساء. التجول في قاعة الصلاة الرئيسية المزيّنة بالثريات والجص المنحوت." },
-            { time: "10:15", description: "المشية إلى كنيسة السيدة العذراء القبطية الأرثوذكسية. يشرح مرشدك تاريخ المسيحية القبطية في مصر على مدى ألفي عام." },
-            { time: "11:00", description: "المشية داخل سوق الدهار. مرشدك يتنقل بين أكشاك البهارات والمجوهرات الفضية والأقمشة والمنتجات المحلية — السوق الحقيقي لسكان الغردقة." },
-            { time: "11:45", description: "المشية إلى ميناء صيادي الدهار. مشاهدة القوارب وهي تفرّغ صيدها والروتين اليومي للميناء العامل." },
-            { time: "12:30", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 2 ───────────────────────────────────────────────────────────────
   {
     title: "Quad Bike & Dune Buggy Safari",
-    titleAr: "سفاري الدراجات الرباعية وعربة الدونباجي",
+    title_t: {
+      es: "Safari en quad y buggy",
+      it: "Safari in quad e dune buggy",
+      fr: "Safari en quad et buggy des dunes",
+      ru: "Сафари на квадроцикле и багги",
+      de: "Quad- und Dune-Buggy-Safari",
+      pt: "Safari de Quadriciclo e Buggy",
+    },
     slug: "quad-bike-dune-buggy-safari-hurghada",
     description:
       "Tear across the magnificent Egyptian desert on this thrilling quad bike and dune buggy safari from Hurghada. Head out into the vast, sun-scorched landscape beyond the city and race across golden dunes, weaving between rocky outcrops and open desert plains. This action-packed adventure is perfect for those who want a taste of the raw, wild side of Egypt away from the beach.",
-    descriptionAr:
-      "اندفع عبر الصحراء المصرية الرائعة في هذه السفاري المثيرة بالدراجات الرباعية وعربات الدونباجي من الغردقة. توجه إلى المشهد الواسع المحترق بالشمس خارج المدينة وتسابق عبر الكثبان الذهبية متلوياً بين التكوينات الصخرية والسهول الصحراوية المفتوحة.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 39.39, discounted: null, currency: "USD" },
     duration: "4 hours",
+    duration_t: {
+      es: "4 horas",
+      it: "4 ore",
+      fr: "4 heures",
+      ru: "4 часа",
+      de: "4 Stunden",
+      pt: "4 horas",
+    },
     language: ["English"],
     rating: { score: 7.5, reviews: 22 },
     travellers: 219,
@@ -122,31 +198,46 @@ const toursData = [
     minAge: 16,
     maxGroupSize: 20,
     availableTimes: ["09:00", "15:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. The guide and vehicle will collect you and drive you to the desert base camp.",
-      ar: "بهو فندقك في الغردقة. سيستقبلك المرشد والسيارة وينقلك إلى معسكر القاعدة الصحراوية.",
+    meetingPoint: "Your hotel lobby in Hurghada. The guide and vehicle will collect you and drive you to the desert base camp.",
+    meetingPoint_t: {
+      es: "El vestíbulo de tu hotel en Hurghada. El guía y el vehículo te recogerán y llevarán al campamento base en el desierto.",
+      it: "La hall del tuo hotel a Hurghada. La guida e il veicolo ti raccoglieranno e ti porteranno al campo base nel deserto.",
+      fr: "Le hall de votre hôtel à Hurghada. Le guide et le véhicule vous récupèreront et vous amèneront au camp de base dans le désert.",
+      ru: "Вестибюль вашего отеля в Хургаде. Гид и автомобиль заберут вас и отвезут на базовый лагерь в пустыне.",
+      de: "Die Hotellobby in Hurghada. Der Guide und das Fahrzeug holen Sie ab und fahren Sie zum Basiscamp in der Wüste.",
+      pt: "O lobby do seu hotel em Hurghada. O guia e o veículo irão buscá-lo e levá-lo ao acampamento base no deserto.",
     },
-    accessibility: {
-      en: "Riders must be at least 16 and able to control the vehicle independently. Not suitable for guests with back problems, heart conditions, or pregnancy.",
-      ar: "يجب أن يكون السائق 16 عاماً على الأقل وقادراً على التحكم في المركبة. غير مناسب لمن يعانون من مشاكل الظهر أو القلب أو الحوامل.",
+    accessibility: "Riders must be at least 16 and able to control the vehicle independently. Not suitable for guests with back problems, heart conditions, or pregnancy.",
+    accessibility_t: {
+      es: "Los conductores deben tener al menos 16 años y ser capaces de controlar el vehículo de forma independiente. No apto para invitados con problemas de espalda, enfermedades cardíacas o embarazo.",
+      it: "I conducenti devono avere almeno 16 anni ed essere in grado di controllare il veicolo in modo indipendente. Non adatto agli ospiti con problemi alla schiena, condizioni cardiache o gravidanza.",
+      fr: "Les conducteurs doivent avoir au moins 16 ans et être capables de contrôler le véhicule de manière indépendante. Non adapté aux personnes ayant des problèmes de dos, des maladies cardiaques ou une grossesse.",
+      ru: "Водители должны быть не моложе 16 лет и уметь самостоятельно управлять транспортным средством. Не подходит для гостей с проблемами спины, сердечными заболеваниями или беременностью.",
+      de: "Fahrer müssen mindestens 16 Jahre alt und in der Lage sein, das Fahrzeug eigenständig zu steuern. Nicht geeignet für Gäste mit Rückenproblemen, Herzerkrankungen oder Schwangerschaft.",
+      pt: "Os condutores devem ter pelo menos 16 anos e ser capazes de controlar o veículo de forma independente. Não adequado para hóspedes com problemas nas costas, condições cardíacas ou gravidez.",
     },
-    whatToBring: {
-      en: ["Closed-toe shoes (mandatory)", "Light comfortable clothing you don't mind getting dusty", "Sunglasses", "Sunscreen", "Water bottle", "Bandana or scarf for desert dust"],
-      ar: ["حذاء مغلق الأصابع (إلزامي)", "ملابس خفيفة ومريحة", "نظارة شمسية", "كريم واقٍ", "زجاجة ماء", "بندانا أو وشاح للغبار"],
+    whatToBring: ["Closed-toe shoes (mandatory)", "Light comfortable clothing you don't mind getting dusty", "Sunglasses", "Sunscreen", "Water bottle", "Bandana or scarf for desert dust"],
+    whatToBring_t: {
+      es: ["Calzado cerrado (obligatorio)", "Ropa ligera y cómoda que no te importe ensuciar", "Gafas de sol", "Protector solar", "Botella de agua", "Pañuelo o bufanda para el polvo del desierto"],
+      it: ["Scarpe chiuse (obbligatorie)", "Abbigliamento leggero e comodo che non vi importa sporcare", "Occhiali da sole", "Crema solare", "Borraccia", "Bandana o sciarpa per la polvere del deserto"],
+      fr: ["Chaussures fermées (obligatoires)", "Vêtements légers et confortables que vous ne craignez pas de salir", "Lunettes de soleil", "Crème solaire", "Bouteille d'eau", "Bandana ou foulard pour la poussière du désert"],
+      ru: ["Закрытая обувь (обязательно)", "Лёгкая удобная одежда, которую не жалко испачкать", "Солнцезащитные очки", "Солнцезащитный крем", "Бутылка воды", "Бандана или шарф от пустынной пыли"],
+      de: ["Geschlossene Schuhe (Pflicht)", "Leichte, bequeme Kleidung, die ruhig schmutzig werden darf", "Sonnenbrille", "Sonnenschutz", "Wasserflasche", "Bandana oder Schal gegen Wüstenstaub"],
+      pt: ["Calçado fechado (obrigatório)", "Roupas leves e confortáveis que não se importem de sujar", "Óculos de sol", "Protetor solar", "Garrafa de água", "Bandana ou lenço para o pó do deserto"],
     },
-    importantInfo: {
-      en: [
+    importantInfo: [
         "No driving licence required — a thorough briefing is provided before departure.",
         "Dune buggies carry two people; quad bikes are single-rider.",
         "The afternoon session (15:00) is recommended for cooler temperatures and golden desert light.",
         "Pregnant women and guests with serious back or heart conditions cannot participate.",
       ],
-      ar: [
-        "رخصة قيادة غير مطلوبة — تُقدَّم إحاطة شاملة قبل المغادرة.",
-        "عربات الدونباجي لشخصين؛ الدراجات الرباعية لشخص واحد.",
-        "الجلسة بعد الظهر (15:00) موصى بها لدرجات أبرد وضوء ذهبي صحراوي.",
-        "الحوامل ومن يعانون من أمراض خطيرة في الظهر أو القلب لا يمكنهم المشاركة.",
-      ],
+    importantInfo_t: {
+      es: ["No se requiere carnet de conducir — se proporciona un briefing completo antes de la salida.", "Los buggy transportan a dos personas; los quads son para un solo piloto.", "La sesión de tarde (15:00) es recomendada por temperaturas más frescas y luz dorada del desierto.", "Las mujeres embarazadas y los clientes con afecciones graves de espalda o corazón no pueden participar."],
+      it: ["Non è richiesta la patente di guida — viene fornito un briefing completo prima della partenza.", "I dune buggy trasportano due persone; i quad sono per un solo pilota.", "La sessione pomeridiana (15:00) è consigliata per temperature più fresche e luce dorata del deserto.", "Le donne in gravidanza e gli ospiti con gravi condizioni cardiache o alla schiena non possono partecipare."],
+      fr: ["Aucun permis de conduire requis — un briefing complet est fourni avant le départ.", "Les buggies transportent deux personnes ; les quads sont pour un seul pilote.", "La session de l'après-midi (15h00) est recommandée pour des températures plus fraîches et une lumière dorée dans le désert.", "Les femmes enceintes et les personnes souffrant de graves problèmes de dos ou de cœur ne peuvent pas participer."],
+      ru: ["Водительские права не требуются — перед отправлением проводится подробный инструктаж.", "Багги вмещает двух человек; квадроцикл — для одного водителя.", "Послеполуденная сессия (15:00) рекомендуется из-за более прохладных температур и золотого пустынного света.", "Беременные женщины и гости с серьёзными проблемами спины или сердца не могут участвовать."],
+      de: ["Kein Führerschein erforderlich — vor der Abfahrt findet ein ausführliches Briefing statt.", "Dune-Buggys fassen zwei Personen; Quads sind Einzelfahrzeuge.", "Die Nachmittagssession (15:00 Uhr) wird wegen kühlerer Temperaturen und goldenem Wüstenlicht empfohlen.", "Schwangere und Gäste mit schweren Rücken- oder Herzerkrankungen können nicht teilnehmen."],
+      pt: ["Não é necessária carteira de motorista — um briefing completo é fornecido antes da partida.", "Os buggies transportam duas pessoas; os quadriciclos são para um único piloto.", "A sessão da tarde (15:00) é recomendada por temperaturas mais frescas e luz dourada do deserto.", "Mulheres grávidas e hóspedes com condições graves de costas ou coração não podem participar."],
     },
     highlights: [
       "Exciting quad bike and dune buggy ride in the desert",
@@ -155,10 +246,33 @@ const toursData = [
       "All safety equipment provided",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Emocionante paseo en quad y buggy en el desierto", "Corre por las doradas dunas de arena fuera de Hurghada", "Apto para principiantes y conductores experimentados", "Todo el equipo de seguridad proporcionado", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Emozionante giro in quad e dune buggy nel deserto", "Corri sulle dorate dune di sabbia fuori Hurghada", "Adatto a principianti e guidatori esperti", "Tutto l'equipaggiamento di sicurezza fornito", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Passionnante balade en quad et buggy dans le désert", "Courir sur les dunes de sable dorées autour de Hurghada", "Adapté aux débutants et aux conducteurs expérimentés", "Tout l'équipement de sécurité fourni", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Захватывающая поездка на квадроцикле и багги в пустыне", "Гонки по золотым песчаным дюнам за пределами Хургады", "Подходит для начинающих и опытных водителей", "Всё защитное снаряжение предоставляется", "Трансфер туда и обратно включён"],
+      de: ["Aufregende Quad- und Dune-Buggy-Fahrt in der Wüste", "Über goldene Sanddünen außerhalb von Hurghada rasen", "Für Anfänger und erfahrene Fahrer geeignet", "Gesamte Sicherheitsausrüstung inklusive", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Emocionante passeio de quadriciclo e buggy no deserto", "Corra pelas douradas dunas de areia fora de Hurghada", "Adequado para principiantes e condutores experientes", "Todo o equipamento de segurança fornecido", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Quad bike or dune buggy", "Safety equipment", "Hotel pickup and drop-off", "Guide"],
+    includes_t: {
+      es: ["Quad o buggy", "Equipo de seguridad", "Recogida y devolución en el hotel", "Guía"],
+      it: ["Quad o dune buggy", "Attrezzatura di sicurezza", "Prelievo e rientro in hotel", "Guida"],
+      fr: ["Quad ou buggy", "Équipement de sécurité", "Prise en charge et retour à l'hôtel", "Guide"],
+      ru: ["Квадроцикл или багги", "Защитное снаряжение", "Трансфер из/в отель", "Гид"],
+      de: ["Quad oder Dune-Buggy", "Sicherheitsausrüstung", "Hotel-Transfer (hin und zurück)", "Guide"],
+      pt: ["Quadriciclo ou buggy", "Equipamento de segurança", "Transfer de ida e volta ao hotel", "Guia"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Into the Desert — Dunes, Speed & Open Sky",
@@ -176,39 +290,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "إلى الصحراء — الكثبان والسرعة والسماء المفتوحة",
-          description:
-            "الصحراء تبدأ على بُعد أقل من عشر دقائق من آخر فندق منتجع في الغردقة. خلف الشريط الساحلي تمتد الصحراء الشرقية في مشهد درامي شاسع من الرمال الذهبية والصخور البركانية الداكنة. تأخذك هذه المغامرة الممتدة أربع ساعات إلى ذلك المشهد على دراجة رباعية أو عربة دونباجي.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق. الانتقال إلى معسكر القاعدة الصحراوية نحو 15 دقيقة من شريط المنتجعات." },
-            { time: "09:20", description: "الوصول. اختيار مركبتك. ارتداء الخوذة والنظارات والقفازات." },
-            { time: "09:30", description: "إحاطة السلامة ودرس القيادة. التدرب على الأرض المستوية أولاً." },
-            { time: "10:00", description: "يبدأ مسار الصحراء. اتبع المرشد عبر السهول الرملية المفتوحة وفوق قمم الكثبان." },
-            { time: "10:45", description: "توقف في منتصف الطريق عند نقطة مشاهدة بانورامية. راحة وماء وتصوير." },
-            { time: "11:15", description: "الاستمرار في المسار — النصف الثاني أكثر تحدياً." },
-            { time: "12:00", description: "العودة إلى معسكر القاعدة. جمع الأغراض." },
-            { time: "12:15", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 3 ───────────────────────────────────────────────────────────────
   {
     title: "Luxor Tour & Valley of the Kings and Queens from Hurghada",
-    titleAr: "جولة الأقصر ووادي الملوك والملكات من الغردقة",
+    title_t: {
+      es: "Tour a Luxor y el Valle de los Reyes y las Reinas desde Hurghada",
+      it: "Tour di Luxor e della Valle dei Re e delle Regine da Hurghada",
+      fr: "Circuit Louxor et Vallée des Rois et des Reines depuis Hurghada",
+      ru: "Тур в Луксор, Долину царей и цариц из Хургады",
+      de: "Luxor-Tour & Tal der Könige und Königinnen ab Hurghada",
+      pt: "Tour a Luxor e o Vale dos Reis e das Rainhas de Hurghada",
+    },
     slug: "luxor-valley-kings-queens-tour-hurghada",
     description:
       "Make the most of your time in Hurghada with this extraordinary day trip to the ancient wonders of Luxor. Depart early and travel across the Egyptian landscape to the world's greatest open-air museum, where you'll visit the colossal Karnak Temple, the legendary Valley of the Kings, the Valley of the Queens, the Mortuary Temple of Hatshepsut, and the Colossi of Memnon.",
-    descriptionAr:
-      "استثمر وقتك في الغردقة مع هذه الرحلة اليومية الاستثنائية إلى عجائب الأقصر القديمة. غادر مبكراً وسافر عبر المشهد المصري إلى أعظم متحف مفتوح في العالم، حيث ستزور معبد الكرنك الهائل ووادي الملوك الأسطوري ووادي الملكات ومعبد حتشبسوت الجنائزي وتمثالي ممنون.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 260.03, discounted: 208.03, currency: "USD" },
     duration: "18 hours",
+    duration_t: {
+      es: "18 horas",
+      it: "18 ore",
+      fr: "18 heures",
+      ru: "18 часов",
+      de: "18 Stunden",
+      pt: "18 horas",
+    },
     language: ["English"],
     rating: { score: 7.2, reviews: 31 },
     travellers: 533,
@@ -216,34 +332,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 15,
     availableTimes: ["04:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. The guide will collect you very early for the long drive to Luxor.",
-      ar: "بهو فندقك في الغردقة. سيستقبلك المرشد في وقت مبكر جداً للقيادة الطويلة إلى الأقصر.",
-    },
-    accessibility: {
-      en: "Very long day (~18 hours). The Valley of the Kings and Karnak involve extensive walking on uneven terrain. Tombs have low ceilings. Not suitable for guests with severe mobility issues.",
-      ar: "يوم طويل جداً (~18 ساعة). يتضمن وادي الملوك والكرنك مشياً واسعاً على تضاريس غير مستوية. المقابر بها أسقف منخفضة. غير مناسب لمن يعانون من صعوبات حركة شديدة.",
-    },
-    whatToBring: {
-      en: ["Very comfortable walking shoes", "Sun hat and high SPF sunscreen", "Plenty of water", "Light snacks for the early drive", "Warm layer for pre-dawn departure", "Camera (no flash in tombs)"],
-      ar: ["حذاء مريح جداً للمشي", "قبعة وكريم واقٍ بعامل حماية عالٍ", "ماء وفير", "وجبات خفيفة للقيادة المبكرة", "طبقة دافئة للمغادرة قبل الفجر", "كاميرا (ممنوع الفلاش في المقابر)"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. The guide will collect you very early for the long drive to Luxor.",
+    accessibility: "Very long day (~18 hours). The Valley of the Kings and Karnak involve extensive walking on uneven terrain. Tombs have low ceilings. Not suitable for guests with severe mobility issues.",
+    whatToBring: ["Very comfortable walking shoes", "Sun hat and high SPF sunscreen", "Plenty of water", "Light snacks for the early drive", "Warm layer for pre-dawn departure", "Camera (no flash in tombs)"],
+    importantInfo: [
         "Departure is typically between 03:00 and 04:00 to make the most of the day in Luxor.",
         "The drive from Hurghada to Luxor crosses the Eastern Desert — approximately 3.5 to 4 hours each way.",
         "Entry to Tutankhamun's tomb carries an extra fee not included in the tour.",
         "Lunch is included at a local Luxor restaurant.",
         "Photography inside tombs is generally not permitted.",
       ],
-      ar: [
-        "المغادرة عادةً بين 03:00 و04:00 للاستفادة القصوى من اليوم في الأقصر.",
-        "القيادة من الغردقة إلى الأقصر تعبر الصحراء الشرقية — نحو 3.5 إلى 4 ساعات في كل اتجاه.",
-        "الدخول إلى مقبرة توتنخامون يستلزم رسماً إضافياً غير مشمول.",
-        "الغداء مشمول في مطعم محلي في الأقصر.",
-        "التصوير داخل المقابر ممنوع بشكل عام.",
-      ],
-    },
     highlights: [
       "Full-day trip from Hurghada to Luxor",
       "Visit Karnak Temple and Luxor's West Bank",
@@ -252,10 +350,33 @@ const toursData = [
       "Admire the Colossi of Memnon",
       "Hotel pickup at dawn included",
     ],
+    highlights_t: {
+      es: ["Excursión de día completo desde Hurghada a Luxor", "Visitar el Templo de Karnak y la orilla oeste de Luxor", "Explorar el Valle de los Reyes y las Reinas", "Ver el Templo Mortuorio de Hatshepsut", "Admirar los Colosos de Memnón", "Recogida en el hotel al amanecer incluida"],
+      it: ["Gita di un giorno da Hurghada a Luxor", "Visita il Tempio di Karnak e la riva occidentale di Luxor", "Esplora la Valle dei Re e delle Regine", "Visita il Tempio Funerario di Hatshepsut", "Ammira i Colossi di Memnone", "Prelievo in hotel all'alba incluso"],
+      fr: ["Excursion d'une journée de Hurghada à Louxor", "Visiter le Temple de Karnak et la rive ouest de Louxor", "Explorer la Vallée des Rois et des Reines", "Voir le Temple funéraire d'Hatchepsout", "Admirer les Colosses de Memnon", "Ramassage à l'hôtel à l'aube inclus"],
+      ru: ["Однодневная экскурсия из Хургады в Луксор", "Посещение Карнакского храма и западного берега Луксора", "Исследование Долины царей и цариц", "Посещение погребального храма Хатшепсут", "Осмотр Колоссов Мемнона", "Трансфер из отеля на рассвете включён"],
+      de: ["Ganztägiger Ausflug von Hurghada nach Luxor", "Besuch des Karnak-Tempels und des Westufers von Luxor", "Erkundung des Tals der Könige und der Königinnen", "Besichtigung des Totentempels der Hatschepsut", "Die Memnon-Kolosse bewundern", "Hotelabholung in der Morgendämmerung inklusive"],
+      pt: ["Excursão de dia inteiro de Hurghada a Luxor", "Visitar o Templo de Karnak e a Margem Oeste de Luxor", "Explorar o Vale dos Reis e das Rainhas", "Ver o Templo Mortuário de Hatshepsut", "Admirar os Colossus de Memnon", "Busca no hotel ao amanhecer incluída"],
+    },
     includes: ["Guide", "Hotel pickup and drop-off", "Entrance fees", "Lunch", "Transport"],
+    includes_t: {
+      es: ["Guía", "Recogida y devolución en el hotel", "Tarifas de entrada", "Almuerzo", "Transporte"],
+      it: ["Guida", "Prelievo e rientro in hotel", "Tariffe d'ingresso", "Pranzo", "Trasporto"],
+      fr: ["Guide", "Prise en charge et retour à l'hôtel", "Frais d'entrée", "Déjeuner", "Transport"],
+      ru: ["Гид", "Трансфер из/в отель", "Входные билеты", "Обед", "Транспорт"],
+      de: ["Guide", "Hotel-Transfer (hin und zurück)", "Eintrittsgelder", "Mittagessen", "Transport"],
+      pt: ["Guia", "Transfer de ida e volta ao hotel", "Taxas de entrada", "Almoço", "Transporte"],
+    },
     excludes: ["Tutankhamun tomb (extra fee)", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Tumba de Tutankamón (tarifa adicional)", "Propinas", "Gastos personales"],
+      it: ["Tomba di Tutankhamon (costo aggiuntivo)", "Mance", "Spese personali"],
+      fr: ["Tombe de Toutânkhamon (supplément)", "Pourboires", "Dépenses personnelles"],
+      ru: ["Гробница Тутанхамона (дополнительная плата)", "Чаевые", "Личные расходы"],
+      de: ["Tutanchamun-Grab (Aufpreis)", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Tumba de Tutankhamon (taxa adicional)", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Hurghada to Luxor — Ancient Egypt in a Day",
@@ -275,41 +396,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "من الغردقة إلى الأقصر — مصر القديمة في يوم واحد",
-          description:
-            "الأقصر هي أعظم تركيز لآثار مصر القديمة على وجه الأرض. الوصول إليها من الغردقة يعني عبور الصحراء الشرقية: قيادة ثلاث ساعات ونصف قبل أن يتفتح وادي النيل أمامك أخضر ومفاجئ واستثنائي. يغطي اليوم ضفتي النيل: الكرنك على الضفة الشرقية، ثم وادي الملوك والملكات ومعبد حتشبسوت على الضفة الغربية.",
-          steps: [
-            { time: "04:00", description: "الاستقبال من الفندق في الغردقة. بدء القيادة غرباً عبر الصحراء الشرقية نحو الأقصر." },
-            { time: "07:30", description: "الوصول إلى الأقصر. المحطة الأولى: مجمع معبد الكرنك. جولة مصحوبة عبر طريق أبي الهول ذي الرأس الكبشي وقاعة الأعمدة الكبرى بأعمدتها الـ 134 الشامخة." },
-            { time: "09:30", description: "العبور إلى الضفة الغربية. القيادة إلى وادي الملوك." },
-            { time: "10:00", description: "الدخول إلى وادي الملوك. زيارة ثلاثة مقابر ملكية. اختياري: مقبرة توتنخامون بتكلفة إضافية." },
-            { time: "11:30", description: "القيادة إلى وادي الملكات. زيارة مقبرة الملكة نفرتاري — من أجمل المقابر المطلية في مصر." },
-            { time: "12:30", description: "الغداء مشمول في مطعم محلي في الأقصر." },
-            { time: "14:00", description: "القيادة إلى معبد حتشبسوت الجنائزي في الدير البحري. جولة مصحوبة بمرشد." },
-            { time: "15:30", description: "توقف موجز عند تمثالي ممنون — تمثالان ضخمان قديمان بجانب الطريق." },
-            { time: "16:00", description: "المغادرة من الأقصر للقيادة العائدة إلى الغردقة." },
-            { time: "19:30", description: "الوصول إلى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 4 ───────────────────────────────────────────────────────────────
   {
     title: "Red Sea Beginners Scuba Diving",
-    titleAr: "الغوص للمبتدئين في البحر الأحمر",
+    title_t: {
+      es: "Buceo para principiantes en el Mar Rojo",
+      it: "Immersioni subacquee per principianti nel Mar Rosso",
+      fr: "Plongée sous-marine pour débutants en mer Rouge",
+      ru: "Дайвинг для начинающих в Красном море",
+      de: "Tauchen für Anfänger im Roten Meer",
+      pt: "Mergulho para iniciantes no Mar Vermelho",
+    },
     slug: "red-sea-beginners-scuba-diving-hurghada",
     description:
       "Plunge into the breathtaking underwater world of the Red Sea on this beginner-friendly scuba diving experience. No prior experience is needed — your certified instructor will give you a thorough briefing and all the basic training you need before you enter the water. Once beneath the surface, you'll glide over spectacular coral reefs teeming with colorful fish, sea turtles, and exotic marine life.",
-    descriptionAr:
-      "انغمس في العالم المائي الرائع للبحر الأحمر في هذه التجربة الصديقة للمبتدئين في الغوص. لا تحتاج إلى خبرة سابقة — سيعطيك مدربك المعتمد إحاطة شاملة وكل التدريب الأساسي الذي تحتاجه قبل دخول الماء.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "7 hours",
+    duration_t: {
+      es: "7 horas",
+      it: "7 ore",
+      fr: "7 heures",
+      ru: "7 часов",
+      de: "7 Stunden",
+      pt: "7 horas",
+    },
     language: ["English"],
     rating: { score: 8.4, reviews: 79 },
     travellers: 831,
@@ -317,34 +438,16 @@ const toursData = [
     minAge: 10,
     maxGroupSize: 8,
     availableTimes: ["08:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina and dive boat is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى وقارب الغوص مشمول.",
-    },
-    accessibility: {
-      en: "Guests must be comfortable in water. Not suitable for guests with heart conditions, epilepsy, asthma, or pregnancy. Minimum age is 10. Maximum depth is 6 metres under direct instructor supervision.",
-      ar: "يجب أن يكون الضيوف مرتاحين في الماء. غير مناسب لمن يعانون من أمراض قلبية أو صرع أو ربو أو الحوامل. الحد الأدنى للعمر 10 سنوات. أقصى عمق 6 أمتار تحت إشراف مباشر.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Change of clothes", "Any personal medication (inform instructor in advance)"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "ملابس للتبديل", "أي دواء شخصي (أخبر المدرب مسبقاً)"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina and dive boat is included.",
+    accessibility: "Guests must be comfortable in water. Not suitable for guests with heart conditions, epilepsy, asthma, or pregnancy. Minimum age is 10. Maximum depth is 6 metres under direct instructor supervision.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Change of clothes", "Any personal medication (inform instructor in advance)"],
+    importantInfo: [
         "All diving equipment is provided — wetsuit, mask, fins, BCD, regulator, and tank.",
         "The session includes pool or shallow-water training before open water.",
         "Maximum depth for beginners is 6 metres.",
         "Guests must complete a medical declaration form before diving.",
         "Do not fly within 18 hours of completing a scuba dive.",
       ],
-      ar: [
-        "جميع معدات الغوص مقدَّمة — بدلة الغطس والقناع والزعانف وسترة التعويم والمنظم والأسطوانة.",
-        "تتضمن الجلسة تدريباً في حوض أو مياه ضحلة قبل المياه المفتوحة.",
-        "أقصى عمق للمبتدئين هو 6 أمتار.",
-        "يجب على الضيوف ملء استمارة إقرار طبي قبل الغوص.",
-        "لا تستقلَّ طائرة خلال 18 ساعة من إتمام الغوص.",
-      ],
-    },
     highlights: [
       "Beginner scuba diving in the Red Sea coral reefs",
       "No prior experience required",
@@ -353,10 +456,33 @@ const toursData = [
       "All diving equipment provided",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Buceo para principiantes en los arrecifes de coral del Mar Rojo", "No se requiere experiencia previa", "Instructor certificado durante toda la inmersión", "Dos puntos de inmersión bajo el agua", "Todo el equipo de buceo proporcionado", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Immersioni per principianti nelle barriere coralline del Mar Rosso", "Nessuna esperienza precedente richiesta", "Istruttore certificato per tutta la durata dell'immersione", "Due punti di immersione subacquea", "Tutta l'attrezzatura subacquea fornita", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Plongée pour débutants dans les récifs coralliens de la mer Rouge", "Aucune expérience préalable requise", "Instructeur certifié tout au long de la plongée", "Deux points de plongée sous-marine", "Tout l'équipement de plongée fourni", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Дайвинг для начинающих на коралловых рифах Красного моря", "Предыдущий опыт не требуется", "Сертифицированный инструктор на протяжении всего погружения", "Два места для подводного погружения", "Всё снаряжение для дайвинга предоставляется", "Трансфер туда и обратно включён"],
+      de: ["Anfänger-Tauchen an den Korallenriffen des Roten Meeres", "Keine Vorerfahrung erforderlich", "Zertifizierter Tauchlehrer während des gesamten Tauchgangs", "Zwei Unterwasser-Tauchpunkte", "Gesamte Tauchausrüstung inklusive", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Mergulho para principiantes nos recifes de coral do Mar Vermelho", "Sem experiência prévia necessária", "Instrutor certificado durante todo o mergulho", "Dois pontos de mergulho subaquático", "Todo o equipamento de mergulho fornecido", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Diving equipment", "Certified instructor", "Hotel pickup and drop-off", "Refreshments"],
+    includes_t: {
+      es: ["Equipo de buceo", "Instructor certificado", "Recogida y devolución en el hotel", "Refrescos"],
+      it: ["Attrezzatura subacquea", "Istruttore certificato", "Prelievo e rientro in hotel", "Rinfreschi"],
+      fr: ["Équipement de plongée", "Instructeur certifié", "Prise en charge et retour à l'hôtel", "Rafraîchissements"],
+      ru: ["Снаряжение для дайвинга", "Сертифицированный инструктор", "Трансфер из/в отель", "Напитки"],
+      de: ["Tauchausrüstung", "Zertifizierter Tauchlehrer", "Hotel-Transfer (hin und zurück)", "Erfrischungen"],
+      pt: ["Equipamento de mergulho", "Instrutor certificado", "Transfer de ida e volta ao hotel", "Refrescos"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Your First Breath Underwater — Red Sea Beginner Dive",
@@ -375,40 +501,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "أول نفَس تحت الماء — غوص المبتدئين في البحر الأحمر",
-          description:
-            "البحر الأحمر واحد من أبرز وجهات الغوص في العالم — أدفأ وأكثر وضوحاً وتنوعاً بيولوجياً من أي مسطح مائي مماثل، بأكثر من 1000 نوع من الأسماك ورؤية تتجاوز 30 متراً. هذه التجربة مصمَّمة كلياً حول راحتك وثقتك.",
-          steps: [
-            { time: "08:00", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة والتعرف على مدرب الغوص." },
-            { time: "08:30", description: "إحاطة برية في مركز الغوص — شرح المعدات وتمرين إشارات اليد وتقنية معادلة الأذن." },
-            { time: "09:15", description: "جلسة تدريب في حوض أو مياه ضحلة. التنفس عبر المنظم على السطح ثم أسفله. المدرب يتأكد من الارتياح قبل المياه المفتوحة." },
-            { time: "10:00", description: "الصعود إلى قارب الغوص. إبحار قصير إلى موقع الشعاب الأول. شرح خطة الغوص." },
-            { time: "10:30", description: "الغوصة الأولى. الدخول إلى الماء مع المدرب. النزول إلى الشعاب — أقصى 6 أمتار. نحو 30-40 دقيقة في استكشاف المرجان والحياة البحرية." },
-            { time: "11:30", description: "الصعود إلى السطح والراحة على القارب. تقديم المرطبات. فترة استراحة سطحية 45 دقيقة." },
-            { time: "12:15", description: "الغوصة الثانية في نقطة شعاب مختلفة. في هذه الغوصة معظم الضيوف أكثر راحة وقادرون على الاستمتاع الكامل." },
-            { time: "13:15", description: "العودة إلى المرسى. شطف المعدات وتغيير الملابس." },
-            { time: "14:00", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 5 ───────────────────────────────────────────────────────────────
   {
     title: "Orange Bay Snorkel Tour",
-    titleAr: "جولة الغطس في خليج أورانج",
+    title_t: {
+      es: "Tour de esnórquel a la bahía Orange",
+      it: "Tour di snorkeling alla baia di Orange",
+      fr: "Circuit snorkeling à Orange Bay",
+      ru: "Снорклинг-тур в залив Оранж",
+      de: "Schnorchel-Tour zur Orange Bay",
+      pt: "Tour de snorkel à Baía de Orange",
+    },
     slug: "orange-bay-snorkel-tour-hurghada",
     description:
       "Escape to one of the Red Sea's most beautiful natural paradises on this full-day boat trip to Orange Bay. Sail south from Hurghada to reach this stunning stretch of pristine coastline, where turquoise waters meet untouched white sand beaches and thriving coral reefs. Strap on your snorkel and fins and dive into a magical underwater world filled with colorful fish and vibrant marine life.",
-    descriptionAr:
-      "اهرب إلى واحدة من أجمل جنات الطبيعة في البحر الأحمر في هذه الرحلة البحرية اليومية إلى خليج أورانج. أبحر جنوباً من الغردقة للوصول إلى هذا الامتداد الرائع من الساحل البكر، حيث تلتقي المياه الفيروزية بالشواطئ الرملية البيضاء النقية والشعاب المرجانية المزدهرة.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 22.00, discounted: null, currency: "USD" },
     duration: "8 hours",
+    duration_t: {
+      es: "8 horas",
+      it: "8 ore",
+      fr: "8 heures",
+      ru: "8 часов",
+      de: "8 Stunden",
+      pt: "8 horas",
+    },
     language: ["English"],
     rating: { score: 9.1, reviews: 45 },
     travellers: 1132,
@@ -416,34 +543,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 30,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Snorkeling requires basic comfort in water. Non-swimmers can wear a life jacket and enjoy the reef from the surface. The boat has a ladder for easy water entry and exit.",
-      ar: "يتطلب الغطس الارتياح الأساسي في الماء. غير السباحين يمكنهم ارتداء سترة النجاة والاستمتاع بالشعاب من السطح.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Sun hat", "Light change of clothes", "Waterproof bag for your phone"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "قبعة للشمس", "ملابس خفيفة للتبديل", "حقيبة مقاومة للماء لهاتفك"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Snorkeling requires basic comfort in water. Non-swimmers can wear a life jacket and enjoy the reef from the surface. The boat has a ladder for easy water entry and exit.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Sun hat", "Light change of clothes", "Waterproof bag for your phone"],
+    importantInfo: [
         "Snorkeling equipment (mask, fins, life jacket) is provided onboard.",
         "Orange Bay is a protected area — touching or standing on coral is strictly prohibited.",
         "Meals are not included; bring your own food or purchase snacks onboard.",
         "The boat is shared with other passengers.",
         "Use reef-safe sunscreen to protect the coral ecosystem.",
       ],
-      ar: [
-        "معدات الغطس (قناع وزعانف وسترة نجاة) مقدَّمة على متن القارب.",
-        "خليج أورانج منطقة محمية — لمس الشعاب أو الوقوف عليها محظور صراحةً.",
-        "الوجبات غير مشمولة؛ أحضر طعامك أو اشترِ وجبات خفيفة على متن القارب.",
-        "القارب مشترك مع ركاب آخرين.",
-        "استخدم كريماً واقياً صديقاً للشعاب.",
-      ],
-    },
     highlights: [
       "Boat trip to the stunning Orange Bay",
       "Snorkeling in pristine coral reefs",
@@ -451,10 +560,33 @@ const toursData = [
       "Crystal-clear turquoise waters",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Viaje en barco a la impresionante bahía Orange", "Esnórquel en arrecifes de coral prístinos", "Relájate en una hermosa playa de arena blanca", "Aguas turquesas cristalinas", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Gita in barca alla splendida baia di Orange", "Snorkeling su barriere coralline incontaminate", "Rilassati su una bellissima spiaggia di sabbia bianca", "Acque turchesi cristalline", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Excursion en bateau vers la superbe Orange Bay", "Snorkeling sur des récifs coralliens préservés", "Détendez-vous sur une belle plage de sable blanc", "Eaux turquoise cristallines", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Поездка на лодке в великолепный залив Оранж", "Снорклинг на нетронутых коралловых рифах", "Отдых на красивом белоснежном пляже", "Кристально чистые бирюзовые воды", "Трансфер туда и обратно включён"],
+      de: ["Bootsfahrt zur atemberaubenden Orange Bay", "Schnorcheln an unberührten Korallenriffen", "Entspannen Sie am wunderschönen weißen Sandstrand", "Kristallklares türkisfarbenes Wasser", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio de barco para a deslumbrante Baía de Orange", "Snorkel em recifes de coral intocados", "Relaxe numa bela praia de areia branca", "Águas turquesas cristalinas", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Snorkeling equipment", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Viaje en barco", "Equipo de esnórquel", "Recogida y devolución en el hotel"],
+      it: ["Gita in barca", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel"],
+      fr: ["Excursion en bateau", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel"],
+      ru: ["Поездка на лодке", "Снаряжение для снорклинга", "Трансфер из/в отель"],
+      de: ["Bootsfahrt", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Passeio de barco", "Equipamento de snorkel", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Orange Bay — White Sand, Coral Gardens & Red Sea Blue",
@@ -473,40 +605,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "خليج أورانج — رمال بيضاء وحدائق مرجانية وأزرق البحر الأحمر",
-          description:
-            "خليج أورانج أحد تلك الأماكن النادرة التي يرقى فيها البحر الأحمر إلى مستوى كل صورة رأيتها عنه. يقع جنوب الغردقة داخل منتزه بحري محمي، وقد نجا إلى حد بعيد من أضرار المرساة والاكتظاظ. رحلة القارب جنوباً تستغرق نحو ساعة وهي بحد ذاتها متعة.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:00", description: "الصعود إلى القارب. إحاطة السلامة والغطس من الطاقم. توزيع المعدات." },
-            { time: "09:15", description: "المغادرة من المرسى. الإبحار جنوباً نحو خليج أورانج — نحو ساعة." },
-            { time: "10:15", description: "الوصول إلى خليج أورانج. إرساء المرساة. الطاقم يعرّف بقواعد الشعاب." },
-            { time: "10:30", description: "جلسة الغطس الأولى. استكشاف الشعاب المرجانية — أسماك الببغاء والملاك وكلوڤر وثعابين البحر والسلاحف تُرصد بشكل شائع." },
-            { time: "12:00", description: "العودة إلى القارب أو الشاطئ. استراحة الغداء. الاسترخاء على الشاطئ أو السطح." },
-            { time: "13:30", description: "جلسة الغطس الثانية أو وقت حر على الشاطئ." },
-            { time: "15:30", description: "الصعود إلى القارب للإبحار العائد إلى الغردقة." },
-            { time: "16:30", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 6 ───────────────────────────────────────────────────────────────
   {
     title: "Transfers in Hurghada",
-    titleAr: "خدمة التوصيل في الغردقة",
+    title_t: {
+      es: "Traslados en Hurghada",
+      it: "Trasferimenti a Hurghada",
+      fr: "Transferts à Hurghada",
+      ru: "Трансферы в Хургаде",
+      de: "Transfers in Hurghada",
+      pt: "Traslados em Hurghada",
+    },
     slug: "transfers-hurghada",
     description:
       "Start and end your Hurghada experience with total peace of mind using our reliable private transfer service. Whether you need a smooth airport pickup, a hotel transfer, or a ride to any address in the city, a professional chauffeur will be waiting for you with a clean, air-conditioned vehicle.",
-    descriptionAr:
-      "ابدأ تجربتك في الغردقة وأنهِها براحة بال تامة باستخدام خدمة النقل الخاصة الموثوقة لدينا. سواء كنت تحتاج إلى استقبال سلس من المطار أو نقل فندقي أو توصيلة إلى أي عنوان في المدينة، سيكون سائق محترف في انتظارك بسيارة نظيفة ومكيفة.",
     category: "Transfers",
+    category_t: {
+      es: "Traslados",
+      it: "Trasferimenti",
+      fr: "Transferts",
+      ru: "Трансферы",
+      de: "Transfers",
+      pt: "Traslados",
+    },
     price: { original: 9.45, discounted: null, currency: "USD" },
     duration: "Varies",
+    duration_t: {
+      es: "Variable",
+      it: "Variabile",
+      fr: "Variable",
+      ru: "Зависит от маршрута",
+      de: "Variiert",
+      pt: "Variável",
+    },
     language: ["English"],
     rating: { score: 8.3, reviews: 76 },
     travellers: 2608,
@@ -514,31 +647,46 @@ const toursData = [
     minAge: 0,
     maxGroupSize: 6,
     availableTimes: ["Available 24/7"],
-    meetingPoint: {
-      en: "Hurghada International Airport arrivals hall, or your hotel lobby — whichever you specify at booking.",
-      ar: "صالة الوصول في مطار الغردقة الدولي، أو بهو فندقك — أيهما تحدده عند الحجز.",
+    meetingPoint: "Hurghada International Airport arrivals hall, or your hotel lobby — whichever you specify at booking.",
+    meetingPoint_t: {
+      es: "Sala de llegadas del Aeropuerto Internacional de Hurghada, o el vestíbulo de su hotel — el que especifique al reservar.",
+      it: "Sala arrivi dell'Aeroporto Internazionale di Hurghada, o la hall del vostro hotel — quello che specificate al momento della prenotazione.",
+      fr: "Hall des arrivées de l'aéroport international de Hurghada, ou le hall de votre hôtel — selon ce que vous précisez lors de la réservation.",
+      ru: "Зал прилётов международного аэропорта Хургады или вестибюль вашего отеля — в зависимости от того, что указано при бронировании.",
+      de: "Ankunftshalle des Internationalen Flughafens Hurghada oder Ihre Hotellobby — je nach Ihrer Angabe bei der Buchung.",
+      pt: "Sala de chegadas do Aeroporto Internacional de Hurghada, ou o lobby do seu hotel — conforme especificado na reserva.",
     },
-    accessibility: {
-      en: "Air-conditioned private cars or minivans available. Please inform us in advance if you require a wheelchair-accessible vehicle.",
-      ar: "سيارات خاصة أو ميني فان بتكييف هواء متوفرة. يرجى إخبارنا مسبقاً إذا كنت تحتاج إلى مركبة مخصصة لكراسي الحركة.",
+    accessibility: "Air-conditioned private cars or minivans available. Please inform us in advance if you require a wheelchair-accessible vehicle.",
+    accessibility_t: {
+      es: "Coches privados o minivanes con aire acondicionado disponibles. Por favor, infórmenos con antelación si necesita un vehículo adaptado para sillas de ruedas.",
+      it: "Auto private o minivan con aria condizionata disponibili. Vi preghiamo di informarci in anticipo se avete bisogno di un veicolo accessibile alle sedie a rotelle.",
+      fr: "Voitures privées ou minivans climatisés disponibles. Veuillez nous informer à l'avance si vous avez besoin d'un véhicule accessible aux fauteuils roulants.",
+      ru: "Доступны частные автомобили или микроавтобусы с кондиционером. Пожалуйста, заблаговременно сообщите нам, если вам нужен автомобиль, приспособленный для инвалидных колясок.",
+      de: "Klimatisierte Privatwagen oder Kleinbusse verfügbar. Bitte teilen Sie uns im Voraus mit, wenn Sie ein rollstuhlgerechtes Fahrzeug benötigen.",
+      pt: "Carros privados ou minivans com ar-condicionado disponíveis. Por favor, informe-nos com antecedência se precisar de um veículo acessível a cadeiras de rodas.",
     },
-    whatToBring: {
-      en: ["Your booking confirmation", "Flight details for timing", "Driver's contact number"],
-      ar: ["تأكيد حجزك", "تفاصيل الرحلة الجوية للتوقيت", "رقم تواصل مع السائق"],
+    whatToBring: ["Your booking confirmation", "Flight details for timing", "Driver's contact number"],
+    whatToBring_t: {
+      es: ["Tu confirmación de reserva", "Detalles del vuelo para el horario", "Número de contacto del conductor"],
+      it: ["Conferma della prenotazione", "Dettagli del volo per la pianificazione", "Numero di contatto dell'autista"],
+      fr: ["Votre confirmation de réservation", "Détails du vol pour la planification horaire", "Numéro de contact du conducteur"],
+      ru: ["Подтверждение бронирования", "Данные рейса для координации", "Контактный номер водителя"],
+      de: ["Ihre Buchungsbestätigung", "Flugdaten für die zeitliche Planung", "Kontaktnummer des Fahrers"],
+      pt: ["Confirmação da reserva", "Detalhes do voo para o horário", "Número de contato do motorista"],
     },
-    importantInfo: {
-      en: [
+    importantInfo: [
         "Transfers are private — you will not share the vehicle with other passengers.",
         "The driver will hold a sign with your name at the airport arrivals hall.",
         "Please provide your flight details at booking to ensure punctual pickup.",
         "Waiting time at the airport is up to 60 minutes after the scheduled landing time.",
       ],
-      ar: [
-        "خدمة التوصيل خاصة — لن تشارك المركبة مع ركاب آخرين.",
-        "سيحمل السائق لافتة باسمك في صالة الوصول بالمطار.",
-        "يرجى تقديم تفاصيل رحلتك وقت الحجز لضمان الاستقبال في الوقت المناسب.",
-        "وقت الانتظار في المطار يصل إلى 60 دقيقة بعد وقت الهبوط المجدول.",
-      ],
+    importantInfo_t: {
+      es: ["Los traslados son privados — no compartirá el vehículo con otros pasajeros.", "El conductor sostendrá un letrero con su nombre en la sala de llegadas del aeropuerto.", "Proporcione los detalles de su vuelo al reservar para garantizar una recogida puntual.", "El tiempo de espera en el aeropuerto es de hasta 60 minutos después de la hora de aterrizaje prevista."],
+      it: ["I trasferimenti sono privati — non condividerete il veicolo con altri passeggeri.", "L'autista terrà un cartello con il vostro nome nella sala arrivi dell'aeroporto.", "Fornite i dettagli del volo al momento della prenotazione per garantire un prelievo puntuale.", "Il tempo di attesa in aeroporto è fino a 60 minuti dopo l'orario di atterraggio previsto."],
+      fr: ["Les transferts sont privés — vous ne partagerez pas le véhicule avec d'autres passagers.", "Le chauffeur tiendra un panneau avec votre nom dans le hall des arrivées de l'aéroport.", "Veuillez fournir les détails de votre vol lors de la réservation pour garantir une prise en charge ponctuelle.", "Le temps d'attente à l'aéroport est jusqu'à 60 minutes après l'heure d'atterrissage prévue."],
+      ru: ["Трансферы частные — вы не будете делить автомобиль с другими пассажирами.", "Водитель будет держать табличку с вашим именем в зале прилётов аэропорта.", "Пожалуйста, укажите данные рейса при бронировании для обеспечения своевременной встречи.", "Время ожидания в аэропорту — до 60 минут после расчётного времени посадки."],
+      de: ["Transfers sind privat — Sie teilen das Fahrzeug nicht mit anderen Passagieren.", "Der Fahrer hält ein Schild mit Ihrem Namen in der Ankunftshalle des Flughafens.", "Bitte geben Sie bei der Buchung Ihre Flugdaten an, um eine pünktliche Abholung zu gewährleisten.", "Die Wartezeit am Flughafen beträgt bis zu 60 Minuten nach der geplanten Landung."],
+      pt: ["Os traslados são privados — não partilhará o veículo com outros passageiros.", "O motorista terá uma placa com o seu nome na sala de chegadas do aeroporto.", "Por favor, forneça os detalhes do seu voo na reserva para garantir uma recolha pontual.", "O tempo de espera no aeroporto é de até 60 minutos após o horário de aterragem previsto."],
     },
     highlights: [
       "Private door-to-door transfer service",
@@ -547,23 +695,68 @@ const toursData = [
       "Airport, hotel, and custom pickups",
       "Available 24/7",
     ],
+    highlights_t: {
+      es: ["Servicio de traslado privado puerta a puerta", "Chófer profesional y puntual", "Vehículo con aire acondicionado", "Recogidas en aeropuerto, hotel y personalizadas", "Disponible 24/7"],
+      it: ["Servizio di trasferimento privato porta a porta", "Autista professionale e puntuale", "Veicolo con aria condizionata", "Prelievi all'aeroporto, in hotel e personalizzati", "Disponibile 24 ore su 24, 7 giorni su 7"],
+      fr: ["Service de transfert privé porte à porte", "Chauffeur professionnel et ponctuel", "Véhicule climatisé", "Prises en charge à l'aéroport, à l'hôtel et personnalisées", "Disponible 24h/24 et 7j/7"],
+      ru: ["Частный трансфер от двери до двери", "Профессиональный и пунктуальный водитель", "Автомобиль с кондиционером", "Встреча в аэропорту, отеле и по запросу", "Доступно 24/7"],
+      de: ["Privater Tür-zu-Tür-Transfer", "Professioneller und pünktlicher Chauffeur", "Klimatisiertes Fahrzeug", "Flughafen-, Hotel- und individuelle Abholungen", "Rund um die Uhr verfügbar"],
+      pt: ["Serviço de transfer privado porta a porta", "Motorista profissional e pontual", "Veículo com ar-condicionado", "Recepção no aeroporto, hotel e personalizada", "Disponível 24/7"],
+    },
     includes: ["Private vehicle", "Professional driver"],
+    includes_t: {
+      es: ["Vehículo privado", "Conductor profesional"],
+      it: ["Veicolo privato", "Autista professionale"],
+      fr: ["Véhicule privé", "Conducteur professionnel"],
+      ru: ["Частный автомобиль", "Профессиональный водитель"],
+      de: ["Privatfahrzeug", "Professioneller Fahrer"],
+      pt: ["Veículo privado", "Motorista profissional"],
+    },
     excludes: ["Tips", "Entrance fees to any attractions"],
+    excludes_t: {
+      es: ["Propinas", "Tarifas de entrada a atracciones"],
+      it: ["Mance", "Tariffe d'ingresso alle attrazioni"],
+      fr: ["Pourboires", "Frais d'entrée aux attractions"],
+      ru: ["Чаевые", "Входные билеты в аттракционы"],
+      de: ["Trinkgelder", "Eintrittsgelder zu Sehenswürdigkeiten"],
+      pt: ["Gorjetas", "Taxas de entrada a atrações"],
+    },
     itinerary: null,
   },
 
   // ─── TOUR 7 ───────────────────────────────────────────────────────────────
   {
     title: "Desert Safari & Bedouin Dinner",
-    titleAr: "سفاري الصحراء وعشاء البدو",
+    title_t: {
+      es: "Safari en el desierto y cena beduina",
+      it: "Safari nel deserto e cena beduina",
+      fr: "Safari dans le désert et dîner bédouin",
+      ru: "Сафари в пустыне и ужин у бедуинов",
+      de: "Wüstensafari & Beduinen-Abendessen",
+      pt: "Safari no deserto e jantar beduíno",
+    },
     slug: "desert-safari-bedouin-dinner-hurghada",
     description:
       "Venture deep into the rugged Egyptian desert on this thrilling off-road safari before settling in for a magical Bedouin evening under the stars. Climb aboard a powerful 4x4 vehicle and race across the golden dunes and rocky desert terrain surrounding Hurghada, stopping at a traditional Bedouin village to learn about the ancient nomadic way of life. As the sun sets, enjoy a camel ride and then gather around a fire for a delicious traditional Bedouin dinner with local music and hospitality.",
-    descriptionAr:
-      "توجه عميقاً في الصحراء المصرية الوعرة في هذه السفاري المثيرة على الطرق الوعرة قبل الاستقرار لسهرة بدوية سحرية تحت النجوم. اصعد إلى سيارة دفع رباعي قوية وتسابق عبر الكثبان الذهبية والتضاريس الصخرية المحيطة بالغردقة.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "6-7 hours",
+    duration_t: {
+      es: "6-7 horas",
+      it: "6-7 ore",
+      fr: "6-7 heures",
+      ru: "6-7 часов",
+      de: "6-7 Stunden",
+      pt: "6-7 horas",
+    },
     language: ["English"],
     rating: { score: 6.7, reviews: 50 },
     travellers: 688,
@@ -571,32 +764,15 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 20,
     availableTimes: ["15:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Pickup timed for the afternoon to enjoy the desert at its golden best.",
-      ar: "بهو فندقك في الغردقة. الاستقبال مُوقَّت لبعد الظهر للاستمتاع بالصحراء في أجمل أوقاتها.",
-    },
-    accessibility: {
-      en: "The 4x4 desert ride is bumpy — not suitable for guests with back problems or pregnancy. The Bedouin village is flat and accessible. The camel ride is optional.",
-      ar: "رحلة الدفع الرباعي وعرة وغير مناسبة لمن يعانون من مشاكل في الظهر أو الحوامل. القرية البدوية مستوية. ركوب الجمل اختياري.",
-    },
-    whatToBring: {
-      en: ["Light comfortable clothing", "Warm layer for the evening", "Closed-toe shoes", "Camera", "Sun protection for the afternoon departure"],
-      ar: ["ملابس خفيفة ومريحة", "طبقة دافئة للمساء", "حذاء مغلق الأصابع", "كاميرا", "واقٍ من الشمس للمغادرة بعد الظهر"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Pickup timed for the afternoon to enjoy the desert at its golden best.",
+    accessibility: "The 4x4 desert ride is bumpy — not suitable for guests with back problems or pregnancy. The Bedouin village is flat and accessible. The camel ride is optional.",
+    whatToBring: ["Light comfortable clothing", "Warm layer for the evening", "Closed-toe shoes", "Camera", "Sun protection for the afternoon departure"],
+    importantInfo: [
         "The tour departs in the afternoon to take advantage of the golden desert light and cool evening temperatures.",
         "The Bedouin dinner is vegetarian-friendly — inform the operator of any dietary requirements at booking.",
         "Alcoholic drinks are not served.",
         "Guests with serious back conditions can skip the 4x4 ride and join the group at the Bedouin village.",
       ],
-      ar: [
-        "الجولة تغادر بعد الظهر للاستفادة من الضوء الذهبي ودرجات الحرارة المسائية المعتدلة.",
-        "عشاء البدو يناسب النباتيين؛ أخبر المشغّل بأي متطلبات غذائية وقت الحجز.",
-        "المشروبات الكحولية لا تُقدَّم.",
-        "من يعانون من حالات خطيرة في الظهر يستطيعون الانضمام للمجموعة في القرية البدوية مباشرةً.",
-      ],
-    },
     highlights: [
       "Off-road 4x4 desert safari through the dunes",
       "Visit a traditional Bedouin village",
@@ -605,10 +781,33 @@ const toursData = [
       "Live music and local hospitality",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Safari todo terreno 4x4 por las dunas del desierto", "Visita a un poblado beduino tradicional", "Paseo en camello por el desierto", "Cena beduina tradicional bajo las estrellas", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Safari fuoristrada 4x4 tra le dune del deserto", "Visita a un tradizionale villaggio beduino", "Giro in cammello nel deserto", "Cena beduina tradizionale sotto le stelle", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Safari tout-terrain 4x4 dans les dunes du désert", "Visite d'un village bédouin traditionnel", "Balade à dos de chameau dans le désert", "Dîner bédouin traditionnel sous les étoiles", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Сафари на внедорожнике 4x4 по пустынным дюнам", "Посещение традиционной бедуинской деревни", "Прогулка на верблюде по пустыне", "Традиционный бедуинский ужин под звёздами", "Трансфер туда и обратно включён"],
+      de: ["Geländefahrt 4x4 durch die Wüstendünen", "Besuch eines traditionellen Beduinendorfes", "Kamelritt durch die Wüste", "Traditionelles Beduinen-Abendessen unter dem Sternenhimmel", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Safari off-road 4x4 pelas dunas do deserto", "Visita a uma aldeia beduína tradicional", "Passeio de camelo pelo deserto", "Jantar beduíno tradicional sob as estrelas", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["4x4 vehicle", "Guide", "Camel ride", "Bedouin dinner", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Vehículo 4x4", "Guía", "Paseo en camello", "Cena beduina", "Recogida y devolución en el hotel"],
+      it: ["Veicolo 4x4", "Guida", "Giro in cammello", "Cena beduina", "Prelievo e rientro in hotel"],
+      fr: ["Véhicule 4x4", "Guide", "Balade à dos de chameau", "Dîner bédouin", "Prise en charge et retour à l'hôtel"],
+      ru: ["Внедорожник 4x4", "Гид", "Прогулка на верблюде", "Бедуинский ужин", "Трансфер из/в отель"],
+      de: ["4x4-Fahrzeug", "Guide", "Kamelritt", "Beduinen-Abendessen", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Veículo 4x4", "Guia", "Passeio de camelo", "Jantar beduíno", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Tips", "Personal expenses", "Alcoholic drinks"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Propinas", "Gastos personales", "Bebidas alcohólicas"],
+      it: ["Mance", "Spese personali", "Bevande alcoliche"],
+      fr: ["Pourboires", "Dépenses personnelles", "Boissons alcoolisées"],
+      ru: ["Чаевые", "Личные расходы", "Алкогольные напитки"],
+      de: ["Trinkgelder", "Persönliche Ausgaben", "Alkoholische Getränke"],
+      pt: ["Gorjetas", "Despesas pessoais", "Bebidas alcoólicas"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Dunes, Camels & Stars — A Bedouin Evening in the Desert",
@@ -626,39 +825,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الكثبان والجمال والنجوم — سهرة بدوية في الصحراء",
-          description:
-            "هذه الجولة المسائية مُوقَّتة عمداً للعصر والمساء بدلاً من منتصف النهار الحار. تبدأ برحلة دفع رباعي صحراوية ثم تصل إلى معسكر بدوي حيث الشاي والجمال وعائلة لا تزال تحافظ على كثير من العادات القديمة. مع ظهور النجوم تُفرش وليمة تقليدية على السجاد حول النار مع الموسيقى والضيافة الدافئة.",
-          steps: [
-            { time: "15:00", description: "الاستقبال من الفندق. القيادة إلى نقطة انطلاق الصحراء شرق الغردقة." },
-            { time: "15:30", description: "الصعود إلى مركبات الدفع الرباعي. بدء القيادة الصحراوية — عبور الكثبان والمسالك الصخرية في الضوء الذهبي لبعد الظهر." },
-            { time: "16:30", description: "الوصول إلى القرية البدوية. الاستقبال بالشاي بالنعناع التقليدي. المرشد يعرّف بالقرية وسكانها." },
-            { time: "16:45", description: "ركوب الجمال عبر القرية والصحراء — نحو 20-30 دقيقة." },
-            { time: "17:30", description: "مشاهدة غروب الصحراء من المعسكر — التلال تتحول عنبراً والسماء تتحول إلى البنفسجي العميق." },
-            { time: "18:00", description: "عشاء البدو حول النار — خبز ولحوم مشوية وسلطات وصلصات وأرز. موسيقى تقليدية طوال الوقت." },
-            { time: "19:30", description: "بعد العشاء رصد النجوم. شاي وشيشة متوفران." },
-            { time: "20:30", description: "العودة إلى السيارات. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 8 ───────────────────────────────────────────────────────────────
   {
     title: "Orange Bay Speedboat Trip",
-    titleAr: "رحلة قارب السرعة إلى خليج أورانج",
+    title_t: {
+      es: "Excursión en lancha rápida a la bahía Orange",
+      it: "Gita in motoscafo alla baia di Orange",
+      fr: "Excursion en hors-bord à Orange Bay",
+      ru: "Экскурсия на скоростном катере в залив Оранж",
+      de: "Schnellboot-Ausflug zur Orange Bay",
+      pt: "Passeio de lancha à Baía de Orange",
+    },
     slug: "orange-bay-speedboat-trip-hurghada",
     description:
       "Feel the rush of the Red Sea wind on your face as you speed across the water on this exciting speedboat trip to Orange Bay. Race south along the coastline before arriving at one of the most beautiful beach destinations in Egypt, where pristine white sands and crystal-clear waters await. Spend time swimming, sunbathing, and exploring the colorful coral reefs by snorkel.",
-    descriptionAr:
-      "اشعر بهبوب رياح البحر الأحمر على وجهك وأنت تتسابق عبر الماء في هذه الرحلة المثيرة بقارب السرعة إلى خليج أورانج. اندفع جنوباً على طول الساحل قبل الوصول إلى واحدة من أجمل وجهات الشواطئ في مصر.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 88.65, discounted: 75.35, currency: "USD" },
     duration: "5 hours",
+    duration_t: {
+      es: "5 horas",
+      it: "5 ore",
+      fr: "5 heures",
+      ru: "5 часов",
+      de: "5 Stunden",
+      pt: "5 horas",
+    },
     language: ["English"],
     rating: { score: 9.0, reviews: 2 },
     travellers: 54,
@@ -666,32 +867,15 @@ const toursData = [
     minAge: 8,
     maxGroupSize: 12,
     availableTimes: ["09:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Speedboat rides are fast and bumpy — not suitable for guests with back problems, heart conditions, or pregnancy. Guests must be comfortable in water for snorkeling.",
-      ar: "رحلات قارب السرعة سريعة ومتقطعة — غير مناسبة لمن يعانون من مشاكل في الظهر أو القلب أو الحوامل.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Sunglasses (essential at speed)", "Light change of clothes", "Waterproof bag for valuables"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "نظارة شمسية (ضرورية عند السرعة)", "ملابس خفيفة للتبديل", "حقيبة مقاومة للماء للمقتنيات الثمينة"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Speedboat rides are fast and bumpy — not suitable for guests with back problems, heart conditions, or pregnancy. Guests must be comfortable in water for snorkeling.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Sunglasses (essential at speed)", "Light change of clothes", "Waterproof bag for valuables"],
+    importantInfo: [
         "Snorkeling equipment is provided onboard.",
         "Meals are not included — the trip is approximately 5 hours in total.",
         "Life jackets are mandatory during the speedboat journey.",
         "Confirm at booking whether the speedboat is private or shared with a small group.",
       ],
-      ar: [
-        "معدات الغطس مقدَّمة على متن القارب.",
-        "الوجبات غير مشمولة — الرحلة تستغرق نحو 5 ساعات إجمالاً.",
-        "سترات النجاة إلزامية أثناء رحلة قارب السرعة.",
-        "تأكد وقت الحجز إذا كان قارب السرعة خاصاً أو مشتركاً مع مجموعة صغيرة.",
-      ],
-    },
     highlights: [
       "Thrilling speedboat ride to Orange Bay",
       "Swim and snorkel in crystal-clear Red Sea waters",
@@ -699,10 +883,33 @@ const toursData = [
       "Explore colorful coral reefs",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Emocionante paseo en lancha rápida a la bahía Orange", "Nada y bucea en aguas cristalinas del Mar Rojo", "Relájate en una hermosa playa pristina", "Explora coloridos arrecifes de coral", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Emozionante gita in motoscafo alla baia di Orange", "Nuota e fai snorkeling nelle acque cristalline del Mar Rosso", "Rilassati su una bellissima spiaggia incontaminata", "Esplora coloratissime barriere coralline", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Passionnante excursion en hors-bord à Orange Bay", "Nagez et faites du snorkeling dans les eaux cristallines de la mer Rouge", "Détendez-vous sur une belle plage préservée", "Explorez de magnifiques récifs coralliens colorés", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Захватывающая прогулка на скоростном катере в залив Оранж", "Плавание и снорклинг в кристально чистых водах Красного моря", "Отдых на прекрасном нетронутом пляже", "Исследование красочных коралловых рифов", "Трансфер туда и обратно включён"],
+      de: ["Aufregende Schnellboot-Fahrt zur Orange Bay", "Schwimmen und Schnorcheln im kristallklaren Roten Meer", "Am wunderschönen unberührten Strand entspannen", "Bunte Korallenriffe erkunden", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Emocionante passeio de lancha à Baía de Orange", "Nade e faça snorkel nas cristalinas águas do Mar Vermelho", "Relaxe numa bela praia intocada", "Explore coloridos recifes de coral", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Speedboat trip", "Snorkeling equipment", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Paseo en lancha", "Equipo de esnórquel", "Recogida y devolución en el hotel"],
+      it: ["Gita in motoscafo", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel"],
+      fr: ["Excursion en hors-bord", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel"],
+      ru: ["Поездка на катере", "Снаряжение для снорклинга", "Трансфер из/в отель"],
+      de: ["Schnellbootfahrt", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Passeio de lancha", "Equipamento de snorkel", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Full Speed to Orange Bay",
@@ -721,40 +928,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "بأقصى سرعة إلى خليج أورانج",
-          description:
-            "نسخة قارب السرعة من رحلة خليج أورانج تستبدل الوتيرة الهادئة بشيء أكثر إثارةً. الرحلة جنوباً تستغرق أقل من 20 دقيقة بدلاً من ساعة. في خليج أورانج اليوم يتكشّف بوتيرة أهدأ — غطس وسباحة ووقت على الشاطئ.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:30", description: "الصعود إلى قارب السرعة. إحاطة السلامة من الربان. توزيع معدات الغطس." },
-            { time: "09:45", description: "الانطلاق بسرعة جنوباً على طول الساحل. الرحلة تستغرق نحو 15-20 دقيقة." },
-            { time: "10:00", description: "الوصول إلى خليج أورانج. إرساء المرساة. الربان يعرّف بقواعد الشعاب." },
-            { time: "10:15", description: "جلسة الغطس — الدخول إلى الماء واستكشاف الشعاب المرجانية." },
-            { time: "11:30", description: "وقت الشاطئ — السباحة أو الاستلقاء على الرمال البيضاء." },
-            { time: "12:30", description: "جلسة الغطس الثانية أو الاسترخاء المستمر على الشاطئ." },
-            { time: "13:30", description: "الصعود إلى قارب السرعة للرحلة العائدة." },
-            { time: "13:50", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 9 ───────────────────────────────────────────────────────────────
   {
     title: "Hurghada Grand Aquarium Trip",
-    titleAr: "زيارة أكواريوم الغردقة الكبير",
+    title_t: {
+      es: "Visita al Gran Acuario de Hurghada",
+      it: "Visita al Grande Acquario di Hurghada",
+      fr: "Visite du Grand Aquarium de Hurghada",
+      ru: "Посещение Большого аквариума Хургады",
+      de: "Besuch des Großen Aquariums von Hurghada",
+      pt: "Visita ao Grande Aquário de Hurghada",
+    },
     slug: "hurghada-grand-aquarium-trip",
     description:
       "Dive into the wonders of the Red Sea without getting wet at the Hurghada Grand Aquarium — the Red Sea in Glass. This world-class aquarium houses over 1,100 marine species native to the Red Sea, including sea turtles, sharks, manta rays, and hundreds of colorful reef fish. Walk through immersive underwater tunnels, watch feeding sessions, and discover the rich biodiversity of Egypt's most treasured sea.",
-    descriptionAr:
-      "انغمس في عجائب البحر الأحمر دون أن تبتل في أكواريوم الغردقة الكبير — البحر الأحمر في الزجاج. يضم هذا الأكواريوم العالمي أكثر من 1100 نوع بحري أصيل في البحر الأحمر، بما في ذلك السلاحف البحرية والقروش والراي والمئات من أنواع أسماك الشعاب الملونة.",
     category: "Entrance tickets",
+    category_t: {
+      es: "Entradas",
+      it: "Biglietti d'ingresso",
+      fr: "Billets d'entrée",
+      ru: "Входные билеты",
+      de: "Eintrittskarten",
+      pt: "Bilhetes de entrada",
+    },
     price: { original: 47.28, discounted: null, currency: "USD" },
     duration: "9 hours",
+    duration_t: {
+      es: "9 horas",
+      it: "9 ore",
+      fr: "9 heures",
+      ru: "9 часов",
+      de: "9 Stunden",
+      pt: "9 horas",
+    },
     language: ["English"],
     rating: { score: 0, reviews: 0 },
     travellers: 43,
@@ -762,32 +970,15 @@ const toursData = [
     minAge: 0,
     maxGroupSize: null,
     availableTimes: ["09:00", "10:00", "11:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the aquarium is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى الأكواريوم مشمول.",
-    },
-    accessibility: {
-      en: "The aquarium is largely wheelchair accessible with ramps throughout. The underwater tunnels are fully flat. Suitable for all ages and abilities.",
-      ar: "الأكواريوم في معظمه مناسب للكراسي المتحركة مع منحدرات في جميع أنحائه. الأنفاق مسطحة تماماً. مناسب لجميع الأعمار.",
-    },
-    whatToBring: {
-      en: ["Camera (no flash near sensitive species)", "Light clothing", "Water bottle"],
-      ar: ["كاميرا (ممنوع الفلاش بالقرب من الأنواع الحساسة)", "ملابس خفيفة", "زجاجة ماء"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the aquarium is included.",
+    accessibility: "The aquarium is largely wheelchair accessible with ramps throughout. The underwater tunnels are fully flat. Suitable for all ages and abilities.",
+    whatToBring: ["Camera (no flash near sensitive species)", "Light clothing", "Water bottle"],
+    importantInfo: [
         "Aquarium entrance is included in the tour price.",
         "The aquarium is fully air-conditioned — a welcome respite from the Hurghada heat.",
         "Feeding sessions for sharks and rays take place at scheduled times — ask staff on arrival.",
         "The aquarium includes a café for refreshments.",
       ],
-      ar: [
-        "رسم دخول الأكواريوم مشمول في سعر الجولة.",
-        "الأكواريوم مكيّف بالكامل — راحة مرحَّب بها من حرارة الغردقة.",
-        "جلسات إطعام القروش والراي في أوقات محددة — اسأل الموظفين عند الوصول.",
-        "يضم الأكواريوم مقهى للمرطبات.",
-      ],
-    },
     highlights: [
       "Explore the Hurghada Grand Aquarium (Red Sea in Glass)",
       "See sharks, sea turtles, and manta rays",
@@ -795,10 +986,33 @@ const toursData = [
       "Hundreds of Red Sea marine species on display",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Explora el Gran Acuario de Hurghada (El Mar Rojo en cristal)", "Observa tiburones, tortugas marinas y mantarrayas", "Camina por inmersivos túneles submarinos", "Exposición de vida marina del Mar Rojo", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Esplora il Grande Acquario di Hurghada (Il Mar Rosso in vetro)", "Osserva squali, tartarughe marine e mante", "Passeggia attraverso i tunnel subacquei immersivi", "Esposizione di vita marina del Mar Rosso", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Explorez le Grand Aquarium de Hurghada (La mer Rouge en verre)", "Voyez des requins, des tortues marines et des raies mantas", "Marchez dans des tunnels sous-marins immersifs", "Exposition de vie marine de la mer Rouge", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Исследуйте Большой аквариум Хургады (Красное море в стекле)", "Наблюдайте за акулами, морскими черепахами и скатами манта", "Прогулка по захватывающим подводным тоннелям", "Экспозиция морской жизни Красного моря", "Трансфер туда и обратно включён"],
+      de: ["Das Große Aquarium von Hurghada erkunden (Das Rote Meer hinter Glas)", "Haie, Meeresschildkröten und Mantarochen beobachten", "Durch beeindruckende Unterwasser-Tunnel spazieren", "Ausstellung des Meereslebens im Roten Meer", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Explore o Grande Aquário de Hurghada (O Mar Vermelho em vidro)", "Veja tubarões, tartarugas marinhas e arraias-manta", "Caminhe pelos imersivos túneis subaquáticos", "Exposição de vida marinha do Mar Vermelho", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Aquarium entrance", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Entrada al acuario", "Recogida y devolución en el hotel"],
+      it: ["Ingresso all'acquario", "Prelievo e rientro in hotel"],
+      fr: ["Entrée à l'aquarium", "Prise en charge et retour à l'hôtel"],
+      ru: ["Билет в аквариум", "Трансфер из/в отель"],
+      de: ["Aquarium-Eintritt", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Entrada no aquário", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "The Red Sea in Glass — Hurghada Grand Aquarium",
@@ -816,39 +1030,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "البحر الأحمر في الزجاج — أكواريوم الغردقة الكبير",
-          description:
-            "لمن لا يستطيع الغوص أو الغطس، يضم الأكواريوم أكثر من 1100 نوع بحري في عشرات الخزانات. تاج المجمع هو النفق تحت الماء — ممر شفاف طويل تمشي فيه بينما تتجول القروش والراي والسلاحف والأسماك الكبيرة فوقك ومن الجانبين. الأكواريوم مكيّف بالكامل وفسيح — خيار مثالي في أشد أيام الصيف حراً.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق. الانتقال إلى أكواريوم الغردقة الكبير." },
-            { time: "09:30", description: "الوصول. استلام التذاكر والدخول. البدء بنظرة عامة على قاعة المدخل." },
-            { time: "09:45", description: "استكشاف قاعات العرض الرئيسية — معارض الشعاب المرجانية وقسم أسماك المياه المفتوحة والخزانات المتخصصة." },
-            { time: "11:00", description: "الدخول إلى النفق تحت الماء. المشي ببطء بينما تتحرك القروش والراي والسلاحف والأسماك الكبيرة فوقك ومن الجانبين." },
-            { time: "11:30", description: "جلسة إطعام القروش والراي (تعتمد على الجدول — تأكد مع الموظفين)." },
-            { time: "12:00", description: "الاستمرار في استكشاف المعارض المتبقية وبركة اللمس (إن توفرت)." },
-            { time: "13:00", description: "زيارة محل الهدايا. مرطبات اختيارية في المقهى." },
-            { time: "13:30", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 10 ──────────────────────────────────────────────────────────────
   {
     title: "Swim with Dolphins in Hurghada",
-    titleAr: "السباحة مع الدلافين في الغردقة",
+    title_t: {
+      es: "Nada con delfines en Hurghada",
+      it: "Nuotare con i delfini a Hurghada",
+      fr: "Nager avec les dauphins à Hurghada",
+      ru: "Плавание с дельфинами в Хургаде",
+      de: "Mit Delfinen schwimmen in Hurghada",
+      pt: "Nadar com golfinhos em Hurghada",
+    },
     slug: "swim-with-dolphins-hurghada",
     description:
       "Create memories that will last a lifetime on this magical boat trip where you'll swim alongside friendly dolphins in the warm waters of the Red Sea. Head out from Hurghada to Dolphin House, a famous snorkeling site known for its resident pod of wild spinner dolphins. The adventure continues with a banana boat ride and more time to snorkel over the vibrant coral reef.",
-    descriptionAr:
-      "اصنع ذكريات ستدوم مدى الحياة في هذه الرحلة البحرية السحرية حيث ستسبح جانباً لجانب مع الدلافين الودودة في المياه الدافئة للبحر الأحمر. اتجه من الغردقة إلى بيت الدولفين الشهير بقطيعه المقيم من دلافين سبينر البرية.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "8 hours",
+    duration_t: {
+      es: "8 horas",
+      it: "8 ore",
+      fr: "8 heures",
+      ru: "8 часов",
+      de: "8 Stunden",
+      pt: "8 horas",
+    },
     language: ["English"],
     rating: { score: 7.6, reviews: 27 },
     travellers: 454,
@@ -856,34 +1072,16 @@ const toursData = [
     minAge: 8,
     maxGroupSize: 20,
     availableTimes: ["08:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Guests must be comfortable swimming in open water. Life jackets available. Minimum age is 8 years.",
-      ar: "يجب أن يكون الضيوف مرتاحين للسباحة في المياه المفتوحة. سترات النجاة متوفرة. الحد الأدنى للعمر 8 سنوات.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Change of clothes", "Waterproof camera if possible"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "ملابس للتبديل", "كاميرا مقاومة للماء إن أمكن"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Guests must be comfortable swimming in open water. Life jackets available. Minimum age is 8 years.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Change of clothes", "Waterproof camera if possible"],
+    importantInfo: [
         "Dolphin sightings are not guaranteed — dolphins are wild animals in their natural habitat.",
         "In practice, the spinner dolphin pod at Dolphin House is present on the vast majority of visits.",
         "Guests must not chase, touch, or feed the dolphins.",
         "Snorkeling equipment and banana boat ride are included.",
         "Light refreshments are provided onboard.",
       ],
-      ar: [
-        "رؤية الدلافين غير مضمونة — الدلافين حيوانات برية في موطنها الطبيعي.",
-        "عملياً، قطيع دلافين سبينر في بيت الدولفين موجود في الغالبية العظمى من الزيارات.",
-        "يجب على الضيوف عدم مطاردة الدلافين أو لمسها أو إطعامها.",
-        "معدات الغطس وركوبة القارب الموزي مشمولتان.",
-        "مرطبات خفيفة تُقدَّم على متن القارب.",
-      ],
-    },
     highlights: [
       "Swim with wild spinner dolphins at Dolphin House",
       "Snorkel over vibrant coral reefs",
@@ -891,10 +1089,33 @@ const toursData = [
       "Experience dolphins in their natural habitat",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Nada con delfines hilanderos salvajes en Dolphin House", "Buceo con tubo sobre vibrantes arrecifes de coral", "Paseo en banana boat incluido", "Experimenta los delfines en su hábitat natural", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Nuota con i delfini dal muso a bottiglia selvatici al Dolphin House", "Snorkeling sulle vibranti barriere coralline", "Giro in banana boat incluso", "Sperimenta i delfini nel loro habitat naturale", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Nagez avec les dauphins sauvages à Dolphin House", "Snorkeling sur de magnifiques récifs coralliens", "Balade en banane incluse", "Expérimentez les dauphins dans leur habitat naturel", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Плавание с дикими дельфинами-спиннерами в Dolphin House", "Снорклинг над яркими коралловыми рифами", "Прогулка на банане включена", "Общение с дельфинами в их естественной среде обитания", "Трансфер туда и обратно включён"],
+      de: ["Mit wilden Spinner-Delfinen im Dolphin House schwimmen", "Schnorcheln über lebhaften Korallenriffen", "Bananenboot-Fahrt inklusive", "Delfine in ihrer natürlichen Umgebung erleben", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Nade com golfinhos-rotatórios selvagens na Casa dos Golfinhos", "Snorkel sobre vibrantes recifes de coral", "Passeio de banana boat incluído", "Experiencie os golfinhos no seu habitat natural", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Snorkeling equipment", "Banana boat ride", "Hotel pickup and drop-off", "Light refreshments"],
+    includes_t: {
+      es: ["Viaje en barco", "Equipo de esnórquel", "Paseo en banana boat", "Recogida y devolución en el hotel", "Refrescos ligeros"],
+      it: ["Gita in barca", "Attrezzatura da snorkeling", "Giro in banana boat", "Prelievo e rientro in hotel", "Rinfreschi leggeri"],
+      fr: ["Excursion en bateau", "Équipement de snorkeling", "Balade en banane", "Prise en charge et retour à l'hôtel", "Rafraîchissements légers"],
+      ru: ["Поездка на лодке", "Снаряжение для снорклинга", "Прогулка на банане", "Трансфер из/в отель", "Лёгкие закуски и напитки"],
+      de: ["Bootsfahrt", "Schnorchelausrüstung", "Bananenboot-Fahrt", "Hotel-Transfer (hin und zurück)", "Leichte Erfrischungen"],
+      pt: ["Passeio de barco", "Equipamento de snorkel", "Passeio de banana boat", "Transfer de ida e volta ao hotel", "Refrescos ligeiros"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Dolphin House — Swimming with Wild Spinner Dolphins",
@@ -914,41 +1135,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "بيت الدولفين — السباحة مع دلافين سبينر البرية",
-          description:
-            "بيت الدولفين — المعروف محلياً بشعب الإرق — موقع شعاب ضحلة شمال الغردقة مشهور لقطيع مقيم من دلافين سبينر البرية أصبح مرتاحاً للغاية مع السباحين البشر. على عكس عروض الدلافين، هذه حيوانات برية تماماً في موطنها الطبيعي. في معظم الأيام الدلافين هنا، تقترب من المياه الأعمق وتحيط بالسباحين وتدور في تحولاتها الأكروباتية المميزة.",
-          steps: [
-            { time: "08:00", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "08:30", description: "الصعود إلى القارب. إحاطة السلامة وتوزيع معدات الغطس. المرشد يشرح كيفية التصرف باحترام مع الدلافين البرية." },
-            { time: "09:00", description: "المغادرة شمالاً نحو شعب الإرق (بيت الدولفين) — نحو 45 دقيقة بالقارب." },
-            { time: "09:45", description: "الوصول إلى بيت الدولفين. عند رصد القطيع يدخل الضيوف الماء بهدوء ودون رش." },
-            { time: "10:00", description: "السباحة بجانب الدلافين. المرشد يقود المجموعة بطريقة بطيئة وغير مهددة. الدلافين عادةً تحيط بالسباحين لـ 20-40 دقيقة." },
-            { time: "10:45", description: "جلسة الغطس على شعاب بيت الدولفين — شعاب صحية وأسماك استوائية." },
-            { time: "12:00", description: "ركوبة القارب الموزي — مجموعات من 4-6 لنحو 15-20 دقيقة من المتعة." },
-            { time: "12:30", description: "جلسة الغطس الثانية أو الاسترخاء على سطح القارب. تُقدَّم مرطبات خفيفة." },
-            { time: "14:00", description: "المغادرة من بيت الدولفين للرحلة العائدة إلى الغردقة." },
-            { time: "15:00", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 11 ──────────────────────────────────────────────────────────────
   {
     title: "Day Trip to the Pyramids of Giza + Egyptian Museum",
-    titleAr: "رحلة يوم إلى أهرامات الجيزة والمتحف المصري",
+    title_t: {
+      es: "Excursión de un día a las Pirámides de Guiza + Museo Egipcio",
+      it: "Gita di un giorno alle Piramidi di Giza + Museo Egizio",
+      fr: "Excursion d'une journée aux Pyramides de Gizeh + Musée Égyptien",
+      ru: "Однодневная экскурсия к Пирамидам Гизы + Египетский музей",
+      de: "Tagesausflug zu den Pyramiden von Gizeh + Ägyptisches Museum",
+      pt: "Excursão de um dia às Pirâmides de Gizé + Museu Egípcio",
+    },
     slug: "day-trip-pyramids-giza-egyptian-museum-hurghada",
     description:
       "No visit to Egypt is complete without seeing the Pyramids of Giza, and this exciting day trip by plane from Hurghada makes it possible in just one day. Fly to Cairo and spend the day exploring the iconic Pyramids of Giza and the Great Sphinx, followed by a visit to the Grand Egyptian Museum — home to the world's largest collection of ancient Egyptian artifacts including the complete treasures of Tutankhamun.",
-    descriptionAr:
-      "لا تكتمل زيارة مصر دون رؤية أهرامات الجيزة، وهذه الرحلة اليومية المثيرة بالطائرة من الغردقة تجعل ذلك ممكناً في يوم واحد. اطر إلى القاهرة وأمضِ اليوم في استكشاف أهرامات الجيزة الأيقونية وأبو الهول الكبير والمتحف المصري الكبير.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 410.15, discounted: null, currency: "USD" },
     duration: "15 hours",
+    duration_t: {
+      es: "15 horas",
+      it: "15 ore",
+      fr: "15 heures",
+      ru: "15 часов",
+      de: "15 Stunden",
+      pt: "15 horas",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 5 },
     travellers: 32,
@@ -956,32 +1177,15 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 12,
     availableTimes: ["05:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada for transfer to Hurghada Airport.",
-      ar: "بهو فندقك في الغردقة للانتقال إلى مطار الغردقة.",
-    },
-    accessibility: {
-      en: "The Giza Plateau involves walking on sand and uneven ground. The Grand Egyptian Museum is largely accessible. The flight adds significant comfort over the overland bus alternative.",
-      ar: "تتضمن هضبة الجيزة المشي على الرمال. المتحف المصري الكبير في معظمه يمكن الوصول إليه. الرحلة الجوية أكثر راحة بكثير من الأتوبيس البري.",
-    },
-    whatToBring: {
-      en: ["Passport or national ID (required for the flight)", "Comfortable walking shoes", "Sun protection", "Camera", "Light jacket for the Cairo return flight"],
-      ar: ["جواز سفر أو بطاقة هوية وطنية (مطلوبة للرحلة)", "حذاء مريح للمشي", "واقٍ من الشمس", "كاميرا", "جاكيت خفيف لرحلة العودة من القاهرة"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada for transfer to Hurghada Airport.",
+    accessibility: "The Giza Plateau involves walking on sand and uneven ground. The Grand Egyptian Museum is largely accessible. The flight adds significant comfort over the overland bus alternative.",
+    whatToBring: ["Passport or national ID (required for the flight)", "Comfortable walking shoes", "Sun protection", "Camera", "Light jacket for the Cairo return flight"],
+    importantInfo: [
         "A valid passport or national ID is required for the domestic flight.",
         "Round-trip flights from Hurghada to Cairo are included.",
         "Lunch is included at a restaurant near the Giza Plateau.",
         "Entry inside the Great Pyramid carries an additional fee not included in the tour.",
       ],
-      ar: [
-        "جواز سفر ساري أو بطاقة هوية وطنية مطلوبة للرحلة الداخلية.",
-        "رحلات ذهاب وإياب من الغردقة إلى القاهرة مشمولة.",
-        "الغداء مشمول في مطعم بالقرب من هضبة الجيزة.",
-        "الدخول داخل الهرم الأكبر يستلزم رسماً إضافياً غير مشمول.",
-      ],
-    },
     highlights: [
       "Round-trip flight from Hurghada to Cairo",
       "Visit the iconic Pyramids of Giza and the Great Sphinx",
@@ -989,10 +1193,33 @@ const toursData = [
       "See Tutankhamun's golden treasures",
       "Expert guide throughout the day",
     ],
+    highlights_t: {
+      es: ["Vuelo de ida y vuelta de Hurghada a El Cairo", "Visita las icónicas Pirámides de Guiza y la Gran Esfinge", "Explora el Gran Museo Egipcio", "Admira los tesoros de Tutankamón", "Guía experto incluido", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Volo andata e ritorno da Hurghada al Cairo", "Visita le iconiche Piramidi di Giza e la Grande Sfinge", "Esplora il Grande Museo Egizio", "Ammira i tesori di Tutankhamon", "Guida esperta inclusa", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Vol aller-retour de Hurghada au Caire", "Visitez les emblématiques Pyramides de Gizeh et le Grand Sphinx", "Explorez le Grand Musée Égyptien", "Admirez les trésors de Toutânkhamon", "Guide expert inclus", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Перелёт туда и обратно из Хургады в Каир", "Посещение легендарных Пирамид Гизы и Большого Сфинкса", "Исследование Большого Египетского музея", "Знакомство с сокровищами Тутанхамона", "Опытный гид включён", "Трансфер туда и обратно включён"],
+      de: ["Hin- und Rückflug von Hurghada nach Kairo", "Besuch der ikonischen Pyramiden von Gizeh und der Großen Sphinx", "Erkundung des Großen Ägyptischen Museums", "Tutanchamuns Schätze bewundern", "Erfahrener Guide inklusive", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Voo de ida e volta de Hurghada ao Cairo", "Visita as icónicas Pirâmides de Gizé e a Grande Esfinge", "Explore o Grande Museu Egípcio", "Admire os tesouros de Tutankhamon", "Guia especializado incluído", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Round-trip flight", "Guide", "Entrance fees", "Lunch", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Vuelo de ida y vuelta", "Guía", "Tarifas de entrada", "Almuerzo", "Recogida y devolución en el hotel"],
+      it: ["Volo andata e ritorno", "Guida", "Tariffe d'ingresso", "Pranzo", "Prelievo e rientro in hotel"],
+      fr: ["Vol aller-retour", "Guide", "Frais d'entrée", "Déjeuner", "Prise en charge et retour à l'hôtel"],
+      ru: ["Авиаперелёт туда и обратно", "Гид", "Входные билеты", "Обед", "Трансфер из/в отель"],
+      de: ["Hin- und Rückflug", "Guide", "Eintrittsgelder", "Mittagessen", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Voo de ida e volta", "Guia", "Taxas de entrada", "Almoço", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Entry inside the Great Pyramid (extra fee)", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Entrada al interior de la Gran Pirámide (tarifa adicional)", "Propinas", "Gastos personales"],
+      it: ["Ingresso all'interno della Grande Piramide (costo aggiuntivo)", "Mance", "Spese personali"],
+      fr: ["Entrée à l'intérieur de la Grande Pyramide (supplément)", "Pourboires", "Dépenses personnelles"],
+      ru: ["Вход внутрь Великой пирамиды (дополнительная плата)", "Чаевые", "Личные расходы"],
+      de: ["Eingang in die Große Pyramide (Aufpreis)", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Entrada no interior da Grande Pirâmide (taxa adicional)", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Hurghada to the Pyramids — Egypt's Greatest Icons by Air",
@@ -1014,43 +1241,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "من الغردقة إلى الأهرامات — أيقونات مصر الكبرى بالجو",
-          description:
-            "الطيران إلى القاهرة من الغردقة يستغرق أقل من ساعة — مما يعني أن هذه الرحلة تمنحك يوماً كاملاً وغير مستعجل في هضبة الجيزة والمتحف المصري الكبير. بحلول منتصف الصباح أنت تقف أمام هرم خوفو الأكبر، آخر عجائب الدنيا السبع الباقية. بعد الظهر ينتقل إلى المتحف المصري الكبير حيث تُعرض كنوز توتنخامون الكاملة للمرة الأولى في تاريخ البشرية.",
-          steps: [
-            { time: "05:00", description: "الاستقبال من الفندق. الانتقال إلى مطار الغردقة الدولي." },
-            { time: "06:00", description: "تسجيل الوصول والصعود إلى الرحلة الداخلية الصباحية المبكرة إلى القاهرة." },
-            { time: "07:00", description: "الوصول إلى مطار القاهرة. استقبال من مرشدك والانتقال إلى هضبة الجيزة." },
-            { time: "08:00", description: "الوصول إلى الجيزة. جولة مصحوبة بمرشد في هرم خوفو." },
-            { time: "09:00", description: "زيارة هرم خفرع وهرم منقرع. المشية إلى أبو الهول الكبير ومعبد الوادي." },
-            { time: "10:30", description: "توقف نقطة المشاهدة البانورامية — الأهرامات الثلاثة في إطار واحد." },
-            { time: "11:30", description: "الانتقال إلى المتحف المصري الكبير." },
-            { time: "12:00", description: "الغداء مشمول في مطعم المتحف." },
-            { time: "13:00", description: "جولة مصحوبة بمرشد في المتحف المصري الكبير — معارض توتنخامون الكاملة وقاعة المومياوات الملكية." },
-            { time: "16:00", description: "الانتقال إلى مطار القاهرة." },
-            { time: "17:30", description: "الصعود إلى رحلة العودة إلى الغردقة." },
-            { time: "18:30", description: "الوصول إلى مطار الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 12 ──────────────────────────────────────────────────────────────
   {
     title: "Fly Board in Hurghada",
-    titleAr: "الفلايبورد في الغردقة",
+    title_t: {
+      es: "Flyboard en Hurghada",
+      it: "Flyboard a Hurghada",
+      fr: "Flyboard à Hurghada",
+      ru: "Флайборд в Хургаде",
+      de: "Flyboard in Hurghada",
+      pt: "Flyboard em Hurghada",
+    },
     slug: "flyboard-hurghada",
     description:
       "Defy gravity and soar above the Red Sea on an electrifying flyboarding session in Hurghada. Powered by water jets attached to your feet, you'll rise up from the surface of the sea and hover in the air like a superhero, with breathtaking views of the Red Sea and the Hurghada coastline stretching out around you. An experienced instructor will guide you throughout the session, making this adrenaline-pumping water sport accessible even for first-timers.",
-    descriptionAr:
-      "تحدَّ الجاذبية وحلّق فوق البحر الأحمر في جلسة فلايبورد مثيرة في الغردقة. مدفوعاً بنفاثات مياه مرتبطة بقدميك ستنطلق إلى الأعلى من سطح البحر وتحلق في الهواء كبطل خارق مع مناظر خلابة للبحر الأحمر وساحل الغردقة تمتد حولك.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 106.38, discounted: 85.10, currency: "USD" },
     duration: "30 minutes",
+    duration_t: {
+      es: "30 minutos",
+      it: "30 minuti",
+      fr: "30 minutes",
+      ru: "30 минут",
+      de: "30 Minuten",
+      pt: "30 minutos",
+    },
     language: ["English"],
     rating: { score: 10.0, reviews: 2 },
     travellers: 8,
@@ -1058,32 +1283,15 @@ const toursData = [
     minAge: 16,
     maxGroupSize: 4,
     availableTimes: ["10:00", "12:00", "14:00", "16:00"],
-    meetingPoint: {
-      en: "The flyboard operator's beach station in Hurghada — your booking confirmation will include the exact location.",
-      ar: "محطة الشاطئ لمشغّل الفلايبورد في الغردقة — تأكيد حجزك سيتضمن الموقع الدقيق.",
-    },
-    accessibility: {
-      en: "Requires physical fitness and ability to stand and balance. Not suitable for guests with back problems, heart conditions, pregnancy, or those under 16. Maximum weight limit typically applies.",
-      ar: "يتطلب لياقة بدنية والقدرة على الوقوف والتوازن. غير مناسب لمن يعانون من مشاكل في الظهر أو القلب أو الحوامل أو من هم دون 16 سنة.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Sunscreen", "Change of clothes", "Waterproof camera if possible"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ من الشمس", "ملابس للتبديل", "كاميرا مقاومة للماء إن أمكن"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "The flyboard operator's beach station in Hurghada — your booking confirmation will include the exact location.",
+    accessibility: "Requires physical fitness and ability to stand and balance. Not suitable for guests with back problems, heart conditions, pregnancy, or those under 16. Maximum weight limit typically applies.",
+    whatToBring: ["Swimwear", "Towel", "Sunscreen", "Change of clothes", "Waterproof camera if possible"],
+    importantInfo: [
         "Hotel pickup is not included — make your own way to the operator's beach station.",
         "The 30-minute session includes instruction and practice time in addition to active flyboarding.",
         "Most first-timers spend their initial attempts falling into the water before finding balance — this is normal and part of the fun.",
         "Safety helmet and vest are provided.",
       ],
-      ar: [
-        "الاستقبال من الفندق غير مشمول — توجه بنفسك إلى محطة شاطئ المشغّل.",
-        "جلسة الـ 30 دقيقة تتضمن وقت التعليمات والتدريب بالإضافة إلى الفلايبورد الفعلي.",
-        "معظم المبتدئين يقضون محاولاتهم الأولى في السقوط إلى الماء قبل إيجاد التوازن — هذا طبيعي.",
-        "خوذة السلامة وسترة السلامة مقدَّمتان.",
-      ],
-    },
     highlights: [
       "Thrilling flyboarding experience over the Red Sea",
       "Rise several meters above the water surface",
@@ -1091,10 +1299,33 @@ const toursData = [
       "Suitable for first-timers",
       "Stunning aerial views of the Red Sea coastline",
     ],
+    highlights_t: {
+      es: ["Emocionante experiencia de flyboard sobre el Mar Rojo", "Elévate varios metros sobre la superficie del agua", "Instructor experimentado te guía durante toda la sesión", "Apto para principiantes y deportistas"],
+      it: ["Emozionante esperienza di flyboard sul Mar Rosso", "Alzati diversi metri sopra la superficie dell'acqua", "Un istruttore esperto ti guida per tutta la sessione", "Adatto a principianti e sportivi"],
+      fr: ["Passionnante expérience de flyboard sur la mer Rouge", "Montez à plusieurs mètres au-dessus de la surface de l'eau", "Un instructeur expérimenté vous guide tout au long de la session", "Adapté aux débutants et aux sportifs"],
+      ru: ["Захватывающий полёт на флайборде над Красным морем", "Подъём на несколько метров над поверхностью воды", "Опытный инструктор сопровождает вас на протяжении всей сессии", "Подходит для начинающих и спортсменов"],
+      de: ["Aufregendes Flyboard-Erlebnis über dem Roten Meer", "Mehrere Meter über die Wasseroberfläche aufsteigen", "Erfahrener Instruktor begleitet Sie die gesamte Session", "Geeignet für Anfänger und Sportbegeisterte"],
+      pt: ["Emocionante experiência de flyboard sobre o Mar Vermelho", "Eleve-se vários metros acima da superfície da água", "Instrutor experiente guia você durante toda a sessão", "Adequado para iniciantes e desportistas"],
+    },
     includes: ["Flyboarding session", "Safety equipment", "Instructor"],
+    includes_t: {
+      es: ["Sesión de flyboard", "Equipo de seguridad", "Instructor"],
+      it: ["Sessione di flyboard", "Attrezzatura di sicurezza", "Istruttore"],
+      fr: ["Session de flyboard", "Équipement de sécurité", "Instructeur"],
+      ru: ["Сессия флайборда", "Защитное снаряжение", "Инструктор"],
+      de: ["Flyboard-Session", "Sicherheitsausrüstung", "Instruktor"],
+      pt: ["Sessão de flyboard", "Equipamento de segurança", "Instrutor"],
+    },
     excludes: ["Hotel pickup", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Recogida en el hotel", "Propinas", "Gastos personales"],
+      it: ["Prelievo in hotel", "Mance", "Spese personali"],
+      fr: ["Ramassage à l'hôtel", "Pourboires", "Dépenses personnelles"],
+      ru: ["Трансфер из отеля", "Чаевые", "Личные расходы"],
+      de: ["Hotelabholung", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Transporte ao hotel", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Above the Red Sea — Your Flyboard Session",
@@ -1111,39 +1342,42 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "فوق البحر الأحمر — جلسة الفلايبورد الخاصة بك",
-          description:
-            "الفلايبورد أحد تلك التجارب التي يصعب وصفها: يُضخّ الماء بضغط عالٍ عبر خرطوم مرتبط بلوح في قدميك، والنفاثات تتجه للأسفل، والقوة ترفعك للأعلى. يستغرق معظم الناس بين خمس وخمس عشرة دقيقة لإيجاد التوازن الأساسي. حين ينقر التوازن، الإحساس استثنائي: التحليق عدة أمتار فوق البحر الأحمر مع امتداد ساحل الغردقة في كل اتجاه.",
-          steps: [
-            { time: "10:00", description: "الوصول إلى محطة شاطئ المشغّل. التعرف على مدربك وإتمام إحاطة السلامة ونموذج الموافقة." },
-            { time: "10:10", description: "ارتداء سترة السلامة والخوذة. المدرب يشرح توزيع الوزن ووضع الجسم والتحكم الأساسي." },
-            { time: "10:15", description: "الدخول إلى الماء. المدرب يربط الفلايبورد بقدميك وتبدأ في وضع طفو أفقي." },
-            { time: "10:20", description: "المحاولات الأولى للرفع العمودي. المدرب يتحكم في الطاقة تدريجياً." },
-            { time: "10:30", description: "الفلايبورد التدريجي — مع تحسّن التوازن يزيد المدرب الطاقة والارتفاع." },
-            { time: "10:45", description: "تنتهي الجلسة. خلع المعدات. التغيير والتجفف." },
-            { time: "11:00", description: "اكتملت الجلسة. العودة إلى فندقك بنفسك." },
-          ],
-        },
-      ],
-    },
   },
 // hurghada_tours_2.js — Tours 13 to 23
 
   // ─── TOUR 13 ──────────────────────────────────────────────────────────────
   {
     title: "Civitatis eSIM Card Egypt",
-    titleAr: "شريحة eSIM لمصر من Civitatis",
+    title_t: {
+      es: "Tarjeta eSIM de Civitatis para Egipto",
+      it: "Carta eSIM Civitatis per l'Egitto",
+      fr: "Carte eSIM Civitatis Égypte",
+      ru: "eSIM-карта Civitatis для Египта",
+      de: "Civitatis eSIM-Karte Ägypten",
+      pt: "Cartão eSIM da Civitatis para o Egito",
+    },
     slug: "civitatis-esim-card-egypt-hurghada",
     description:
       "Stay seamlessly connected throughout your Egyptian holiday with this convenient travel eSIM card. Whether you're sharing stunning Red Sea sunset photos, navigating between Hurghada's resorts, or looking up information about ancient sites, this eSIM gives you reliable mobile data coverage across Egypt without the need to swap physical SIM cards.",
-    descriptionAr:
-      "ابقَ متصلاً بسلاسة طوال عطلتك المصرية مع بطاقة eSIM السياحية المريحة هذه. سواء كنت تشارك صور غروب البحر الأحمر الرائعة أو تتنقل بين منتجعات الغردقة أو تبحث عن معلومات حول المواقع الأثرية، تمنحك هذه البطاقة تغطية بيانات جوال موثوقة في جميع أنحاء مصر.",
     category: "Additional services",
+    category_t: {
+      es: "Servicios adicionales",
+      it: "Servizi aggiuntivi",
+      fr: "Services supplémentaires",
+      ru: "Дополнительные услуги",
+      de: "Zusätzliche Dienstleistungen",
+      pt: "Serviços adicionais",
+    },
     price: { original: 5.50, discounted: null, currency: "USD" },
     duration: "7-30 days",
+    duration_t: {
+      es: "7-30 días",
+      it: "7-30 giorni",
+      fr: "7-30 jours",
+      ru: "7-30 дней",
+      de: "7-30 Tage",
+      pt: "7-30 dias",
+    },
     language: ["English"],
     rating: { score: 7.7, reviews: 89 },
     travellers: 1856,
@@ -1154,22 +1388,13 @@ const toursData = [
     meetingPoint: null,
     accessibility: null,
     whatToBring: null,
-    importantInfo: {
-      en: [
+    importantInfo: [
         "The eSIM is activated digitally — no physical SIM swap required.",
         "Ensure your phone is unlocked and eSIM-compatible before purchasing.",
         "Available in 7, 15, and 30-day plans.",
         "Works on 4G/LTE networks across Egypt.",
         "Voice calls and SMS are not included.",
       ],
-      ar: [
-        "يُفعَّل eSIM رقمياً — لا يلزم تبديل بطاقة SIM فعلية.",
-        "تأكد من أن هاتفك غير مقيد ومتوافق مع eSIM قبل الشراء.",
-        "متوفر بخطط 7 و15 و30 يوماً.",
-        "يعمل على شبكات 4G/LTE في جميع أنحاء مصر.",
-        "المكالمات الصوتية والرسائل النصية غير مشمولة.",
-      ],
-    },
     highlights: [
       "Mobile data coverage across Egypt",
       "No physical SIM swap needed",
@@ -1177,23 +1402,68 @@ const toursData = [
       "Available in 7, 15, and 30-day plans",
       "Works throughout Hurghada and all Egyptian destinations",
     ],
+    highlights_t: {
+      es: ["Cobertura de datos móviles en todo Egipto", "Sin necesidad de cambiar la SIM física", "Fácil activación digital antes de la llegada", "Disponible en planes de 7, 15 y 30 días", "Compatible con dispositivos desbloqueados y con eSIM"],
+      it: ["Copertura dati mobile in tutto l'Egitto", "Nessun cambio di SIM fisico necessario", "Facile attivazione digitale prima dell'arrivo", "Disponibile in piani da 7, 15 e 30 giorni", "Compatibile con dispositivi sbloccati e con eSIM"],
+      fr: ["Couverture données mobiles dans toute l'Égypte", "Pas besoin de changer la SIM physique", "Activation numérique facile avant l'arrivée", "Disponible en forfaits 7, 15 et 30 jours", "Compatible avec les appareils débloqués et eSIM"],
+      ru: ["Покрытие мобильного интернета по всему Египту", "Не нужно менять физическую SIM-карту", "Простая цифровая активация до приезда", "Доступны планы на 7, 15 и 30 дней", "Совместима с разблокированными устройствами с поддержкой eSIM"],
+      de: ["Mobile Datenabdeckung in ganz Ägypten", "Kein physischer SIM-Kartenwechsel nötig", "Einfache digitale Aktivierung vor der Ankunft", "In 7-, 15- und 30-Tage-Tarifen erhältlich", "Kompatibel mit entsperrten eSIM-fähigen Geräten"],
+      pt: ["Cobertura de dados móveis em todo o Egito", "Sem necessidade de trocar o SIM físico", "Fácil ativação digital antes da chegada", "Disponível em planos de 7, 15 e 30 dias", "Compatível com dispositivos desbloqueados e com eSIM"],
+    },
     includes: ["eSIM data plan for selected duration"],
+    includes_t: {
+      es: ["Plan de datos eSIM por la duración seleccionada"],
+      it: ["Piano dati eSIM per la durata selezionata"],
+      fr: ["Forfait données eSIM pour la durée sélectionnée"],
+      ru: ["Тарифный план eSIM на выбранный срок"],
+      de: ["eSIM-Datentarif für die gewählte Laufzeit"],
+      pt: ["Plano de dados eSIM pela duração selecionada"],
+    },
     excludes: ["Voice calls", "SMS"],
+    excludes_t: {
+      es: ["Llamadas de voz", "SMS"],
+      it: ["Chiamate vocali", "SMS"],
+      fr: ["Appels vocaux", "SMS"],
+      ru: ["Голосовые звонки", "SMS"],
+      de: ["Sprachanrufe", "SMS"],
+      pt: ["Chamadas de voz", "SMS"],
+    },
     itinerary: null,
   },
 
   // ─── TOUR 14 ──────────────────────────────────────────────────────────────
   {
     title: "Horseback Riding in Hurghada",
-    titleAr: "ركوب الخيل في الغردقة",
+    title_t: {
+      es: "Paseo a caballo en Hurghada",
+      it: "Passeggiata a cavallo a Hurghada",
+      fr: "Randonnée à cheval à Hurghada",
+      ru: "Верховая езда в Хургаде",
+      de: "Ausritt in Hurghada",
+      pt: "Passeio a cavalo em Hurghada",
+    },
     slug: "horseback-riding-hurghada",
     description:
       "Experience the timeless romance of riding through the Egyptian desert and along the shores of the Red Sea on horseback. This guided ride takes you through stunning desert landscapes and down to the beach, where you'll canter along the water's edge with the Red Sea breeze in your hair and the wide blue sea stretching before you. Suitable for both beginners and experienced riders.",
-    descriptionAr:
-      "اختبر رومانسية الزمن في ركوب الخيل عبر الصحراء المصرية وعلى طول شواطئ البحر الأحمر. تأخذك هذه الجولة المصحوبة بمرشد عبر مناظر صحراوية خلابة وصولاً إلى الشاطئ، حيث ستركض على طول حافة المياه مع نسيم البحر الأحمر في شعرك.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 42.55, discounted: null, currency: "USD" },
     duration: "4 hours",
+    duration_t: {
+      es: "4 horas",
+      it: "4 ore",
+      fr: "4 heures",
+      ru: "4 часа",
+      de: "4 Stunden",
+      pt: "4 horas",
+    },
     language: ["English"],
     rating: { score: 6.5, reviews: 4 },
     travellers: 30,
@@ -1201,32 +1471,15 @@ const toursData = [
     minAge: 8,
     maxGroupSize: 10,
     availableTimes: ["08:00", "16:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the stables is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى الاصطبلات مشمول.",
-    },
-    accessibility: {
-      en: "Riders must be able to mount and balance on a horse. Not suitable for guests with serious back conditions or pregnancy. Helmets provided. Beginner-paced horses available.",
-      ar: "يجب أن يكون الراكبون قادرين على الركوب والتوازن. غير مناسب لمن يعانون من حالات خطيرة في الظهر أو الحوامل. الخوذات متوفرة.",
-    },
-    whatToBring: {
-      en: ["Long trousers (strongly recommended)", "Closed-toe shoes", "Sun hat", "Sunscreen", "Water bottle"],
-      ar: ["بنطلون طويل (موصى به بشدة)", "حذاء مغلق الأصابع", "قبعة للشمس", "كريم واقٍ", "زجاجة ماء"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the stables is included.",
+    accessibility: "Riders must be able to mount and balance on a horse. Not suitable for guests with serious back conditions or pregnancy. Helmets provided. Beginner-paced horses available.",
+    whatToBring: ["Long trousers (strongly recommended)", "Closed-toe shoes", "Sun hat", "Sunscreen", "Water bottle"],
+    importantInfo: [
         "Helmets are provided and mandatory.",
         "Long trousers are strongly recommended to prevent chafing.",
         "The morning session (08:00) avoids the hottest part of the day; the afternoon session (16:00) offers golden sunset light.",
         "Riders are matched to horses based on experience level.",
       ],
-      ar: [
-        "الخوذات متوفرة وإلزامية.",
-        "البنطلون الطويل موصى به بشدة لمنع الاحتكاك.",
-        "الجلسة الصباحية (08:00) تتجنب أشد ساعات النهار حراً؛ الجلسة بعد الظهر (16:00) توفر ضوءاً ذهبياً.",
-        "يُوفَّق الراكبون مع الخيول بناءً على مستوى خبرتهم.",
-      ],
-    },
     highlights: [
       "Horseback ride through desert and along the beach",
       "Stunning Red Sea coastal scenery",
@@ -1234,10 +1487,33 @@ const toursData = [
       "Professional horse handlers throughout",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Paseo a caballo por el desierto y la playa", "Impresionantes vistas del litoral del Mar Rojo", "Apto para principiantes y jinetes con experiencia", "Guía profesional incluido", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Passeggiata a cavallo nel deserto e lungo la spiaggia", "Paesaggi mozzafiato della costa del Mar Rosso", "Adatto a principianti e cavalieri esperti", "Guida professionale inclusa", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Randonnée à cheval dans le désert et sur la plage", "Superbes vues sur le littoral de la mer Rouge", "Adapté aux débutants et aux cavaliers expérimentés", "Guide professionnel inclus", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Верховая прогулка по пустыне и вдоль берега моря", "Захватывающие виды на побережье Красного моря", "Подходит для начинающих и опытных наездников", "Профессиональный гид включён", "Трансфер туда и обратно включён"],
+      de: ["Ausritt durch die Wüste und am Strand entlang", "Atemberaubende Aussicht auf die Rote-Meer-Küste", "Für Anfänger und erfahrene Reiter geeignet", "Professioneller Guide inklusive", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio a cavalo pelo deserto e pela praia", "Deslumbrantes vistas da costa do Mar Vermelho", "Adequado para iniciantes e cavaleiros experientes", "Guia profissional incluído", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Horse", "Guide", "Safety equipment", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Caballo", "Guía", "Equipo de seguridad", "Recogida y devolución en el hotel"],
+      it: ["Cavallo", "Guida", "Attrezzatura di sicurezza", "Prelievo e rientro in hotel"],
+      fr: ["Cheval", "Guide", "Équipement de sécurité", "Prise en charge et retour à l'hôtel"],
+      ru: ["Лошадь", "Гид", "Защитное снаряжение", "Трансфер из/в отель"],
+      de: ["Pferd", "Guide", "Sicherheitsausrüstung", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Cavalo", "Guia", "Equipamento de segurança", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Desert to Shore — Horseback Riding in Hurghada",
@@ -1255,39 +1531,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "من الصحراء إلى الشاطئ — ركوب الخيل في الغردقة",
-          description:
-            "الجمع بين الصحراء والبحر يجعل الغردقة واحدة من أكثر الأماكن أجواءً في العالم لركوب الخيل. في غضون دقائق من مغادرة شريط المنتجعات الخيول تتحرك عبر صحراء مفتوحة. ثم ينحدر المسار إلى الشاطئ حيث تمشي الخيول وتعدو على طول حافة المياه والبحر الأحمر يمتد أمامك.",
-          steps: [
-            { time: "08:00", description: "الاستقبال من الفندق. الانتقال إلى الاصطبلات على حافة الصحراء، نحو 15-20 دقيقة من وسط الغردقة." },
-            { time: "08:30", description: "الوصول إلى الاصطبلات. التعرف على الخيول والسائسين. المرشد يقيّم خبرتك ويوفّقك مع حصان مناسب. تجهيز الخوذة وإحاطة السلامة." },
-            { time: "09:00", description: "الركوب وبدء مسار الصحراء. الـ 30-40 دقيقة الأولى عبر تضاريس صحراوية مفتوحة." },
-            { time: "09:45", description: "ينحدر المسار نحو الساحل. البحر الأحمر يظهر أمامك، يتغير لونه من الفيروزي الشاحب إلى الأزرق العميق." },
-            { time: "10:00", description: "الركوب على الشاطئ. الخيول تمشي على طول الشاطئ، أحياناً تجتر على الرمال الأكثر صلابة." },
-            { time: "10:45", description: "مسار العودة عبر الصحراء إلى الاصطبلات." },
-            { time: "11:30", description: "العودة إلى الاصطبلات. النزول عن الخيل. ماء ومرطبات خفيفة. تصوير مع الخيول." },
-            { time: "12:00", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 15 ──────────────────────────────────────────────────────────────
   {
     title: "Glass Bottomed Boat Tour",
-    titleAr: "جولة القارب ذو القاع الزجاجي",
+    title_t: {
+      es: "Tour en barco con fondo de cristal",
+      it: "Tour in barca con fondo di vetro",
+      fr: "Excursion en bateau à fond de verre",
+      ru: "Прогулка на лодке со стеклянным дном",
+      de: "Glasbodenboot-Tour",
+      pt: "Tour de barco com fundo de vidro",
+    },
     slug: "glass-bottom-boat-tour-hurghada",
     description:
       "Peer into the stunning underwater world of the Red Sea without getting wet on this fascinating glass-bottomed boat tour. Glide over the shimmering waters as the transparent hull reveals the breathtaking marine world beneath — colorful coral gardens, schools of tropical fish, and the occasional sea turtle or reef shark passing below. A wonderful experience for the whole family.",
-    descriptionAr:
-      "تطلع إلى العالم المائي الرائع للبحر الأحمر دون أن تبتل في هذه الجولة الرائعة بالقارب ذي القاع الزجاجي. انزلق فوق المياه المتلألئة بينما يكشف الهيكل الشفاف عن العالم البحري المذهل تحته — حدائق مرجانية ملونة وأسراب أسماك استوائية وسلحفاة بحرية أو سمكة قرش شعاب تمر من الأسفل.",
     category: "Boat tour",
+    category_t: {
+      es: "Tour en barco",
+      it: "Tour in barca",
+      fr: "Tour en bateau",
+      ru: "Морская прогулка",
+      de: "Bootstour",
+      pt: "Tour de barco",
+    },
     price: { original: 31.91, discounted: 25.53, currency: "USD" },
     duration: "3 hours",
+    duration_t: {
+      es: "3 horas",
+      it: "3 ore",
+      fr: "3 heures",
+      ru: "3 часа",
+      de: "3 Stunden",
+      pt: "3 horas",
+    },
     language: ["English"],
     rating: { score: 7.6, reviews: 9 },
     travellers: 96,
@@ -1295,32 +1573,15 @@ const toursData = [
     minAge: 0,
     maxGroupSize: 25,
     availableTimes: ["10:00", "13:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Fully accessible and suitable for all ages including non-swimmers, young children, and elderly guests. No water entry required.",
-      ar: "في متناول الجميع ومناسب لجميع الأعمار بما فيهم غير السباحين والأطفال الصغار وكبار السن. لا يلزم الدخول إلى الماء.",
-    },
-    whatToBring: {
-      en: ["Sun hat and sunscreen", "Camera", "Light clothing", "Water bottle"],
-      ar: ["قبعة للشمس وكريم واقٍ", "كاميرا", "ملابس خفيفة", "زجاجة ماء"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Fully accessible and suitable for all ages including non-swimmers, young children, and elderly guests. No water entry required.",
+    whatToBring: ["Sun hat and sunscreen", "Camera", "Light clothing", "Water bottle"],
+    importantInfo: [
         "No swimming or snorkeling required — this is a dry viewing experience.",
         "The boat is shared with other passengers.",
         "Best visibility is in the morning when the sun angle best illuminates the reef.",
         "The tour visits two or three reef sites depending on conditions.",
       ],
-      ar: [
-        "لا يلزم السباحة أو الغطس — هذه تجربة مشاهدة جافة.",
-        "القارب مشترك مع ركاب آخرين.",
-        "أفضل رؤية في الصباح عندما تضيء زاوية الشمس الشعاب.",
-        "الجولة تزور موقعين أو ثلاثة مواقع شعاب حسب الظروف.",
-      ],
-    },
     highlights: [
       "View Red Sea marine life through the glass bottom",
       "See colorful coral reefs without diving",
@@ -1328,10 +1589,33 @@ const toursData = [
       "Perfect for families and non-swimmers",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Observa la vida marina del Mar Rojo a través del fondo de cristal", "Ve coloridos arrecifes de coral sin necesidad de bucear", "Avista peces tropicales, tortugas marinas y tiburones de arrecife", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Osserva la vita marina del Mar Rosso attraverso il fondo di vetro", "Vedi coloratissime barriere coralline senza immergerti", "Avvista pesci tropicali, tartarughe marine e squali di barriera", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Observez la vie marine de la mer Rouge à travers le fond de verre", "Voyez des récifs coralliens colorés sans plonger", "Repérez des poissons tropicaux, des tortues marines et des requins de récif", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Наблюдайте за морской жизнью Красного моря через стеклянное дно", "Любуйтесь красочными коралловыми рифами без погружения", "Увидите тропических рыб, морских черепах и рифовых акул", "Трансфер туда и обратно включён"],
+      de: ["Das Meeresleben des Roten Meeres durch den Glasboden beobachten", "Bunte Korallenriffe sehen, ohne tauchen zu müssen", "Tropische Fische, Meeresschildkröten und Riffhaie entdecken", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Observe a vida marinha do Mar Vermelho através do fundo de vidro", "Veja coloridos recifes de coral sem mergulhar", "Aviste peixes tropicais, tartarugas marinhas e tubarões de recife", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat tour", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Tour en barco", "Recogida y devolución en el hotel"],
+      it: ["Tour in barca", "Prelievo e rientro in hotel"],
+      fr: ["Tour en bateau", "Prise en charge et retour à l'hôtel"],
+      ru: ["Лодочная прогулка", "Трансфер из/в отель"],
+      de: ["Bootstour", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Tour de barco", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "The Reef From Above — Glass Bottom Boat on the Red Sea",
@@ -1349,39 +1633,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الشعاب من الأعلى — القارب ذو القاع الزجاجي على البحر الأحمر",
-          description:
-            "يحل القارب ذو القاع الزجاجي المشكلة الكبرى للبحر الأحمر: العالم تحت الماء استثنائي، لكن ليس الجميع يستطيع الغطس أو الغوص. قسم شفاف في هيكل القارب — نافذة كبيرة تحت الماء في أرضية المركبة — يمكنك من الجلوس والنظر مباشرة إلى الشعاب. الحياة السمكية مرئية بوضوح على مسافات متر أو مترين.",
-          steps: [
-            { time: "10:00", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "10:30", description: "الصعود إلى القارب ذي القاع الزجاجي. الربان يعرّف المجموعة بالمسار. ابحث عن مقعد حول لوحات المشاهدة الزجاجية في الهيكل." },
-            { time: "10:45", description: "المغادرة من المرسى. إبحار قصير إلى موقع الشعاب الأول — نحو 15-20 دقيقة." },
-            { time: "11:00", description: "الوصول إلى الشعاب الأولى. القارب يبطئ ويتمركز فوق المرجان. بدء المشاهدة عبر الزجاج." },
-            { time: "11:45", description: "الانتقال إلى موقع الشعاب الثاني. تكوينات مختلفة. السلاحف وأسماك القرش الصغيرة تُرصد أحياناً." },
-            { time: "12:15", description: "توقف اختياري ثالث في الشعاب إذا سمحت الظروف." },
-            { time: "12:30", description: "الإبحار العائد إلى المرسى." },
-            { time: "13:00", description: "الوصول إلى المرسى. الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 16 ──────────────────────────────────────────────────────────────
   {
     title: "Sharm El-Naga Snorkel Trip",
-    titleAr: "رحلة الغطس في شرم الناقة",
+    title_t: {
+      es: "Excursión de esnórquel a Sharm El-Naga",
+      it: "Escursione di snorkeling a Sharm El-Naga",
+      fr: "Excursion snorkeling à Sharm El-Naga",
+      ru: "Снорклинг-экскурсия в Шарм эль-Нага",
+      de: "Schnorchel-Ausflug nach Sharm El-Naga",
+      pt: "Excursão de snorkel a Sharm El-Naga",
+    },
     slug: "sharm-el-naga-snorkel-trip-hurghada",
     description:
       "Head south to one of the most beautiful and unspoiled snorkeling destinations on the Red Sea coast — Sharm El-Naga. This protected natural bay is renowned for its healthy coral reefs, crystal-clear visibility, and rich marine life including turtles, rays, and dozens of species of colorful reef fish. Spend the day exploring the underwater world at this pristine location, far from the busy resort areas.",
-    descriptionAr:
-      "توجه جنوباً إلى واحدة من أجمل وأنقى وجهات الغطس على ساحل البحر الأحمر — شرم الناقة. تشتهر هذه الخليج الطبيعية المحمية بشعابها المرجانية الصحية ووضوح مياهها البلوري وحياتها البحرية الغنية التي تشمل السلاحف والراي وعشرات أنواع أسماك الشعاب الملونة.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 70.92, discounted: null, currency: "USD" },
     duration: "8 hours",
+    duration_t: {
+      es: "8 horas",
+      it: "8 ore",
+      fr: "8 heures",
+      ru: "8 часов",
+      de: "8 Stunden",
+      pt: "8 horas",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 2 },
     travellers: 24,
@@ -1389,34 +1675,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 15,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to Sharm El-Naga by road is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى شرم الناقة براً مشمول.",
-    },
-    accessibility: {
-      en: "Snorkeling requires basic swimming comfort. Life jackets available. Beach entry into the water is gradual. Not suitable for wheelchairs.",
-      ar: "يتطلب الغطس الارتياح الأساسي بالسباحة. سترات النجاة متوفرة. الدخول إلى الماء من الشاطئ تدريجي. غير مناسب لكراسي الحركة.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen (mandatory in the protected area)", "Sun hat", "Lunch or snacks (meals not included)", "Water shoes (optional but useful)"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب (إلزامي في المنطقة المحمية)", "قبعة للشمس", "غداء أو وجبات خفيفة (الوجبات غير مشمولة)", "حذاء مائي (اختياري لكن مفيد)"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to Sharm El-Naga by road is included.",
+    accessibility: "Snorkeling requires basic swimming comfort. Life jackets available. Beach entry into the water is gradual. Not suitable for wheelchairs.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen (mandatory in the protected area)", "Sun hat", "Lunch or snacks (meals not included)", "Water shoes (optional but useful)"],
+    importantInfo: [
         "Sharm El-Naga is approximately 30 km south of Hurghada — drive takes about 30-40 minutes.",
         "This is a protected marine reserve — no fishing, no touching coral, reef-safe sunscreen only.",
         "Snorkeling equipment is provided.",
         "Meals are not included — bring food or purchase from the small beachside facility on site.",
         "The site is less crowded than Hurghada's closer reefs, significantly improving the experience quality.",
       ],
-      ar: [
-        "شرم الناقة على بُعد نحو 30 كم جنوب الغردقة — القيادة تستغرق نحو 30-40 دقيقة.",
-        "هذا محمية بحرية محمية — ممنوع الصيد، ممنوع لمس المرجان، كريم واقٍ صديق للشعاب فقط.",
-        "معدات الغطس مقدَّمة.",
-        "الوجبات غير مشمولة — أحضر طعامك أو اشترِ من المنشأة الصغيرة في الموقع.",
-        "الموقع أقل ازدحاماً من شعاب الغردقة الأقرب مما يحسّن جودة التجربة بشكل ملحوظ.",
-      ],
-    },
     highlights: [
       "Snorkeling at the pristine Sharm El-Naga bay",
       "Healthy coral reefs with exceptional visibility",
@@ -1424,10 +1692,33 @@ const toursData = [
       "Relax on an unspoiled Red Sea beach",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Esnórquel en la pristina bahía de Sharm El-Naga", "Arrecifes de coral sanos con visibilidad excepcional", "Avista tortugas marinas, rayas y peces tropicales", "Relájate en una hermosa playa tranquila", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Snorkeling nella pristina baia di Sharm El-Naga", "Barriere coralline sane con visibilità eccezionale", "Avvista tartarughe marine, razze e pesci tropicali", "Rilassati su una bella spiaggia tranquilla", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Snorkeling dans la baie préservée de Sharm El-Naga", "Des récifs coralliens sains avec une visibilité exceptionnelle", "Repérez des tortues marines, des raies et des poissons tropicaux", "Détendez-vous sur une belle plage tranquille", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Снорклинг в нетронутой бухте Шарм эль-Нага", "Здоровые коралловые рифы с исключительной видимостью", "Морские черепахи, скаты и тропические рыбы", "Отдых на прекрасном тихом пляже", "Трансфер туда и обратно включён"],
+      de: ["Schnorcheln in der unberührten Bucht von Sharm El-Naga", "Gesunde Korallenriffe mit außergewöhnlicher Sicht", "Meeresschildkröten, Rochen und tropische Fische entdecken", "An einem schönen ruhigen Strand entspannen", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Snorkel na imaculada baía de Sharm El-Naga", "Recifes de coral saudáveis com visibilidade excecional", "Aviste tartarugas marinhas, raias e peixes tropicais", "Relaxe numa bela praia tranquila", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Transport", "Snorkeling equipment", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Transporte", "Equipo de esnórquel", "Recogida y devolución en el hotel"],
+      it: ["Trasporto", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel"],
+      fr: ["Transport", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel"],
+      ru: ["Транспорт", "Снаряжение для снорклинга", "Трансфер из/в отель"],
+      de: ["Transport", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Transporte", "Equipamento de snorkel", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Sharm El-Naga — Egypt's Most Unspoiled Reef Day",
@@ -1445,39 +1736,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "شرم الناقة — يوم الشعاب المرجانية الأنقى في مصر",
-          description:
-            "شرم الناقة هو ما كان يبدو عليه كثير من ساحل البحر الأحمر المصري قبل وصول السياحة الجماهيرية. خليج محمي بلا تطوير على شاطئه داخل محمية بحرية. المرجان كثيف ومتنوع وحي، وعدد الأسماك أكبر بشكل ملحوظ. السلاحف البحرية والراي المنقط تُرصد بانتظام. الرؤية تتجاوز 20 متراً.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. القيادة جنوباً على طريق ساحل البحر الأحمر إلى شرم الناقة — نحو 30-40 دقيقة." },
-            { time: "09:15", description: "الوصول إلى شرم الناقة. استلام معدات الغطس. توجيه موجز على تخطيط الشعاب وقواعد المنطقة المحمية." },
-            { time: "09:30", description: "جلسة الغطس الأولى. الدخول إلى الماء من الشاطئ — تبدأ الشعاب في غضون أمتار قليلة. المرشد يقود إلى تكوينات المرجان الأعمق." },
-            { time: "11:00", description: "الراحة على الشاطئ. أحضر طعامك الخاص أو اشترِ من المنشأة الصغيرة في الموقع." },
-            { time: "12:00", description: "جلسة الغطس الثانية. المرشد يأخذ المجموعة إلى منطقة مختلفة من الشعاب." },
-            { time: "13:30", description: "وقت الشاطئ بعد الظهر. السباحة أو الاستلقاء في الشمس أو استكشاف الشاطئ." },
-            { time: "15:30", description: "المغادرة من شرم الناقة للقيادة العائدة إلى الغردقة." },
-            { time: "16:15", description: "الوصول إلى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 17 ──────────────────────────────────────────────────────────────
   {
     title: "Desert Quad Tour + Bedouin Dinner",
-    titleAr: "جولة الكواد في الصحراء مع عشاء بدوي",
+    title_t: {
+      es: "Tour en quad por el desierto y cena beduina",
+      it: "Tour in quad nel deserto e cena beduina",
+      fr: "Tour en quad dans le désert et dîner bédouin",
+      ru: "Тур на квадроцикле по пустыне и ужин у бедуинов",
+      de: "Wüsten-Quad-Tour & Beduinen-Abendessen",
+      pt: "Tour de quadriciclo no deserto e jantar beduíno",
+    },
     slug: "desert-quad-tour-bedouin-dinner-hurghada",
     description:
       "Get your adrenaline pumping on this classic desert quad bike adventure followed by an authentic Bedouin evening experience. Ride out into the vast desert surrounding Hurghada on a powerful quad bike, navigating sand dunes, rocky trails, and open desert plains. After the ride, visit a traditional Bedouin village for a camel ride and then settle in for a delicious Bedouin dinner under the stars.",
-    descriptionAr:
-      "اشحن طاقتك في هذه المغامرة الكلاسيكية بالدراجة الرباعية في الصحراء يليها سهرة بدوية أصيلة. اركب إلى الصحراء الواسعة المحيطة بالغردقة على دراجة رباعية قوية، متنقلاً بين الكثبان الرملية والمسالك الصخرية والسهول الصحراوية المفتوحة.",
     category: "Adventure and nature",
+    category_t: {
+      es: "Aventura y naturaleza",
+      it: "Avventura e natura",
+      fr: "Aventure et nature",
+      ru: "Приключения и природа",
+      de: "Abenteuer und Natur",
+      pt: "Aventura e natureza",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "5 hours",
+    duration_t: {
+      es: "5 horas",
+      it: "5 ore",
+      fr: "5 heures",
+      ru: "5 часов",
+      de: "5 Stunden",
+      pt: "5 horas",
+    },
     language: ["English"],
     rating: { score: 6.2, reviews: 13 },
     travellers: 243,
@@ -1485,32 +1778,15 @@ const toursData = [
     minAge: 16,
     maxGroupSize: 20,
     availableTimes: ["15:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Pickup timed for the afternoon.",
-      ar: "بهو فندقك في الغردقة. الاستقبال مُوقَّت لبعد الظهر.",
-    },
-    accessibility: {
-      en: "Quad bike requires physical fitness and balance. Not suitable for guests with back problems, heart conditions, or pregnancy. Minimum age 16. The Bedouin dinner portion is accessible to all.",
-      ar: "الدراجة الرباعية تتطلب لياقة بدنية وتوازناً. غير مناسبة لمن يعانون من مشاكل في الظهر أو القلب أو الحوامل. الحد الأدنى للعمر 16 سنة. جزء العشاء البدوي متاح للجميع.",
-    },
-    whatToBring: {
-      en: ["Closed-toe shoes (mandatory)", "Light comfortable clothing", "Warm layer for the evening", "Sunglasses", "Scarf or bandana for dust", "Camera"],
-      ar: ["حذاء مغلق الأصابع (إلزامي)", "ملابس خفيفة ومريحة", "طبقة دافئة للمساء", "نظارة شمسية", "وشاح أو بندانا للغبار", "كاميرا"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Pickup timed for the afternoon.",
+    accessibility: "Quad bike requires physical fitness and balance. Not suitable for guests with back problems, heart conditions, or pregnancy. Minimum age 16. The Bedouin dinner portion is accessible to all.",
+    whatToBring: ["Closed-toe shoes (mandatory)", "Light comfortable clothing", "Warm layer for the evening", "Sunglasses", "Scarf or bandana for dust", "Camera"],
+    importantInfo: [
         "Minimum age for the quad bike is 16 years.",
         "The Bedouin dinner does not include alcoholic drinks.",
         "Vegetarian options are available at the Bedouin dinner — inform the operator at booking.",
         "The afternoon departure is timed to catch the golden desert light and cool evening temperatures.",
       ],
-      ar: [
-        "الحد الأدنى للعمر للدراجة الرباعية هو 16 سنة.",
-        "عشاء البدو لا يشمل المشروبات الكحولية.",
-        "خيارات نباتية متوفرة — أخبر المشغّل وقت الحجز.",
-        "المغادرة بعد الظهر مُوقَّتة للاستفادة من الضوء الذهبي الصحراوي ودرجات حرارة المساء المعتدلة.",
-      ],
-    },
     highlights: [
       "Quad bike ride through the Egyptian desert",
       "Visit a traditional Bedouin village",
@@ -1519,10 +1795,33 @@ const toursData = [
       "Traditional music and shisha",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Paseo en quad por el desierto egipcio", "Visita a un poblado beduino tradicional", "Experiencia de paseo en camello", "Cena beduina auténtica bajo las estrellas", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Giro in quad nel deserto egiziano", "Visita a un tradizionale villaggio beduino", "Esperienza di giro in cammello", "Cena beduina autentica sotto le stelle", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Balade en quad dans le désert égyptien", "Visite d'un village bédouin traditionnel", "Expérience de balade à dos de chameau", "Dîner bédouin authentique sous les étoiles", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Поездка на квадроцикле по египетской пустыне", "Посещение традиционной бедуинской деревни", "Прогулка на верблюде", "Настоящий бедуинский ужин под звёздным небом", "Трансфер туда и обратно включён"],
+      de: ["Quad-Fahrt durch die ägyptische Wüste", "Besuch eines traditionellen Beduinendorfes", "Kamelritt-Erlebnis", "Authentisches Beduinen-Abendessen unter dem Sternenhimmel", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio de quadriciclo pelo deserto egípcio", "Visita a uma aldeia beduína tradicional", "Experiência de passeio em camelo", "Jantar beduíno autêntico sob as estrelas", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Quad bike", "Safety equipment", "Camel ride", "Bedouin dinner", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Quad", "Equipo de seguridad", "Paseo en camello", "Cena beduina", "Recogida y devolución en el hotel"],
+      it: ["Quad", "Attrezzatura di sicurezza", "Giro in cammello", "Cena beduina", "Prelievo e rientro in hotel"],
+      fr: ["Quad", "Équipement de sécurité", "Balade à dos de chameau", "Dîner bédouin", "Prise en charge et retour à l'hôtel"],
+      ru: ["Квадроцикл", "Защитное снаряжение", "Прогулка на верблюде", "Бедуинский ужин", "Трансфер из/в отель"],
+      de: ["Quad", "Sicherheitsausrüstung", "Kamelritt", "Beduinen-Abendessen", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Quadriciclo", "Equipamento de segurança", "Passeio de camelo", "Jantar beduíno", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Tips", "Personal expenses", "Alcoholic drinks"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Propinas", "Gastos personales", "Bebidas alcohólicas"],
+      it: ["Mance", "Spese personali", "Bevande alcoliche"],
+      fr: ["Pourboires", "Dépenses personnelles", "Boissons alcoolisées"],
+      ru: ["Чаевые", "Личные расходы", "Алкогольные напитки"],
+      de: ["Trinkgelder", "Persönliche Ausgaben", "Alkoholische Getränke"],
+      pt: ["Gorjetas", "Despesas pessoais", "Bebidas alcoólicas"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Quad Bikes, Camels & a Bedouin Feast",
@@ -1542,41 +1841,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "دراجات الكواد والجمال وعشاء بدوي",
-          description:
-            "تجمع هذه الجولة الممتدة خمس ساعات بين إثارة رحلة الدراجة الرباعية وهدوء وثراء ثقافة عشاء بدوي حقيقي. المغادرة مُوقَّتة لبعد الظهر لأن الصحراء في أجمل صورها في الساعات الأخيرة من ضوء النهار.",
-          steps: [
-            { time: "15:00", description: "الاستقبال من الفندق. الانتقال إلى قاعدة الدراجات الرباعية الصحراوية." },
-            { time: "15:30", description: "الوصول إلى القاعدة. اختيار دراجتك الرباعية. الخوذة والنظارات والقفازات مقدَّمة. إحاطة السلامة ودرس القيادة." },
-            { time: "16:00", description: "مسار الدراجة الرباعية عبر الصحراء — نحو 45 دقيقة من عبور الكثبان والمسالك الصخرية." },
-            { time: "16:45", description: "العودة إلى القاعدة. الانتقال بالسيارة إلى المعسكر البدوي." },
-            { time: "17:15", description: "الوصول إلى المعسكر البدوي. تقديم الشاي بالنعناع التقليدي. التعرف على الجمال." },
-            { time: "17:30", description: "ركوب الجمال عبر الصحراء — نحو 20-25 دقيقة. ضوء الساعة الذهبية استثنائي للتصوير." },
-            { time: "18:00", description: "مشاهدة غروب الصحراء من المعسكر." },
-            { time: "18:30", description: "يُقدَّم عشاء البدو — خبز ولحوم مشوية وأرز وسلطات وصلصات وفاكهة طازجة على سجاد تقليدي حول النار. موسيقى تقليدية طوال الوقت." },
-            { time: "19:30", description: "استرخاء بعد العشاء — شيشة متوفرة، رصد نجوم مع المرشد، موسيقى محلية." },
-            { time: "20:00", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 18 ──────────────────────────────────────────────────────────────
   {
     title: "Turkish Bath in Hurghada",
-    titleAr: "الحمام التركي في الغردقة",
+    title_t: {
+      es: "Baño turco en Hurghada",
+      it: "Bagno turco a Hurghada",
+      fr: "Bain turc à Hurghada",
+      ru: "Турецкая баня в Хургаде",
+      de: "Türkisches Bad in Hurghada",
+      pt: "Banho turco em Hurghada",
+    },
     slug: "turkish-bath-hurghada",
     description:
       "Treat yourself to a deeply relaxing traditional Turkish bath experience in Hurghada. Unwind in the warm steam room, enjoy a full body scrub with a traditional kessa mitt, followed by a relaxing foam massage and a soothing full-body oil massage. The perfect way to recover after days of sightseeing, diving, and desert adventures.",
-    descriptionAr:
-      "دلّل نفسك بتجربة الحمام التركي التقليدي العميق الاسترخاء في الغردقة. استرخِ في غرفة البخار الدافئة واستمتع بتقشير الجسم الكامل بقفاز الكيس التقليدي، يليه تدليك رغوي مريح وتدليك كامل للجسم بالزيت.",
     category: "Entrance tickets",
+    category_t: {
+      es: "Entradas",
+      it: "Biglietti d'ingresso",
+      fr: "Billets d'entrée",
+      ru: "Входные билеты",
+      de: "Eintrittskarten",
+      pt: "Bilhetes de entrada",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "3 hours",
+    duration_t: {
+      es: "3 horas",
+      it: "3 ore",
+      fr: "3 heures",
+      ru: "3 часа",
+      de: "3 Stunden",
+      pt: "3 horas",
+    },
     language: ["English"],
     rating: { score: 8.5, reviews: 4 },
     travellers: 41,
@@ -1584,34 +1883,16 @@ const toursData = [
     minAge: 12,
     maxGroupSize: null,
     availableTimes: ["10:00", "13:00", "16:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the hammam is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى الحمام مشمول.",
-    },
-    accessibility: {
-      en: "The Turkish bath involves a heated steam room — not suitable for guests with heart conditions, high blood pressure, or pregnancy. Separate facilities for men and women available.",
-      ar: "الحمام التركي يتضمن غرفة بخار ساخنة — غير مناسب لمن يعانون من أمراض القلب أو ارتفاع ضغط الدم أو الحوامل. مرافق منفصلة للرجال والنساء متوفرة.",
-    },
-    whatToBring: {
-      en: ["Swimwear or underwear for the scrub session", "Comfortable clothing for afterward", "Any personal toiletries you prefer"],
-      ar: ["ملابس سباحة أو ملابس داخلية لجلسة التقشير", "ملابس مريحة للتبديل بعدها", "أدوات الحمام الشخصية التي تفضلها"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the hammam is included.",
+    accessibility: "The Turkish bath involves a heated steam room — not suitable for guests with heart conditions, high blood pressure, or pregnancy. Separate facilities for men and women available.",
+    whatToBring: ["Swimwear or underwear for the scrub session", "Comfortable clothing for afterward", "Any personal toiletries you prefer"],
+    importantInfo: [
         "Men and women are treated in separate areas.",
         "The session includes: steam room, full body scrub, foam massage, and oil massage.",
         "The hammam provides towels, flip-flops, and a robe.",
         "Not suitable for guests with heart conditions, high blood pressure, skin conditions, or pregnancy.",
         "Inform staff of any allergies before the oil massage.",
       ],
-      ar: [
-        "الرجال والنساء يُعالَجون في مناطق منفصلة.",
-        "الجلسة تشمل: غرفة البخار وتقشير الجسم الكامل والتدليك بالرغوة والتدليك بالزيت.",
-        "يوفر الحمام المناشف والشباشب والروب.",
-        "غير مناسب لمن يعانون من أمراض القلب أو ارتفاع ضغط الدم أو أمراض الجلد أو الحوامل.",
-        "أخبر الموظفين بأي حساسيات قبل التدليك بالزيت.",
-      ],
-    },
     highlights: [
       "Traditional Turkish bath (hammam) experience",
       "Full body scrub with kessa mitt",
@@ -1619,10 +1900,33 @@ const toursData = [
       "Full-body oil massage",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Experiencia de baño turco tradicional (hammam)", "Exfoliación corporal completa con guante kessa", "Relajante masaje con espuma", "Masaje corporal completo con aceite", "Recogida y devolución en el hotel incluida"],
+      it: ["Esperienza di bagno turco tradizionale (hammam)", "Scrub corporale completo con guanto kessa", "Rilassante massaggio alla schiuma", "Massaggio corpo completo all'olio", "Prelievo e rientro in hotel incluso"],
+      fr: ["Expérience de bain turc traditionnel (hammam)", "Gommage corporel complet au gant kessa", "Relaxant massage à la mousse", "Massage corps complet à l'huile", "Prise en charge et retour à l'hôtel inclus"],
+      ru: ["Традиционная процедура турецкой бани (хаммам)", "Полный пилинг тела рукавицей кесса", "Расслабляющий пенный массаж", "Полный массаж тела с маслом", "Трансфер из/в отель включён"],
+      de: ["Traditionelles türkisches Bad (Hammam)", "Ganzkörper-Peeling mit Kessa-Handschuh", "Entspannende Schaummassage", "Ganzkörper-Ölmassage", "Hotel-Transfer (hin und zurück) inklusive"],
+      pt: ["Experiência de banho turco tradicional (hammam)", "Esfoliação corporal completa com luva kessa", "Massagem relaxante com espuma", "Massagem corporal completa com óleo", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Turkish bath session", "Body scrub", "Foam massage", "Oil massage", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Sesión de baño turco", "Exfoliación corporal", "Masaje con espuma", "Masaje con aceite", "Recogida y devolución en el hotel"],
+      it: ["Sessione di bagno turco", "Scrub corporale", "Massaggio alla schiuma", "Massaggio all'olio", "Prelievo e rientro in hotel"],
+      fr: ["Session de bain turc", "Gommage corporel", "Massage à la mousse", "Massage à l'huile", "Prise en charge et retour à l'hôtel"],
+      ru: ["Сессия турецкой бани", "Пилинг тела", "Пенный массаж", "Масляный массаж", "Трансфер из/в отель"],
+      de: ["Türkisches-Bad-Session", "Körperpeeling", "Schaummassage", "Ölmassage", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Sessão de banho turco", "Esfoliação corporal", "Massagem com espuma", "Massagem com óleo", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Propinas", "Gastos personales"],
+      it: ["Mance", "Spese personali"],
+      fr: ["Pourboires", "Dépenses personnelles"],
+      ru: ["Чаевые", "Личные расходы"],
+      de: ["Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "The Hammam — Steam, Scrub & Total Relaxation",
@@ -1640,39 +1944,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الحمام — البخار والتقشير والاسترخاء التام",
-          description:
-            "الحمام التركي أحد أقدم تقاليد العافية في العالم، لا يزال يقدم شيئاً نادراً ما تجاريه مرافق السبا الحديثة: استعادة جسدية حقيقية عبر الحرارة والماء والأيدي الماهرة. تبدأ في غرفة البخار — الحرارة تفتح المسام وتفكّك العضلات في غضون عشر دقائق. ثم التقشير بالكيس، فالتدليك بالرغوة، فالتدليك بالزيت.",
-          steps: [
-            { time: "10:00", description: "الاستقبال من الفندق. الانتقال إلى مرفق الحمام." },
-            { time: "10:30", description: "الوصول إلى الحمام. استلام المناشف والشباشب والروب. التغيير وتخزين المتعلقات في الخزانة." },
-            { time: "10:45", description: "جلسة غرفة البخار — نحو 15-20 دقيقة. الحرارة تُعدّ الجلد للتقشير وتبدأ في إرخاء العضلات." },
-            { time: "11:10", description: "تقشير الجسم الكامل — الممارس يعمل على جسمك كله بقفاز الكيس. الجانبان والذراعان والساقان والظهر والرقبة. نحو 20-25 دقيقة." },
-            { time: "11:35", description: "التدليك بالرغوة — الممارس يصنع سحابة رغوة كبيرة بصابون زيت الزيتون ويطبقها في تدليك لطيف." },
-            { time: "12:00", description: "الشطف والراحة. شطف بالماء البارد لإغلاق المسام ثم راحة مع ماء وشاي بالنعناع." },
-            { time: "12:15", description: "تدليك الجسم الكامل بالزيت — 30-40 دقيقة باستخدام زيت عطري من القدمين إلى الرقبة." },
-            { time: "13:00", description: "اكتملت الجلسة. ارتداء الملابس واستلام المتعلقات. الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 19 ──────────────────────────────────────────────────────────────
   {
     title: "Great Pyramid of Giza + Grand Egyptian Museum Bus Day Trip",
-    titleAr: "رحلة يومية بالأتوبيس إلى هرم الجيزة والمتحف المصري الكبير",
+    title_t: {
+      es: "Excursión en autobús a la Gran Pirámide de Guiza + Gran Museo Egipcio",
+      it: "Gita in autobus alla Grande Piramide di Giza + Grande Museo Egizio",
+      fr: "Excursion en bus à la Grande Pyramide de Gizeh + Grand Musée Égyptien",
+      ru: "Автобусный тур к Великой пирамиде Гизы + Большой Египетский музей",
+      de: "Bustagesausflug zur Großen Pyramide von Gizeh + Großes Ägyptisches Museum",
+      pt: "Excursão de ônibus à Grande Pirâmide de Gizé + Grande Museu Egípcio",
+    },
     slug: "pyramid-giza-grand-egyptian-museum-bus-hurghada",
     description:
       "Discover the greatest wonders of ancient and modern Egypt on this full-day bus trip from Hurghada to Cairo. Travel in comfort along the road to Cairo and spend the day at the Great Pyramid of Giza, the last surviving Wonder of the Ancient World, and the Grand Egyptian Museum, the largest archaeological museum on Earth.",
-    descriptionAr:
-      "اكتشف أعظم عجائب مصر القديمة والحديثة في هذه الرحلة اليومية بالأتوبيس من الغردقة إلى القاهرة. سافر بكل راحة على طريق القاهرة وأمضِ اليوم في هرم الجيزة الأكبر والمتحف المصري الكبير.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 180.00, discounted: null, currency: "USD" },
     duration: "18-19 hours",
+    duration_t: {
+      es: "18-19 horas",
+      it: "18-19 ore",
+      fr: "18-19 heures",
+      ru: "18-19 часов",
+      de: "18-19 Stunden",
+      pt: "18-19 horas",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 1 },
     travellers: 13,
@@ -1680,34 +1986,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 20,
     availableTimes: ["03:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada for the very early morning departure.",
-      ar: "بهو فندقك في الغردقة للمغادرة في ساعات الصباح الباكرة جداً.",
-    },
-    accessibility: {
-      en: "Extremely long day (18-19 hours). Bus journey each way is approximately 4-5 hours. Giza Plateau involves walking on sand. Not recommended for guests with limited stamina or serious mobility issues.",
-      ar: "يوم طويل للغاية (18-19 ساعة). رحلة الأتوبيس في كل اتجاه نحو 4-5 ساعات. هضبة الجيزة تتضمن المشي على الرمال. غير موصى به لمن يعانون من طاقة محدودة أو صعوبات حركة جدية.",
-    },
-    whatToBring: {
-      en: ["Very comfortable clothing for a long day", "Pillow or neck support for the bus", "Snacks and water", "Comfortable walking shoes", "Sun protection", "Camera", "Warm layer for the late-night return"],
-      ar: ["ملابس مريحة جداً ليوم طويل", "وسادة أو دعم للرقبة في الأتوبيس", "وجبات خفيفة وماء", "حذاء مريح للمشي", "واقٍ من الشمس", "كاميرا", "طبقة دافئة للعودة ليلاً"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada for the very early morning departure.",
+    accessibility: "Extremely long day (18-19 hours). Bus journey each way is approximately 4-5 hours. Giza Plateau involves walking on sand. Not recommended for guests with limited stamina or serious mobility issues.",
+    whatToBring: ["Very comfortable clothing for a long day", "Pillow or neck support for the bus", "Snacks and water", "Comfortable walking shoes", "Sun protection", "Camera", "Warm layer for the late-night return"],
+    importantInfo: [
         "This is the bus (overland) version — the flight version is more expensive but saves approximately 7-8 hours of travel time.",
         "Departure is between 03:00 and 04:00 — unavoidable to allow a full day in Cairo.",
         "Entrance fees to Giza and the Grand Egyptian Museum are included.",
         "Entry inside the Great Pyramid is not included and carries an additional fee.",
         "Lunch is included at a restaurant near the Giza Plateau.",
       ],
-      ar: [
-        "هذه هي النسخة بالأتوبيس (البرية) — نسخة الطائرة أغلى لكنها توفر نحو 7-8 ساعات من وقت السفر.",
-        "المغادرة بين 03:00 و04:00 — أمر لا مفر منه للسماح بيوم كامل في القاهرة.",
-        "رسوم الدخول إلى الجيزة والمتحف المصري الكبير مشمولة.",
-        "الدخول داخل الهرم الأكبر غير مشمول ويستلزم رسماً إضافياً.",
-        "الغداء مشمول في مطعم بالقرب من هضبة الجيزة.",
-      ],
-    },
     highlights: [
       "Full-day bus trip from Hurghada to Cairo",
       "Visit the Great Pyramid of Giza and the Sphinx",
@@ -1715,10 +2003,33 @@ const toursData = [
       "See Tutankhamun's golden treasures",
       "Expert guide throughout the day",
     ],
+    highlights_t: {
+      es: ["Viaje de día completo en autobús de Hurghada a El Cairo", "Visita la Gran Pirámide de Guiza y la Esfinge", "Explora el Gran Museo Egipcio", "Admira los tesoros de Tutankamón", "Guía experto incluido", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Viaggio in autobus di un giorno da Hurghada al Cairo", "Visita la Grande Piramide di Giza e la Sfinge", "Esplora il Grande Museo Egizio", "Ammira i tesori di Tutankhamon", "Guida esperta inclusa", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Voyage en bus d'une journée de Hurghada au Caire", "Visitez la Grande Pyramide de Gizeh et le Sphinx", "Explorez le Grand Musée Égyptien", "Admirez les trésors de Toutânkhamon", "Guide expert inclus", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Полный день на автобусе из Хургады в Каир", "Посещение Великой пирамиды Гизы и Сфинкса", "Исследование Большого Египетского музея", "Знакомство с сокровищами Тутанхамона", "Опытный гид включён", "Трансфер туда и обратно включён"],
+      de: ["Ganztägige Busfahrt von Hurghada nach Kairo", "Besuch der Großen Pyramide von Gizeh und der Sphinx", "Erkundung des Großen Ägyptischen Museums", "Tutanchamuns Schätze bewundern", "Erfahrener Guide inklusive", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Viagem de dia inteiro de ônibus de Hurghada ao Cairo", "Visita a Grande Pirâmide de Gizé e a Esfinge", "Explore o Grande Museu Egípcio", "Admire os tesouros de Tutankhamon", "Guia especializado incluído", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Bus transport", "Guide", "Entrance fees", "Lunch", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Transporte en autobús", "Guía", "Tarifas de entrada", "Almuerzo", "Recogida y devolución en el hotel"],
+      it: ["Trasporto in autobus", "Guida", "Tariffe d'ingresso", "Pranzo", "Prelievo e rientro in hotel"],
+      fr: ["Transport en bus", "Guide", "Frais d'entrée", "Déjeuner", "Prise en charge et retour à l'hôtel"],
+      ru: ["Автобусный транспорт", "Гид", "Входные билеты", "Обед", "Трансфер из/в отель"],
+      de: ["Bustransport", "Guide", "Eintrittsgelder", "Mittagessen", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Transporte de ônibus", "Guia", "Taxas de entrada", "Almoço", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Entry inside the Great Pyramid (extra fee)", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Entrada al interior de la Gran Pirámide (tarifa adicional)", "Propinas", "Gastos personales"],
+      it: ["Ingresso all'interno della Grande Piramide (costo aggiuntivo)", "Mance", "Spese personali"],
+      fr: ["Entrée à l'intérieur de la Grande Pyramide (supplément)", "Pourboires", "Dépenses personnelles"],
+      ru: ["Вход внутрь Великой пирамиды (дополнительная плата)", "Чаевые", "Личные расходы"],
+      de: ["Eingang in die Große Pyramide (Aufpreis)", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Entrada no interior da Grande Pirâmide (taxa adicional)", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "The Long Road to the Pyramids — Hurghada to Cairo by Bus",
@@ -1738,41 +2049,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الطريق الطويل إلى الأهرامات — من الغردقة إلى القاهرة بالأتوبيس",
-          description:
-            "هذه أكثر رحلات اليوم تطلباً من الغردقة — ولكثير من الضيوف، الأكثر إثارةً. يقطع الأتوبيس الصحراء الشرقية من ساحل البحر الأحمر إلى وادي النيل ثم يواصل شمالاً إلى هضبة الجيزة، رحلة نحو أربع إلى خمس ساعات في كل اتجاه. ينبغي أن تُقدَم عليها فقط من هم راغبون فعلاً في رؤية الأهرامات.",
-          steps: [
-            { time: "03:00", description: "الاستقبال من الفندق. الصعود إلى الأتوبيس للقيادة إلى القاهرة." },
-            { time: "07:30", description: "الوصول إلى هضبة الجيزة. أول منظر للأهرامات." },
-            { time: "08:00", description: "جولة مصحوبة بمرشد في الأهرامات — هرم خوفو الأكبر وهرم خفرع وهرم منقرع. المشية إلى أبو الهول الكبير ومعبد الوادي." },
-            { time: "10:00", description: "توقف نقطة المشاهدة البانورامية. تصوير الأهرامات الثلاثة معاً." },
-            { time: "11:00", description: "الانتقال إلى مطعم الغداء بالقرب من الهضبة." },
-            { time: "11:30", description: "الغداء مشمول." },
-            { time: "13:00", description: "الانتقال إلى المتحف المصري الكبير." },
-            { time: "13:30", description: "جولة مصحوبة بمرشد في المتحف المصري الكبير — كنوز توتنخامون الكاملة وقاعة المومياوات والمقتنيات الدائمة." },
-            { time: "16:30", description: "المغادرة من القاهرة. الصعود إلى الأتوبيس للقيادة العائدة إلى الغردقة." },
-            { time: "21:00", description: "الوصول إلى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 20 ──────────────────────────────────────────────────────────────
   {
     title: "Giftun Island Snorkelling Tour",
-    titleAr: "جولة الغطس في جزيرة جفتون",
+    title_t: {
+      es: "Tour de esnórquel a la isla de Giftun",
+      it: "Tour di snorkeling all'Isola di Giftun",
+      fr: "Excursion snorkeling à l'île de Giftun",
+      ru: "Снорклинг на острове Гифтун",
+      de: "Schnorchel-Tour zur Giftun-Insel",
+      pt: "Tour de snorkel à Ilha Giftun",
+    },
     slug: "giftun-island-snorkelling-hurghada",
     description:
       "Sail to the spectacular Giftun Island, one of the most beautiful and biodiverse marine areas in the entire Red Sea. Giftun Island is part of a protected national park and is home to some of the healthiest coral reefs in Egypt, teeming with sea turtles, colourful reef fish, and other extraordinary marine creatures. Spend the day snorkeling over these pristine reefs and relaxing on the island's stunning beaches.",
-    descriptionAr:
-      "أبحر إلى جزيرة جفتون الرائعة، إحدى أجمل المناطق البحرية وأكثرها تنوعاً بيولوجياً في البحر الأحمر بأكمله. جزيرة جفتون جزء من حديقة وطنية محمية وتضم بعضاً من أصح الشعاب المرجانية في مصر.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "8 hours",
+    duration_t: {
+      es: "8 horas",
+      it: "8 ore",
+      fr: "8 heures",
+      ru: "8 часов",
+      de: "8 Stunden",
+      pt: "8 horas",
+    },
     language: ["English"],
     rating: { score: 10.0, reviews: 45 },
     travellers: 750,
@@ -1780,34 +2091,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 30,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Snorkeling requires basic swimming comfort. Life jackets available. Island beach is accessible from the boat by ladder. Not suitable for wheelchairs.",
-      ar: "يتطلب الغطس الارتياح الأساسي بالسباحة. سترات النجاة متوفرة. شاطئ الجزيرة يمكن الوصول إليه من القارب بالسلّم. غير مناسب لكراسي الحركة.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen (mandatory in the national park)", "Hat", "Light change of clothes", "Snacks (meals not included)"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب (إلزامي في المتنزه الوطني)", "قبعة", "ملابس خفيفة للتبديل", "وجبات خفيفة (الوجبات غير مشمولة)"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Snorkeling requires basic swimming comfort. Life jackets available. Island beach is accessible from the boat by ladder. Not suitable for wheelchairs.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen (mandatory in the national park)", "Hat", "Light change of clothes", "Snacks (meals not included)"],
+    importantInfo: [
         "Giftun Island is a protected national park — reef-safe sunscreen is mandatory.",
         "No touching or collecting coral or shells.",
         "Snorkeling equipment is provided onboard.",
         "Meals are not included — bring food or purchase light snacks onboard.",
         "Sea turtles are common at Giftun — do not chase or touch them.",
       ],
-      ar: [
-        "جزيرة جفتون متنزه وطني محمي — كريم الحماية الصديق للشعاب إلزامي.",
-        "ممنوع لمس أو جمع الشعاب المرجانية أو الأصداف.",
-        "معدات الغطس مقدَّمة على متن القارب.",
-        "الوجبات غير مشمولة — أحضر طعامك أو اشترِ وجبات خفيفة على متن القارب.",
-        "السلاحف البحرية شائعة في جفتون — لا تطاردها أو تلمسها.",
-      ],
-    },
     highlights: [
       "Boat trip to Giftun Island National Park",
       "Snorkel over pristine protected coral reefs",
@@ -1815,10 +2108,33 @@ const toursData = [
       "Relax on Giftun Island's beautiful beaches",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Viaje en barco al Parque Nacional de la Isla Giftun", "Esnórquel sobre pristinos arrecifes de coral protegidos", "Avista tortugas marinas y vida marina tropical", "Relájate en las playas blancas de la isla", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Gita in barca al Parco Nazionale dell'Isola di Giftun", "Snorkeling sulle barriere coralline protette e incontaminate", "Avvista tartarughe marine e vita marina tropicale", "Rilassati sulle spiagge bianche dell'isola", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Excursion en bateau au Parc National de l'Île Giftun", "Snorkeling sur des récifs coralliens préservés et protégés", "Repérez des tortues marines et la vie marine tropicale", "Détendez-vous sur les plages blanches de l'île", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Лодочная прогулка в Национальный парк острова Гифтун", "Снорклинг над нетронутыми охраняемыми коралловыми рифами", "Морские черепахи и тропическая морская жизнь", "Отдых на белоснежных пляжах острова", "Трансфер туда и обратно включён"],
+      de: ["Bootsfahrt zum Nationalpark der Giftun-Insel", "Schnorcheln über unberührten, geschützten Korallenriffen", "Meeresschildkröten und tropisches Meeresleben entdecken", "An den weißen Stränden der Insel entspannen", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio de barco ao Parque Nacional da Ilha Giftun", "Snorkel sobre recifes de coral pristinos e protegidos", "Aviste tartarugas marinhas e vida marinha tropical", "Relaxe nas praias brancas da ilha", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Snorkeling equipment", "Hotel pickup and drop-off", "Light refreshments"],
+    includes_t: {
+      es: ["Viaje en barco", "Equipo de esnórquel", "Recogida y devolución en el hotel", "Refrescos ligeros"],
+      it: ["Gita in barca", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel", "Rinfreschi leggeri"],
+      fr: ["Excursion en bateau", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel", "Rafraîchissements légers"],
+      ru: ["Лодочная прогулка", "Снаряжение для снорклинга", "Трансфер из/в отель", "Лёгкие закуски"],
+      de: ["Bootsfahrt", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)", "Leichte Erfrischungen"],
+      pt: ["Passeio de barco", "Equipamento de snorkel", "Transfer de ida e volta ao hotel", "Refrescos ligeiros"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Giftun Island — The Red Sea at Its Very Best",
@@ -1838,41 +2154,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "جزيرة جفتون — البحر الأحمر في أبهى صوره",
-          description:
-            "يُعتبر المتنزه الوطني لجزيرة جفتون أفضل وجهة للغطس في منطقة الغردقة. حماية المتنزه الوطني حافظت على الشعاب في حالة استثنائية: تغطية المرجان كثيفة وأعداد الأسماك كبيرة واللقاءات مع السلاحف البحرية من بين أكثر التجارب لا تُنسى على الساحل المصري.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:00", description: "الصعود إلى القارب. إحاطة السلامة وتوزيع معدات الغطس. إحاطة بقواعد المتنزه الوطني." },
-            { time: "09:15", description: "المغادرة من المرسى. الإبحار جنوب شرق نحو جزيرة جفتون — نحو 45-60 دقيقة." },
-            { time: "10:15", description: "الوصول إلى موقع الشعاب الأول على الجانب الشمالي من جفتون. إرساء المرساة. الدخول إلى الماء." },
-            { time: "10:30", description: "جلسة الغطس الأولى. المرشد يقود على طول جدار المرجان. السلاحف البحرية وسمك الببغاء وسمك النابليون وثعابين البحر والأسراب الكبيرة تُرصد عادةً." },
-            { time: "12:00", description: "استراحة على سطح القارب. تُقدَّم مرطبات خفيفة. أحضر غداءك الخاص." },
-            { time: "13:00", description: "الانتقال إلى جانب الشاطئ من جزيرة جفتون. الاسترخاء على الشاطئ الرملي الأبيض أو الغطس في الشعاب الضحلة الداخلية." },
-            { time: "14:30", description: "جلسة الغطس الثانية في الشعاب الجنوبية أو القناة — أنواع وتكوينات مرجانية مختلفة." },
-            { time: "16:00", description: "الصعود إلى القارب للإبحار العائد إلى الغردقة." },
-            { time: "17:00", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 21 ──────────────────────────────────────────────────────────────
   {
     title: "Hurghada Submarine Tour",
-    titleAr: "جولة الغواصة في الغردقة",
+    title_t: {
+      es: "Tour en submarino en Hurghada",
+      it: "Tour in sottomarino a Hurghada",
+      fr: "Tour en sous-marin à Hurghada",
+      ru: "Тур на подводной лодке в Хургаде",
+      de: "U-Boot-Tour in Hurghada",
+      pt: "Tour de submarino em Hurghada",
+    },
     slug: "hurghada-submarine-tour",
     description:
       "Descend beneath the surface of the Red Sea without getting wet on this unique submarine tour in Hurghada. Board the famous Sindbad submarine and sink below the waves to explore the incredible underwater world of the Red Sea coast. Through large portholes, you'll be treated to close-up views of brilliant coral formations, lionfish, butterflyfish, scarlet frogfish, and many other extraordinary species.",
-    descriptionAr:
-      "انزل تحت سطح البحر الأحمر دون أن تبتل في هذه الجولة الفريدة والمثيرة بالغواصة في الغردقة. اصعد على متن غواصة سندباد الشهيرة واغطس تحت الأمواج لاستكشاف العالم المائي الرائع لساحل البحر الأحمر.",
     category: "Boat tour",
+    category_t: {
+      es: "Tour en barco",
+      it: "Tour in barca",
+      fr: "Tour en bateau",
+      ru: "Морская прогулка",
+      de: "Bootstour",
+      pt: "Tour de barco",
+    },
     price: { original: 53.19, discounted: 42.55, currency: "USD" },
     duration: "2 hours",
+    duration_t: {
+      es: "2 horas",
+      it: "2 ore",
+      fr: "2 heures",
+      ru: "2 часа",
+      de: "2 Stunden",
+      pt: "2 horas",
+    },
     language: ["English"],
     rating: { score: 8.2, reviews: 35 },
     travellers: 420,
@@ -1880,34 +2196,16 @@ const toursData = [
     minAge: 0,
     maxGroupSize: 44,
     availableTimes: ["09:00", "11:00", "13:00", "15:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the Sindbad submarine station is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى محطة غواصة سندباد مشمول.",
-    },
-    accessibility: {
-      en: "The submarine is fully enclosed and air-conditioned. Boarding requires descending a short ladder from the surface boat. Suitable for all ages including young children and non-swimmers. Not suitable for guests with severe claustrophobia.",
-      ar: "الغواصة مغلقة بالكامل ومكيفة. الصعود يتطلب النزول على سلّم قصير. مناسبة لجميع الأعمار بما فيهم الأطفال الصغار وغير السباحين. غير مناسبة لمن يعانون من رهاب شديد للأماكن الضيقة.",
-    },
-    whatToBring: {
-      en: ["Camera (no flash near portholes — it reflects)", "Light clothing", "Water bottle"],
-      ar: ["كاميرا (ممنوع الفلاش بالقرب من الفتحات — ينعكس)", "ملابس خفيفة", "زجاجة ماء"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the Sindbad submarine station is included.",
+    accessibility: "The submarine is fully enclosed and air-conditioned. Boarding requires descending a short ladder from the surface boat. Suitable for all ages including young children and non-swimmers. Not suitable for guests with severe claustrophobia.",
+    whatToBring: ["Camera (no flash near portholes — it reflects)", "Light clothing", "Water bottle"],
+    importantInfo: [
         "The Sindbad submarine descends to approximately 22 metres below the surface.",
         "The entire experience is dry — no water entry required.",
         "English audio commentary explains the marine species visible through the portholes.",
         "The submarine holds up to 44 passengers; the underwater experience lasts approximately 45 minutes.",
         "Not suitable for guests with severe claustrophobia.",
       ],
-      ar: [
-        "تنزل غواصة سندباد إلى عمق نحو 22 متراً تحت السطح.",
-        "التجربة بأكملها جافة — لا يلزم الدخول إلى الماء.",
-        "التعليق الصوتي المسجّل باللغة الإنجليزية يشرح الأنواع البحرية المرئية عبر الفتحات.",
-        "الغواصة تستوعب حتى 44 راكباً؛ التجربة تحت الماء تستمر نحو 45 دقيقة.",
-        "غير مناسبة لمن يعانون من رهاب شديد للأماكن الضيقة.",
-      ],
-    },
     highlights: [
       "Underwater submarine ride along Hurghada's coast",
       "View Red Sea marine life through large portholes",
@@ -1915,10 +2213,33 @@ const toursData = [
       "English audio commentary throughout",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Paseo en submarino bajo las aguas de Hurghada", "Ve la vida marina del Mar Rojo por grandes ojos de buey", "Ve arrecifes de coral, pez escorpión y especies exóticas", "Sin necesidad de nadar ni mojarse", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Giro in sottomarino nelle acque di Hurghada", "Vedi la vita marina del Mar Rosso attraverso grandi oblò", "Vedi barriere coralline, pesci scorpione e specie esotiche", "Nessuna necessità di nuotare o bagnarsi", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Promenade en sous-marin dans les eaux de Hurghada", "Voyez la vie marine de la mer Rouge par de grands hublots", "Admirez des récifs coralliens, des rascasses et des espèces exotiques", "Pas besoin de nager ni de se mouiller", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Путешествие на подводной лодке в водах Хургады", "Наблюдение за морской жизнью Красного моря через иллюминаторы", "Коралловые рифы, крылатки и экзотические виды", "Плавать и мокнуть не нужно", "Трансфер туда и обратно включён"],
+      de: ["U-Boot-Fahrt in den Gewässern von Hurghada", "Meeresleben des Roten Meeres durch große Bullaugen beobachten", "Korallenriffe, Rotfeuerfische und exotische Arten sehen", "Kein Schwimmen oder Nass werden nötig", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio de submarino pelas águas de Hurghada", "Veja a vida marinha do Mar Vermelho por grandes vigias", "Veja recifes de coral, peixe-leão e espécies exóticas", "Sem necessidade de nadar nem de se molhar", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Submarine ride", "English audio commentary", "Hotel pickup and drop-off", "Soft drink"],
+    includes_t: {
+      es: ["Paseo en submarino", "Comentario en audio en inglés", "Recogida y devolución en el hotel", "Refresco"],
+      it: ["Giro in sottomarino", "Commento audio in inglese", "Prelievo e rientro in hotel", "Bibita"],
+      fr: ["Promenade en sous-marin", "Commentaire audio en anglais", "Prise en charge et retour à l'hôtel", "Boisson fraîche"],
+      ru: ["Поездка на подводной лодке", "Аудиокомментарий на английском языке", "Трансфер из/в отель", "Безалкогольный напиток"],
+      de: ["U-Boot-Fahrt", "Audiokommentar auf Englisch", "Hotel-Transfer (hin und zurück)", "Erfrischungsgetränk"],
+      pt: ["Passeio de submarino", "Comentário em áudio em inglês", "Transfer de ida e volta ao hotel", "Refresco"],
+    },
     excludes: ["Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Propinas", "Gastos personales"],
+      it: ["Mance", "Spese personali"],
+      fr: ["Pourboires", "Dépenses personnelles"],
+      ru: ["Чаевые", "Личные расходы"],
+      de: ["Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "22 Metres Down — The Sindbad Submarine Experience",
@@ -1936,39 +2257,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "22 متراً تحت السطح — تجربة غواصة سندباد",
-          description:
-            "تقدم غواصة سندباد لقاءً جافاً تماماً ومكيّف الهواء بالكامل مع العالم تحت الماء للبحر الأحمر على أعماق لا يصلها الغاطسون وكثير من الغائصين غير المتمرسين — نحو 22 متراً، عمق كافٍ ليتخذ الماء ذلك الأزرق العميق الاستثنائي. التعليق الصوتي الإنجليزي يبدأ تحديد الأنواع التي تظهر خارج الفتحات تقريباً فور البدء.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق. الانتقال إلى محطة غواصة سندباد في منتجع سندباد على شاطئ الغردقة." },
-            { time: "09:30", description: "الوصول إلى الرصيف. توجيه موجز للسلامة. الصعود إلى القارب السطحي الصغير للانتقال القصير إلى الغواصة." },
-            { time: "09:45", description: "الوصول إلى الغواصة. النزول عبر سلّم الوصول وأخذ مقعدك بجانب فتحة. يُقدَّم مشروب غازي." },
-            { time: "10:00", description: "تبدأ الغواصة نزولها إلى عمق نحو 22 متراً. يتغير لون الماء خارج الفتحات مع العمق." },
-            { time: "10:05", description: "الإبحار على مستوى الشعاب. يبدأ التعليق الصوتي في تحديد الأنواع: تكوينات المرجان وأسماك الأسد والأنثياس وأسماك الفراشة والسلاحف وثعابين البحر وأسماك القرش." },
-            { time: "10:45", description: "تصعد الغواصة. يتفتح الماء مجدداً مع العودة إلى السطح." },
-            { time: "10:50", description: "الخروج من الغواصة. الصعود إلى القارب السطحي للعودة إلى الرصيف." },
-            { time: "11:00", description: "الانتقال العائد إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 22 ──────────────────────────────────────────────────────────────
   {
     title: "El Gouna Boat Trip & Water Activities",
-    titleAr: "رحلة قارب وأنشطة مائية في الجونة",
+    title_t: {
+      es: "Viaje en barco a El Gouna y actividades acuáticas",
+      it: "Gita in barca a El Gouna e attività acquatiche",
+      fr: "Croisière à El Gouna et activités nautiques",
+      ru: "Морская прогулка в Эль-Гуну и водные активности",
+      de: "Bootsfahrt nach El Gouna & Wasseraktivitäten",
+      pt: "Passeio de barco a El Gouna e atividades aquáticas",
+    },
     slug: "el-gouna-boat-trip-water-activities-hurghada",
     description:
       "Discover El Gouna, Egypt's most glamorous resort town often called the Venice of Egypt, on this unforgettable boat trip and water activities day from Hurghada. Cruise across the Red Sea to reach El Gouna's stunning lagoons and drop anchor for a full day of fun — snorkel over vibrant coral reefs, try banana boating, go fishing, or hop on a semi-submarine for a peek beneath the waves. A buffet lunch is served onboard.",
-    descriptionAr:
-      "اكتشف الجونة، أكثر مدن المنتجعات المصرية أناقة والمعروفة بـ 'البندقية المصرية'، في هذه الرحلة البحرية اليومية مع أنشطة مائية من الغردقة. أبحر عبر البحر الأحمر للوصول إلى بحيرات الجونة الرائعة وأرسِ المرساة ليوم كامل من المتعة.",
     category: "Boat tour",
+    category_t: {
+      es: "Tour en barco",
+      it: "Tour in barca",
+      fr: "Tour en bateau",
+      ru: "Морская прогулка",
+      de: "Bootstour",
+      pt: "Tour de barco",
+    },
     price: { original: 76.15, discounted: null, currency: "USD" },
     duration: "8 hours 30 minutes",
+    duration_t: {
+      es: "8 horas 30 minutos",
+      it: "8 ore e 30 minuti",
+      fr: "8 heures 30 minutes",
+      ru: "8 часов 30 минут",
+      de: "8 Stunden 30 Minuten",
+      pt: "8 horas e 30 minutos",
+    },
     language: ["English"],
     rating: { score: 0, reviews: 0 },
     travellers: 9,
@@ -1976,32 +2299,15 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 30,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "The boat is accessible with a ladder. Snorkeling requires basic swimming comfort; life jackets available. Banana boat is optional. Non-swimmers can still enjoy the day onboard.",
-      ar: "القارب يمكن الوصول إليه بسلّم. الغطس يتطلب الارتياح الأساسي بالسباحة؛ سترات النجاة متوفرة. القارب الموزي اختياري.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Camera", "Change of clothes"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "قبعة", "كاميرا", "ملابس للتبديل"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "The boat is accessible with a ladder. Snorkeling requires basic swimming comfort; life jackets available. Banana boat is optional. Non-swimmers can still enjoy the day onboard.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Camera", "Change of clothes"],
+    importantInfo: [
         "Buffet lunch is included onboard.",
         "El Gouna is approximately 30 km north of Hurghada — reachable by boat in about 45 minutes.",
         "Dolphin sightings en route are not guaranteed but are a regular occurrence.",
         "Snorkeling equipment, banana boat ride, and fishing equipment are all included.",
       ],
-      ar: [
-        "الغداء البوفيه مشمول على متن القارب.",
-        "الجونة على بُعد نحو 30 كم شمال الغردقة — يمكن الوصول إليها بالقارب في نحو 45 دقيقة.",
-        "رصد الدلافين على الطريق غير مضمون لكنه يحدث بانتظام.",
-        "معدات الغطس والقارب الموزي ومعدات الصيد كلها مشمولة.",
-      ],
-    },
     highlights: [
       "Boat trip to the glamorous El Gouna resort",
       "Snorkeling, banana boating, and fishing",
@@ -2009,10 +2315,33 @@ const toursData = [
       "Chance to spot wild dolphins en route",
       "Buffet lunch onboard included",
     ],
+    highlights_t: {
+      es: ["Viaje en barco al glamuroso resort de El Gouna", "Esnórquel, banana boat y pesca", "Opción de paseo en semi-submarino", "Posibilidad de avistar delfines salvajes", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Gita in barca all'esclusivo resort di El Gouna", "Snorkeling, banana boat e pesca", "Opzione di giro in semi-sottomarino", "Possibilità di avvistare delfini selvatici", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Excursion en bateau vers le glamour resort d'El Gouna", "Snorkeling, balade en banane et pêche", "Option de promenade en semi-sous-marin", "Chance d'apercevoir des dauphins sauvages", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Лодочная прогулка на шикарный курорт Эль-Гуна", "Снорклинг, банан и рыбалка", "Возможность прогулки на полупогружаемом судне", "Шанс увидеть диких дельфинов", "Трансфер туда и обратно включён"],
+      de: ["Bootsfahrt zum glamourösen Resort El Gouna", "Schnorcheln, Bananenboot und Angeln", "Option: Halbunterseeboot-Fahrt", "Chance auf wilde Delfinsichtungen", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Passeio de barco ao glamoroso resort de El Gouna", "Snorkel, banana boat e pesca", "Opção de passeio em semi-submarino", "Possibilidade de avistar golfinhos selvagens", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Water activities", "Buffet lunch", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Viaje en barco", "Actividades acuáticas", "Almuerzo tipo buffet", "Recogida y devolución en el hotel"],
+      it: ["Gita in barca", "Attività acquatiche", "Pranzo a buffet", "Prelievo e rientro in hotel"],
+      fr: ["Excursion en bateau", "Activités nautiques", "Déjeuner buffet", "Prise en charge et retour à l'hôtel"],
+      ru: ["Лодочная прогулка", "Водные активности", "Шведский стол", "Трансфер из/в отель"],
+      de: ["Bootsfahrt", "Wasseraktivitäten", "Buffet-Mittagessen", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Passeio de barco", "Atividades aquáticas", "Almoço em buffet", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Propinas", "Gastos personales"],
+      it: ["Mance", "Spese personali"],
+      fr: ["Pourboires", "Dépenses personnelles"],
+      ru: ["Чаевые", "Личные расходы"],
+      de: ["Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "El Gouna by Sea — Water Activities & the Venice of Egypt",
@@ -2034,43 +2363,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الجونة من البحر — أنشطة مائية وبندقية مصر",
-          description:
-            "الجونة مدينة خاصة بُنيت من الصفر على سلسلة من الجزر والبحيرات، 30 كيلومتراً شمال الغردقة. اختبارها من البحر — كما تفعل هذه الرحلة — أفضل الطرق: نظام البحيرة والقوارب والفيلات على الشاطئ كلها مرئية مع اقتراب القارب من الجنوب.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:00", description: "الصعود إلى القارب. إحاطة السلامة ونظرة عامة على المعدات. توزيع معدات الغطس." },
-            { time: "09:15", description: "المغادرة من الغردقة شمالاً نحو الجونة. ترقُّب الدلافين على الطريق." },
-            { time: "10:00", description: "الوصول قبالة الجونة. إرساء المرساة في منطقة البحيرة." },
-            { time: "10:15", description: "جلسة الغطس الأولى. الدخول إلى الماء واستكشاف الشعاب." },
-            { time: "11:30", description: "ركوبة القارب الموزي — مجموعات من 4-6 لنحو 15-20 دقيقة." },
-            { time: "12:00", description: "جلسة الصيد — أسطر خفيفة مقدَّمة؛ صيد وإطلاق." },
-            { time: "13:00", description: "غداء البوفيه يُقدَّم على متن القارب. الاسترخاء على السطح." },
-            { time: "14:00", description: "خيار الغواصة شبه المائية — منصة مشاهدة مغمورة جزئياً بجوانب زجاجية لمن يفضل عدم الغطس." },
-            { time: "14:30", description: "جلسة الغطس الثانية أو وقت حر على القارب." },
-            { time: "16:30", description: "المغادرة من الجونة للإبحار العائد إلى الغردقة." },
-            { time: "17:15", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 23 ──────────────────────────────────────────────────────────────
   {
     title: "Utopia Island Excursion",
-    titleAr: "رحلة جزيرة يوتوبيا",
+    title_t: {
+      es: "Excursión a la Isla Utopía",
+      it: "Escursione all'Isola Utopia",
+      fr: "Excursion à l'Île Utopia",
+      ru: "Экскурсия на остров Утопия",
+      de: "Ausflug zur Utopia-Insel",
+      pt: "Excursão à Ilha Utopia",
+    },
     slug: "utopia-island-excursion-hurghada",
     description:
       "Spend a dreamy day on Utopia Island, a private paradise island in the Red Sea offering some of the finest snorkeling, swimming, and beach relaxation in the Hurghada region. The island's crystal-clear waters and thriving coral reefs are home to a dazzling variety of tropical fish, rays, and sea turtles, making it one of the most rewarding snorkeling spots on the Egyptian coast.",
-    descriptionAr:
-      "أمضِ يوماً حالماً في جزيرة يوتوبيا، جزيرة خاصة في البحر الأحمر تقدم بعضاً من أفضل تجارب الغطس والسباحة والاسترخاء على الشاطئ في منطقة الغردقة. مياه الجزيرة الصافية وشعابها المرجانية المزدهرة موطن لمجموعة رائعة من الأسماك الاستوائية والراي والسلاحف البحرية.",
     category: "Day trip",
+    category_t: {
+      es: "Excursión de un día",
+      it: "Gita di un giorno",
+      fr: "Excursion d'une journée",
+      ru: "Однодневная экскурсия",
+      de: "Tagesausflug",
+      pt: "Excursão de um dia",
+    },
     price: { original: 64.43, discounted: null, currency: "USD" },
     duration: "8 hours 30 minutes",
+    duration_t: {
+      es: "8 horas 30 minutos",
+      it: "8 ore e 30 minuti",
+      fr: "8 heures 30 minutes",
+      ru: "8 часов 30 минут",
+      de: "8 Stunden 30 Minuten",
+      pt: "8 horas e 30 minutos",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 3 },
     travellers: 159,
@@ -2078,34 +2405,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 30,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Island access by boat with a ladder. Snorkeling requires basic swimming comfort; life jackets available. The island has sandy beaches and flat access areas. Not suitable for wheelchairs.",
-      ar: "الوصول إلى الجزيرة بالقارب مع سلّم. الغطس يتطلب الارتياح الأساسي بالسباحة؛ سترات النجاة متوفرة. الجزيرة بها شواطئ رملية ومناطق وصول مستوية. غير مناسبة لكراسي الحركة.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Snacks and water (meals not included)", "Change of clothes"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "قبعة", "وجبات خفيفة وماء (الوجبات غير مشمولة)", "ملابس للتبديل"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Island access by boat with a ladder. Snorkeling requires basic swimming comfort; life jackets available. The island has sandy beaches and flat access areas. Not suitable for wheelchairs.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Snacks and water (meals not included)", "Change of clothes"],
+    importantInfo: [
         "Utopia Island is a private island — access is managed and the site is not overcrowded.",
         "Snorkeling equipment is included.",
         "Meals are not included — bring your own food or purchase on the island.",
         "Water sports on the island may be available at extra cost (jet ski, parasailing, etc.).",
         "Sea turtles and rays are frequently sighted in the island's waters.",
       ],
-      ar: [
-        "جزيرة يوتوبيا جزيرة خاصة — الوصول مُدار والموقع ليس مزدحماً.",
-        "معدات الغطس مشمولة.",
-        "الوجبات غير مشمولة — أحضر طعامك الخاص أو اشترِ في الجزيرة.",
-        "الرياضات المائية في الجزيرة قد تكون متوفرة بتكلفة إضافية (جت سكي، باراسيلنج، إلخ).",
-        "السلاحف البحرية والراي تُرصد بشكل متكرر في مياه الجزيرة.",
-      ],
-    },
     highlights: [
       "Full day on the private Utopia Island",
       "Snorkeling in pristine coral reefs",
@@ -2113,10 +2422,33 @@ const toursData = [
       "Water sports and beach relaxation",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Día completo en la privada Isla Utopía", "Esnórquel en pristinos arrecifes de coral", "Avista tortugas marinas, rayas y peces tropicales", "Deportes acuáticos y relajación en la playa", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Giornata intera sull'isola privata Utopia", "Snorkeling su barriere coralline incontaminate", "Avvista tartarughe marine, razze e pesci tropicali", "Sport acquatici e relax in spiaggia", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Journée complète sur l'île privée Utopia", "Snorkeling sur des récifs coralliens préservés", "Repérez des tortues marines, des raies et des poissons tropicaux", "Sports nautiques et détente sur la plage", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Полный день на частном острове Утопия", "Снорклинг на нетронутых коралловых рифах", "Морские черепахи, скаты и тропические рыбы", "Водные виды спорта и пляжный отдых", "Трансфер туда и обратно включён"],
+      de: ["Ganzer Tag auf der Privatinsel Utopia", "Schnorcheln an unberührten Korallenriffen", "Meeresschildkröten, Rochen und tropische Fische entdecken", "Wassersport und Strandentspannung", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Dia completo na privada Ilha Utopia", "Snorkel em recifes de coral pristinos", "Aviste tartarugas marinhas, raias e peixes tropicais", "Desportos aquáticos e descanso na praia", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Island access", "Snorkeling equipment", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Viaje en barco", "Acceso a la isla", "Equipo de esnórquel", "Recogida y devolución en el hotel"],
+      it: ["Gita in barca", "Accesso all'isola", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel"],
+      fr: ["Excursion en bateau", "Accès à l'île", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel"],
+      ru: ["Лодочная прогулка", "Доступ на остров", "Снаряжение для снорклинга", "Трансфер из/в отель"],
+      de: ["Bootsfahrt", "Inselzugang", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Passeio de barco", "Acesso à ilha", "Equipamento de snorkel", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Utopia Island — A Private Red Sea Paradise",
@@ -2135,40 +2467,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "جزيرة يوتوبيا — جنة خاصة في البحر الأحمر",
-          description:
-            "جزيرة يوتوبيا جزيرة مُدارة بشكل خاص تحقق شيئاً نادراً بشكل متزايد على ساحل البحر الأحمر: وصول مُتحكَّم به وأعداد محدودة، مما يعني أن الشعاب تبقى في حالة جيدة حقاً والشاطئ لا يبدو مزدحماً. رحلة القارب من الغردقة تستغرق نحو 30-40 دقيقة.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:00", description: "الصعود إلى القارب. إحاطة السلامة. توزيع معدات الغطس." },
-            { time: "09:15", description: "المغادرة من الغردقة إلى جزيرة يوتوبيا — نحو 30-40 دقيقة." },
-            { time: "10:00", description: "الوصول إلى جزيرة يوتوبيا. النزول واستكشاف الشاطئ. إحاطة بقواعد الجزيرة." },
-            { time: "10:15", description: "جلسة الغطس الأولى. تبدأ الشعاب مباشرةً بالقرب من الشاطئ — استكشاف المرجان والأسماك الاستوائية والراي والسلاحف البحرية." },
-            { time: "12:00", description: "استراحة الغداء على الشاطئ. أحضر طعامك الخاص أو اشترِ في الجزيرة." },
-            { time: "13:00", description: "جلسة الغطس الثانية أو وقت حر على الشاطئ. رياضات مائية اختيارية (بتكلفة إضافية)." },
-            { time: "15:30", description: "الصعود إلى القارب للرحلة العائدة إلى الغردقة." },
-            { time: "16:30", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 24 (Orange Bay Pirate Cruise) ───────────────────────────────────
   {
     title: "Orange Bay Pirate Cruise",
-    titleAr: "رحلة القراصنة إلى خليج أورانج",
+    title_t: {
+      es: "Crucero pirata a la bahía Orange",
+      it: "Crociera dei pirati alla baia di Orange",
+      fr: "Croisière pirate à Orange Bay",
+      ru: "Пиратский круиз в залив Оранж",
+      de: "Piraten-Kreuzfahrt zur Orange Bay",
+      pt: "Cruzeiro pirata à Baía de Orange",
+    },
     slug: "orange-bay-pirate-cruise-hurghada",
     description:
       "Ahoy! Set sail on a swashbuckling pirate cruise from Hurghada to the beautiful Orange Bay for a day of high-seas fun, snorkeling, and Red Sea adventures. Enjoy a lively atmosphere aboard the pirate-themed cruise ship as you sail to one of the most scenic and pristine bays on the Egyptian coast. Once anchored at Orange Bay, jump into the sparkling turquoise water to snorkel over the coral reefs before relaxing on the stunning beach.",
-    descriptionAr:
-      "أهلاً! أبحر في رحلة قراصنة مغامرة من الغردقة إلى خليج أورانج الجميل ليوم من المتعة والغطس ومغامرات البحر الأحمر. استمتع بالأجواء الحيوية على متن سفينة الرحلة ذات الطابع القرصاني وأنت تبحر إلى واحدة من أجمل الخلجان وأنقاها على الساحل المصري.",
     category: "Boat tour",
+    category_t: {
+      es: "Tour en barco",
+      it: "Tour in barca",
+      fr: "Tour en bateau",
+      ru: "Морская прогулка",
+      de: "Bootstour",
+      pt: "Tour de barco",
+    },
     price: { original: 35.00, discounted: null, currency: "USD" },
     duration: "8 hours",
+    duration_t: {
+      es: "8 horas",
+      it: "8 ore",
+      fr: "8 heures",
+      ru: "8 часов",
+      de: "8 Stunden",
+      pt: "8 horas",
+    },
     language: ["English"],
     rating: { score: 8.5, reviews: 18 },
     travellers: 280,
@@ -2176,34 +2509,16 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 50,
     availableTimes: ["08:30"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى المرسى مشمول.",
-    },
-    accessibility: {
-      en: "Snorkeling requires basic swimming comfort; life jackets available for non-confident swimmers. The pirate ship is a large vessel with easy boarding. Suitable for families with young children.",
-      ar: "يتطلب الغطس الارتياح الأساسي بالسباحة؛ سترات النجاة متوفرة. السفينة القرصانية مركبة كبيرة بصعود سهل. مناسبة للعائلات مع الأطفال الصغار.",
-    },
-    whatToBring: {
-      en: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Camera", "Light change of clothes"],
-      ar: ["ملابس سباحة", "منشفة", "كريم واقٍ صديق للشعاب", "قبعة", "كاميرا", "ملابس خفيفة للتبديل"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transfer to the marina is included.",
+    accessibility: "Snorkeling requires basic swimming comfort; life jackets available for non-confident swimmers. The pirate ship is a large vessel with easy boarding. Suitable for families with young children.",
+    whatToBring: ["Swimwear", "Towel", "Reef-safe sunscreen", "Hat", "Camera", "Light change of clothes"],
+    importantInfo: [
         "Snorkeling equipment is provided onboard.",
         "Light refreshments are provided during the cruise.",
         "Meals are not included — bring your own food or purchase onboard.",
         "The pirate cruise is a shared experience with other passengers — ideal for groups and families.",
         "Orange Bay is a protected area — touching or standing on coral is strictly prohibited.",
       ],
-      ar: [
-        "معدات الغطس مقدَّمة على متن القارب.",
-        "مرطبات خفيفة تُقدَّم أثناء الرحلة البحرية.",
-        "الوجبات غير مشمولة — أحضر طعامك أو اشترِ على متن القارب.",
-        "رحلة القراصنة تجربة مشتركة مع ركاب آخرين — مثالية للمجموعات والعائلات.",
-        "خليج أورانج منطقة محمية — لمس الشعاب أو الوقوف عليها محظور صراحةً.",
-      ],
-    },
     highlights: [
       "Pirate-themed cruise to Orange Bay",
       "Snorkeling over pristine coral reefs",
@@ -2211,10 +2526,33 @@ const toursData = [
       "Fun atmosphere with entertainment onboard",
       "Hotel pickup and drop-off included",
     ],
+    highlights_t: {
+      es: ["Crucero temático de piratas a la bahía Orange", "Esnórquel sobre pristinos arrecifes de coral", "Relájate en una hermosa playa del Mar Rojo", "Ambiente divertido con entretenimiento a bordo", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Crociera a tema pirati alla baia di Orange", "Snorkeling su barriere coralline incontaminate", "Rilassati su una bellissima spiaggia del Mar Rosso", "Atmosfera divertente con intrattenimento a bordo", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Croisière thématique pirates à Orange Bay", "Snorkeling sur des récifs coralliens préservés", "Détendez-vous sur une belle plage de la mer Rouge", "Ambiance festive avec divertissement à bord", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Пиратский тематический круиз в залив Оранж", "Снорклинг на нетронутых коралловых рифах", "Отдых на красивом пляже Красного моря", "Веселая атмосфера с развлечениями на борту", "Трансфер туда и обратно включён"],
+      de: ["Piraten-Themenkreuzfahrt zur Orange Bay", "Schnorcheln an unberührten Korallenriffen", "An einem wunderschönen Roten-Meer-Strand entspannen", "Spaßige Atmosphäre mit Unterhaltung an Bord", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Cruzeiro temático de piratas à Baía de Orange", "Snorkel sobre recifes de coral pristinos", "Relaxe numa bela praia do Mar Vermelho", "Ambiente divertido com entretenimento a bordo", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Boat trip", "Snorkeling equipment", "Hotel pickup and drop-off", "Light refreshments"],
+    includes_t: {
+      es: ["Viaje en barco", "Equipo de esnórquel", "Recogida y devolución en el hotel", "Refrescos ligeros"],
+      it: ["Gita in barca", "Attrezzatura da snorkeling", "Prelievo e rientro in hotel", "Rinfreschi leggeri"],
+      fr: ["Excursion en bateau", "Équipement de snorkeling", "Prise en charge et retour à l'hôtel", "Rafraîchissements légers"],
+      ru: ["Лодочная прогулка", "Снаряжение для снорклинга", "Трансфер из/в отель", "Лёгкие закуски"],
+      de: ["Bootsfahrt", "Schnorchelausrüstung", "Hotel-Transfer (hin und zurück)", "Leichte Erfrischungen"],
+      pt: ["Passeio de barco", "Equipamento de snorkel", "Transfer de ida e volta ao hotel", "Refrescos ligeiros"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Ahoy! The Orange Bay Pirate Cruise",
@@ -2233,40 +2571,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "أهلاً! رحلة القراصنة إلى خليج أورانج",
-          description:
-            "رحلة القراصنة هي أكثر رحلات القوارب تركيزاً على المتعة من الغردقة — سفينة كبيرة ذات طابع قرصاني بأجواء حيوية على متنها وترفيه حي ونفس الوجهة كرحلات خليج أورانج القياسية: واحدة من أجمل الخلجان المحمية على ساحل البحر الأحمر المصري. تعمل بشكل خاص للعائلات ومجموعات الأصدقاء. بمجرد الإرساء يتولى الجمال الحقيقي للمكان: رمال بيضاء بكر ومياه فيروزية ومرجان صحي على بُعد أمتار من الشاطئ.",
-          steps: [
-            { time: "08:30", description: "الاستقبال من الفندق. الانتقال إلى مرسى الغردقة." },
-            { time: "09:00", description: "الصعود إلى سفينة رحلة القراصنة. التعرف على الطاقم والركاب. إحاطة السلامة. توزيع معدات الغطس." },
-            { time: "09:15", description: "المغادرة من المرسى. السفينة القرصانية تبحر جنوباً نحو خليج أورانج — نحو ساعة. ترفيه وموسيقى على متنها أثناء الرحلة." },
-            { time: "10:15", description: "الوصول إلى خليج أورانج. إرساء المرساة. الطاقم يعرّف بقواعد الشعاب." },
-            { time: "10:30", description: "جلسة الغطس الأولى. الدخول إلى الماء واستكشاف الشعاب المرجانية — أسماك الببغاء والملاك والسلاحف البحرية وثعابين البحر تُرصد بشكل شائع." },
-            { time: "12:00", description: "العودة إلى السفينة أو الاسترخاء على الشاطئ. تُقدَّم مرطبات خفيفة على متن القارب." },
-            { time: "13:00", description: "جلسة الغطس الثانية أو وقت حر على الشاطئ." },
-            { time: "15:00", description: "الصعود إلى السفينة القرصانية للإبحار العائد إلى الغردقة." },
-            { time: "16:00", description: "الوصول إلى مرسى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 25 (El Gouna City Tour) ─────────────────────────────────────────
   {
     title: "El Gouna City Tour",
-    titleAr: "جولة مدينة الجونة",
+    title_t: {
+      es: "Tour guiado por la ciudad de El Gouna",
+      it: "Tour guidato della città di El Gouna",
+      fr: "Visite guidée de la ville d'El Gouna",
+      ru: "Экскурсия по городу Эль-Гуна",
+      de: "Geführte Stadttour durch El Gouna",
+      pt: "Tour guiado pela cidade de El Gouna",
+    },
     slug: "el-gouna-city-tour-hurghada",
     description:
       "Discover El Gouna, one of Egypt's most unique and beautifully designed resort cities, on this dedicated guided city tour from Hurghada. Built across a series of islands and lagoons on the Red Sea coast, El Gouna has its own airport, marina, golf course, and a charming old town. Enjoy a traditional felucca ride through the city's scenic waterways, tour the vibrant downtown and harbor area, and take in the stunning views of the lagoons and Red Sea.",
-    descriptionAr:
-      "اكتشف الجونة، إحدى أكثر مدن المنتجعات المصرية فرادة وجمالاً في التصميم، في هذه الجولة المدينية المصحوبة بمرشد من الغردقة. مبنية عبر سلسلة من الجزر والبحيرات على ساحل البحر الأحمر، تمتلك الجونة مطارها الخاص ومرساها وملعب غولف وبلدة قديمة ساحرة. استمتع برحلة فلوكة تقليدية عبر الممرات المائية المنظرية للمدينة.",
     category: "Guided tours and free tours",
+    category_t: {
+      es: "Tours guiados y tours gratuitos",
+      it: "Tour guidati e tour gratuiti",
+      fr: "Visites guidées et visites gratuites",
+      ru: "Экскурсии с гидом и бесплатные туры",
+      de: "Geführte Touren und kostenlose Touren",
+      pt: "Tours guiados e tours gratuitos",
+    },
     price: { original: 55.00, discounted: null, currency: "USD" },
     duration: "6 hours",
+    duration_t: {
+      es: "6 horas",
+      it: "6 ore",
+      fr: "6 heures",
+      ru: "6 часов",
+      de: "6 Stunden",
+      pt: "6 horas",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 14 },
     travellers: 175,
@@ -2274,32 +2613,15 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 15,
     availableTimes: ["09:00", "10:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada. Transport to El Gouna and return is included.",
-      ar: "بهو فندقك في الغردقة. الانتقال إلى الجونة والعودة مشمول.",
-    },
-    accessibility: {
-      en: "The city tour involves walking on flat paved streets. The felucca requires stepping carefully into a low boat. Suitable for most guests; not suitable for wheelchairs.",
-      ar: "جولة المدينة تتضمن المشي على شوارع مستوية معبدة. الفلوكة تتطلب الخطو بحذر في قارب منخفض. مناسبة لمعظم الضيوف؛ غير مناسبة لكراسي الحركة.",
-    },
-    whatToBring: {
-      en: ["Comfortable walking shoes", "Sun hat and sunscreen", "Camera", "Small amount of cash for any optional purchases"],
-      ar: ["حذاء مريح للمشي", "قبعة للشمس وكريم واقٍ", "كاميرا", "مبلغ صغير من النقد لأي مشتريات اختيارية"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada. Transport to El Gouna and return is included.",
+    accessibility: "The city tour involves walking on flat paved streets. The felucca requires stepping carefully into a low boat. Suitable for most guests; not suitable for wheelchairs.",
+    whatToBring: ["Comfortable walking shoes", "Sun hat and sunscreen", "Camera", "Small amount of cash for any optional purchases"],
+    importantInfo: [
         "Hotel pickup from Hurghada and return transport is included.",
         "The felucca ride through El Gouna's lagoons is included.",
         "Meals are not included — El Gouna has excellent restaurants if you wish to eat there.",
         "El Gouna is approximately 30 km north of Hurghada — the drive takes about 30-40 minutes.",
       ],
-      ar: [
-        "الاستقبال من الفندق في الغردقة وانتقال العودة مشمول.",
-        "جولة الفلوكة عبر بحيرات الجونة مشمولة.",
-        "الوجبات غير مشمولة — في الجونة مطاعم ممتازة إذا رغبت في تناول الطعام هناك.",
-        "الجونة على بُعد نحو 30 كم شمال الغردقة — القيادة تستغرق نحو 30-40 دقيقة.",
-      ],
-    },
     highlights: [
       "Guided tour of the unique El Gouna resort city",
       "Traditional felucca ride through the lagoons",
@@ -2307,10 +2629,33 @@ const toursData = [
       "Stunning views of the Red Sea lagoons",
       "Hotel pickup and drop-off from Hurghada included",
     ],
+    highlights_t: {
+      es: ["Tour guiado por la singular ciudad resort de El Gouna", "Paseo tradicional en feluca por las lagunas", "Visita al puerto y al centro", "Impresionantes vistas del Mar Rojo", "Traslado de ida y vuelta al hotel incluido"],
+      it: ["Tour guidato dell'esclusiva città resort di El Gouna", "Tradizionale giro in feluche attraverso le lagune", "Visita al porto e al centro", "Splendide vedute del Mar Rosso", "Trasferimento andata e ritorno in hotel incluso"],
+      fr: ["Visite guidée de l'unique ville resort d'El Gouna", "Balade traditionnelle en felouque sur les lagunes", "Visite du port et du centre-ville", "Superbes vues sur la mer Rouge", "Transfert aller-retour à l'hôtel inclus"],
+      ru: ["Экскурсия по уникальному курортному городу Эль-Гуна", "Традиционная прогулка на фелюге по лагунам", "Посещение гавани и центра города", "Потрясающие виды на Красное море", "Трансфер туда и обратно включён"],
+      de: ["Geführte Tour durch die einzigartige Ferienstadt El Gouna", "Traditionelle Felucken-Fahrt durch die Lagunen", "Besuch von Hafen und Innenstadt", "Atemberaubende Aussicht auf das Rote Meer", "Hin- und Rücktransfer zum Hotel inklusive"],
+      pt: ["Tour guiado pela singular cidade resort de El Gouna", "Passeio tradicional em feluca pelas lagoas", "Visita ao porto e ao centro", "Deslumbrantes vistas do Mar Vermelho", "Transfer de ida e volta ao hotel incluído"],
+    },
     includes: ["Guide", "Felucca ride", "Transport from Hurghada", "Hotel pickup and drop-off"],
+    includes_t: {
+      es: ["Guía", "Paseo en feluca", "Transporte desde Hurghada", "Recogida y devolución en el hotel"],
+      it: ["Guida", "Giro in feluche", "Trasporto da Hurghada", "Prelievo e rientro in hotel"],
+      fr: ["Guide", "Balade en felouque", "Transport depuis Hurghada", "Prise en charge et retour à l'hôtel"],
+      ru: ["Гид", "Прогулка на фелюге", "Транспорт из Хургады", "Трансфер из/в отель"],
+      de: ["Guide", "Felucken-Fahrt", "Transport ab Hurghada", "Hotel-Transfer (hin und zurück)"],
+      pt: ["Guia", "Passeio de feluca", "Transporte desde Hurghada", "Transfer de ida e volta ao hotel"],
+    },
     excludes: ["Meals", "Tips", "Personal expenses"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Comidas", "Propinas", "Gastos personales"],
+      it: ["Pasti", "Mance", "Spese personali"],
+      fr: ["Repas", "Pourboires", "Dépenses personnelles"],
+      ru: ["Питание", "Чаевые", "Личные расходы"],
+      de: ["Mahlzeiten", "Trinkgelder", "Persönliche Ausgaben"],
+      pt: ["Refeições", "Gorjetas", "Despesas pessoais"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "El Gouna — The Venice of Egypt",
@@ -2327,38 +2672,41 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الجونة — بندقية مصر",
-          description:
-            "الجونة واحدة من أكثر مدن المنتجعات المخططة غرابة ونجاحاً في العالم — مشروع خاص مبني عبر سلسلة من الجزر والبحيرات على ساحل البحر الأحمر، 30 كم شمال الغردقة، مع مطارها ومستشفاها وملعب غولفها ووسط مدينتها القابل للمشي والمليء بالحياة. على عكس شريط المنتجعات في الغردقة، للجونة شعور حقيقي بالمكان: معمار منخفض الارتفاع، وشوارع مبطّنة بالممرات المائية، ومرسى حيوي، وسكان يعيشون هنا على مدار العام.",
-          steps: [
-            { time: "09:00", description: "الاستقبال من الفندق في الغردقة. القيادة شمالاً إلى الجونة — نحو 30-40 دقيقة." },
-            { time: "09:45", description: "الوصول إلى الجونة. بدء الجولة السيرية في وسط المدينة — الميدان المركزي ومنطقة السوق والمحلات التجارية والمطاعم المحلية على طول الممر المائي." },
-            { time: "10:30", description: "الصعود إلى فلوكة تقليدية لجولة مدتها 45 دقيقة عبر نظام بحيرات الجونة. مرشدك يشرح تخطيط المدينة وأنت تنزلق عبر الممرات المائية." },
-            { time: "11:15", description: "الوصول إلى مرسى الجونة الرئيسي. المشية عبر الميناء — اليخوت والمطاعم على الواجهة المائية وإطلالات البحر الأحمر الممتدة جنوباً نحو الغردقة." },
-            { time: "12:00", description: "وقت حر في الجونة — غداء اختياري في أحد مطاعم المرسى (على نفقتك الخاصة)، أو الاستمرار في استكشاف المدينة بشكل مستقل." },
-            { time: "13:30", description: "المغادرة من الجونة للقيادة العائدة إلى الغردقة." },
-            { time: "14:15", description: "الوصول إلى الغردقة. الانتقال إلى فندقك. نهاية الجولة." },
-          ],
-        },
-      ],
-    },
   },
 
   // ─── TOUR 26 (Red Sea 8-Day All-Inclusive) ────────────────────────────────
   {
     title: "Red Sea 8-Day All-Inclusive Tour from Hurghada",
-    titleAr: "باقة البحر الأحمر 8 أيام شاملة من الغردقة",
+    title_t: {
+      es: "Tour todo incluido de 8 días por el Mar Rojo desde Hurghada",
+      it: "Tour tutto incluso di 8 giorni nel Mar Rosso da Hurghada",
+      fr: "Circuit tout compris de 8 jours en mer Rouge depuis Hurghada",
+      ru: "8-дневный тур «всё включено» по Красному морю из Хургады",
+      de: "8-Tage-Rundreise All-inclusive Rotes Meer ab Hurghada",
+      pt: "Tour all-inclusive de 8 dias pelo Mar Vermelho desde Hurghada",
+    },
     slug: "red-sea-8-day-all-inclusive-tour-hurghada",
     description:
       "Immerse yourself fully in the magic of Hurghada and the Red Sea on this comprehensive 8-day all-inclusive tour package. From exploring the desert on a 4x4 safari and quad bikes to snorkeling over world-class coral reefs, swimming with dolphins, and discovering the city's cultural highlights — this package covers the very best of what Hurghada has to offer. All accommodation, meals, activities, and transfers are included.",
-    descriptionAr:
-      "انغمس كلياً في سحر الغردقة والبحر الأحمر في هذه الباقة السياحية الشاملة التي تمتد 8 أيام. من استكشاف الصحراء على سيارة 4x4 ودراجات رباعية إلى الغطس على شعاب مرجانية عالمية المستوى والسباحة مع الدلافين واكتشاف معالم المدينة الثقافية — تغطي هذه الباقة أفضل ما تقدمه الغردقة.",
     category: "Tour packages",
+    category_t: {
+      es: "Paquetes de tours",
+      it: "Pacchetti tour",
+      fr: "Forfaits circuits",
+      ru: "Туристические пакеты",
+      de: "Tourpakete",
+      pt: "Pacotes de tours",
+    },
     price: { original: 850.00, discounted: null, currency: "USD" },
     duration: "8 days",
+    duration_t: {
+      es: "8 días",
+      it: "8 giorni",
+      fr: "8 jours",
+      ru: "8 дней",
+      de: "8 Tage",
+      pt: "8 dias",
+    },
     language: ["English"],
     rating: { score: 8.0, reviews: 12 },
     travellers: 95,
@@ -2366,20 +2714,10 @@ const toursData = [
     minAge: 5,
     maxGroupSize: 16,
     availableTimes: ["08:00"],
-    meetingPoint: {
-      en: "Your hotel lobby in Hurghada on Day 1. The guide will meet you to begin the tour.",
-      ar: "بهو فندقك في الغردقة في اليوم الأول. سيلتقي بك المرشد لبدء الجولة.",
-    },
-    accessibility: {
-      en: "This package includes activities with varying accessibility. The desert safari and quad bikes are not suitable for guests with back problems or pregnancy. The marine activities are generally accessible. Consult at booking for specific requirements.",
-      ar: "تشمل هذه الباقة أنشطة بإمكانية وصول متفاوتة. سفاري الصحراء والدراجات الرباعية غير مناسبة لمن يعانون من مشاكل في الظهر أو الحوامل. الأنشطة البحرية في معظمها متاحة.",
-    },
-    whatToBring: {
-      en: ["Comfortable clothing for all 8 days", "Swimwear for daily water activities", "Closed-toe shoes for desert days", "High SPF sunscreen", "Camera", "Personal medications"],
-      ar: ["ملابس مريحة لكامل الـ 8 أيام", "ملابس سباحة للأنشطة المائية اليومية", "حذاء مغلق الأصابع لأيام الصحراء", "واقٍ من الشمس بعامل حماية عالٍ", "كاميرا", "أدوية شخصية"],
-    },
-    importantInfo: {
-      en: [
+    meetingPoint: "Your hotel lobby in Hurghada on Day 1. The guide will meet you to begin the tour.",
+    accessibility: "This package includes activities with varying accessibility. The desert safari and quad bikes are not suitable for guests with back problems or pregnancy. The marine activities are generally accessible. Consult at booking for specific requirements.",
+    whatToBring: ["Comfortable clothing for all 8 days", "Swimwear for daily water activities", "Closed-toe shoes for desert days", "High SPF sunscreen", "Camera", "Personal medications"],
+    importantInfo: [
         "7 nights hotel accommodation is included.",
         "All meals (breakfast, lunch, dinner) are included throughout the 8 days.",
         "All activities as per the itinerary are included.",
@@ -2387,15 +2725,6 @@ const toursData = [
         "Tipping for guides and drivers is customary and greatly appreciated.",
         "This package is non-refundable — travel insurance is strongly recommended.",
       ],
-      ar: [
-        "إقامة 7 ليالٍ في الفندق مشمولة.",
-        "جميع الوجبات (إفطار وغداء وعشاء) مشمولة طوال الـ 8 أيام.",
-        "جميع الأنشطة وفق البرنامج مشمولة.",
-        "الرحلات الجوية الدولية من وإلى الغردقة غير مشمولة.",
-        "البقشيش للمرشدين والسائقين متعارف عليه وموضع تقدير كبير.",
-        "هذه الباقة غير قابلة للاسترداد — يُوصى بشدة بتأمين السفر.",
-      ],
-    },
     highlights: [
       "8 days all-inclusive in Hurghada",
       "Desert safari and quad bike adventure",
@@ -2404,6 +2733,14 @@ const toursData = [
       "Guided city tour of Hurghada",
       "All accommodation and meals included",
     ],
+    highlights_t: {
+      es: ["8 días todo incluido en Hurghada", "Safari en el desierto y aventura en quad", "Esnórquel y buceo en el Mar Rojo", "Excursión de natación con delfines", "Tour a Luxor y el Valle de los Reyes", "Paseo en barco a la isla de Giftun", "Experiencia de baño turco", "Cena beduina bajo las estrellas"],
+      it: ["8 giorni tutto incluso a Hurghada", "Safari nel deserto e avventura in quad", "Snorkeling e immersioni nel Mar Rosso", "Escursione per nuotare con i delfini", "Tour a Luxor e nella Valle dei Re", "Gita in barca all'Isola di Giftun", "Esperienza di bagno turco", "Cena beduina sotto le stelle"],
+      fr: ["8 jours tout compris à Hurghada", "Safari dans le désert et aventure en quad", "Snorkeling et plongée en mer Rouge", "Excursion baignade avec les dauphins", "Circuit Louxor et Vallée des Rois", "Excursion en bateau à l'île Giftun", "Expérience de bain turc", "Dîner bédouin sous les étoiles"],
+      ru: ["8 дней «всё включено» в Хургаде", "Сафари в пустыне и квадроцикл", "Снорклинг и дайвинг в Красном море", "Экскурсия для плавания с дельфинами", "Тур в Луксор и Долину царей", "Лодочная прогулка на остров Гифтун", "Процедура турецкой бани", "Бедуинский ужин под звёздным небом"],
+      de: ["8 Tage All-inclusive in Hurghada", "Wüstensafari und Quad-Abenteuer", "Schnorcheln und Tauchen im Roten Meer", "Schwimmen mit Delfinen", "Luxor-Tour & Tal der Könige", "Bootsfahrt zur Giftun-Insel", "Türkisches-Bad-Erlebnis", "Beduinen-Abendessen unter dem Sternenhimmel"],
+      pt: ["8 dias all-inclusive em Hurghada", "Safari no deserto e aventura de quadriciclo", "Snorkel e mergulho no Mar Vermelho", "Excursão de natação com golfinhos", "Tour a Luxor e ao Vale dos Reis", "Passeio de barco à Ilha Giftun", "Experiência de banho turco", "Jantar beduíno sob as estrelas"],
+    },
     includes: [
       "7 nights hotel accommodation",
       "All meals (breakfast, lunch, dinner)",
@@ -2411,9 +2748,24 @@ const toursData = [
       "All transport and transfers",
       "English-speaking guide",
     ],
+    includes_t: {
+      es: ["7 noches de alojamiento en hotel", "Todas las comidas (desayuno, almuerzo, cena)", "Todas las actividades según itinerario", "Todos los traslados y transportes", "Guía de habla inglesa"],
+      it: ["7 notti di alloggio in hotel", "Tutti i pasti (colazione, pranzo, cena)", "Tutte le attività come da itinerario", "Tutti i trasferimenti e i trasporti", "Guida di lingua inglese"],
+      fr: ["7 nuits d'hébergement en hôtel", "Tous les repas (petit-déjeuner, déjeuner, dîner)", "Toutes les activités selon l'itinéraire", "Tous les transferts et transports", "Guide anglophone"],
+      ru: ["7 ночей проживания в отеле", "Всё питание (завтрак, обед, ужин)", "Все активности согласно маршруту", "Все трансферы и транспорт", "Гид, говорящий по-английски"],
+      de: ["7 Nächte Hotelunterkunft", "Alle Mahlzeiten (Frühstück, Mittagessen, Abendessen)", "Alle Aktivitäten gemäß Reiseprogramm", "Alle Transfers und Transport", "Englischsprachiger Guide"],
+      pt: ["7 noites de alojamento em hotel", "Todas as refeições (pequeno-almoço, almoço, jantar)", "Todas as atividades conforme itinerário", "Todos os traslados e transportes", "Guia de língua inglesa"],
+    },
     excludes: ["International flights", "Travel insurance", "Tips", "Personal expenses", "Alcoholic drinks"],
-    itinerary: {
-      en: [
+    excludes_t: {
+      es: ["Vuelos internacionales", "Seguro de viaje", "Propinas", "Gastos personales", "Bebidas alcohólicas"],
+      it: ["Voli internazionali", "Assicurazione di viaggio", "Mance", "Spese personali", "Bevande alcoliche"],
+      fr: ["Vols internationaux", "Assurance voyage", "Pourboires", "Dépenses personnelles", "Boissons alcoolisées"],
+      ru: ["Международные перелёты", "Страховка", "Чаевые", "Личные расходы", "Алкогольные напитки"],
+      de: ["Internationale Flüge", "Reiseversicherung", "Trinkgelder", "Persönliche Ausgaben", "Alkoholische Getränke"],
+      pt: ["Voos internacionais", "Seguro de viagem", "Gorjetas", "Despesas pessoais", "Bebidas alcoólicas"],
+    },
+    itinerary: [
         {
           day: 1,
           title: "Arrival & City Orientation",
@@ -2520,116 +2872,7 @@ const toursData = [
           ],
         },
       ],
-      ar: [
-        {
-          day: 1,
-          title: "الوصول والتعرف على المدينة",
-          description: "الوصول إلى الغردقة والاستقرار في الفندق. بعد جلسة ترحيب مع مرشدك، أمضِ بعد الظهر في جولة مدينة مصحوبة بمرشد تشمل المسجد الكبير والكنيسة القبطية وسوق الدهار وميناء الصيادين.",
-          steps: [
-            { time: "10:00", description: "تسجيل الوصول في الفندق وجلسة الترحيب مع مرشدك للأسبوع القادم." },
-            { time: "14:00", description: "جولة المدينة المصحوبة بمرشد — المسجد الكبير والكنيسة القبطية وسوق الدهار وميناء الصيادين." },
-            { time: "17:30", description: "العودة إلى الفندق. مساء حر." },
-            { time: "19:30", description: "العشاء مشمول في مطعم الفندق." },
-          ],
-        },
-        {
-          day: 2,
-          title: "غطس جزيرة جفتون",
-          description: "يوم كامل في المتنزه الوطني لجزيرة جفتون — واحدة من أفضل وجهات الغطس في البحر الأحمر. جلستا غطس صباحاً وبعد الظهر واسترخاء على الشاطئ.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "08:30", description: "الانتقال إلى المرسى. الصعود إلى القارب إلى جزيرة جفتون." },
-            { time: "10:30", description: "الوصول إلى جفتون. جلسة الغطس الأولى — شعاب مرجانية وسلاحف وأسماك استوائية." },
-            { time: "12:30", description: "الغداء مشمول على متن القارب." },
-            { time: "14:00", description: "جلسة الغطس الثانية والاسترخاء على الشاطئ." },
-            { time: "17:00", description: "العودة إلى مرسى الغردقة. الانتقال إلى الفندق." },
-            { time: "19:30", description: "العشاء مشمول." },
-          ],
-        },
-        {
-          day: 3,
-          title: "سفاري الصحراء والسهرة البدوية",
-          description: "سفاري صحراء بالدفع الرباعي بعد الظهر تليها سهرة بدوية تقليدية مع ركوب الجمال والغروب والعشاء تحت النجوم والموسيقى التقليدية.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "09:00", description: "وقت حر — وقت على الشاطئ أو حمام السباحة." },
-            { time: "15:00", description: "الاستقبال من الفندق لسفاري الصحراء." },
-            { time: "15:30", description: "قيادة الدفع الرباعي على الطرق الوعرة عبر كثبان الصحراء." },
-            { time: "16:30", description: "الوصول إلى المعسكر البدوي. شاي بالنعناع وركوب الجمال وغروب الصحراء." },
-            { time: "18:30", description: "عشاء البدو تحت النجوم مع الموسيقى التقليدية." },
-            { time: "20:30", description: "العودة إلى الفندق." },
-          ],
-        },
-        {
-          day: 4,
-          title: "السباحة مع الدلافين في بيت الدولفين",
-          description: "رحلة بحرية يوم كامل إلى بيت الدولفين للسباحة مع دلافين سبينر البرية، تليها جلسة غطس على الشعاب وركوبة القارب الموزي.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "08:00", description: "الانتقال إلى المرسى." },
-            { time: "09:45", description: "الوصول إلى بيت الدولفين. السباحة مع قطيع دلافين سبينر البرية." },
-            { time: "10:45", description: "جلسة الغطس على الشعاب." },
-            { time: "12:00", description: "ركوبة القارب الموزي ومرطبات خفيفة." },
-            { time: "14:30", description: "العودة إلى الغردقة. الانتقال إلى الفندق." },
-            { time: "19:30", description: "العشاء مشمول." },
-          ],
-        },
-        {
-          day: 5,
-          title: "الغوص للمبتدئين",
-          description: "صباح من الغوص للمبتدئين — إحاطة في الحوض وتدريب في المياه الضحلة وغوصتان في مياه مفتوحة على شعاب الغردقة مع مدرب معتمد.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "08:00", description: "الانتقال إلى مركز الغوص. إحاطة المعدات والتدريب في الحوض." },
-            { time: "10:00", description: "الصعود إلى قارب الغوص. الغوصة الأولى في مياه مفتوحة على الشعاب — أقصى 6 أمتار." },
-            { time: "11:30", description: "فترة استراحة سطحية مع مرطبات." },
-            { time: "12:15", description: "الغوصة الثانية في موقع شعاب مختلف." },
-            { time: "14:00", description: "العودة إلى المرسى. الانتقال إلى الفندق." },
-            { time: "19:30", description: "العشاء مشمول." },
-          ],
-        },
-        {
-          day: 6,
-          title: "سفاري الكواد وركوب الخيل",
-          description: "جولة دراجة رباعية في الصحراء صباحاً تليها جولة ركوب خيل بعد الظهر عبر الصحراء وعلى طول الشاطئ.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "09:00", description: "الانتقال إلى معسكر القاعدة الصحراوية. جولة الدراجة الرباعية — جولة صحراوية 45 دقيقة." },
-            { time: "11:00", description: "العودة إلى الفندق. الغداء مشمول." },
-            { time: "14:00", description: "الانتقال إلى الاصطبلات. ركوب الخيل عبر الصحراء وعلى طول الشاطئ." },
-            { time: "17:00", description: "العودة إلى الفندق." },
-            { time: "19:30", description: "العشاء مشمول." },
-          ],
-        },
-        {
-          day: 7,
-          title: "يوم قارب خليج أورانج",
-          description: "رحلة قارب يوم كامل إلى خليج أورانج — الغطس على الشعاب المحمية البكر والاسترخاء على الشاطئ الرملي الأبيض والسباحة في البحر الأحمر الفيروزي.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "08:30", description: "الانتقال إلى المرسى. الصعود إلى القارب إلى خليج أورانج." },
-            { time: "10:15", description: "الوصول إلى خليج أورانج. جلسة الغطس الأولى." },
-            { time: "12:00", description: "الاسترخاء على الشاطئ. الغداء — أحضر طعامك أو اشترِ على متن القارب." },
-            { time: "13:30", description: "جلسة الغطس الثانية." },
-            { time: "15:30", description: "العودة إلى مرسى الغردقة. الانتقال إلى الفندق." },
-            { time: "19:30", description: "العشاء الأخير مشمول. مساء وداع." },
-          ],
-        },
-        {
-          day: 8,
-          title: "صباح حر والمغادرة",
-          description: "صباح أخير حر في الغردقة — آخر غطسة في البحر أو مشية على الكورنيش أو تسوق في الدهار — قبل انتقالك إلى مطار الغردقة.",
-          steps: [
-            { time: "07:00", description: "الإفطار في الفندق." },
-            { time: "08:00", description: "وقت حر — آخر سباحة أو مشية على الكورنيش أو تسوق." },
-            { time: "11:00", description: "تسجيل المغادرة من الفندق." },
-            { time: "12:00", description: "الانتقال إلى مطار الغردقة الدولي. نهاية الجولة." },
-          ],
-        },
-      ],
     },
-  },
 ];
 
 export { cityData, toursData };
-

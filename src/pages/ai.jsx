@@ -227,7 +227,7 @@ Day 1 — [City]: [Day Title]
 Use REAL hotel names. Use REALISTIC prices. Be specific and detailed. Match the user's language if not English.`;
 
     try {
-      const res = await fetch("/api/ai/trip-plan", {
+      const res = await fetch("https://golden-egypt-tours-production.up.railway.app/api/ai/trip-plan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

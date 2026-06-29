@@ -1,45 +1,44 @@
 // ============================================================
 //  SharedLayout.jsx — Aurevian Tours
-//  Shared Nav + Footer + Google Translate + CSS
+//  Shared Nav + Footer + Language Switcher (static i18n) + CSS
 //  Import this in FAQ, CancellationPolicy, Terms, CustomTrips
 // ============================================================
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useGlobal } from "../context/GlobalContext";
 
-export const PHONE_DISPLAY = "+20 106 825 4454";
-export const PHONE_WA      = "201068254454";
+export const PHONE_DISPLAY = "+20 106 825 7754";
+export const PHONE_WA      = "201068257754";
 export const EMAIL         = "aureviantours@gmail.com";
 export const waLink = (msg) =>
   `https://wa.me/${PHONE_WA}${msg ? `?text=${encodeURIComponent(msg)}` : ""}`;
 
+// Each entry: [translationKey, path]
 export const NAV_LINKS = [
-  ["Home",         "/"],
-  ["Tours",        "/tours"],
-  ["Nile Cruises", "/packages"],
-  ["Custom Trips", "/ai"],
-  ["About Us",     "/about"],
-  ["Contact",      "/contact"],
+  ["home",        "/"],
+  ["tours",       "/tours"],
+  ["nileCruises", "/nile-cruises"],
+  ["customTrips", "/custom-trips"],
+  ["about",       "/about"],
+  ["contact",     "/contact"],
 ];
 
-const FOOTER_DEST    = [["Cairo","/city/cairo"],["Luxor","/city/luxor"],["Aswan","/city/aswan"],["Hurghada","/city/hurghada"],["Sharm El Sheikh","/city/sharm"],["All Destinations","/tours"]];
-const FOOTER_TOURS   = [["Day Tours","/tours"],["Multi-Day Tours","/packages"],["Nile Cruises","/packages"],["Private Tours","/tours"],["Adventure Tours","/tours"],["All Tours","/tours"]];
-const FOOTER_COMPANY = [["About Us","/about"],["Our Guides","/about"],["Travel Tips","/about"],["Blog","/about"],["Careers","/contact"],["Contact Us","/contact"]];
-const FOOTER_SUPPORT = [["FAQ","/faq"],["Cancellation Policy","/cancellation-policy"],["Privacy Policy","/contact"],["Terms & Conditions","/terms"]];
+const FOOTER_DEST    = [["Cairo","/city/cairo"],["Luxor","/city/luxor"],["Aswan","/city/aswan"],["Hurghada","/city/hurghada"],["Sharm El Sheikh","/city/sharm"],["allDestinations","/tours"]];
+const FOOTER_TOURS   = [["dayTours","/tours"],["multiDayTours","/packages"],["nileCruises","/nile-cruises"],["privateTours","/tours"],["adventureTours","/tours"],["allTours","/tours"]];
+const FOOTER_COMPANY = [["aboutUs","/about"],["ourGuides","/about"],["travelTips","/about"],["blog","/blog"],["careers","/careers"],["contactUs","/contact"]];
+const FOOTER_SUPPORT = [["faq","/faq"],["cancellationPolicy","/cancellation-policy"],["privacyPolicy","/privacy"],["terms","/terms"]];
+// FOOTER_DEST city names are kept untranslated by design — proper place
+// names are conventionally shown in their international tourism form.
 
+// Only the 7 core languages we actually maintain translations for.
 export const LANGS = [
-  {code:"en",label:"English",   flag:"🇬🇧",gtCode:"en"},
-  {code:"ar",label:"العربية",   flag:"🇪🇬",gtCode:"ar"},
-  {code:"es",label:"Español",   flag:"🇪🇸",gtCode:"es"},
-  {code:"fr",label:"Français",  flag:"🇫🇷",gtCode:"fr"},
-  {code:"de",label:"Deutsch",   flag:"🇩🇪",gtCode:"de"},
-  {code:"it",label:"Italiano",  flag:"🇮🇹",gtCode:"it"},
-  {code:"pt",label:"Português", flag:"🇵🇹",gtCode:"pt"},
-  {code:"zh",label:"中文",       flag:"🇨🇳",gtCode:"zh-CN"},
-  {code:"ru",label:"Русский",   flag:"🇷🇺",gtCode:"ru"},
-  {code:"ja",label:"日本語",     flag:"🇯🇵",gtCode:"ja"},
-  {code:"tr",label:"Türkçe",    flag:"🇹🇷",gtCode:"tr"},
-  {code:"ko",label:"한국어",     flag:"🇰🇷",gtCode:"ko"},
-  {code:"nl",label:"Nederlands",flag:"🇳🇱",gtCode:"nl"},
+  {code:"en",label:"English",   flag:"🇬🇧"},
+  {code:"es",label:"Español",   flag:"🇪🇸"},
+  {code:"pt",label:"Português", flag:"🇵🇹"},
+  {code:"it",label:"Italiano",  flag:"🇮🇹"},
+  {code:"de",label:"Deutsch",   flag:"🇩🇪"},
+  {code:"fr",label:"Français",  flag:"🇫🇷"},
+  {code:"ru",label:"Русский",   flag:"🇷🇺"},
 ];
 
 // ─── SHARED CSS ─────────────────────────────────────────────
@@ -129,45 +128,22 @@ export function BrandMark({ size = 44, dark }) {
   );
 }
 
-// ─── GOOGLE TRANSLATE HOOK ───────────────────────────────────
+// ─── LANGUAGE SWITCHER HOOK ──────────────────────────────────
+// Renamed conceptually (kept the same export name + return shape
+// on purpose) — this used to drive Google Translate, which Google
+// discontinued for commercial sites in 2019. It now drives our own
+// static translation dictionary instead. No code in any page that
+// calls useGoogleTranslate() needs to change.
 export function useGoogleTranslate() {
-  const [lang, setLang] = useState(LANGS[0]);
+  const { language, setLanguage } = useGlobal();
   const [open, setOpen] = useState(false);
+  const lang = LANGS.find(l => l.code === language) || LANGS[0];
 
-  useEffect(() => {
-    if (!document.getElementById("gt-script")) {
-      window.googleTranslateElementInit = () => {
-        new window.google.translate.TranslateElement(
-          { pageLanguage:"en", includedLanguages:"en,ar,fr,es,de,it,pt,ru,zh-CN,ja,nl,he,tr,ko", autoDisplay:false },
-          "gt-hidden"
-        );
-      };
-      const s = document.createElement("script");
-      s.id = "gt-script";
-      s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      s.async = true;
-      document.head.appendChild(s);
-    }
-  }, []);
-
-  const changeLang = (l, attempt = 0) => {
-    setLang(l);
+  const changeLang = (l) => {
+    setLanguage(l.code);
     setOpen(false);
     document.documentElement.setAttribute("lang", l.code);
-    document.documentElement.setAttribute("dir", l.code === "ar" ? "rtl" : "ltr");
-    try {
-      const sel = document.querySelector(".goog-te-combo");
-      if (sel) {
-        sel.value = l.gtCode;
-        sel.dispatchEvent(new Event("change"));
-        return;
-      }
-      // Widget script may still be loading on the very first click —
-      // retry briefly instead of silently doing nothing.
-      if (attempt < 15) {
-        setTimeout(() => changeLang(l, attempt + 1), 200);
-      }
-    } catch (e) {}
+    document.documentElement.setAttribute("dir", "ltr"); // none of the 7 core languages are RTL
   };
 
   return { lang, open, setOpen, changeLang };
@@ -196,20 +172,21 @@ export function LangDropdown({ lang, open, setOpen, changeLang, dark }) {
 // ─── NAV ────────────────────────────────────────────────────
 export function Nav({ scrolled, mMenu, setMMenu, activePath, langProps }) {
   const navigate = useNavigate();
+  const { t } = useGlobal();
   const { lang, open, setOpen, changeLang } = langProps;
   return (
     <nav style={{ position:"sticky", top:0, zIndex:1000, height:80, background: scrolled ? "rgba(250,246,237,.98)" : "rgba(250,246,237,.96)", backdropFilter:"blur(18px)", borderBottom:"1px solid rgba(193,156,60,.18)", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 clamp(14px,4vw,40px)", boxShadow: scrolled ? "0 4px 26px rgba(35,26,14,.1)" : "none", transition:"all .3s ease" }}>
       <BrandMark size={46}/>
       <ul className="dn" style={{ display:"flex", gap:"clamp(14px,2vw,26px)", listStyle:"none", alignItems:"center" }}>
-        {NAV_LINKS.map(([label, path]) => (
+        {NAV_LINKS.map(([key, path]) => (
           <li key={path}>
-            <Link to={path} className="av-link" style={{ color: path === activePath ? "#A07828" : "rgba(35,26,14,.62)", fontSize:11, letterSpacing:"0.14em", textTransform:"uppercase", textDecoration:"none", fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>{label}</Link>
+            <Link to={path} className="av-link" style={{ color: path === activePath ? "#A07828" : "rgba(35,26,14,.62)", fontSize:11, letterSpacing:"0.14em", textTransform:"uppercase", textDecoration:"none", fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>{t(`common.nav.${key}`)}</Link>
           </li>
         ))}
       </ul>
       <div style={{ display:"flex", alignItems:"center", gap:10 }}>
         <div className="dn"><LangDropdown lang={lang} open={open} setOpen={setOpen} changeLang={changeLang}/></div>
-        <button onClick={() => navigate("/contact")} className="dn av-gold" style={{ background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)", color:"#FAF6ED", border:"none", borderRadius:10, padding:"11px 22px", cursor:"pointer", fontWeight:700, fontSize:11, letterSpacing:"0.16em", textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif", whiteSpace:"nowrap", transition:"all .2s" }}>Plan My Trip ✦</button>
+        <button onClick={() => navigate("/contact")} className="dn av-gold" style={{ background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)", color:"#FAF6ED", border:"none", borderRadius:10, padding:"11px 22px", cursor:"pointer", fontWeight:700, fontSize:11, letterSpacing:"0.16em", textTransform:"uppercase", fontFamily:"'Josefin Sans',sans-serif", whiteSpace:"nowrap", transition:"all .2s" }}>{t("common.planTrip")}</button>
         <button className="dm" style={{ display:"none", background:"rgba(201,168,76,.1)", border:"1.5px solid rgba(193,156,60,.3)", color:"#A07828", width:40, height:40, borderRadius:9, cursor:"pointer", fontSize:17, alignItems:"center", justifyContent:"center" }} onClick={() => setMMenu(!mMenu)}>{mMenu ? "✕" : "☰"}</button>
       </div>
     </nav>
@@ -218,15 +195,16 @@ export function Nav({ scrolled, mMenu, setMMenu, activePath, langProps }) {
 
 // ─── MOBILE MENU ────────────────────────────────────────────
 export function MobileMenu({ open, setMMenu, activePath, langProps }) {
+  const { t } = useGlobal();
   const { lang, changeLang } = langProps;
   if (!open) return null;
   return (
     <div style={{ position:"sticky", top:80, zIndex:999, background:"#FAF6ED", borderBottom:"1px solid rgba(193,156,60,.2)", padding:"18px 22px 28px", animation:"slideD .22s ease" }}>
-      {NAV_LINKS.map(([label, path]) => (
-        <Link key={path} to={path} style={{ display:"block", padding:"12px 0", borderBottom:"1px solid rgba(193,156,60,.1)", color: path === activePath ? "#A07828" : "rgba(35,26,14,.65)", fontSize:13, letterSpacing:"0.14em", textTransform:"uppercase", textDecoration:"none", fontFamily:"'Josefin Sans',sans-serif" }} onClick={() => setMMenu(false)}>{label}</Link>
+      {NAV_LINKS.map(([key, path]) => (
+        <Link key={path} to={path} style={{ display:"block", padding:"12px 0", borderBottom:"1px solid rgba(193,156,60,.1)", color: path === activePath ? "#A07828" : "rgba(35,26,14,.65)", fontSize:13, letterSpacing:"0.14em", textTransform:"uppercase", textDecoration:"none", fontFamily:"'Josefin Sans',sans-serif" }} onClick={() => setMMenu(false)}>{t(`common.nav.${key}`)}</Link>
       ))}
       <div style={{ marginTop:16, marginBottom:10 }}>
-        <div style={{ fontSize:9, color:"#A07828", letterSpacing:3, textTransform:"uppercase", marginBottom:9, fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>🌍 Language</div>
+        <div style={{ fontSize:9, color:"#A07828", letterSpacing:3, textTransform:"uppercase", marginBottom:9, fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>🌍 {t("common.language")}</div>
         <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
           {LANGS.map(l => (
             <button key={l.code} onClick={() => changeLang(l)} style={{ background: lang.code === l.code ? "rgba(201,168,76,.2)" : "rgba(201,168,76,.06)", border:"1.5px solid rgba(193,156,60,.2)", color: lang.code === l.code ? "#A07828" : "rgba(35,26,14,.55)", borderRadius:7, padding:"5px 10px", cursor:"pointer", fontSize:11, fontFamily:"'Josefin Sans',sans-serif" }}>{l.flag} {l.label}</button>
@@ -234,8 +212,8 @@ export function MobileMenu({ open, setMMenu, activePath, langProps }) {
         </div>
       </div>
       <div style={{ display:"flex", gap:10, marginTop:14 }}>
-        <a href={`tel:+${PHONE_WA}`} style={{ flex:1, textAlign:"center", background:"rgba(201,168,76,.08)", border:"1px solid rgba(193,156,60,.25)", color:"#A07828", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>📞 Call Us</a>
-        <a href={waLink()} target="_blank" rel="noreferrer" style={{ flex:1, textAlign:"center", background:"#25D366", color:"#fff", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>💬 WhatsApp</a>
+        <a href={`tel:+${PHONE_WA}`} style={{ flex:1, textAlign:"center", background:"rgba(201,168,76,.08)", border:"1px solid rgba(193,156,60,.25)", color:"#A07828", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>📞 {t("common.callUs")}</a>
+        <a href={waLink()} target="_blank" rel="noreferrer" style={{ flex:1, textAlign:"center", background:"#25D366", color:"#fff", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>💬 {t("common.whatsapp")}</a>
       </div>
     </div>
   );
@@ -243,40 +221,41 @@ export function MobileMenu({ open, setMMenu, activePath, langProps }) {
 
 // ─── FOOTER ─────────────────────────────────────────────────
 export function Footer() {
+  const { t } = useGlobal();
   return (
     <footer style={{ background:"#FBF8F0", padding:"clamp(40px,6vw,68px) clamp(16px,4vw,48px) clamp(20px,3vw,26px)" }}>
       <div className="av-footer-grid" style={{ marginBottom:"clamp(28px,4vw,44px)" }}>
         <div>
           <div style={{ marginBottom:15 }}><BrandMark size={48}/></div>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", color:"#9C7A3C", fontSize:13, lineHeight:1.75, marginBottom:16, maxWidth:260 }}>We craft luxury journeys across Egypt with passion, expertise and attention to every detail. Your adventure, perfectly curated.</p>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", color:"#9C7A3C", fontSize:13, lineHeight:1.75, marginBottom:16, maxWidth:260 }}>{t("common.footer.tagline")}</p>
           <div style={{ display:"flex", gap:8 }}>
             {[["f","Facebook"],["📸","Instagram"],["▶","YouTube"],["♪","TikTok"],["💬","WhatsApp"]].map(([ic,nm]) => (
               <a key={nm} href={nm==="WhatsApp"?waLink():"#"} target={nm==="WhatsApp"?"_blank":undefined} rel="noreferrer" title={nm} className="av-social" style={{ width:33, height:33, borderRadius:8, background:"rgba(201,168,76,.1)", border:"1.5px solid rgba(193,156,60,.25)", display:"flex", alignItems:"center", justifyContent:"center", color:"#9C7A3C", textDecoration:"none", fontSize:12, transition:"all .2s" }}>{ic}</a>
             ))}
           </div>
         </div>
-        {[["Destinations",FOOTER_DEST],["Tours",FOOTER_TOURS]].map(([title,links]) => (
-          <div key={title}>
-            <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>{title}</div>
-            {links.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{lbl}</Link>)}
+        {[["destinations",FOOTER_DEST,false],["tours",FOOTER_TOURS,true]].map(([titleKey,links,translateLabels]) => (
+          <div key={titleKey}>
+            <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>{t(`common.footer.${titleKey}`)}</div>
+            {links.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{translateLabels ? t(`common.footer.${lbl}`) : lbl}</Link>)}
           </div>
         ))}
         <div>
-          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>Company</div>
-          {FOOTER_COMPANY.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{lbl}</Link>)}
-          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", margin:"16px 0 15px", fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>Support</div>
-          {FOOTER_SUPPORT.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{lbl}</Link>)}
+          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>{t("common.footer.company")}</div>
+          {FOOTER_COMPANY.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{t(`common.footer.${lbl}`)}</Link>)}
+          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", margin:"16px 0 15px", fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>{t("common.footer.support")}</div>
+          {FOOTER_SUPPORT.map(([lbl,path]) => <Link key={lbl} to={path} className="av-footlink" style={{ display:"block", color:"#9C7A3C", fontSize:13, marginBottom:9, textDecoration:"none", fontFamily:"'Cormorant Garamond',serif" }}>{t(`common.footer.${lbl}`)}</Link>)}
         </div>
         <div>
-          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>Contact Us</div>
+          <div style={{ color:"#8B6010", fontSize:9, letterSpacing:"0.25em", textTransform:"uppercase", marginBottom:15, fontWeight:700, paddingBottom:9, borderBottom:"1px solid rgba(193,156,60,.2)", fontFamily:"'Josefin Sans',sans-serif" }}>{t("common.footer.contactUs")}</div>
           <a href={`tel:+${PHONE_WA}`} style={{ display:"flex", gap:9, marginBottom:11, fontSize:13, color:"#9C7A3C", fontFamily:"'Cormorant Garamond',serif", textDecoration:"none" }}><span style={{ color:"#A07828" }}>📞</span>{PHONE_DISPLAY}</a>
           <a href={`mailto:${EMAIL}`} style={{ display:"flex", gap:9, marginBottom:11, fontSize:13, color:"#9C7A3C", fontFamily:"'Cormorant Garamond',serif", textDecoration:"none" }}><span style={{ color:"#A07828" }}>✉</span>{EMAIL}</a>
           <div style={{ display:"flex", gap:9, marginBottom:14, fontSize:13, color:"#9C7A3C", fontFamily:"'Cormorant Garamond',serif" }}><span style={{ color:"#A07828" }}>📍</span>Cairo, Egypt</div>
-          <a href={waLink()} target="_blank" rel="noreferrer" style={{ display:"block", background:"#25D366", color:"#fff", textAlign:"center", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>💬 WhatsApp Us</a>
+          <a href={waLink()} target="_blank" rel="noreferrer" style={{ display:"block", background:"#25D366", color:"#fff", textAlign:"center", borderRadius:10, padding:"11px", textDecoration:"none", fontSize:12, fontWeight:700, fontFamily:"'Josefin Sans',sans-serif" }}>💬 {t("common.footer.whatsappUs")}</a>
         </div>
       </div>
       <div style={{ borderTop:"1px solid rgba(193,156,60,.15)", paddingTop:20, display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:12 }}>
-        <span style={{ color:"rgba(35,26,14,.5)", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>© 2026 Aurevian Tours. All rights reserved.</span>
+        <span style={{ color:"rgba(35,26,14,.5)", fontSize:12, fontFamily:"'Josefin Sans',sans-serif" }}>{t("common.footer.rights")}</span>
         <div style={{ display:"flex", gap:8 }}>
           {["VISA","Mastercard","PayPal","Apple Pay"].map(b => <span key={b} style={{ background:"rgba(201,168,76,.08)", border:"1px solid rgba(193,156,60,.2)", borderRadius:6, padding:"3px 10px", color:"rgba(35,26,14,.5)", fontSize:9, fontFamily:"'Josefin Sans',sans-serif" }}>{b}</span>)}
         </div>

@@ -14,8 +14,8 @@ import PaymentModal from "../components/PaymentModal";
 import { useGlobal } from "../context/GlobalContext";
 
 // ─── CONTACT ───────────────────────────────────────────────────
-const PHONE_DISPLAY = "+20 106 825 4454";
-const PHONE_WA      = "201068254454";
+const PHONE_DISPLAY = "+20 106 825 7754";
+const PHONE_WA      = "201068257754";
 const EMAIL         = "aureviantours@gmail.com";
 const waLink = (msg) => `https://wa.me/${PHONE_WA}${msg ? `?text=${msg}` : ""}`;
 
@@ -41,19 +41,13 @@ const CURR = {
 
 // ─── LANGUAGES ─────────────────────────────────────────────────
 const LANGS = [
-  {code:"en", label:"English",    flag:"🇬🇧", dir:"ltr"},
-  {code:"es", label:"Español",    flag:"🇪🇸", dir:"ltr"},
-  {code:"it", label:"Italiano",   flag:"🇮🇹", dir:"ltr"},
-  {code:"fr", label:"Français",   flag:"🇫🇷", dir:"ltr"},
-  {code:"de", label:"Deutsch",    flag:"🇩🇪", dir:"ltr"},
-  {code:"pt", label:"Português",  flag:"🇵🇹", dir:"ltr"},
-  {code:"zh", label:"中文",        flag:"🇨🇳", dir:"ltr"},
-  {code:"nl", label:"Nederlands", flag:"🇳🇱", dir:"ltr"},
-  {code:"ja", label:"日本語",      flag:"🇯🇵", dir:"ltr"},
-  {code:"ru", label:"Русский",    flag:"🇷🇺", dir:"ltr"},
-  {code:"tr", label:"Türkçe",     flag:"🇹🇷", dir:"ltr"},
-  {code:"ko", label:"한국어",      flag:"🇰🇷", dir:"ltr"},
-  {code:"ar", label:"العربية",    flag:"🇪🇬", dir:"rtl"},
+  {code:"en", label:"English",    flag:"🇬🇧"},
+  {code:"es", label:"Español",    flag:"🇪🇸"},
+  {code:"pt", label:"Português",  flag:"🇵🇹"},
+  {code:"it", label:"Italiano",   flag:"🇮🇹"},
+  {code:"de", label:"Deutsch",    flag:"🇩🇪"},
+  {code:"fr", label:"Français",   flag:"🇫🇷"},
+  {code:"ru", label:"Русский",    flag:"🇷🇺"},
 ];
 
 // ─── DESTINATIONS (kept exactly as in the original project) ───
@@ -151,19 +145,21 @@ const GUIDE_LANGS = [
 
 const TOUR_TYPES = ["All Categories","Day Tour","Nile Cruise","Multi-Day","Adventure","Cultural","Private","Honeymoon","Family"];
 
-// ─── NAV / FOOTER STRUCTURE ──────────────────────────────────────
+// ─── NAV / FOOTER STRUCTURE — keys match common.nav.* / common.footer.* ─
 const NAV_LINKS = [
-  ["Home","/"],
-  ["Tours","/tours"],
-  ["Nile Cruises","/packages"],
-  ["Custom Trips","/ai"],
-  ["About Us","/about"],
-  ["Contact","/contact"],
+  ["home","/"],
+  ["tours","/tours"],
+  ["nileCruises","/nile-cruises"],
+  ["customTrips","/custom-trips"],
+  ["about","/about"],
+  ["contact","/contact"],
 ];
-const FOOTER_DEST    = [...CITIES.slice(0,5).map(c=>[c.name,`/city/${c.id}`]), ["All Destinations","/tours"]];
-const FOOTER_TOURS   = [["Day Tours","/tours"],["Multi-Day Tours","/packages"],["Nile Cruises","/packages"],["Private Tours","/tours"],["Adventure Tours","/tours"],["All Tours","/tours"]];
-const FOOTER_COMPANY = [["About Us","/about"],["Our Guides","/about"],["Travel Tips","/about"],["Blog","/about"],["Careers","/contact"],["Contact Us","/contact"]];
-const FOOTER_SUPPORT = [["FAQ","/contact"],["Cancellation Policy","/contact"],["Privacy Policy","/contact"],["Terms & Conditions","/contact"]];
+const FOOTER_DEST    = [...CITIES.slice(0,5).map(c=>[c.name,`/city/${c.id}`]), ["allDestinations","/tours"]];
+const FOOTER_TOURS   = [["dayTours","/tours"],["multiDayTours","/packages"],["nileCruises","/nile-cruises"],["privateTours","/tours"],["adventureTours","/tours"],["allTours","/tours"]];
+const FOOTER_COMPANY = [["aboutUs","/about"],["ourGuides","/about"],["travelTips","/about"],["blog","/blog"],["careers","/careers"],["contactUs","/contact"]];
+const FOOTER_SUPPORT = [["faq","/faq"],["cancellationPolicy","/cancellation-policy"],["privacyPolicy","/privacy"],["terms","/terms"]];
+// City names (FOOTER_DEST) stay untranslated by design — proper place
+// names are conventionally shown in their international tourism form.
 
 const PACKAGES_COUNT = 8;
 const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).toLocaleString()}`;
@@ -424,7 +420,9 @@ function SectionHead({eyebrow, title, onViewAll, viewAllLabel="View All", scroll
 //  DESTINATION TILE (fills its bento grid cell)
 // ════════════════════════════════════════════════════════════════
 function DestinationTile({c, size, navigate, fmtP}){
+  const { t } = useGlobal();
   const big = size==="big";
+  const ct = t("home.citiesText")[c.id] || {};
   return(
     <div className={`av-dest-tile ${size||""}`} onClick={()=>navigate(`/city/${c.id}`)}
       style={{width:"100%",height:"100%"}}>
@@ -433,11 +431,11 @@ function DestinationTile({c, size, navigate, fmtP}){
         onError={e=>e.target.src=`https://placehold.co/420x520/EDE3C8/8B6010?text=${encodeURIComponent(c.name)}`}/>
       <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.92) 0%,rgba(20,15,8,.22) 50%,rgba(20,15,8,.04) 72%)"}}/>
       <div style={{position:"absolute",top:big?16:10,left:big?16:10,width:big?40:30,height:big?40:30,borderRadius:"50%",background:"rgba(250,246,237,.92)",border:`1.5px solid ${c.color}88`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:big?20:14}}>{c.icon}</div>
-      <div style={{position:"absolute",top:big?18:11,right:big?16:10,background:"rgba(250,246,237,.88)",borderRadius:7,padding:big?"4px 12px":"3px 8px",fontSize:big?10:8,fontWeight:700,color:"#6B4E1A",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours}+ Tours</div>
+      <div style={{position:"absolute",top:big?18:11,right:big?16:10,background:"rgba(250,246,237,.88)",borderRadius:7,padding:big?"4px 12px":"3px 8px",fontSize:big?10:8,fontWeight:700,color:"#6B4E1A",fontFamily:"'Josefin Sans',sans-serif"}}>{c.tours}+ {t("home.toursLabel")}</div>
       <div style={{position:"absolute",bottom:0,left:0,right:0,padding:big?"20px 22px":"10px 12px"}}>
-        {big&&<div style={{fontSize:9,color:"#E8C96D",letterSpacing:"0.22em",textTransform:"uppercase",marginBottom:6,fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{c.tag}</div>}
+        {big&&<div style={{fontSize:9,color:"#E8C96D",letterSpacing:"0.22em",textTransform:"uppercase",marginBottom:6,fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{ct.tag||c.tag}</div>}
         <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:big?24:13.5,color:"#FAF6ED",marginBottom:big?7:3,textShadow:"0 2px 10px rgba(0,0,0,.5)",lineHeight:1.15}}>{c.name}</div>
-        {big&&<div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"rgba(250,246,237,.78)",marginBottom:10}}>{c.desc}</div>}
+        {big&&<div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"rgba(250,246,237,.78)",marginBottom:10}}>{ct.desc||c.desc}</div>}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
           <span style={{fontSize:big?11:8.5,color:"rgba(250,246,237,.8)",fontFamily:"'Josefin Sans',sans-serif"}}>★ {c.rating}{big&&<span style={{color:"rgba(250,246,237,.55)"}}> ({c.reviews.toLocaleString()})</span>}</span>
           <span style={{fontFamily:"'Cinzel',serif",fontSize:big?14:10,fontWeight:700,color:"#E8C96D"}}>{fmtP(c.price)}</span>
@@ -451,6 +449,7 @@ function DestinationTile({c, size, navigate, fmtP}){
 //  TOUR / PACKAGE CARD
 // ════════════════════════════════════════════════════════════════
 function TourCard({p, navigate, fmtP, onBook}){
+  const { t } = useGlobal();
   return(
     <div className="av-tour-card" style={{width:"clamp(252px,26vw,300px)",borderRadius:18,overflow:"hidden",background:"#fff",border:"1px solid rgba(35,26,14,.08)",boxShadow:"0 8px 26px rgba(35,26,14,.08)"}}>
       <div onClick={()=>navigate(p.link)} style={{position:"relative",height:178,overflow:"hidden",cursor:"pointer",background:"#EDE3C8"}}>
@@ -466,13 +465,13 @@ function TourCard({p, navigate, fmtP, onBook}){
         <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginBottom:12}}>★ {p.rating} <span style={{color:"#B8A06A"}}>({p.reviews})</span></div>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:6}}>
           <div>
-            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>From </span>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.cardFrom")} </span>
             <span style={{fontFamily:"'Cinzel',serif",fontSize:19,fontWeight:700,color:"#8B6010"}}>{fmtP(p.price)}</span>
-            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}> /person</span>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}> {t("home.cardPerPerson")}</span>
           </div>
         </div>
-        <div style={{fontSize:10,color:"#1A9E50",fontFamily:"'Josefin Sans',sans-serif",marginBottom:13,fontWeight:600}}>✓ Free Cancellation</div>
-        <button onClick={()=>onBook(p)} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 5px 18px rgba(160,120,40,.3)"}}>Book Now</button>
+        <div style={{fontSize:10,color:"#1A9E50",fontFamily:"'Josefin Sans',sans-serif",marginBottom:13,fontWeight:600}}>✓ {t("home.cardFreeCancel")}</div>
+        <button onClick={()=>onBook(p)} style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 5px 18px rgba(160,120,40,.3)"}}>{t("home.cardBookNow")}</button>
       </div>
     </div>
   );
@@ -481,26 +480,27 @@ function TourCard({p, navigate, fmtP, onBook}){
 // ════════════════════════════════════════════════════════════════
 //  BEST SELLER CARD — whole card opens the tour directly
 // ════════════════════════════════════════════════════════════════
-function BestSellerCard({t, rank, navigate, fmtP}){
+function BestSellerCard({t:tour, rank, navigate, fmtP}){
+  const { t } = useGlobal();
   return(
-    <div className="av-best-card" onClick={()=>navigate(t.link)}>
+    <div className="av-best-card" onClick={()=>navigate(tour.link)}>
       <div style={{position:"relative",height:168,overflow:"hidden",background:"#EDE3C8"}}>
-        <img className="av-img" src={t.img} alt={t.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
-          onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${encodeURIComponent(t.title.slice(0,12))}`}/>
+        <img className="av-img" src={tour.img} alt={tour.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+          onError={e=>e.target.src=`https://placehold.co/600x400/EDE3C8/8B6010?text=${encodeURIComponent(tour.title.slice(0,12))}`}/>
         <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(20,15,8,.5) 0%,transparent 55%)"}}/>
-        <div style={{position:"absolute",top:11,left:11,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",fontSize:9,fontWeight:700,padding:"4px 11px",borderRadius:18,letterSpacing:"0.06em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:4}}>★ #{rank} Bestseller</div>
-        <div style={{position:"absolute",top:11,right:11,background:"rgba(250,246,237,.92)",color:"#6B4E1A",fontSize:9,fontWeight:700,padding:"4px 10px",borderRadius:7,fontFamily:"'Josefin Sans',sans-serif"}}>{t.duration}</div>
-        <div style={{position:"absolute",bottom:10,left:12,color:"#FAF6ED",fontSize:10.5,fontFamily:"'Josefin Sans',sans-serif",textShadow:"0 2px 8px rgba(0,0,0,.6)"}}>📍 {t.location}</div>
+        <div style={{position:"absolute",top:11,left:11,background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",fontSize:9,fontWeight:700,padding:"4px 11px",borderRadius:18,letterSpacing:"0.06em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:4}}>★ #{rank} {t("home.cardBestseller")}</div>
+        <div style={{position:"absolute",top:11,right:11,background:"rgba(250,246,237,.92)",color:"#6B4E1A",fontSize:9,fontWeight:700,padding:"4px 10px",borderRadius:7,fontFamily:"'Josefin Sans',sans-serif"}}>{tour.duration}</div>
+        <div style={{position:"absolute",bottom:10,left:12,color:"#FAF6ED",fontSize:10.5,fontFamily:"'Josefin Sans',sans-serif",textShadow:"0 2px 8px rgba(0,0,0,.6)"}}>📍 {tour.location}</div>
       </div>
       <div style={{padding:"15px 17px 18px"}}>
-        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:"#231A0E",marginBottom:7,lineHeight:1.35,minHeight:38}}>{t.title}</div>
-        <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginBottom:11}}>★ {t.rating} <span style={{color:"#B8A06A"}}>({t.reviews.toLocaleString()})</span></div>
+        <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:"#231A0E",marginBottom:7,lineHeight:1.35,minHeight:38}}>{tour.title}</div>
+        <div style={{fontSize:11,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif",marginBottom:11}}>★ {tour.rating} <span style={{color:"#B8A06A"}}>({tour.reviews.toLocaleString()})</span></div>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline"}}>
           <div>
-            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>From </span>
-            <span style={{fontFamily:"'Cinzel',serif",fontSize:17,fontWeight:700,color:"#8B6010"}}>{fmtP(t.price)}</span>
+            <span style={{fontSize:10,color:"#9C7A3C",fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.cardFrom")} </span>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:17,fontWeight:700,color:"#8B6010"}}>{fmtP(tour.price)}</span>
           </div>
-          <span style={{fontSize:10,color:"#A07828",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>View →</span>
+          <span style={{fontSize:10,color:"#A07828",fontFamily:"'Josefin Sans',sans-serif",fontWeight:700}}>{t("home.cardView")} →</span>
         </div>
       </div>
     </div>
@@ -509,11 +509,12 @@ function BestSellerCard({t, rank, navigate, fmtP}){
 
 
 function ReviewCard({r}){
+  const { t } = useGlobal();
   return(
     <div className="av-review-card" style={{width:"clamp(270px,28vw,330px)",background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:18,padding:"22px 22px 20px",boxShadow:"0 8px 26px rgba(35,26,14,.08)"}}>
       <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:11,flexWrap:"wrap"}}>
         <span style={{background:"rgba(201,168,76,.12)",border:"1px solid rgba(193,156,60,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#8B6010",fontWeight:700,letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>{r.platform}</span>
-        {r.verified && <span style={{background:"rgba(37,211,102,.12)",border:"1px solid rgba(37,211,102,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#1A9E50",fontWeight:700,letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>✓ Verified</span>}
+        {r.verified && <span style={{background:"rgba(37,211,102,.12)",border:"1px solid rgba(37,211,102,.3)",borderRadius:6,padding:"2px 9px",fontSize:8,color:"#1A9E50",fontWeight:700,letterSpacing:"0.08em",fontFamily:"'Josefin Sans',sans-serif"}}>✓ {t("home.cardVerified")}</span>}
         <span style={{marginLeft:"auto",fontSize:9,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}>{r.date}</span>
       </div>
       <Stars n={r.stars}/>
@@ -582,10 +583,9 @@ function LangDropdown({current,onSelect,open,setOpen,small}){
 // ════════════════════════════════════════════════════════════════
 export default function Home(){
   const navigate = useNavigate();
-  const { language:globalLang, currency:globalCur, setLanguage:setGlobalLang, setCurrency:setGlobalCur, formatPrice } = useGlobal();
+  const { language, currency:globalCur, setLanguage, setCurrency:setGlobalCur, formatPrice, t } = useGlobal();
 
   const [cur,setCurLocal]       = useState(globalCur || "USD");
-  const [uiLang,setUiLang]      = useState(LANGS[0]);
   const [scrolled,setSc]        = useState(false);
   const [mMenu,setMMenu]        = useState(false);
   const [cO,setCO]              = useState(false);
@@ -625,50 +625,14 @@ export default function Home(){
     });
   };
 
-  const triggerGoogleTranslate = useCallback((code, attempt=0) => {
-    const selectEl = document.querySelector(".goog-te-combo");
-    if(selectEl){
-      selectEl.value = code;
-      selectEl.dispatchEvent(new Event("change"));
-      return;
-    }
-    // Widget script may still be loading — retry briefly instead of silently failing
-    if(attempt < 15){
-      setTimeout(() => triggerGoogleTranslate(code, attempt+1), 200);
-    }
-  }, []);
-
+  // Static i18n — instant, free, works on localhost AND in production.
+  // (Google's Website Translator widget was discontinued for commercial
+  // sites in 2019, which is why it never worked here.)
+  const uiLang = LANGS.find(l => l.code === language) || LANGS[0];
   const handleLangSelect = useCallback((lang) => {
-    setUiLang(lang);
-    if(setGlobalLang) setGlobalLang(lang.code);
-    document.documentElement.setAttribute("lang", lang.code);
-    document.documentElement.setAttribute("dir", lang.dir || "ltr");
-    if(window.i18n && window.i18n.changeLanguage){ window.i18n.changeLanguage(lang.code); }
-    if(lang.code === "en"){
-      // reset to original English — Google Translate's own combo handles this when set to "en"
-      triggerGoogleTranslate("en");
-    } else {
-      triggerGoogleTranslate(lang.code);
-    }
-  }, [setGlobalLang, triggerGoogleTranslate]);
-
-  // Google Translate engine (silent / hidden widget drives all translation)
-  useEffect(()=>{
-    if(!document.getElementById("gt-script")){
-      window.googleTranslateElementInit=()=>{
-        new window.google.translate.TranslateElement({
-          pageLanguage:"en",
-          includedLanguages:"en,ar,fr,es,de,it,pt,ru,zh-CN,ja,nl,he,tr,ko",
-          autoDisplay:false,
-        },"gt-hidden");
-      };
-      const s=document.createElement("script");
-      s.id="gt-script";
-      s.src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      s.async=true;
-      document.head.appendChild(s);
-    }
-  },[]);
+    setLanguage(lang.code);
+    setLangOpen(false);
+  }, [setLanguage]);
 
   useEffect(()=>{if(globalCur)setCurLocal(globalCur);},[globalCur]);
   useEffect(()=>{const fn=()=>setSc(window.scrollY>10);window.addEventListener("scroll",fn,{passive:true});return()=>window.removeEventListener("scroll",fn);},[]);
@@ -728,7 +692,7 @@ Day 1 — [City]: Morning: [specific activity + site]. Afternoon: [activity]. Ev
 
 Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's language.`;
     try{
-      const r=await fetch("/api/ai/trip-plan",{
+      const r=await fetch("https://golden-egypt-tours-production.up.railway.app/api/ai/trip-plan",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({ system: SYSTEM, query: aiQ })
@@ -746,12 +710,11 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
   return(
     <div style={{background:"#FAF6ED",color:"#231A0E",minHeight:"100vh",overflowX:"hidden",fontFamily:"'Josefin Sans',sans-serif"}}>
       <style>{CSS}</style>
-      <div id="gt-hidden" style={{display:"none"}}/>
 
       {/* ══════════════ TOP UTILITY BAR ══════════════ */}
       <div className="dn" style={{background:"#171009",height:38,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(16px,4vw,40px)",fontSize:11,color:"rgba(250,246,237,.78)",fontFamily:"'Josefin Sans',sans-serif"}}>
         <div style={{display:"flex",gap:22,alignItems:"center"}}>
-          {STAT_TOP.map(([ic,t],i)=><span key={i} style={{display:"flex",alignItems:"center",gap:6,whiteSpace:"nowrap"}}><span>{ic}</span>{t}</span>)}
+          {t("home.statTop").map(([ic,txt],i)=><span key={i} style={{display:"flex",alignItems:"center",gap:6,whiteSpace:"nowrap"}}><span>{ic}</span>{txt}</span>)}
         </div>
         <div style={{display:"flex",gap:16,alignItems:"center"}}>
           <LangDropdown current={uiLang} onSelect={handleLangSelect} open={langOpen} setOpen={setLangOpen} small/>
@@ -775,7 +738,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <ul className="dn" style={{display:"flex",gap:"clamp(14px,2vw,26px)",listStyle:"none",alignItems:"center"}}>
           <li><Link to="/" className="av-link" style={{color:"#A07828",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>Home</Link></li>
           <li className="av-destdd" style={{position:"relative"}}>
-            <button onClick={()=>setDestOpen(!destOpen)} className="av-link" style={{background:"none",border:"none",color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>Destinations <span style={{fontSize:8}}>▾</span></button>
+            <button onClick={()=>setDestOpen(!destOpen)} className="av-link" style={{background:"none",border:"none",color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>{t("home.navDestinations")} <span style={{fontSize:8}}>▾</span></button>
             {destOpen&&(
               <div style={{position:"absolute",top:"calc(100% + 14px)",left:"50%",transform:"translateX(-50%)",background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:14,padding:12,zIndex:2000,minWidth:320,boxShadow:"0 24px 56px rgba(20,15,8,.16)",animation:"slideD .18s ease",display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
                 {CITIES.map(c=>(
@@ -786,15 +749,15 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
               </div>
             )}
           </li>
-          {NAV_LINKS.slice(1).map(([label,path])=>(
-            <li key={path}><Link to={path} className="av-link" style={{color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{label}</Link></li>
+          {NAV_LINKS.slice(1).map(([key,path])=>(
+            <li key={path}><Link to={path} className="av-link" style={{color:"rgba(35,26,14,.62)",fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{t(`common.nav.${key}`)}</Link></li>
           ))}
         </ul>
 
         <div style={{display:"flex",alignItems:"center",gap:8}}>
           <button title="Wishlist" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>♡</button>
           <button title="My Account" className="dn av-iconbtn" style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.25)",width:38,height:38,borderRadius:9,cursor:"pointer",fontSize:15,color:"#A07828",alignItems:"center",justifyContent:"center",display:"flex"}}>⚇</button>
-          <button onClick={()=>navigate("/custom-trips")} className="dn av-gold" style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px 24px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 22px rgba(160,120,40,.32)",whiteSpace:"nowrap",transition:"all .2s"}}>Plan My Trip</button>
+          <button onClick={()=>navigate("/custom-trips")} className="dn av-gold" style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:10,padding:"12px 24px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 6px 22px rgba(160,120,40,.32)",whiteSpace:"nowrap",transition:"all .2s"}}>{t("common.planTrip")}</button>
           <button className="dm" style={{display:"none",background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",color:"#A07828",width:40,height:40,borderRadius:9,cursor:"pointer",fontSize:17,alignItems:"center",justifyContent:"center"}} onClick={()=>setMMenu(!mMenu)}>{mMenu?"✕":"☰"}</button>
         </div>
       </nav>
@@ -802,11 +765,11 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       {/* ══════════════ MOBILE DRAWER ══════════════ */}
       {mMenu&&(
         <div style={{position:"sticky",top:80,zIndex:999,background:"#FAF6ED",borderBottom:"1px solid rgba(193,156,60,.2)",padding:"18px 22px 28px",animation:"slideD .22s ease"}}>
-          {NAV_LINKS.map(([label,path])=>(
-            <Link key={path} to={path} style={{display:"block",padding:"12px 0",borderBottom:"1px solid rgba(193,156,60,.1)",color:"rgba(35,26,14,.65)",fontSize:13,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Josefin Sans',sans-serif"}} onClick={()=>setMMenu(false)}>{label}</Link>
+          {NAV_LINKS.map(([key,path])=>(
+            <Link key={path} to={path} style={{display:"block",padding:"12px 0",borderBottom:"1px solid rgba(193,156,60,.1)",color:"rgba(35,26,14,.65)",fontSize:13,letterSpacing:"0.14em",textTransform:"uppercase",textDecoration:"none",fontFamily:"'Josefin Sans',sans-serif"}} onClick={()=>setMMenu(false)}>{t(`common.nav.${key}`)}</Link>
           ))}
           <div style={{marginTop:16,marginBottom:8}}>
-            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:9,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 Language</div>
+            <div style={{fontSize:9,color:"#A07828",letterSpacing:3,textTransform:"uppercase",marginBottom:9,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>🌍 {t("common.language")}</div>
             <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
               {LANGS.map(l=>(
                 <button key={l.code} onClick={()=>{handleLangSelect(l);}} style={{background:uiLang.code===l.code?"rgba(201,168,76,.2)":"rgba(201,168,76,.06)",border:"1.5px solid rgba(193,156,60,.2)",color:uiLang.code===l.code?"#A07828":"rgba(35,26,14,.55)",borderRadius:7,padding:"5px 10px",cursor:"pointer",fontSize:11,fontFamily:"'Josefin Sans',sans-serif"}}>{l.flag} {l.label}</button>
@@ -835,20 +798,20 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <div style={{position:"absolute",inset:0,background:"linear-gradient(100deg,rgba(17,12,6,.86) 0%,rgba(17,12,6,.6) 38%,rgba(17,12,6,.18) 68%,rgba(17,12,6,.05) 100%),linear-gradient(to top,rgba(17,12,6,.55) 0%,transparent 35%)"}}/>
 
         <div style={{position:"relative",zIndex:2,width:"min(620px,92%)",padding:"clamp(60px,10vh,90px) clamp(20px,5vw,56px) clamp(74px,9vh,96px)"}}>
-          <div data-v="hEy" style={{display:"inline-block",fontSize:10,color:"#E8C96D",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,marginBottom:18,fontFamily:"'Josefin Sans',sans-serif",...reveal("hEy")}}>Luxury Journeys Through Timeless Egypt</div>
+          <div data-v="hEy" style={{display:"inline-block",fontSize:10,color:"#E8C96D",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,marginBottom:18,fontFamily:"'Josefin Sans',sans-serif",...reveal("hEy")}}>{t("home.heroEyebrow")}</div>
           <h1 data-v="hT" style={{fontFamily:"'Cinzel',serif",fontWeight:700,lineHeight:1.08,marginBottom:18,...reveal("hT",.08)}}>
-            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#FAF6ED"}}>Egypt,</span>
-            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#E8C96D"}}>Curated Beautifully.</span>
+            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#FAF6ED"}}>{t("home.heroTitle1")}</span>
+            <span style={{display:"block",fontSize:"clamp(34px,5.2vw,58px)",color:"#E8C96D"}}>{t("home.heroTitle2")}</span>
           </h1>
           <p data-v="hP" style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"clamp(14px,1.6vw,18px)",color:"rgba(250,246,237,.78)",lineHeight:1.75,marginBottom:30,maxWidth:440,...reveal("hP",.16)}}>
-            Private tours. Expert guides. Unforgettable memories. Designed just for you.
+            {t("home.heroSubtitle")}
           </p>
           <div data-v="hB" style={{display:"flex",gap:13,flexWrap:"wrap",...reveal("hB",.24)}}>
-            <button onClick={()=>navigate("/tours")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"15px 28px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 28px rgba(160,120,40,.4)"}}>Explore Tours</button>
-            <button onClick={()=>navigate("/custom-trips")} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(250,246,237,.55)",color:"#FAF6ED",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(6px)"}}>Plan My Trip</button>
+            <button onClick={()=>navigate("/tours")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"15px 28px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 28px rgba(160,120,40,.4)"}}>{t("home.heroExplore")}</button>
+            <button onClick={()=>navigate("/custom-trips")} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(250,246,237,.55)",color:"#FAF6ED",borderRadius:10,padding:"15px 26px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",backdropFilter:"blur(6px)"}}>{t("common.planTrip")}</button>
             <button onClick={()=>setVideoOpen(true)} style={{background:"rgba(250,246,237,.1)",border:"1.5px solid rgba(250,246,237,.35)",color:"#FAF6ED",borderRadius:10,padding:"15px 22px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.12em",fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",gap:9,backdropFilter:"blur(6px)",position:"relative"}}>
               <span style={{width:22,height:22,borderRadius:"50%",background:"#E8C96D",display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#1B130A"}}>▶</span>
-              Watch Video
+              {t("home.heroWatchVideo")}
               <span style={{position:"absolute",inset:-1,borderRadius:10,border:"1.5px solid rgba(232,201,109,.5)",animation:"pulseRing 2.2s ease-in-out infinite",pointerEvents:"none"}}/>
             </button>
           </div>
@@ -862,33 +825,33 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <div className="av-search-field">
               <span style={{fontSize:15,color:"#A07828"}}>📍</span>
               <div style={{width:"100%"}}>
-                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Where to?</div>
-                <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search destination"/>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>{t("home.searchWhereTo")}</div>
+                <input value={q} onChange={e=>setQ(e.target.value)} placeholder={t("home.searchPlaceholder")}/>
               </div>
             </div>
             <div className="av-search-field">
               <span style={{fontSize:15,color:"#A07828"}}>▦</span>
               <div style={{width:"100%"}}>
-                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Tour Type</div>
-                <select defaultValue={TOUR_TYPES[0]}>{TOUR_TYPES.map(t=><option key={t}>{t}</option>)}</select>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>{t("home.searchTourType")}</div>
+                <select defaultValue={t("home.tourTypes")[0]}>{t("home.tourTypes").map(tt=><option key={tt}>{tt}</option>)}</select>
               </div>
             </div>
             <div className="av-search-field">
               <span style={{fontSize:15,color:"#A07828"}}>📅</span>
               <div style={{width:"100%"}}>
-                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Travel Date</div>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>{t("home.searchTravelDate")}</div>
                 <input type="date" style={{colorScheme:"light"}}/>
               </div>
             </div>
             <div className="av-search-field av-travelersdd" style={{position:"relative",cursor:"pointer"}} onClick={()=>setGO(!gO)}>
               <span style={{fontSize:15,color:"#A07828"}}>👥</span>
               <div style={{width:"100%"}}>
-                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>Travelers</div>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14}}>{adults} Adults · {kids} Children</div>
+                <div style={{fontSize:9,color:"#9C7A3C",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:2}}>{t("home.searchTravelers")}</div>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14}}>{adults} {t("home.searchAdults")} · {kids} {t("home.searchChildren")}</div>
               </div>
               {gO&&(
                 <div onClick={e=>e.stopPropagation()} style={{position:"absolute",top:"calc(100% + 12px)",left:0,background:"#FAF6ED",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:13,padding:16,minWidth:220,zIndex:100,boxShadow:"0 24px 60px rgba(20,15,8,.16)",animation:"slideD .18s ease"}}>
-                  {[["Adults",adults,setAdults,1],["Children",kids,setKids,0]].map(([lbl,val,set,min])=>(
+                  {[[t("home.searchAdults"),adults,setAdults,1],[t("home.searchChildren"),kids,setKids,0]].map(([lbl,val,set,min])=>(
                     <div key={lbl} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:13}}>
                       <span style={{fontSize:14,color:"#231A0E",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</span>
                       <div style={{display:"flex",alignItems:"center",gap:12}}>
@@ -901,7 +864,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
                 </div>
               )}
             </div>
-            <button onClick={()=>{ if(res.length) navigate(res[0].url); else navigate("/tours"); }} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"13px 26px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",margin:"6px 0 6px 8px",whiteSpace:"nowrap",boxShadow:"0 6px 20px rgba(160,120,40,.3)"}}>Search Tours</button>
+            <button onClick={()=>{ if(res.length) navigate(res[0].url); else navigate("/tours"); }} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"13px 26px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",margin:"6px 0 6px 8px",whiteSpace:"nowrap",boxShadow:"0 6px 20px rgba(160,120,40,.3)"}}>{t("home.searchBtn")}</button>
           </div>
           {res.length>0&&(
             <div style={{background:"#fff",border:"1px solid rgba(193,156,60,.2)",borderRadius:14,marginTop:8,overflow:"hidden",maxHeight:330,overflowY:"auto",boxShadow:"0 18px 48px rgba(20,15,8,.12)",animation:"slideD .18s ease"}}>
@@ -923,12 +886,12 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       {/* ══════════════ TRUST STRIP ══════════════ */}
       <section style={{padding:"clamp(34px,5vw,52px) clamp(16px,4vw,48px) clamp(16px,3vw,24px)"}}>
         <div className="av-trust-grid" style={{maxWidth:1180,margin:"0 auto"}}>
-          {TRUST_STRIP.map((t,i)=>(
+          {t("home.trust").map((tr,i)=>(
             <div key={i} data-v={`tr${i}`} style={{display:"flex",alignItems:"center",gap:12,padding:"6px 4px",...reveal(`tr${i}`,i*.06)}}>
-              <span style={{fontSize:24,flexShrink:0}}>{t.icon}</span>
+              <span style={{fontSize:24,flexShrink:0}}>{tr.icon}</span>
               <div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12.5,fontWeight:700,color:"#231A0E"}}>{t.t}</div>
-                <div style={{fontSize:11.5,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{t.d}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12.5,fontWeight:700,color:"#231A0E"}}>{tr.t}</div>
+                <div style={{fontSize:11.5,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{tr.d}</div>
               </div>
             </div>
           ))}
@@ -938,8 +901,8 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       {/* ══════════════ DESTINATIONS ══════════════ */}
       <section className="av-section av-papyrus">
         <div style={{textAlign:"center",marginBottom:"clamp(20px,3vw,30px)"}}>
-          <span className="av-eyebrow">All 10 Destinations · One Journey</span>
-          <h2 className="av-title">Explore Egypt's Most Iconic Destinations</h2>
+          <span className="av-eyebrow">{t("home.destEyebrow")}</span>
+          <h2 className="av-title">{t("home.destTitle")}</h2>
         </div>
         <div className="av-dest-frame" style={{maxWidth:1180,margin:"0 auto"}}>
           <div className="av-dest-grid">
@@ -956,10 +919,10 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
       {/* ══════════════ WHY US ══════════════ */}
       <section style={{padding:"0 clamp(16px,4vw,48px) clamp(48px,7vw,80px)"}}>
         <div data-v="why" style={{textAlign:"center",marginBottom:30,...reveal("why")}}>
-          <span className="av-eyebrow">Why Travelers Choose Aurevian</span>
+          <span className="av-eyebrow">{t("home.whyEyebrow")}</span>
         </div>
         <div className="av-why-grid" style={{maxWidth:1180,margin:"0 auto"}}>
-          {WHY_US.map((w,i)=>(
+          {t("home.whyUs").map((w,i)=>(
             <div key={i} data-v={`wy${i}`} style={{background:"#fff",border:"1px solid rgba(35,26,14,.08)",borderRadius:16,padding:"20px 16px",textAlign:"center",boxShadow:"0 6px 20px rgba(35,26,14,.06)",...reveal(`wy${i}`,i*.06)}}>
               <div style={{fontSize:26,marginBottom:10}}>{w.icon}</div>
               <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#231A0E",marginBottom:5}}>{w.t}</div>
@@ -971,12 +934,12 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
       {/* ══════════════ FEATURED TOURS ══════════════ */}
       <section className="av-section" style={{background:"var(--cream2)"}}>
-        <SectionHead eyebrow="Featured Tours" title="Most Loved Experiences" onViewAll={()=>navigate("/packages")} viewAllLabel="View All Tours" scrollRef={tourRef}/>
+        <SectionHead eyebrow={t("home.featuredEyebrow")} title={t("home.featuredTitle")} onViewAll={()=>navigate("/packages")} viewAllLabel={t("home.viewAllTours")} scrollRef={tourRef}/>
         <ScrollRow ref={tourRef}>
-          {PACKAGES.map((p,i)=><TourCard key={i} p={p} navigate={navigate} fmtP={fmtP} onBook={goBook}/>)}
+          {PACKAGES.map((p,i)=><TourCard key={i} p={{...p, ...(t("home.packagesText")[i]||{})}} navigate={navigate} fmtP={fmtP} onBook={goBook}/>)}
         </ScrollRow>
         <div style={{textAlign:"center",marginTop:34}}>
-          <button onClick={()=>navigate("/packages")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px 36px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 26px rgba(160,120,40,.32)"}}>✦ Explore All {PACKAGES_COUNT}+ Packages</button>
+          <button onClick={()=>navigate("/packages")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:11,padding:"14px 36px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",boxShadow:"0 8px 26px rgba(160,120,40,.32)"}}>{t("home.explorePackages")} {PACKAGES_COUNT}+ Packages</button>
         </div>
       </section>
 
@@ -986,16 +949,16 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <div style={{position:"absolute",inset:0,background:"linear-gradient(115deg,rgba(17,12,6,.92) 0%,rgba(17,12,6,.74) 45%,rgba(17,12,6,.55) 100%)"}}/>
         <div data-v="cta" style={{position:"relative",padding:"clamp(36px,5vw,60px) clamp(22px,5vw,56px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:28,...reveal("cta")}}>
           <div style={{maxWidth:420}}>
-            <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,3.2vw,34px)",fontWeight:700,color:"#FAF6ED",lineHeight:1.25,marginBottom:10}}>Create Your Dream<br/>Egypt Journey</h2>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.65)",fontSize:14,marginBottom:22,lineHeight:1.7}}>Tell us what you love and we'll craft a custom itinerary just for you.</p>
-            <button onClick={()=>navigate("/custom-trips")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"14px 30px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Plan My Custom Trip</button>
+            <h2 style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(22px,3.2vw,34px)",fontWeight:700,color:"#FAF6ED",lineHeight:1.25,marginBottom:10}}>{t("home.ctaTitle1")}<br/>{t("home.ctaTitle2")}</h2>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"rgba(250,246,237,.65)",fontSize:14,marginBottom:22,lineHeight:1.7}}>{t("home.ctaSubtitle")}</p>
+            <button onClick={()=>navigate("/custom-trips")} style={{background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#1B130A",border:"none",borderRadius:10,padding:"14px 30px",cursor:"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.16em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.ctaBtn")}</button>
           </div>
           <div style={{display:"flex",gap:30,flexWrap:"wrap"}}>
-            {[["⚙️","100% Customizable","Your trip, your way"],["🧭","Expert Travel Planners","Personalized service"],["🛡️","Best Price Guarantee","Unbeatable prices"]].map(([ic,t,d])=>(
-              <div key={t} style={{display:"flex",alignItems:"center",gap:10,maxWidth:170}}>
+            {t("home.ctaFeatures").map(([ic,ti,d])=>(
+              <div key={ti} style={{display:"flex",alignItems:"center",gap:10,maxWidth:170}}>
                 <span style={{fontSize:22}}>{ic}</span>
                 <div>
-                  <div style={{fontSize:12,fontWeight:700,color:"#FAF6ED",fontFamily:"'Josefin Sans',sans-serif"}}>{t}</div>
+                  <div style={{fontSize:12,fontWeight:700,color:"#FAF6ED",fontFamily:"'Josefin Sans',sans-serif"}}>{ti}</div>
                   <div style={{fontSize:11,color:"rgba(250,246,237,.6)",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{d}</div>
                 </div>
               </div>
@@ -1010,11 +973,11 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <div data-v="ai" style={{textAlign:"center",margin:"clamp(18px,3vw,32px) 0 clamp(28px,4vw,44px)",...reveal("ai")}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:9,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:30,padding:"7px 20px",marginBottom:16}}>
             <span style={{fontSize:16}}>🤖</span>
-            <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>AI-Powered Planning</span>
-            <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:18,padding:"2px 9px",fontSize:8,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>NEW</span>
+            <span style={{fontSize:10,color:"#A07828",letterSpacing:"0.3em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.aiBadge")}</span>
+            <span style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",borderRadius:18,padding:"2px 9px",fontSize:8,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.aiNew")}</span>
           </div>
-          <h2 className="av-title">Build Your Perfect Egypt Trip with AI</h2>
-          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.7vw,16px)",maxWidth:560,margin:"10px auto 0"}}>Describe your dream journey — get a complete, priced itinerary in seconds.</p>
+          <h2 className="av-title">{t("home.aiTitle")}</h2>
+          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:"clamp(13px,1.7vw,16px)",maxWidth:560,margin:"10px auto 0"}}>{t("home.aiSubtitle")}</p>
         </div>
 
         <div className="av-ai-grid">
@@ -1022,21 +985,21 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
           <div>
             <div style={{background:"rgba(255,253,246,.8)",border:"1px solid rgba(193,156,60,.28)",borderRadius:18,padding:"clamp(16px,2.5vw,24px)",marginBottom:14,position:"relative",overflow:"hidden"}}>
               <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:"linear-gradient(90deg,#8B6010,#E8C96D,#8B6010)"}}/>
-              <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.24em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",marginBottom:14}}>✦ What you get</div>
+              <div style={{fontSize:9,color:"#A07828",letterSpacing:"0.24em",textTransform:"uppercase",fontWeight:700,fontFamily:"'Josefin Sans',sans-serif",marginBottom:14}}>{t("home.aiWhatYouGet")}</div>
               <div className="av-ai-feat-grid">
-                {[["📅","Day-by-Day Plan"],["💰","Real Prices"],["🏨","Hotel Names"],["🗺️","Transport"],["🍽️","Dining Tips"],["📋","Practical Tips"]].map(([ic,t])=>(
-                  <div key={t} className="av-chip" style={{display:"flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.07)",border:"1px solid rgba(193,156,60,.2)",borderRadius:10,padding:"10px 11px",transition:"all .2s",cursor:"default"}}>
+                {t("home.aiFeatures").map(([ic,lbl])=>(
+                  <div key={lbl} className="av-chip" style={{display:"flex",alignItems:"center",gap:8,background:"rgba(201,168,76,.07)",border:"1px solid rgba(193,156,60,.2)",borderRadius:10,padding:"10px 11px",transition:"all .2s",cursor:"default"}}>
                     <span style={{fontSize:15,flexShrink:0}}>{ic}</span>
-                    <span style={{fontSize:10.5,fontWeight:600,color:"#231A0E",fontFamily:"'Josefin Sans',sans-serif",lineHeight:1.3}}>{t}</span>
+                    <span style={{fontSize:10.5,fontWeight:600,color:"#231A0E",fontFamily:"'Josefin Sans',sans-serif",lineHeight:1.3}}>{lbl}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8}}>
-              {[["🔒","Secure"],["⚡","Instant"],["🌍","13 Langs"],["💯","Free"]].map(([ic,t])=>(
-                <div key={t} style={{background:"rgba(255,253,246,.7)",border:"1px solid rgba(193,156,60,.2)",borderRadius:12,padding:"12px 6px",textAlign:"center"}}>
+              {t("home.aiBadges").map(([ic,lbl])=>(
+                <div key={lbl} style={{background:"rgba(255,253,246,.7)",border:"1px solid rgba(193,156,60,.2)",borderRadius:12,padding:"12px 6px",textAlign:"center"}}>
                   <div style={{fontSize:16}}>{ic}</div>
-                  <div style={{fontSize:9,fontWeight:700,color:"#8B6010",fontFamily:"'Josefin Sans',sans-serif",marginTop:4,letterSpacing:"0.06em"}}>{t}</div>
+                  <div style={{fontSize:9,fontWeight:700,color:"#8B6010",fontFamily:"'Josefin Sans',sans-serif",marginTop:4,letterSpacing:"0.06em"}}>{lbl}</div>
                 </div>
               ))}
             </div>
@@ -1044,14 +1007,14 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
           {/* ── Right panel: scroll card ── */}
           <div className="av-ai-scroll">
-            <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>✦ Describe your dream Egypt journey</label>
+            <label style={{display:"block",fontSize:10,color:"#A07828",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.aiDescribeLabel")}</label>
             <textarea
               value={aiQ} onChange={e=>setAiQ(e.target.value)} rows={5}
               className="av-ai-textarea"
-              placeholder="e.g. 10 days Egypt for 2 people — Cairo pyramids, 4-night Nile cruise, 3 nights Hurghada diving, 4-star hotels, total budget $3,500"
+              placeholder={t("home.aiPlaceholder")}
             />
             <div style={{display:"flex",flexWrap:"wrap",gap:7,marginBottom:16}}>
-              {["10 days, Cairo + Nile cruise + Hurghada, $3,500 for 2","7-day Nile cruise + pyramids, mid-range","Luxury honeymoon Egypt 10 nights","Family Egypt 2 weeks $5,000, kids-friendly"].map((ch,i)=>(
+              {t("home.aiChips").map((ch,i)=>(
                 <button key={i} className="av-chip" onClick={()=>setAiQ(ch)}
                   style={{background:"rgba(201,168,76,.08)",border:"1.5px solid rgba(193,156,60,.25)",color:"rgba(35,26,14,.7)",borderRadius:20,padding:"6px 13px",fontSize:10.5,cursor:"pointer",fontFamily:"'Josefin Sans',sans-serif",transition:"all .2s"}}>
                   {ch.length>42?ch.slice(0,40)+"…":ch}
@@ -1061,8 +1024,8 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             <button onClick={buildAI} disabled={aiLoad||!aiQ.trim()}
               style={{width:"100%",background:"linear-gradient(135deg,#A07828,#C9A84C,#E8C96D)",color:"#FAF6ED",border:"none",borderRadius:13,padding:"15px",cursor:aiLoad?"wait":"pointer",fontWeight:700,fontSize:12,letterSpacing:"0.18em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif",opacity:(aiLoad||!aiQ.trim())?.5:1,display:"flex",alignItems:"center",justifyContent:"center",gap:11,boxShadow:"0 8px 30px rgba(160,120,40,.3)"}}>
               {aiLoad
-                ? <><div style={{width:17,height:17,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>Crafting your itinerary…</>
-                : "✦ Generate My Egypt Itinerary"}
+                ? <><div style={{width:17,height:17,border:"2px solid rgba(250,246,237,.3)",borderTop:"2px solid #FAF6ED",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>{t("home.aiCrafting")}</>
+                : t("home.aiGenerateBtn")}
             </button>
             {aiRes&&(
               <div style={{marginTop:18,background:"rgba(255,253,246,.9)",border:"1.5px solid rgba(193,156,60,.25)",borderRadius:13,padding:"clamp(14px,3vw,22px)",color:"#231A0E",fontSize:14,lineHeight:1.9,whiteSpace:"pre-wrap",maxHeight:460,overflowY:"auto",fontFamily:"'Cormorant Garamond',serif",animation:"fadeIn .4s ease"}}>
@@ -1071,8 +1034,8 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             )}
             {aiDone&&(
               <div style={{marginTop:14,display:"flex",gap:11,flexWrap:"wrap"}}>
-                <button onClick={()=>window.open(waLink(),"_blank")} style={{flex:1,minWidth:160,background:"#25D366",color:"#fff",border:"none",borderRadius:11,padding:"13px 16px",cursor:"pointer",fontWeight:700,fontSize:12,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>💬 Book on WhatsApp</button>
-                <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:11,padding:"13px 18px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif",whiteSpace:"nowrap"}}>New Itinerary</button>
+                <button onClick={()=>window.open(waLink(),"_blank")} style={{flex:1,minWidth:160,background:"#25D366",color:"#fff",border:"none",borderRadius:11,padding:"13px 16px",cursor:"pointer",fontWeight:700,fontSize:12,fontFamily:"'Josefin Sans',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>{t("home.aiBookWhatsapp")}</button>
+                <button onClick={()=>{setAiQ("");setAiRes("");setAiDone(false);}} style={{background:"rgba(35,26,14,.06)",border:"1px solid rgba(35,26,14,.1)",color:"#9C7A3C",borderRadius:11,padding:"13px 18px",cursor:"pointer",fontSize:12,fontFamily:"'Josefin Sans',sans-serif",whiteSpace:"nowrap"}}>{t("home.aiNewItinerary")}</button>
               </div>
             )}
           </div>
@@ -1081,7 +1044,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
       {/* ══════════════ REVIEWS ══════════════ */}
       <section className="av-section" style={{background:"var(--cream2)"}}>
-        <SectionHead eyebrow="Traveler Reviews" title="What Our Travelers Say" onViewAll={()=>navigate("/contact")} viewAllLabel="View All Reviews" scrollRef={revRef}/>
+        <SectionHead eyebrow={t("home.reviewsEyebrow")} title={t("home.reviewsTitle")} onViewAll={()=>navigate("/contact")} viewAllLabel={t("home.viewAllReviews")} scrollRef={revRef}/>
         <div data-v="revstars" style={{display:"flex",alignItems:"center",gap:11,marginBottom:22,...reveal("revstars")}}>
           <span style={{fontFamily:"'Cinzel',serif",fontSize:20,color:"#A07828",fontWeight:700}}>4.9</span>
           <Stars n={5}/>
@@ -1094,16 +1057,16 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
 
       {/* ══════════════ BEST SELLER TOURS ══════════════ */}
       <section className="av-section">
-        <SectionHead eyebrow="Best Seller Tours" title="Egypt's Most Booked Experiences" onViewAll={()=>navigate("/tours")} viewAllLabel="View All Tours"/>
+        <SectionHead eyebrow={t("home.bestsellerEyebrow")} title={t("home.bestsellerTitle")} onViewAll={()=>navigate("/tours")} viewAllLabel={t("home.viewAllTours")}/>
         <div className="av-best-grid">
-          {BESTSELLER_TOURS.map((t,i)=><BestSellerCard key={t.id} t={t} rank={i+1} navigate={navigate} fmtP={fmtP}/>)}
+          {BESTSELLER_TOURS.map((tour,i)=><BestSellerCard key={tour.id} t={{...tour, ...(t("home.bestsellersText")[i]||{})}} rank={i+1} navigate={navigate} fmtP={fmtP}/>)}
         </div>
       </section>
 
       {/* ══════════════ DARK STATS + NEWSLETTER ══════════════ */}
       <section style={{background:"#171009"}}>
         <div className="av-stats-row" style={{maxWidth:1180,margin:"0 auto",padding:"clamp(26px,4vw,38px) clamp(16px,4vw,40px)",borderBottom:"1px solid rgba(193,156,60,.16)"}}>
-          {STAT_MAIN.map(([ic,n,l],i)=>(
+          {t("home.statMain").map(([ic,n,l],i)=>(
             <div key={i} data-v={`sm${i}`} style={{textAlign:"center",borderRight:i<STAT_MAIN.length-1?"1px solid rgba(193,156,60,.14)":"none",padding:"0 10px",...reveal(`sm${i}`,i*.06)}}>
               <div style={{fontSize:20,marginBottom:5}}>{ic}</div>
               <div style={{fontFamily:"'Cinzel',serif",fontSize:"clamp(18px,2.2vw,26px)",fontWeight:700,color:"#E8C96D"}}>{n}</div>
@@ -1113,17 +1076,17 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         </div>
         <div style={{maxWidth:1180,margin:"0 auto",padding:"clamp(26px,4vw,40px) clamp(16px,4vw,40px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:22}}>
           <div style={{maxWidth:420}}>
-            <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:"#FAF6ED",marginBottom:5}}>Get Exclusive Travel Offers</div>
-            <div style={{fontSize:12.5,color:"rgba(250,246,237,.55)",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",marginBottom:14}}>Subscribe and save on your next adventure.</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:"#FAF6ED",marginBottom:5}}>{t("home.newsletterTitle")}</div>
+            <div style={{fontSize:12.5,color:"rgba(250,246,237,.55)",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",marginBottom:14}}>{t("home.newsletterSubtitle")}</div>
             {!subOk?(
               <div style={{display:"flex",gap:9,flexWrap:"wrap"}}>
-                <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Enter your email" style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:9,padding:"11px 15px",color:"#FAF6ED",fontSize:13,outline:"none",minWidth:200,fontFamily:"'Cormorant Garamond',serif"}}/>
-                <button onClick={()=>email&&setSubOk(true)} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:9,padding:"11px 22px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>Subscribe</button>
+                <input value={email} onChange={e=>setEmail(e.target.value)} placeholder={t("home.newsletterPlaceholder")} style={{background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(193,156,60,.3)",borderRadius:9,padding:"11px 15px",color:"#FAF6ED",fontSize:13,outline:"none",minWidth:200,fontFamily:"'Cormorant Garamond',serif"}}/>
+                <button onClick={()=>email&&setSubOk(true)} style={{background:"linear-gradient(135deg,#A07828,#C9A84C)",color:"#FAF6ED",border:"none",borderRadius:9,padding:"11px 22px",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'Josefin Sans',sans-serif"}}>{t("home.newsletterBtn")}</button>
               </div>
-            ):(<div style={{color:"#E8C96D",fontSize:14,fontFamily:"'Cormorant Garamond',serif"}}>✅ Thank you! Welcome to the Aurevian family.</div>)}
+            ):(<div style={{color:"#E8C96D",fontSize:14,fontFamily:"'Cormorant Garamond',serif"}}>{t("home.newsletterThanks")}</div>)}
           </div>
           <div style={{display:"flex",alignItems:"center",gap:14}}>
-            <span style={{fontSize:11,color:"rgba(250,246,237,.55)",fontFamily:"'Josefin Sans',sans-serif",letterSpacing:"0.1em"}}>FOLLOW US</span>
+            <span style={{fontSize:11,color:"rgba(250,246,237,.55)",fontFamily:"'Josefin Sans',sans-serif",letterSpacing:"0.1em"}}>{t("home.followUs")}</span>
             <div style={{display:"flex",gap:8}}>
               {[["f","Facebook"],["📸","Instagram"],["▶","YouTube"],["♪","TikTok"],["💬","WhatsApp"]].map(([ic,nm])=>(
                 <a key={nm} href={nm==="WhatsApp"?waLink():"#"} target={nm==="WhatsApp"?"_blank":undefined} rel="noreferrer" title={nm} className="av-social" style={{width:34,height:34,borderRadius:9,background:"rgba(250,246,237,.08)",border:"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(250,246,237,.75)",textDecoration:"none",fontSize:13,transition:"all .2s"}}>{ic}</a>
@@ -1138,7 +1101,7 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
         <div className="av-footer-grid" style={{marginBottom:"clamp(28px,4vw,44px)"}}>
           <div>
             <div style={{marginBottom:15}}><BrandMark size={48}/></div>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:13,lineHeight:1.75,marginBottom:16,maxWidth:260}}>We craft luxury journeys across Egypt with passion, expertise and attention to every detail. Your adventure, perfectly curated.</p>
+            <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"#9C7A3C",fontSize:13,lineHeight:1.75,marginBottom:16,maxWidth:260}}>{t("common.footer.tagline")}</p>
             <div style={{display:"flex",gap:8}}>
               {[["f","Facebook"],["📸","Instagram"],["▶","YouTube"],["♪","TikTok"],["💬","WhatsApp"]].map(([ic,nm])=>(
                 <a key={nm} href={nm==="WhatsApp"?waLink():"#"} target={nm==="WhatsApp"?"_blank":undefined} rel="noreferrer" title={nm} className="av-social" style={{width:33,height:33,borderRadius:8,background:"rgba(201,168,76,.1)",border:"1.5px solid rgba(193,156,60,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#9C7A3C",textDecoration:"none",fontSize:12,transition:"all .2s"}}>{ic}</a>
@@ -1146,37 +1109,37 @@ Use REAL hotel names, REAL attractions, REALISTIC prices. Match the user's langu
             </div>
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Destinations</div>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.destinations")}</div>
             {FOOTER_DEST.map(([lbl,path])=>(
-              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
+              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl==="allDestinations" ? t("common.footer.allDestinations") : lbl}</Link>
             ))}
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Tours</div>
-            {FOOTER_TOURS.map(([lbl,path])=>(
-              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.tours")}</div>
+            {FOOTER_TOURS.map(([key,path])=>(
+              <Link key={key} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{t(`common.footer.${key}`)}</Link>
             ))}
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Company</div>
-            {FOOTER_COMPANY.map(([lbl,path])=>(
-              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.company")}</div>
+            {FOOTER_COMPANY.map(([key,path])=>(
+              <Link key={key} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{t(`common.footer.${key}`)}</Link>
             ))}
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",margin:"16px 0 15px",fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Support</div>
-            {FOOTER_SUPPORT.map(([lbl,path])=>(
-              <Link key={lbl} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{lbl}</Link>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",margin:"16px 0 15px",fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.support")}</div>
+            {FOOTER_SUPPORT.map(([key,path])=>(
+              <Link key={key} to={path} className="av-footlink" style={{display:"block",color:"#9C7A3C",fontSize:13,marginBottom:9,textDecoration:"none",fontFamily:"'Cormorant Garamond',serif"}}>{t(`common.footer.${key}`)}</Link>
             ))}
           </div>
           <div>
-            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>Contact Us</div>
+            <div style={{color:"#8B6010",fontSize:9,letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:15,fontWeight:700,paddingBottom:9,borderBottom:"1px solid rgba(193,156,60,.2)",fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.contactUs")}</div>
             <a href={`tel:+${PHONE_WA}`} style={{display:"flex",gap:9,marginBottom:11,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",textDecoration:"none"}}><span style={{color:"#A07828"}}>📞</span>{PHONE_DISPLAY}</a>
             <a href={`mailto:${EMAIL}`} style={{display:"flex",gap:9,marginBottom:11,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif",textDecoration:"none"}}><span style={{color:"#A07828"}}>✉</span>{EMAIL}</a>
             <div style={{display:"flex",gap:9,marginBottom:14,fontSize:13,color:"#9C7A3C",fontFamily:"'Cormorant Garamond',serif"}}><span style={{color:"#A07828"}}>📍</span>Cairo, Egypt</div>
-            <a href={waLink()} target="_blank" rel="noreferrer" style={{display:"block",background:"#25D366",color:"#fff",textAlign:"center",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>💬 WhatsApp Us</a>
+            <a href={waLink()} target="_blank" rel="noreferrer" style={{display:"block",background:"#25D366",color:"#fff",textAlign:"center",borderRadius:10,padding:"11px",textDecoration:"none",fontSize:12,fontWeight:700,fontFamily:"'Josefin Sans',sans-serif"}}>💬 {t("common.footer.whatsappUs")}</a>
           </div>
         </div>
         <div style={{borderTop:"1px solid rgba(193,156,60,.15)",paddingTop:"clamp(16px,3vw,20px)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
-          <span style={{color:"rgba(35,26,14,.5)",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>© 2026 Aurevian Tours. All rights reserved.</span>
+          <span style={{color:"rgba(35,26,14,.5)",fontSize:12,fontFamily:"'Josefin Sans',sans-serif"}}>{t("common.footer.rights")}</span>
           <div style={{display:"flex",gap:8}}>
             {["VISA","Mastercard","PayPal","Apple Pay"].map(b=>(
               <span key={b} style={{background:"rgba(201,168,76,.08)",border:"1px solid rgba(193,156,60,.2)",borderRadius:6,padding:"3px 10px",color:"rgba(35,26,14,.5)",fontSize:9,letterSpacing:"0.06em",fontFamily:"'Josefin Sans',sans-serif"}}>{b}</span>

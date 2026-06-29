@@ -287,7 +287,7 @@ export default function ContactUs() {
     setSending(true);
     setSendError("");
     try {
-      const res = await fetch("/api/contact/send", {
+      const res = await fetch("https://golden-egypt-tours-production.up.railway.app/api/contact/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

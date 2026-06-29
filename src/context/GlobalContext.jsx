@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { getTranslation, CORE_LANGUAGES } from "../i18n/translations";
 
 // ========== LANGUAGES CONFIG ==========
 export const LANGUAGES = [
@@ -42,40 +43,6 @@ export const CURRENCIES = [
 
 const GlobalContext = createContext(null);
 
-// ========== CLAUDE TRANSLATION CACHE ==========
-const translationCache = {};
-
-async function translateWithClaude(text, targetLang) {
-  if (targetLang === "en") return text;
-  const cacheKey = `${targetLang}:${text}`;
-  if (translationCache[cacheKey]) return translationCache[cacheKey];
-
-  const langName = LANGUAGES.find((l) => l.code === targetLang)?.name || targetLang;
-
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [
-          {
-            role: "user",
-            content: `Translate the following text to ${langName}. Return ONLY the translated text, no explanations, no quotes:\n\n${text}`,
-          },
-        ],
-      }),
-    });
-    const data = await response.json();
-    const translated = data.content?.[0]?.text?.trim() || text;
-    translationCache[cacheKey] = translated;
-    return translated;
-  } catch {
-    return text;
-  }
-}
-
 // ========== EXCHANGE RATE FETCH ==========
 async function fetchExchangeRates(baseCurrency = "USD") {
   try {
@@ -105,7 +72,6 @@ export function GlobalProvider({ children }) {
   });
   const [exchangeRates, setExchangeRates] = useState({});
   const [ratesLoading, setRatesLoading] = useState(true);
-  const [translating, setTranslating] = useState(false);
 // ========== ENFORCE ENGLISH AS DEFAULT ==========
 // Arabic is hidden unless user explicitly selects it
 useEffect(() => {
@@ -173,15 +139,10 @@ useEffect(() => {
     [currency, convertPrice, exchangeRates]
   );
 
-  // Translate a single string
-  const translate = useCallback(
-    async (text) => {
-      if (!text || language === "en") return text;
-      setTranslating(true);
-      const result = await translateWithClaude(text, language);
-      setTranslating(false);
-      return result;
-    },
+  // Static i18n lookup — instant, free, works everywhere (no API,
+  // no Google Translate, no network call). Usage: t("namespace.key")
+  const t = useCallback(
+    (path) => getTranslation(language, path),
     [language]
   );
 
@@ -197,10 +158,10 @@ useEffect(() => {
         setCurrency,
         exchangeRates,
         ratesLoading,
-        translating,
         convertPrice,
         formatPrice,
-        translate,
+        t,
+        CORE_LANGUAGES,
         currentLang,
         currentCurrency,
         LANGUAGES,
