@@ -57,6 +57,65 @@ const fmt = (p,cur) => `${CURR[cur]?.s||"$"}${Math.round(p*(CURR[cur]?.r||1)).to
 const PLACEHOLDER_IMG = (title) => `https://placehold.co/1200x700/F3ECD8/A07828?text=${encodeURIComponent(title || "Aurevian Tours")}`;
 const getImages = (tour) => (Array.isArray(tour?.images) ? tour.images.filter(Boolean) : []);
 
+// ─── MULTILINGUAL FIELD PICKER ─────────────────────────────────
+// Tour content in the database is stored manually translated per
+// field, shaped like: { en: "...", ar: "...", fr: "...", ... }.
+// This resolves any such value (or array of such values, or array
+// of objects containing such values) to a plain string/array in
+// the current UI language, always falling back to English first
+// if that language's translation wasn't filled in, and finally to
+// any other language present so nothing ever renders blank.
+function pickLocalized(value, lang) {
+  if (value == null) return value;
+  // Plain string — nothing to localize (legacy/non-translated field)
+  if (typeof value !== "object") return value;
+  // Already a plain array of strings/objects — not a lang-map itself
+  if (Array.isArray(value)) return value;
+  // It's a { en, ar, fr, ... } language map
+  if (value[lang] != null && value[lang] !== "") return value[lang];
+  if (value.en != null && value.en !== "") return value.en;
+  const firstAvailable = Object.values(value).find(v => v != null && v !== "");
+  return firstAvailable != null ? firstAvailable : "";
+}
+
+// Resolves a single field on the tour object (e.g. pick(tour, "title", lang))
+function pick(obj, field, lang) {
+  if (!obj) return "";
+  return pickLocalized(obj[field], lang) ?? "";
+}
+
+// Resolves every translatable string field inside each item of an
+// array (e.g. itinerary steps, FAQ entries, reviews), leaving any
+// non-translated fields (icon, image, rating, date, flag...) as-is.
+function pickArray(arr, fields, lang) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => {
+    const out = { ...item };
+    fields.forEach(f => { out[f] = pickLocalized(item?.[f], lang); });
+    return out;
+  });
+}
+
+// Resolves a flat array whose ITEMS THEMSELVES are language maps
+// (e.g. includes: [{en:"...",ar:"..."}, {en:"...",ar:"..."}])
+function pickStringArray(arr, lang) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => pickLocalized(item, lang));
+}
+
+// Resolves a field where the LANGUAGE KEY WRAPS THE WHOLE ARRAY,
+// e.g. itinerary: { en: [ {day:1,...}, {day:2,...} ], fr: [ {day:1,...}, {day:2,...} ] }
+// Falls back to English (then any available language) if the
+// requested language's whole array is missing.
+function pickLangArray(field, lang) {
+  if (field == null) return [];
+  if (Array.isArray(field)) return field; // already a plain array (legacy/non-translated)
+  if (Array.isArray(field[lang]) && field[lang].length) return field[lang];
+  if (Array.isArray(field.en) && field.en.length) return field.en;
+  const firstAvailable = Object.values(field).find(v => Array.isArray(v) && v.length);
+  return firstAvailable || [];
+}
+
 // ─── GENERIC FALLBACKS — keep every tour page complete even if
 //     a given record hasn't filled in every optional field ─────
 // NOTE: these are English-only fallback CONTENT (not UI chrome).
@@ -312,6 +371,10 @@ button{font-family:inherit;}
 .tp-step-time{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;color:#A07828;text-transform:uppercase;margin-bottom:5px;font-weight:700;}
 .tp-step-title{font-family:'Cinzel',serif;font-size:14.5px;color:#2C1A06;font-weight:600;margin-bottom:6px;}
 .tp-step-desc{font-family:'Cormorant Garamond',serif;font-size:15px;color:#6B4E1A;line-height:1.6;}
+.tp-step-substeps{display:flex;flex-direction:column;gap:7px;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(193,156,60,.3);}
+.tp-step-substep{display:flex;gap:10px;align-items:baseline;}
+.tp-step-subtime{font-family:'Josefin Sans',sans-serif;font-size:10.5px;font-weight:700;color:#A07828;flex-shrink:0;min-width:48px;}
+.tp-step-subdesc{font-family:'Cormorant Garamond',serif;font-size:13.5px;color:var(--mid);line-height:1.5;}
 .tp-step-img{width:88px;height:68px;border-radius:10px;overflow:hidden;flex-shrink:0;}
 .tp-step-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .tp-notice{display:flex;gap:10px;align-items:flex-start;background:rgba(201,168,76,.1);border:1px solid rgba(193,156,60,.25);border-radius:11px;padding:14px 16px;margin-top:6px;font-family:'Cormorant Garamond',serif;font-size:14px;color:#8B6010;}
@@ -437,7 +500,7 @@ button{font-family:inherit;}
 );
 
 // ─── BOOKING WIDGET ────────────────────────────────────────────
-function BookingWidget({tour, onBook, formatPrice, t}){
+function BookingWidget({tour, tourTitle, onBook, formatPrice, t}){
   const [adults,setAdults] = useState(2);
   const [date,setDate] = useState("");
 
@@ -446,7 +509,7 @@ function BookingWidget({tour, onBook, formatPrice, t}){
   const total = adults * price;
   const savePercent = tour.price?.discounted ? Math.round((1-price/originalPrice)*100) : 0;
 
-  const waMsg = encodeURIComponent(`Hi! I'd like to book "${tour.title}"\nDate: ${date||"TBD"}\nTravellers: ${adults} adult(s)\nTotal: ${formatPrice(total)}`);
+  const waMsg = encodeURIComponent(`Hi! I'd like to book "${tourTitle}"\nDate: ${date||"TBD"}\nTravellers: ${adults} adult(s)\nTotal: ${formatPrice(total)}`);
 
   return(
     <div className="tp-widget">
@@ -602,26 +665,60 @@ export default function TourPage(){
   const price = tour.price?.discounted || tour.price?.original || 0;
   const score = tour.rating?.score || 4.9;
   const reviews = tour.rating?.reviews || 0;
-  const destination = (typeof tour.city === "object" ? (tour.city?.name || tour.city?.nameAr) : tour.city) || tour.destination || tour.category || "Egypt";
 
+  // ─── Resolve every field to the current UI language ───────────
+  // NOTE on this data shape (seeds/cities/*.js): title, description,
+  // category, duration, highlights, includes, excludes are PLAIN
+  // English-only strings/arrays — there is no manual translation for
+  // them, so they are shown as-is regardless of language.
+  // meetingPoint, accessibility, whatToBring, importantInfo, and
+  // itinerary ARE manually translated, but shaped as a language map
+  // with NO Arabic key: { en, es, pt, it, fr, ru, de }. itinerary in
+  // particular has the language key wrapping the ENTIRE day array
+  // (itinerary.en = [{day,title,description,steps}, ...]), so it
+  // needs pickLangArray() rather than pick() or pickStringArray().
+  const tourTitle = tour.title || "";
+  const tourDescription = tour.description || "";
+  const tourCategory = tour.category || "";
+  const tourDuration = tour.duration || "";
+  const highlights = tour.highlights?.length ? tour.highlights : [];
   const includes = tour.includes?.length ? tour.includes : DEFAULT_INCLUDES;
   const excludes = tour.excludes?.length ? tour.excludes : DEFAULT_EXCLUDES;
-  const goodToKnow = tour.goodToKnow?.length ? tour.goodToKnow : DEFAULT_GOOD_TO_KNOW;
-  const faqs = tour.faq?.length ? tour.faq : DEFAULT_FAQ;
-  const reviewList = tour.reviews?.length ? tour.reviews : DEFAULT_REVIEWS;
-  const highlights = tour.highlights?.length ? tour.highlights : (tour.itinerary||[]).map(s=>s.title).slice(0,6);
-  const ovCards = tour.overviewCards?.length ? tour.overviewCards : OV_ICON_FALLBACK;
-  const itinerary = tour.itinerary?.length ? tour.itinerary : [
-    {time:"Morning", title:"Hotel Pickup", description:"Your private guide will pick you up from your hotel in a modern, air-conditioned vehicle.", icon:"🚐"},
-    {time:"Daytime", title:tour.title, description: tour.description?.slice(0,140)+"...", icon:"📍"},
-    {time:"Evening", title:"Return to Hotel", description:"You will be transferred back to your hotel.", icon:"🏨"},
+
+  const meetingPoint = pick(tour, "meetingPoint", language);
+  const accessibility = pick(tour, "accessibility", language);
+  const whatToBring = pickLocalized(tour.whatToBring, language); // array-valued lang-map
+  const importantInfo = pickLocalized(tour.importantInfo, language); // array-valued lang-map
+  const goodToKnow = Array.isArray(whatToBring) && whatToBring.length ? whatToBring : DEFAULT_GOOD_TO_KNOW;
+
+  const destination = tourCategory || "Egypt";
+
+  // This data has no faq/reviews/overviewCards/routePoints/subtitle/
+  // tourType/groupType fields, so those sections always use the
+  // generic fallbacks defined above.
+  const faqs = DEFAULT_FAQ;
+  const reviewList = DEFAULT_REVIEWS;
+  const ovCards = OV_ICON_FALLBACK;
+
+  // itinerary: { en: [{day,title,description,steps:[{time,description}]}], es: [...], ... }
+  const rawItinerary = pickLangArray(tour.itinerary, language);
+  const itinerary = rawItinerary.length ? rawItinerary.map(day => ({
+    time: day.day != null ? `${t("tour.itineraryDayLabel")} ${day.day}` : "",
+    title: day.title,
+    description: day.description,
+    icon: "📍",
+    steps: day.steps || [],
+  })) : [
+    {time:"Morning", title:"Hotel Pickup", description:"Your private guide will pick you up from your hotel in a modern, air-conditioned vehicle.", icon:"🚐", steps:[]},
+    {time:"Daytime", title:tourTitle, description: tourDescription?.slice(0,140)+"...", icon:"📍", steps:[]},
+    {time:"Evening", title:"Return to Hotel", description:"You will be transferred back to your hotel.", icon:"🏨", steps:[]},
   ];
-  const routePoints = tour.routePoints?.length ? tour.routePoints : itinerary.map(s=>s.title).slice(0,3);
+  const routePoints = itinerary.map(s=>s.title).filter(Boolean).slice(0,3);
 
   const handleBook = booking => {
     navigate(`/booking/${tour._id}`, {
       state: {
-        tourName: tour.title,
+        tourName: tourTitle,
         price:    tour.price?.discounted ?? tour.price?.original ?? 0,
         city:     destination || "",
       }
@@ -632,7 +729,9 @@ export default function TourPage(){
   const visibleReviews = reviewList.slice(revStart, revStart+3);
   while(visibleReviews.length < 3 && reviewList.length>0){ visibleReviews.push(reviewList[visibleReviews.length % reviewList.length]); }
 
-  const mapSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.title+" "+destination)}`;
+  const mapSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tourTitle+" "+destination)}`;
+
+
 
   return (
     <div style={{background:"var(--bg)",minHeight:"100vh",position:"relative"}}>
@@ -738,25 +837,22 @@ export default function TourPage(){
         <span style={{opacity:.4}}>›</span>
         <a href="/tours" onClick={e=>{e.preventDefault();navigate("/tours")}}>{t("tour.breadcrumbTours")}</a>
         <span style={{opacity:.4}}>›</span>
-        <a href="#" onClick={e=>{e.preventDefault();navigate(-1)}}>{tour.category||t("tour.breadcrumbDefaultCategory")}</a>
+        <a href="#" onClick={e=>{e.preventDefault();navigate(-1)}}>{tourCategory||t("tour.breadcrumbDefaultCategory")}</a>
         <span style={{opacity:.4}}>›</span>
-        <span className="cur">{tour.title}</span>
+        <span className="cur">{tourTitle}</span>
       </div>
 
       {/* HERO */}
       <div className="tp-hero-wrap">
         <div className="tp-hero-grid">
           <div>
-            <div className="tp-hero-banner" style={{backgroundImage:`url(${images[heroImg] || PLACEHOLDER_IMG(tour.title)})`}}>
+            <div className="tp-hero-banner" style={{backgroundImage:`url(${images[heroImg] || PLACEHOLDER_IMG(tourTitle)})`}}>
               {tour.bestseller!==false && <span className="tp-hero-badge">{t("tour.bestsellerBadge")}</span>}
-              <h1 className="tp-htitle">{tour.title}</h1>
-              {tour.subtitle && <p className="tp-htagline">{tour.subtitle}</p>}
+              <h1 className="tp-htitle">{tourTitle}</h1>
               <div className="tp-hfacts">
-                <span className="tp-hfact">📋 {tour.tourType||t("tour.defaultTourType")}</span>
+                <span className="tp-hfact">📋 {tourCategory||t("tour.defaultTourType")}</span>
                 <span className="tp-hfact-sep"/>
-                <span className="tp-hfact">⏱ {tour.duration||t("tour.defaultDuration")}</span>
-                <span className="tp-hfact-sep"/>
-                <span className="tp-hfact">👤 {tour.groupType||t("tour.defaultGroupType")}</span>
+                <span className="tp-hfact">⏱ {tourDuration||t("tour.defaultDuration")}</span>
               </div>
               <div className="tp-hrating">
                 <span className="tp-hstars">★</span>
@@ -767,7 +863,7 @@ export default function TourPage(){
             </div>
 
             <div className="tp-hero-info">
-              <p className="tp-hero-desc">{tour.description?.slice(0,180)}{tour.description?.length>180?"...":""}</p>
+              <p className="tp-hero-desc">{tourDescription?.slice(0,180)}{tourDescription?.length>180?"...":""}</p>
               <div className="tp-trustrow">
                 <div className="tp-trust"><div className="tp-trust-ic">⏱</div><div><div className="tp-trust-l">{t("tour.freeCancellation")}</div><div className="tp-trust-s">{t("tour.freeCancellationSub")}</div></div></div>
                 <div className="tp-trust"><div className="tp-trust-ic">✓</div><div><div className="tp-trust-l">{t("tour.instantConfirmation")}</div></div></div>
@@ -792,7 +888,7 @@ export default function TourPage(){
             </div>
           </div>
 
-          <aside><BookingWidget tour={tour} onBook={handleBook} formatPrice={fmtP} t={t}/></aside>
+          <aside><BookingWidget tour={tour} tourTitle={tourTitle} onBook={handleBook} formatPrice={fmtP} t={t}/></aside>
         </div>
       </div>
 
@@ -813,7 +909,7 @@ export default function TourPage(){
           {/* OVERVIEW */}
           <div ref={refOverview}>
             <h2 className="tp-sec-title">{t("tour.sectionTourOverview")}</h2>
-            <p className="tp-ov-text">{tour.description}</p>
+            <p className="tp-ov-text">{tourDescription}</p>
             <div className="tp-ovcards">
               {ovCards.map((c,i)=>(<div key={i} className="tp-ovcard"><div className="tp-ovcard-ic">{c.ic}</div><div className="tp-ovcard-l">{c.l}</div></div>))}
             </div>
@@ -835,6 +931,16 @@ export default function TourPage(){
                         {step.time && <div className="tp-step-time">⏱ {step.time}</div>}
                         <div className="tp-step-title">{step.title}</div>
                         <div className="tp-step-desc">{step.description}</div>
+                        {step.steps?.length>0 && (
+                          <div className="tp-step-substeps">
+                            {step.steps.map((sub,j)=>(
+                              <div key={j} className="tp-step-substep">
+                                <span className="tp-step-subtime">{sub.time}</span>
+                                <span className="tp-step-subdesc">{sub.description}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                       <div className="tp-step-img"><img src={step.image || (images.length ? images[i%images.length] : PLACEHOLDER_IMG(step.title))} alt={step.title} onError={e=>{e.target.style.display="none";}}/></div>
                     </div>
@@ -865,6 +971,30 @@ export default function TourPage(){
                   {goodToKnow.map((g,i)=>(<div key={i} className="tp-stack-row"><span className="tp-stack-ic info">ⓘ</span><span>{g}</span></div>))}
                 </div>
               </div>
+              {meetingPoint && (
+                <div className="tp-stackcard">
+                  <div className="tp-stack-h">{t("tour.sectionMeetingPoint")}</div>
+                  <div className="tp-stack-list">
+                    <div className="tp-stack-row"><span className="tp-stack-ic info">📍</span><span>{meetingPoint}</span></div>
+                  </div>
+                </div>
+              )}
+              {accessibility && (
+                <div className="tp-stackcard">
+                  <div className="tp-stack-h">{t("tour.sectionAccessibility")}</div>
+                  <div className="tp-stack-list">
+                    <div className="tp-stack-row"><span className="tp-stack-ic info">♿</span><span>{accessibility}</span></div>
+                  </div>
+                </div>
+              )}
+              {Array.isArray(importantInfo) && importantInfo.length>0 && (
+                <div className="tp-stackcard">
+                  <div className="tp-stack-h">{t("tour.sectionImportantInfo")}</div>
+                  <div className="tp-stack-list">
+                    {importantInfo.map((info,i)=>(<div key={i} className="tp-stack-row"><span className="tp-stack-ic info">ⓘ</span><span>{info}</span></div>))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

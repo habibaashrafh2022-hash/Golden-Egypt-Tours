@@ -88,13 +88,12 @@ const BookingSchema = new mongoose.Schema(
 );
 
 // Auto-generate a short, readable reference before saving
-BookingSchema.pre("save", function (next) {
+BookingSchema.pre("save", async function () {
   if (!this.reference) {
     const ts   = Date.now().toString().slice(-6);
     const rand = Math.random().toString(36).slice(2, 5).toUpperCase();
     this.reference = `AUR-${ts}-${rand}`;
   }
-  next();
 });
 
 export const PICKUP_LOCATIONS_LIST  = PICKUP_LOCATIONS;
