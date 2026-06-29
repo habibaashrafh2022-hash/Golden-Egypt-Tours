@@ -2,8 +2,16 @@ import nodemailer from "nodemailer";
 import Booking    from "../models/booking.model.js";
 import { buildGuestEmail, buildAdminEmail } from "../utils/email.templates.js";
 
+// ─── Nodemailer transporter ─────────────────────────────────
+// Set these in your backend .env:
+//   EMAIL_USER     → aureviantours@gmail.com
+//   EMAIL_PASS     → Gmail App Password (16 chars, no spaces)
+//   ADMIN_EMAIL    → address that receives every new-booking alert
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  family: 4, // force IPv4 — fixes ENETUNREACH on Railway
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -19,6 +27,7 @@ async function sendEmail({ to, subject, html }) {
   });
 }
 
+// ─── HELPERS ───────────────────────────────────────────────
 function buildWhatsAppLink(booking) {
   const dateStr = new Date(booking.bookingDetails.date).toLocaleDateString("en-GB", {
     weekday: "long", year: "numeric", month: "long", day: "numeric",
@@ -60,6 +69,7 @@ export async function createBooking(req, res) {
     const booking = new Booking(req.body);
     await booking.save();
 
+    // Fire emails concurrently — don't let an email failure block the response
     const [guestTemplate, adminTemplate] = [
       buildGuestEmail(booking),
       buildAdminEmail(booking),
@@ -91,30 +101,12 @@ export async function createBooking(req, res) {
       whatsappLink: buildWhatsAppLink(booking),
       emailsSent: { guest: guestSent, admin: adminSent },
     });
-
   } catch (err) {
-
-    // Mongoose validation error (missing required field, wrong enum, etc.)
     if (err.name === "ValidationError") {
       const errors = Object.values(err.errors).map((e) => e.message);
-      console.warn("Validation error:", errors);
       return res.status(400).json({ success: false, message: "Validation failed", errors });
     }
-
-    // Duplicate reference (extremely rare race condition)
-    if (err.code === 11000) {
-      console.error("Duplicate key error:", err.keyValue);
-      return res.status(409).json({ success: false, message: "Duplicate booking reference. Please try again." });
-    }
-
-    // MongoDB connection / timeout errors
-    if (err.name === "MongoNetworkError" || err.name === "MongooseServerSelectionError") {
-      console.error("DB connection error:", err.message);
-      return res.status(503).json({ success: false, message: "Database unavailable. Please try again in a moment." });
-    }
-
-    // Catch-all — log the real error on the server, return safe message to client
-    console.error("createBooking unexpected error:", err);
+    console.error("createBooking error:", err);
     res.status(500).json({ success: false, message: "Server error. Please try again." });
   }
 }
@@ -144,7 +136,6 @@ export async function getAllBookings(req, res) {
 
     res.json({ success: true, total, page: Number(page), pages: Math.ceil(total / limit), bookings });
   } catch (err) {
-    console.error("getAllBookings error:", err);
     res.status(500).json({ success: false, message: err.message });
   }
 }
@@ -156,10 +147,6 @@ export async function getBookingById(req, res) {
     if (!booking) return res.status(404).json({ success: false, message: "Booking not found" });
     res.json({ success: true, booking });
   } catch (err) {
-    // Invalid MongoDB ObjectId format
-    if (err.name === "CastError") {
-      return res.status(400).json({ success: false, message: "Invalid booking ID format" });
-    }
     res.status(500).json({ success: false, message: err.message });
   }
 }
